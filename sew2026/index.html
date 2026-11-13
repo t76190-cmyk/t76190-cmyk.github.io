@@ -3,8 +3,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>出展社さくいん｜SMART ENERGY WEEK 関西 2026</title>
 <meta name="description" content="SMART ENERGY WEEK 関西2026（2026年11月18日〜20日・インテックス大阪）は西日本最大級の新エネルギー総合展。その出展社さくいんです。出展210社を会社名・小間番号・カテゴリ（蓄電池・太陽光・水素ほか）で検索できます。参加企業は公式URLの登録と「来てちょ！」が使えます。">
-<meta property="og:title" content="出展社さくいん｜SMART ENERGY WEEK 関西 2026"><meta property="og:url" content="https://t76190-cmyk.github.io/sew2026/">
-<meta property="og:description" content="出展社を会社名・小間番号・キーワードで検索できる索引ページです。"><meta property="og:type" content="website">
+<meta property="og:title" content="出展社さくいん｜SMART ENERGY WEEK 関西 2026"><meta property="og:description" content="出展社を会社名・小間番号・キーワードで検索できる索引ページです。"><meta property="og:type" content="website">
+<meta property="og:url" content="https://t76190-cmyk.github.io/sew2026/">
 <style>
 :root{--acc:#f39800;--blue:#33688c;--bg:#f6f6f4;--card:#fff;--tx:#222;--mut:#666;--bd:#ddd}
 @media (prefers-color-scheme:dark){:root{--bg:#17181a;--card:#232427;--tx:#eee;--mut:#aaa;--bd:#3a3b3e}}
@@ -67,6 +67,9 @@ a.banner-img img{width:100%;height:auto;display:block}
 .reg-btn{margin-left:6px;background:var(--card);cursor:pointer}
 .card.kite{border:2px solid var(--acc)}
 .reg-note{font-size:11px;color:var(--acc);margin-top:4px}
+.kite-note{font-size:11px;color:var(--acc);margin-top:4px;font-weight:700}
+.kite-check{display:flex;gap:8px;align-items:flex-start;font-size:13px;line-height:1.7;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px;margin-top:4px;cursor:pointer}
+.kite-check input{width:18px;height:18px;margin-top:2px;flex:none}
 #kitebar{padding:6px 12px;font-size:12px;color:var(--acc);font-weight:700}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;display:flex;align-items:flex-end;justify-content:center}
 .modal[hidden]{display:none}
@@ -356,15 +359,15 @@ apply();
 
 
 
-</script><div id="regModal" class="modal" hidden><div class="msheet"><h3 id="regTitle">公式URL登録</h3><input id="regUrl" type="url" placeholder="https://example.co.jp/" autocomplete="off"><div class="mrow"><button id="regSave" class="lk lk-official">保存する</button><button id="regClear" class="lk">登録を消す</button><button id="regClose" class="lk">閉じる</button></div><p class="mnote">入力したURLはこの端末に保存され、あなたの画面では「公式サイト検索」から「公式サイト」への直接リンクに切り替わります。公開ページ全体への反映は、運営の確認後となります（試作）。</p></div></div>
+</script><div id="regModal" class="modal" hidden><div class="msheet"><h3 id="regTitle">公式URL登録</h3><input id="regUrl" type="url" placeholder="https://example.co.jp/" autocomplete="off"><div class="mrow"><button id="regSave" class="lk lk-official">保存する</button><button id="regClear" class="lk">登録を消す</button><button id="regClose" class="lk">閉じる</button></div><p class="mnote">入力したURLはこの端末に保存され、あなたの画面では「公式サイト検索」から「公式サイト」への直接リンクに切り替わります。公開ページ全体への反映は、運営の確認後となります（試作）。</p></div></div><div id="kiteModal" class="modal" hidden><div class="msheet"><h3 id="kiteTitle">来てちょ！</h3><label class="kite-check"><input type="checkbox" id="kiteVisit"><span>ひかりマッチ（日本エコソーラー、ネスコインベストメント）の担当者、東です。当日ご挨拶にお伺いしてよろしければ、チェックボックスにチェックをよろしくお願いします。順次お伺いします。</span></label><div class="mrow"><button id="kiteSave" class="lk lk-official">登録する</button><button id="kiteClear" class="lk">登録を取り消す</button><button id="kiteClose" class="lk">閉じる</button></div><p class="mnote">「来てちょ！」に登録すると、このページであなたの会社のカードが目立つようになります。登録はこの端末に保存されます（試作）。</p></div></div>
 <script>
 (function(){
   var PAGES={'日本エコソーラー':'nihon-ecosolar.html'};
   var UKEY='pubUrls:'+location.pathname, KKEY='pubKite:'+location.pathname;
   var urls={}, kite={};
   try{urls=JSON.parse(localStorage.getItem(UKEY)||'{}');}catch(e){}
-  try{(JSON.parse(localStorage.getItem(KKEY)||'[]')).forEach(function(n){kite[n]=1;});}catch(e){}
-  function save(){try{localStorage.setItem(UKEY,JSON.stringify(urls));localStorage.setItem(KKEY,JSON.stringify(Object.keys(kite)));}catch(e){}}
+  try{var _k=JSON.parse(localStorage.getItem(KKEY)||'[]');if(Array.isArray(_k)){_k.forEach(function(n){kite[n]={};});}else if(_k&&typeof _k==='object'){kite=_k;}}catch(e){}
+  function save(){try{localStorage.setItem(UKEY,JSON.stringify(urls));localStorage.setItem(KKEY,JSON.stringify(kite));}catch(e){}}
   var modal=document.getElementById('regModal'),inp=document.getElementById('regUrl'),title=document.getElementById('regTitle'),cur=null;
   function openReg(name){cur=name;title.textContent=name+'｜公式URL登録';inp.value=urls[name]||'';modal.hidden=false;setTimeout(function(){inp.focus();},50);}
   function closeReg(){modal.hidden=true;cur=null;}
@@ -378,6 +381,13 @@ apply();
     if(v)urls[cur]=v;else delete urls[cur];
     save();refresh();closeReg();
   });
+  var kmodal=document.getElementById('kiteModal'),kchk=document.getElementById('kiteVisit'),ktitle=document.getElementById('kiteTitle'),kcur=null;
+  function openKite(name){kcur=name;ktitle.textContent=name+'｜来てちょ！';kchk.checked=!!(kite[name]&&kite[name].v);kmodal.hidden=false;}
+  function closeKite(){kmodal.hidden=true;kcur=null;}
+  document.getElementById('kiteClose').addEventListener('click',closeKite);
+  kmodal.addEventListener('click',function(e){if(e.target===kmodal)closeKite();});
+  document.getElementById('kiteClear').addEventListener('click',function(){if(kcur){delete kite[kcur];save();refresh();closeKite();}});
+  document.getElementById('kiteSave').addEventListener('click',function(){if(!kcur)return;kite[kcur]={v:kchk.checked?1:0};save();refresh();closeKite();});
   function refresh(){
     var n=0;
     document.querySelectorAll('.card').forEach(function(card){
@@ -394,8 +404,12 @@ apply();
         if(note)note.remove();
       }
       if(kb&&kb.tagName==='BUTTON'){
-        if(kite[name]){card.classList.add('kite');kb.textContent='来てちょ！受付中';n++;}
-        else{card.classList.remove('kite');kb.textContent='来てちょ！';}
+        var knote=links.querySelector('.kite-note');
+        if(kite[name]){card.classList.add('kite');kb.textContent='来てちょ！受付中';n++;
+          if(kite[name].v){if(!knote){knote=document.createElement('div');knote.className='kite-note';knote.textContent='当日訪問OK';links.appendChild(knote);}}
+          else if(knote)knote.remove();
+        }
+        else{card.classList.remove('kite');kb.textContent='来てちょ！';if(knote)knote.remove();}
       }
     });
     var bar=document.getElementById('kitebar');if(bar)bar.textContent=n?('来てちょ！受付中の会社：'+n+'件'):'';
@@ -414,7 +428,7 @@ apply();
       links.appendChild(ka);
     }else{
       var kb2=document.createElement('button');kb2.className='lk kite-btn';kb2.textContent='来てちょ！';
-      kb2.addEventListener('click',function(){if(kite[name])delete kite[name];else kite[name]=1;save();refresh();});
+      kb2.addEventListener('click',function(){openKite(name);});
       links.appendChild(kb2);
     }
   });
