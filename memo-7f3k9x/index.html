@@ -50,6 +50,7 @@ a.banner-img img{width:100%;height:auto;display:block}
 .sheet-body h2{font-size:19px;margin:2px 0 6px}
 .dsec{border-top:1px solid var(--bd);padding:10px 0}
 .dsec h3{font-size:14px;margin:0 0 6px;color:var(--blue)}
+#dossierText{white-space:pre-wrap;font-family:inherit;font-size:12.5px;line-height:1.65;background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px;max-height:60vh;overflow:auto}
 .dossier-fold summary{font-size:14px;font-weight:700;color:var(--blue);cursor:pointer;padding:2px 0}
 .dossier-fold .fold-hint{font-size:11px;font-weight:400;color:#8a90a0;margin-left:8px}
 .dossier-fold pre{margin-top:6px}
@@ -552,7 +553,6 @@ function openDetail(i){
     h+='<div class="badges">'+(d.booth?'<span class="badge b-booth">'+esc(d.booth)+'</span>':'')+d.flags.map(function(x){return '<span class="badge">'+esc(x)+'</span>';}).join('')+'<span class="sec">'+esc(d.section)+'</span></div>';
     if(window.YABOU && YABOU[d.name]){ h+=yabouPage(d, YABOU[d.name]); }
     h+='<div class="dsec boothmap"><h3>小間位置（概略）</h3>'+boothMap(d.booth)+'</div>';
-    if(d.pitch){ h+='<div class="dsec pitch"><h3>ぶつける案件 ― ひかりマッチ掲載物件</h3><pre class="doss">'+esc(d.pitch)+'</pre></div>'; }
     h+='<div class="dsec"><h3>訪問ステータス</h3><div class="tabs stbtns">'+[['','未'],['v','訪問済'],['t','話せた'],['l','あとで回る'],['s','行かない']].map(function(pr){return '<button class="tabbtn" data-st="'+pr[0]+'">'+pr[1]+'</button>';}).join('')+'</div></div>';
     h+='<div class="dsec"><h3>見込み（訪問後）</h3><div class="tabs stbtns">'+[['','未判定'],['a','見込みあり'],['n','見込みなし']].map(function(pr){return '<button class="tabbtn" data-o="'+pr[0]+'">'+pr[1]+'</button>';}).join('')+'</div></div>';
     h+='<div class="dsec"><h3>現場の優先順位</h3><select id="dprio"><option value="">未設定</option>'+[1,2,3,4,5,6,7,8,9,10].map(function(nn){return '<option value="'+nn+'">優先'+nn+'</option>';}).join('')+'</select><p class="dnote">並び替え「優先順位順」で上に来ます。訪問が終わった先は自動で後ろに下がります。</p></div>';
@@ -565,6 +565,7 @@ function openDetail(i){
     if(d.related_dossier_note){ev+='<p>'+esc(d.related_dossier_note)+'</p>';}
     if(ev){h+='<div class="dsec"><h3>社内評価</h3>'+ev+'</div>';}
     if(d.verify_note){h+='<div class="dsec warn"><h3>現地確認</h3><p>'+esc(d.verify_note)+'</p></div>';}
+    if(d.pitch){h+='<details class="dsec dossier-fold"><summary>詳細調査（優先10社ドシエ）<span class="fold-hint">タップで開く</span></summary><pre id="dossierText"></pre></details>';}
     if(d.dossier_jp||d.dossier_en){
     }else{
       var yb=(typeof YABOU!=='undefined'&&YABOU)?YABOU[d.name]:null;
@@ -583,6 +584,8 @@ function openDetail(i){
     });
     var dp=document.getElementById('dprio');
     if(dp){dp.value=peekState(i).p?String(peekState(i).p):'';dp.addEventListener('change',function(){setPrio(i,dp.value?+dp.value:'');});}
+    var pre=document.getElementById('dossierText');
+    if(pre){ pre.textContent='【ぶつける案件 ― ひかりマッチ掲載物件（2026-11-14確認）】 \n\n'+(d.pitch||''); }
     detailEl.hidden=false;document.body.style.overflow='hidden';
   }
   function closeDetail(){detailEl.hidden=true;document.body.style.overflow='';}
