@@ -562,7 +562,7 @@ function openDetail(i){
     if(ev){h+='<div class="dsec"><h3>社内評価</h3>'+ev+'</div>';}
     if(d.verify_note){h+='<div class="dsec warn"><h3>現地確認</h3><p>'+esc(d.verify_note)+'</p></div>';}
     if(d.dossier_jp||d.dossier_en){
-      h+='<div class="dsec"><h3>詳細調査（優先10社ドシエ）</h3><div class="tabs"><button class="tabbtn" data-lang="en">English（社長用）</button><button class="tabbtn" data-lang="jp">日本語</button></div><pre id="dossierText"></pre></div>';
+      h+='<div class="dsec"><h3>詳細調査（優先10社ドシエ）</h3><div class="tabs"><button class="tabbtn" data-lang="jp">日本語</button><button class="tabbtn" data-lang="en">English（社長用）</button></div><pre id="dossierText"></pre></div>';
     }else{
       var yb=(typeof YABOU!=='undefined'&&YABOU)?YABOU[d.name]:null;
       if(!yb){
@@ -584,7 +584,7 @@ function openDetail(i){
     if(pre){
       var setLang=function(lang){pre.textContent=(lang==='en'?(d.dossier_en||d.dossier_jp):(d.dossier_jp||d.dossier_en))||'';};
       detailBody.querySelectorAll('.tabbtn').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'));});});
-      setLang(d.dossier_en?'en':'jp');
+      setLang('jp');
     }
     detailEl.hidden=false;document.body.style.overflow='hidden';
   }
