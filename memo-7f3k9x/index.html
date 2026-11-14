@@ -110,6 +110,8 @@ a.banner-img img{width:100%;height:auto;display:block}
 .ybp-bar i{display:block;height:100%;background:#c9a227}
 .ybp-band{border:1.5px solid #c9a227;background:#fdf6dd;padding:8px 11px;margin-bottom:2px}
 .ybp-foot{padding:6px 12px 10px;font-size:10px;color:#8a7f5c;text-align:center}
+
+#pager{display:none}
 </style></head><body>
 <div class="intro"><h1>出展社さくいん — 第14回 SMART ENERGY WEEK 関西（2026/11/18–20・インテックス大阪）</h1>
 <p class="note">社内版（非公開）：公式出展社検索（2026-11-12確認）の公開情報に、社内評価・商談仮説・詳細調査を重ねた当日用ツール。表示203件から重複を整理した 210 件。優先10社は詳細調査と公式リンク確認済み（2026-11-13裏取り）。その他は紹介文ベースで詳細調査は未実施。リンク・最新情報は当日まで更新前提です。訪問ステータスは端末に保存され、共有リンクで渡せます。</p></div>
@@ -387,7 +389,7 @@ function yabouPage(d,y){
 <script>
 var q=document.getElementById('q'),sec=document.getElementById('sec'),tag=document.getElementById('tag'),cnt=document.getElementById('cnt');
 var prev=document.getElementById('prev'),next=document.getElementById('next'),pinfo=document.getElementById('pinfo');
-var cards=[].slice.call(document.querySelectorAll('.card')),flt='',page=1,PS=5;
+var cards=[].slice.call(document.querySelectorAll('.card')),flt='',page=1,PS=100000;
 function apply(){
   var t=q.value.trim().toLowerCase(),s=sec.value,tg=tag.value,hit=[];
   cards.forEach(function(c,idx){
