@@ -481,11 +481,13 @@ function setStatus(idx,code){_setField(idx,'s',code);}
 function setOutcome(idx,o){_setField(idx,'o',o);}
 function setPrio(idx,pv){_setField(idx,'p',pv);}
 function prioKey(el){
-  var i=cards.indexOf(el),st=peekState(i),g;
-  if(st.s==='v'||st.s==='t'){g=(st.o==='n')?4:3;}
-  else if(st.s==='s'){g=4;}
-  else{g=st.p?1:2;}
-  return [g,st.p?+st.p:99,i];
+  var i=cards.indexOf(el),st=peekState(i),g,sub=99;
+  if(st.s==='v'||st.s==='t'){g=(st.o==='n')?5:4;}
+  else if(st.s==='s'){g=5;}
+  else if(st.p){g=1;sub=+st.p;}
+  else if(typeof DETAILS!=='undefined'&&DETAILS[i]&&DETAILS[i].priority){g=2;sub=DETAILS[i].priority.rank||99;}
+  else{g=3;}
+  return [g,sub,i];
 }
 function sortHits(hit,sm){
   function boothOf(el){var b=el.querySelector('.b-booth');return b?b.textContent:'';}
