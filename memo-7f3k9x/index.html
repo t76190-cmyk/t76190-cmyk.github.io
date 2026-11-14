@@ -50,6 +50,9 @@ a.banner-img img{width:100%;height:auto;display:block}
 .sheet-body h2{font-size:19px;margin:2px 0 6px}
 .dsec{border-top:1px solid var(--bd);padding:10px 0}
 .dsec h3{font-size:14px;margin:0 0 6px;color:var(--blue)}
+.dossier-fold summary{font-size:14px;font-weight:700;color:var(--blue);cursor:pointer;padding:2px 0}
+.dossier-fold .fold-hint{font-size:11px;font-weight:400;color:#8a90a0;margin-left:8px}
+.dossier-fold pre{margin-top:6px}
 .dsec.warn h3{color:var(--acc)}
 .kv{border-collapse:collapse;width:100%;font-size:13px}
 .kv th{text-align:left;color:var(--mut);font-weight:600;padding:3px 8px 3px 0;white-space:nowrap;vertical-align:top}
@@ -562,7 +565,7 @@ function openDetail(i){
     if(ev){h+='<div class="dsec"><h3>社内評価</h3>'+ev+'</div>';}
     if(d.verify_note){h+='<div class="dsec warn"><h3>現地確認</h3><p>'+esc(d.verify_note)+'</p></div>';}
     if(d.dossier_jp||d.dossier_en){
-      h+='<div class="dsec"><h3>詳細調査（優先10社ドシエ）</h3><pre id="dossierText"></pre></div>';
+      h+='<details class="dsec dossier-fold"><summary>詳細調査（優先10社ドシエ）<span class="fold-hint">タップで開く</span></summary><pre id="dossierText"></pre></details>';
     }else{
       var yb=(typeof YABOU!=='undefined'&&YABOU)?YABOU[d.name]:null;
       if(!yb){
