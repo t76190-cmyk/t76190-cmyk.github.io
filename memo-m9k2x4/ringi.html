@@ -283,8 +283,8 @@ function select(ci){
   renderBoard();renderList();render();renderStatus();renderSelfDocs();
 }
 function envBoxHtml(){
- if(lang==='en')return '<div class="envbox"><h4>Production environment</h4><ul><li>t76190@gmail.com (personal email)</li><li>AI environment (required)<ul><li>Muse</li><li>Copilot</li><li>Gemini</li></ul></li><li>t76190t76190@gmail.com (personal email, newly registered)<ul><li>Email for Hikari Match</li><li>For the empty-mail QR code, etc.</li></ul></li></ul></div>';
- return '<div class="envbox"><h4>制作環境</h4><ul><li>t76190@gmail.com（個人メール）</li><li>AI環境　必須<ul><li>ミューズ</li><li>Copilot</li><li>Gemini</li></ul></li><li>t76190t76190@gmail.com（個人メール・新規登録）<ul><li>光マッチ用メール</li><li>空メール用QRコード等</li></ul></li></ul></div>';
+ if(lang==='en')return '<div class="envbox"><h4>Production environment</h4><ul><li>t76190@gmail.com (personal email)</li><li>AI environment (required)<ul><li>Muse</li><li>Copilot</li><li>Gemini</li></ul></li><li>t76190t76190@gmail.com (personal email, newly registered)<ul><li>Email for Hikari Match</li><li>For the empty-mail QR code, etc.</li></ul></li></ul><p style="margin:6px 0 0">Production will be carried out in this environment. Thank you for your understanding.</p></div>';
+ return '<div class="envbox"><h4>制作環境</h4><ul><li>t76190@gmail.com（個人メール）</li><li>AI環境　必須<ul><li>ミューズ</li><li>Copilot</li><li>Gemini</li></ul></li><li>t76190t76190@gmail.com（個人メール・新規登録）<ul><li>光マッチ用メール</li><li>空メール用QRコード等</li></ul></li></ul><p style="margin:6px 0 0">この環境で制作していきます。ご了解ください。</p></div>';
 }
 function render(){
   var el=document.getElementById('sheet');
