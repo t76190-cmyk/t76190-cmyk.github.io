@@ -150,7 +150,6 @@ function renderStatus(){
   else{chip.textContent=cur.name+'：'+STLABEL[r.status]+(r.status==='waiting'?'（'+r.waiting+'待ち）':'')+(r.status==='approved'?'（'+ymd(r.updated)+'）':'');}
   var _sa=document.querySelector('input[name="stampAct"]:checked');
   var _has=(role==='drafter')?stamped:((_sa&&_sa.value==='return')?!!returnedAt:((role==='checker')?!!checkedAt:!!approvedAt));
-  var _br=document.getElementById('btnReturn');if(_br){_br.textContent=returnedAt?'↩ 差し戻しを取り消す':'↩ 差し戻し';_br.classList.toggle('on',!!returnedAt);}
   document.getElementById('btnStampAll').textContent=_has?'🔴 押印を取り消す':'🔴 押印する';
   document.getElementById('btnStampAll').classList.toggle('on',_has);
   document.getElementById('btnLang').textContent=lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に切り替え';
@@ -355,7 +354,7 @@ function stampReturn(){if(!cur)return;var _r=rec();
   if(returnedAt&&!returnCycleOpen()){returnedAt=null;returnedBy=null;returnedSentAt=null;var _p={returnedAt:null,returnedBy:null,returnedTo:null,returnedSentAt:null,preReturnStatus:null,preReturnWaiting:null};_p.status=approvedAt?'approved':((_r&&_r.preReturnStatus)?_r.preReturnStatus:'draft');if(_r&&_r.preReturnWaiting)_p.waiting=_r.preReturnWaiting;touch(_p);}
   else if(returnCycleOpen()){returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt,preReturnStatus:_r?_r.status:null,preReturnWaiting:_r?(_r.waiting||null):null});}
   render();renderStatus();renderBoard();}
-function doReturn(){stampReturn();}
+function doReturn(){if(!cur||!returnCycleOpen())return;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;var _r=rec();touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt,preReturnStatus:_r?_r.status:null,preReturnWaiting:_r?(_r.waiting||null):null});render();renderStatus();renderBoard();}
 document.getElementById('btnReturn').addEventListener('click',doReturn);
 document.getElementById('btnStampAll').addEventListener('click',function(){if(!cur)return;var who=(role==='president')?'approver':(role==='checker'?'checker':'drafter');
   if(who==='drafter'){stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
