@@ -79,7 +79,7 @@ a.back{color:#173a6b;font-size:13px}
 <div class="ui">
 <a class="back" href="index.html">← さくいんに戻る</a>
 <h1>📄 稟議書</h1>
-<div class="roletabs" id="roletabs"><button type="button" data-role="drafter">👤 担当者（東）</button><button type="button" data-role="checker">✔ 確認（ティリーニ）</button><button type="button" data-role="president">👔 決裁（マンジュラ）</button></div>
+<div class="roletabs" id="roletabs"><button type="button" data-role="drafter">👤 担当者（東）</button><button type="button" data-role="checker">✔ 確認（ティリーニ）</button><button type="button" data-role="president">👔 決裁（マンジュラ社長）</button></div>
 <div id="board"></div>
 <div id="createBox" class="a-draft"><h2 class="b">稟議書をつくる</h2>
 <div class="row"><input type="text" id="q" placeholder="会社名で検索（例：Sustech）"><div id="clist"></div></div></div>
@@ -93,7 +93,7 @@ a.back{color:#173a6b;font-size:13px}
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
 <span class="ctl"><button id="btnStampAll" type="button">🔴 押印する</button><span class="rads"><label><input type="radio" name="stampWho" value="drafter"> 担当</label><label><input type="radio" name="stampWho" value="checker"> 確認</label><label><input type="radio" name="stampWho" value="approver"> 決裁</label></span></span>
-<span class="ctl a-draft a-check"><button id="btnSubmit" type="button" class="main">📤 提出</button><span class="rads"><label><input type="radio" name="subTo" value="ティリーニ"> ティリーニ</label><label><input type="radio" name="subTo" value="社長"> マンジュラ</label></span></span>
+<span class="ctl a-draft a-check"><button id="btnSubmit" type="button" class="main">📤 提出</button><span class="rads"><label><input type="radio" name="subTo" value="ティリーニ"> ティリーニ</label><label><input type="radio" name="subTo" value="社長"> マンジュラ社長</label></span></span>
 <button id="btnReturn" type="button" class="a-check a-pres">↩ 差し戻し</button>
 </div>
 <div class="btns"><button id="btnPrint" type="button" class="main">🖨 印刷／PDFにする</button><button id="btnCopy" type="button">本文をコピー</button></div>
@@ -134,7 +134,7 @@ function renderConds(){
   var myKey=(role==='president')?'manjula':'thilini';
   if(!conditions.length){box.innerHTML='';return;}
   box.innerHTML=conditions.map(function(c,i){
-    var who=c.by==='manjula'?'マンジュラ（決裁）':'ティリーニ（確認・決裁）';
+    var who=c.by==='manjula'?'マンジュラ社長（決裁）':'ティリーニ（確認・決裁）';
     var del=(!locked&&role!=='drafter'&&c.by===myKey)?' <button type="button" data-cdel="'+i+'">✕ 削除</button>':'';
     return '<div style="font-size:13px;margin-top:4px">・'+esc(c.text)+'（'+who+'／'+tsText(c.ts)+'）'+del+'</div>';
   }).join('');
@@ -210,20 +210,25 @@ function syncBodyField(){
   if(!isSelfC())return;var f=document.getElementById('fBody');var v=f.value;
   if(lang==='en'&&v.trim()===SELF_BODY.trim())f.value=SELF_BODY_EN;
   else if(lang==='jp'&&v.trim()===SELF_BODY_EN.trim())f.value=SELF_BODY;
+  syncTexts();
 }
 function mainText(){return isSelfC()?document.getElementById('fBody').value.trim():document.getElementById('fMemo').value.trim();}
+var SELF_SUBJ_JP='展示会（SMART ENERGY WEEK 関西）に向けた制作物・提案について',SELF_SUBJ_EN='Materials and proposals for the SMART ENERGY WEEK Kansai exhibition — request for approval';
+var SELF_KIND_JP='展示会（SMART ENERGY WEEK 関西）出展に伴う制作物の確認・提案',SELF_KIND_EN='Exhibition materials — review and proposals';
+var SELF_PURP_JP='2026年11月18日〜20日にインテックス大阪で開催されるSMART ENERGY WEEK 関西への出展にあたり、準備した制作物と提案を取りまとめ、ご確認とご判断をいただくため。',SELF_PURP_EN='Ahead of our exhibition at SMART ENERGY WEEK Kansai (Nov 18-20, 2026, INTEX Osaka), I have compiled the materials and proposals prepared for the event. I would appreciate your review and guidance on how to proceed.';
+function syncTexts(){
+  if(!isSelfC())return;
+  [['fSubject',SELF_SUBJ_JP,SELF_SUBJ_EN],['fKind',SELF_KIND_JP,SELF_KIND_EN],['fPurpose',SELF_PURP_JP,SELF_PURP_EN]].forEach(function(pr){
+    var el=document.getElementById(pr[0]);if(!el)return;
+    if(lang==='en'&&el.value===pr[1])el.value=pr[2];else if(lang==='jp'&&el.value===pr[2])el.value=pr[1];
+  });
+}
 function autoTexts(){
   if(!cur)return;
   if(isSelfC()){
-    if(lang==='jp'){
-      document.getElementById('fSubject').value='展示会（SMART ENERGY WEEK 関西）に向けた制作物・提案について';
-      document.getElementById('fKind').value='展示会（SMART ENERGY WEEK 関西）出展に伴う制作物の確認・提案';
-      document.getElementById('fPurpose').value='2026年11月18日〜20日にインテックス大阪で開催されるSMART ENERGY WEEK 関西への出展にあたり、準備した制作物と提案を取りまとめ、ご確認とご判断をいただくため。';
-    }else{
-      document.getElementById('fSubject').value='Materials and proposals for the SMART ENERGY WEEK Kansai exhibition — request for approval';
-      document.getElementById('fKind').value='Exhibition materials — review and proposals';
-      document.getElementById('fPurpose').value='Ahead of our exhibition at SMART ENERGY WEEK Kansai (Nov 18-20, 2026, INTEX Osaka), I have compiled the materials and proposals prepared for the event. I would appreciate your review and guidance on how to proceed.';
-    }
+    document.getElementById('fSubject').value=(lang==='jp')?SELF_SUBJ_JP:SELF_SUBJ_EN;
+    document.getElementById('fKind').value=(lang==='jp')?SELF_KIND_JP:SELF_KIND_EN;
+    document.getElementById('fPurpose').value=(lang==='jp')?SELF_PURP_JP:SELF_PURP_EN;
     return;
   }
   if(lang==='jp'){
@@ -266,7 +271,7 @@ function render(){
   var chkCell=checkedAt?'<img class="seal ts" src="'+SEAL_T+'" alt="seal"><div class="sealts">'+tsText(checkedAt)+'</div>':'';
   var condHtml='';
   var _enC=(lang!=='jp');var condHead=_enC?(isSelf?'Notes by management / approver':'Conditions / Notes'):(isSelf?'管理・決裁者追記欄':'条件・特記');
-  if(conditions.length){condHtml='<div class="conds"><h4>'+condHead+'</h4>'+conditions.map(function(c){return '<p>・'+(c.by==='manjula'?'Manjula / マンジュラ':'Thilini / ティリーニ')+'（'+ymd(c.ts)+'）：'+esc(c.text)+'</p>';}).join('')+'</div>';}
+  if(conditions.length){condHtml='<div class="conds"><h4>'+condHead+'</h4>'+conditions.map(function(c){return '<p>・'+(c.by==='manjula'?'President Manjula / マンジュラ社長':'Thilini / ティリーニ')+'（'+ymd(c.ts)+'）：'+esc(c.text)+'</p>';}).join('')+'</div>';}
   else if(isSelf){condHtml='<div class="conds"><h4>'+condHead+'</h4><p>　</p><p>　</p></div>';}
   var appCell=approvedAt?'<img class="seal ts" src="'+(approvedBy==='thilini'?SEAL_T:SEAL_M)+'" alt="seal"><div class="sealts">'+tsText(approvedAt)+'</div>':'';
   if(lang==='jp'){
@@ -361,8 +366,25 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
 function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
 function stampDef(){var v=(role==='president')?'approver':(role==='checker'?'checker':'drafter');document.querySelectorAll('input[name="stampWho"]').forEach(function(x){x.checked=(x.value===v);});}
 function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();var r4=rec();if(!(r4&&(r4.subject||r4.purpose)))autoTexts();syncBodyField();render();renderStatus();renderSelfDocs();}
+var UIEN=(typeof FORCE_EN_UI!=='undefined'&&FORCE_EN_UI);
+var UIDICT=[['新しい稟議書','New ringi'],['この下書きを削除','Delete this draft'],['稟議書ボード','Ringi board'],['稟議書待ち','Waiting for approval'],['差し戻し・下書き','Returned / drafts'],['過去稟議書','Past ringi'],['稟議書をつくる','Create a ringi'],['担当者（東）','Drafter (Azuma)'],['確認（ティリーニ）','Checker (Thilini)'],['決裁（マンジュラ社長）','Approver (President Manjula)'],['押印を取り消す','Remove stamp'],['押印する','Stamp'],['ティリーニ待ち','waiting for Thilini'],['社長待ち','waiting for the President'],['提出済み','Submitted'],['確定（決裁済み）','Finalised (approved)'],['条件・特記','Conditions / notes'],['管理・決裁者追記欄','Notes by management / approver'],['提案・報告事項（本文）','Proposals & reports (body)'],['当日の接触メモ','On-site memo'],['条件を加筆する','Add note'],['裏面（日本語）を見る','View the Japanese side'],['英文に切り替え','Switch to English'],['日本語に戻す','Back to Japanese'],['マンジュラ社長','President Manjula'],['ティリーニ','Thilini'],['社長','the President'],['提出','Submit'],['差し戻し','Send back'],['印刷する','Print'],['本文をコピー','Copy text'],['件名','Subject'],['区分','Category'],['目的','Purpose'],['下書き','Draft'],['（無題）','(untitled)'],['（待ち）',' (waiting)'],['削除','Delete'],['稟議書','Ringi']];
+var _uieBusy=false;
+function applyUiEn(){
+  if(!UIEN||_uieBusy)return;_uieBusy=true;
+  var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+    if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;
+    var el=n.parentElement;while(el){if(el.id==='sheet'||el.tagName==='TEXTAREA'||el.tagName==='SCRIPT'||el.tagName==='STYLE')return NodeFilter.FILTER_REJECT;el=el.parentElement;}
+    return NodeFilter.FILTER_ACCEPT;}});
+  var nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);
+  nodes.forEach(function(n){var v=n.nodeValue,o=v;UIDICT.forEach(function(pr){v=v.split(pr[0]).join(pr[1]);});if(v!==o)n.nodeValue=v;});
+  var q=document.getElementById('q');if(q)q.placeholder='Search by company name (e.g. Sustech)';
+  var ct=document.getElementById('condText');if(ct)ct.placeholder='Add conditions / notes (checker & approver only)';
+  _uieBusy=false;
+}
+if(UIEN){new MutationObserver(function(){applyUiEn();}).observe(document.body,{childList:true,subtree:true,characterData:true});}
 if(role==='president')lang='en';
 applyRole();subDef();stampDef();renderBoard();renderList();renderStatus();
+applyUiEn();
 var m=/#co=(\d+)/.exec(location.hash||'');
 if(m)select(+m[1]);
 if(!m&&role!=='drafter'){
