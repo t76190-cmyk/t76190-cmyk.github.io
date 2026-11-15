@@ -195,7 +195,9 @@ function select(ci){
   document.getElementById('fBodyWrap').style.display=_sf?'':'none';
   document.getElementById('fMemoWrap').style.display=_sf?'none':'';
   document.getElementById('fBody').value=r?(r.body||''):'';
-  autoTexts();renderList();render();renderStatus();
+  autoTexts();
+  if(r){if(r.subject)document.getElementById('fSubject').value=r.subject;if(r.kind)document.getElementById('fKind').value=r.kind;if(r.purpose)document.getElementById('fPurpose').value=r.purpose;}
+  renderList();render();renderStatus();
 }
 function render(){
   var el=document.getElementById('sheet');
@@ -274,11 +276,11 @@ function render(){
   }
   el.innerHTML=h;
 }
-['fSubject','fKind','fPurpose'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
+['fSubject','fKind','fPurpose'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){render();if(cur)touch({subject:document.getElementById('fSubject').value,kind:document.getElementById('fKind').value,purpose:document.getElementById('fPurpose').value});});});
 document.getElementById('fMemo').addEventListener('input',function(){render();if(cur)touch({memo:document.getElementById('fMemo').value});});
 document.getElementById('fBody').addEventListener('input',function(){render();if(cur)touch({body:document.getElementById('fBody').value});});
 document.getElementById('q').addEventListener('input',renderList);
-document.getElementById('btnLang').addEventListener('click',function(){lang=lang==='jp'?'en':'jp';autoTexts();render();renderStatus();applyRole();});
+document.getElementById('btnLang').addEventListener('click',function(){lang=lang==='jp'?'en':'jp';var r3=rec();if(!(r3&&(r3.subject||r3.purpose)))autoTexts();render();renderStatus();applyRole();});
 document.querySelectorAll('#roletabs button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role);});});
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
 document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');touch({status:'waiting',waiting:sel?sel.value:'ティリーニ',subject:document.getElementById('fSubject').value});renderStatus();});
@@ -304,7 +306,7 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
   var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');}
 function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
 function stampDef(){var v=(role==='president')?'approver':(role==='checker'?'checker':'drafter');document.querySelectorAll('input[name="stampWho"]').forEach(function(x){x.checked=(x.value===v);});}
-function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();autoTexts();render();renderStatus();}
+function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();var r4=rec();if(!(r4&&(r4.subject||r4.purpose)))autoTexts();render();renderStatus();}
 applyRole();subDef();stampDef();renderBoard();renderList();renderStatus();
 var m=/#co=(\d+)/.exec(location.hash||'');
 if(m)select(+m[1]);
