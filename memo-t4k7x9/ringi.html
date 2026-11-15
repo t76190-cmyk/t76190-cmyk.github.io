@@ -188,8 +188,11 @@ function deleteDoc(){var s=loadStore();var ss=selfSS(s);var d0=ss.cur?ss.docs[ss
 function openSelf(id){switchDoc(id);window.scrollTo(0,document.getElementById('board').offsetTop);}
 function renderBoard(){
   var s=loadStore();var rs=Object.keys(s).filter(function(k){return k!=='__self';}).map(function(k){return s[k];});
-  var ssB=selfSS(s);var sdocs=Object.keys(ssB.docs).map(function(id){var d0=ssB.docs[id];return {sid:id,status:d0.status||'draft',waiting:d0.waiting||'',updated:d0.updated||0,subject:d0.subject||''};});
+  var ssB=selfSS(s);var sdocs=Object.keys(ssB.docs).map(function(id){var d0=ssB.docs[id];return {sid:id,status:d0.status||'draft',waiting:d0.waiting||'',updated:d0.updated||0,subject:d0.subject||'',returnedBy:d0.returnedBy||'',returnedAt:d0.returnedAt||0,sentBackAt:d0.sentBackAt||0};});
   function sbtn(d0,extra){var lb=d0.subject||'（無題）';if(lb.length>14)lb=lb.slice(0,14)+'…';return '<button type="button" data-sdoc2="'+d0.sid+'">日本エコソーラー：'+esc(lb)+(extra?' '+extra:'')+'</button>';}
+  function retWho(by){return by==='thilini'?(lang==='en'?'Thilini':'ティリーニ'):(lang==='en'?'President Manjula':'マンジュラ社長');}
+  function rbtn(r){var t=r.subject||r.name;if(t.length>14)t=t.slice(0,14)+'…';var lb=(lang==='en'?'[Sent back] ':'【差し戻し】')+retWho(r.returnedBy)+'：'+t+((r.subject&&r.subject!==r.name)?'（'+r.name+'）':'')+' '+mdhm(r.returnedAt||r.sentBackAt||r.updated);return '<button type="button" data-bci="'+r.ci+'">'+esc(lb)+'</button>';}
+  function sbtnR(d0){var t=d0.subject||'（無題）';if(t.length>14)t=t.slice(0,14)+'…';var lb=(lang==='en'?'[Sent back] ':'【差し戻し】')+retWho(d0.returnedBy)+'：'+t+'（日本エコソーラー） '+mdhm(d0.returnedAt||d0.sentBackAt||d0.updated);return '<button type="button" data-sdoc2="'+d0.sid+'">'+esc(lb)+'</button>';}
   var wait=rs.filter(function(r){return r.status==='waiting';});
   var ret=rs.filter(function(r){return r.status==='returned';});
   var dr=rs.filter(function(r){return r.status==='draft';});
@@ -201,7 +204,7 @@ function renderBoard(){
   h+='</div><div class="grp"><span class="gname">■ 差し戻し・下書き</span><br>';
   var pend=ret.concat(dr);
   var spend=sdocs.filter(function(d0){return d0.status==='returned'||d0.status==='draft';});
-  h+=(pend.length||spend.length)?pend.map(function(r){return btn(r,'（'+STLABEL[r.status]+'）');}).join('')+spend.map(function(d0){return sbtn(d0,'（'+(STLABEL[d0.status]||'下書き')+'）');}).join(''):'<span class="none">なし</span>';
+  h+=(pend.length||spend.length)?pend.map(function(r){return r.status==='returned'?rbtn(r):btn(r,'（'+STLABEL[r.status]+'）');}).join('')+spend.map(function(d0){return d0.status==='returned'?sbtnR(d0):sbtn(d0,'（'+(STLABEL[d0.status]||'下書き')+'）');}).join(''):'<span class="none">なし</span>';
   h+='</div><div class="grp"><span class="gname">■ 過去稟議書（確定）</span><br>';
   var sap=sdocs.filter(function(d0){return d0.status==='approved';}).sort(function(a,b){return b.updated-a.updated;});
   h+=(ap.length||sap.length)?ap.map(function(r){return btn(r,'（確定 '+ymd(r.updated)+'）');}).join('')+sap.map(function(d0){return sbtn(d0,'（確定 '+ymd(d0.updated)+'）');}).join(''):'<span class="none">なし</span>';
