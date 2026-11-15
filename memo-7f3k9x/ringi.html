@@ -87,7 +87,6 @@ a.back{color:#173a6b;font-size:13px}
 <div class="row"><label>区分</label><input type="text" id="fKind"></div>
 <div class="row"><label>目的（編集できます）</label><textarea id="fPurpose"></textarea></div>
 <div class="row"><label>当日の接触メモ（担当者・話した内容・先方の反応）</label><textarea id="fMemo" placeholder="例：営業部 ○○様と名刺交換。系統用蓄電池の販売網に関心。資料送付を約束。"></textarea></div>
-<div class="row"><details id="enBox"><summary style="font-weight:700;color:#173a6b;cursor:pointer">裏面（英文）を書く — 社長用</summary><label>Subject (EN)</label><input type="text" id="fSubjectEn"><label>Purpose (EN)</label><textarea id="fPurposeEn"></textarea><label>On-site memo (EN) — 空なら日本語メモがそのまま出ます</label><textarea id="fMemoEn" placeholder="English memo for the back side"></textarea></details></div>
 <div class="row"><span id="statusChip">未選択</span></div>
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
@@ -161,20 +160,21 @@ function renderList(){
 }
 function autoTexts(){
   if(!cur)return;
-  document.getElementById('fSubject').value=cur.name+'との商談推進について';
-  document.getElementById('fKind').value='展示会（SMART ENERGY WEEK 関西）での商談取り次ぎ';
-  document.getElementById('fPurpose').value='SMART ENERGY WEEK 関西（2026年11月18日〜20日、インテックス大阪）における接触を踏まえ、'+cur.name+'との商談について社長へ取り次ぎ、進め方のご判断をいただくため。';
+  if(lang==='jp'){
+    document.getElementById('fSubject').value=cur.name+'との商談推進について';
+    document.getElementById('fKind').value='展示会（SMART ENERGY WEEK 関西）での商談取り次ぎ';
+    document.getElementById('fPurpose').value='SMART ENERGY WEEK 関西（2026年11月18日〜20日、インテックス大阪）における接触を踏まえ、'+cur.name+'との商談について社長へ取り次ぎ、進め方のご判断をいただくため。';
+  }else{
+    document.getElementById('fSubject').value='Advancing business discussions with '+cur.name;
+    document.getElementById('fKind').value='Referral of an exhibition contact (SMART ENERGY WEEK Kansai)';
+    document.getElementById('fPurpose').value='Following our contact at SMART ENERGY WEEK Kansai (Nov 18-20, 2026, INTEX Osaka), I would like to refer '+cur.name+' to the president and request a decision on how to proceed.';
+  }
 }
-function defSubjEn(){return 'Advancing business discussions with '+cur.name;}
-function defPurpEn(){return 'Following our contact at SMART ENERGY WEEK Kansai (Nov 18-20, 2026, INTEX Osaka), I would like to refer '+cur.name+' to the president and request a decision on how to proceed.';}
 function select(ci){
   cur=DATA[ci];if(!cur)return;
   document.getElementById('q').value=cur.name;
   var r=rec();stamped=r?!!r.stamped:false;stampedAt=r?(r.stampedAt||null):null;checkedAt=r?(r.checkedAt||null):null;approvedAt=r?(r.approvedAt||null):null;approvedBy=r?(r.approvedBy||null):null;conditions=r?(r.conditions||[]):[];
   document.getElementById('fMemo').value=r?(r.memo||''):'';
-  document.getElementById('fSubjectEn').value=(r&&r.subjectEn)?r.subjectEn:defSubjEn();
-  document.getElementById('fPurposeEn').value=(r&&r.purposeEn)?r.purposeEn:defPurpEn();
-  document.getElementById('fMemoEn').value=r?(r.memoEn||''):'';
   autoTexts();renderList();render();renderStatus();
 }
 function render(){
@@ -183,10 +183,6 @@ function render(){
   var c=cur,y=c.yabou||{};var h='';
   var subj=document.getElementById('fSubject').value,kind=document.getElementById('fKind').value,purp=document.getElementById('fPurpose').value;
   var memo=document.getElementById('fMemo').value.trim();
-  var subjEn=document.getElementById('fSubjectEn').value.trim()||subj;
-  var purpEn=document.getElementById('fPurposeEn').value.trim()||purp;
-  var memoEn=document.getElementById('fMemoEn').value.trim()||memo;
-  var kindEn='Referral of an exhibition contact (SMART ENERGY WEEK Kansai)';
   var sealCell=stamped?'<img class="seal ts" src="'+SEAL+'" alt="seal"><div class="sealts">'+tsText(stampedAt||Date.now())+'</div>':'';
   var chkCell=checkedAt?'<img class="seal ts" src="'+SEAL_T+'" alt="seal"><div class="sealts">'+tsText(checkedAt)+'</div>':'';
   var condHtml='';
@@ -223,11 +219,11 @@ function render(){
     if(y.source)h+='<div class="foot">出典：'+esc(y.source)+'<br>※本書は僕用さくいんのデータから自動生成したものです。見立て・仮説は推定であり、事実とは区別して記載しています。</div>';
   }else{
     h+='<div class="head"><div class="t en">RINGI — REQUEST FOR APPROVAL</div></div>';
-    h+='<table class="meta"><tr><td class="k">Subject</td><td><b>'+esc(subjEn)+'</b></td></tr>';
+    h+='<table class="meta"><tr><td class="k">Subject</td><td><b>'+esc(subj)+'</b></td></tr>';
     h+='<tr><td class="k">Submitted by</td><td>Hisanobu Azuma (Date: '+enDate(new Date())+')</td></tr>';
-    h+='<tr><td class="k">Category</td><td>'+esc(kindEn)+'</td></tr></table>';
+    h+='<tr><td class="k">Category</td><td>'+esc(kind)+'</td></tr></table>';
     h+='<table class="stamp"><tr><td class="k">Approval</td><td class="k">Checked</td><td class="k">Prepared by</td></tr><tr><td>'+appCell+'</td><td>'+chkCell+'</td><td>'+sealCell+'</td></tr></table>';
-    h+='<h2>1. Purpose</h2><p>'+esc(purpEn)+'</p>';
+    h+='<h2>1. Purpose</h2><p>'+esc(purp)+'</p>';
     h+='<h2>2. About the company</h2><table class="kv">';
     h+='<tr><th>Company</th><td>'+esc(c.name)+'</td></tr>';
     h+='<tr><th>Booth</th><td>'+esc(c.booth||'—')+' ('+esc(c.section)+')</td></tr>';
@@ -246,7 +242,7 @@ function render(){
     if(y.entry)mj+='<p>Approach: '+esc(y.entry)+'</p>';
     if(c.pitch)mj+='<p>Pitch: '+esc(c.pitch.length>600?c.pitch.slice(0,600)+'…':c.pitch)+'</p>';
     if(mj)h+='<h2>3. Contact &amp; assessment</h2>'+mj;
-    h+='<h2>4. On-site memo</h2><p>'+(memoEn?esc(memoEn):'(not entered)')+'</p>';
+    h+='<h2>4. On-site memo</h2><p>'+(memo?esc(memo):'(not entered)')+'</p>';
     h+=condHtml;
     h+='<h2>5. Request</h2><p>Please review and advise whether we may proceed with this business discussion, and if so, the next steps to take.</p>';
     h+='<div class="foot">'+(y.source?'Source: '+esc(y.source)+'<br>':'')+'Note: This document was auto-generated from the internal exhibitor index. Assessments and hypotheses are estimates, marked as such. Some source texts remain in Japanese.</div>';
@@ -254,10 +250,9 @@ function render(){
   el.innerHTML=h;
 }
 ['fSubject','fKind','fPurpose'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
-['fSubjectEn','fPurposeEn','fMemoEn'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){render();if(cur)touch({subjectEn:document.getElementById('fSubjectEn').value,purposeEn:document.getElementById('fPurposeEn').value,memoEn:document.getElementById('fMemoEn').value});});});
 document.getElementById('fMemo').addEventListener('input',function(){render();if(cur)touch({memo:document.getElementById('fMemo').value});});
 document.getElementById('q').addEventListener('input',renderList);
-document.getElementById('btnLang').addEventListener('click',function(){lang=lang==='jp'?'en':'jp';render();renderStatus();applyRole();});
+document.getElementById('btnLang').addEventListener('click',function(){lang=lang==='jp'?'en':'jp';autoTexts();render();renderStatus();applyRole();});
 document.querySelectorAll('#roletabs button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role);});});
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
 document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');touch({status:'waiting',waiting:sel?sel.value:'ティリーニ',subject:document.getElementById('fSubject').value});renderStatus();});
@@ -274,17 +269,16 @@ document.getElementById('btnCopy').addEventListener('click',function(){
   if(!cur)return;
   var t;
   if(lang==='jp'){t='【稟議書】\n件名：'+document.getElementById('fSubject').value+'\n申請者：東 久順（起案日：'+reiwa(new Date())+'）\n区分：'+document.getElementById('fKind').value+'\n\n1．目的\n'+document.getElementById('fPurpose').value+'\n\n相手先：'+cur.name+'（小間 '+(cur.booth||'—')+'）\n接触メモ：'+(document.getElementById('fMemo').value.trim()||'（未記入）');}
-  else{var _se=document.getElementById('fSubjectEn').value.trim()||document.getElementById('fSubject').value;var _pe=document.getElementById('fPurposeEn').value.trim()||document.getElementById('fPurpose').value;var _me=document.getElementById('fMemoEn').value.trim()||document.getElementById('fMemo').value.trim();t='[RINGI - Request for Approval]\nSubject: '+_se+'\nSubmitted by: Hisanobu Azuma (Date: '+enDate(new Date())+')\nCategory: Referral of an exhibition contact (SMART ENERGY WEEK Kansai)\n\n1. Purpose\n'+_pe+'\n\nCompany: '+cur.name+' (Booth '+(cur.booth||'-')+')\nOn-site memo: '+(_me||'(not entered)');}
+  else{t='[RINGI - Request for Approval]\nSubject: '+document.getElementById('fSubject').value+'\nSubmitted by: Hisanobu Azuma (Date: '+enDate(new Date())+')\nCategory: '+document.getElementById('fKind').value+'\n\n1. Purpose\n'+document.getElementById('fPurpose').value+'\n\nCompany: '+cur.name+' (Booth '+(cur.booth||'-')+')\nOn-site memo: '+(document.getElementById('fMemo').value.trim()||'(not entered)');}
   if(navigator.clipboard)navigator.clipboard.writeText(t);
 });
 function applyRole(){document.querySelectorAll('#roletabs button').forEach(function(b){b.classList.toggle('on',b.dataset.role===role);});
   var map={drafter:'a-draft',checker:'a-check',president:'a-pres'};
   document.querySelectorAll('.a-draft,.a-check,.a-pres').forEach(function(el){el.style.display=el.classList.contains(map[role])?'':'none';});
-  var eb=document.getElementById('enBox'); if(eb&&lang==='en')eb.open=true;
   var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');}
 function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
 function stampDef(){var v=(role==='president')?'approver':(role==='checker'?'checker':'drafter');document.querySelectorAll('input[name="stampWho"]').forEach(function(x){x.checked=(x.value===v);});}
-function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();render();renderStatus();}
+function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();autoTexts();render();renderStatus();}
 applyRole();subDef();stampDef();renderBoard();renderList();renderStatus();
 var m=/#co=(\d+)/.exec(location.hash||'');
 if(m)select(+m[1]);
