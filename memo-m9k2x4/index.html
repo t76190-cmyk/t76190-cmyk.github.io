@@ -51,9 +51,10 @@ footer{padding:14px 16px;color:var(--mut);font-size:11.5px;border-top:1px solid 
 <h2>Progress — 3 days, 210 companies</h2>
 <div class="kpis">
 <div class="kpi hot"><div class="donutWrap"><svg width="86" height="86" viewBox="0 0 86 86"><circle cx="43" cy="43" r="34" fill="none" stroke="#eef1f4" stroke-width="10"/><circle id="donutArc" cx="43" cy="43" r="34" fill="none" stroke="#f39800" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 213.6" transform="rotate(-90 43 43)"/><text id="donutPct" x="43" y="48" text-anchor="middle" font-size="16" font-weight="800" fill="#2f5d8a">0%</text></svg><div><div class="big" id="kDone">0</div><div class="l">Visited + talked<br><span id="kDonePct"></span></div></div></div></div>
-<div class="kpi"><div class="n" id="kTalk">0</div><div class="l">Talked</div></div>
+<div class="kpi"><div class="n" id="kTalk">0</div><div class="l">Talked</div><div class="l" id="kTalkPct"></div></div>
 <div class="kpi"><div class="n" id="kVisit">0</div><div class="l">Visited</div></div>
-<div class="kpi hot"><div class="n" id="kProspect">0</div><div class="l">Prospects — yes</div></div>
+<div class="kpi hot"><div class="n" id="kProspect">0</div><div class="l">Prospects — yes</div><div class="l" id="kProspectPct"></div></div>
+<div class="kpi hot"><div class="n" id="kRef">0</div><div class="l">Referred to president</div><div class="l" id="kRefPct"></div></div>
 <div class="kpi"><div class="n" id="kNoProspect">0</div><div class="l">Prospects — no</div></div>
 <div class="kpi"><div class="n" id="kLater">0</div><div class="l">Later</div></div>
 </div>
@@ -91,7 +92,7 @@ var store = loadJ(NKEY); if (!store.companies) store = {companies: {}, updated: 
 var cfg = loadJ(CKEY);
 if (!cfg.dayVisit) cfg = {dayVisit: 30, dayTalk: 10, totalDone: 100};
 function esc(t){ return (t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
-var STM = {'訪問済': 'v', '話せた': 't', 'あとで回る': 'l', '行かない': 's'};
+var STM = {'訪問済': 'v', '話せた': 't', 'あとで回る': 'l', '行かない': 's', '社長取り次ぎ': 'ref'};
 var PEN = {'Not visited': 'v', 'Visited': 'v', 'Talked': 't', 'Card exchanged': 't', 'Next step': 't'};
 var PRES_J = {'売りたい人': 'seller', '買いたい人': 'buyer', '今回は不要': 'not', 'その他': 'other', '検討中1': 'c1', '検討中2': 'c2'};
 var PRES_E = {'Seller': 'seller', 'Buyer': 'buyer', 'Not this time': 'not', 'Other': 'other', 'Considering 1': 'c1', 'Considering 2': 'c2'};
@@ -110,7 +111,8 @@ function parseCopy(text){
     var name = body.split('（')[0].split('(')[0].trim();
     if (!name) return;
     var r = rec(name);
-    if (mode === 'v' || mode === 't' || mode === 'l' || mode === 's') {
+    if (mode === 'ref') { r.ref = true; changed++; }
+    else if (mode === 'v' || mode === 't' || mode === 'l' || mode === 's') {
       r.s = mode;
       var dm = body.match(/(\d{1,2})\/(\d{1,2}) \d{1,2}:\d{2}/);
       if (dm) r.d = (+dm[1]) + '/' + (+dm[2]);
@@ -135,6 +137,7 @@ function nums(){
     var r = c[k];
     if (r.s) { n[r.s]++; n.touched++; if ((r.s === 'v' || r.s === 't') && r.d) n.days[r.d] = (n.days[r.d] || 0) + 1; }
     if (r.o === 'a') n.oa++; if (r.o === 'n') n.on++;
+    if (r.ref) n.ref = (n.ref || 0) + 1;
     if (r.pres) n.pres[r.pres] = (n.pres[r.pres] || 0) + 1;
     if (r.conn) n.conn++;
   });
@@ -147,6 +150,10 @@ function render(){
   document.getElementById('kDonePct').textContent = Math.round(n.done / 210 * 100) + '% of 210 · target ' + cfg.totalDone;
   document.getElementById('doneBar').style.width = Math.min(100, n.done / Math.max(1, cfg.totalDone) * 100) + '%';
   document.getElementById('kTalk').textContent = n.t;
+  document.getElementById('kTalkPct').textContent = Math.round(n.t / 210 * 1000) / 10 + '% of 210';
+  document.getElementById('kRef').textContent = n.ref || 0;
+  document.getElementById('kRefPct').textContent = Math.round((n.ref || 0) / 210 * 1000) / 10 + '% of 210';
+  document.getElementById('kProspectPct').textContent = Math.round(n.oa / 210 * 1000) / 10 + '% of 210';
   document.getElementById('kVisit').textContent = n.v;
   document.getElementById('kProspect').textContent = n.oa;
   document.getElementById('kNoProspect').textContent = n.on;
