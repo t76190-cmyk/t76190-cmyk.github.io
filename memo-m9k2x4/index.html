@@ -92,7 +92,7 @@ var store = loadJ(NKEY); if (!store.companies) store = {companies: {}, updated: 
 var cfg = loadJ(CKEY);
 if (!cfg.dayVisit) cfg = {dayVisit: 30, dayTalk: 10, totalDone: 100};
 function esc(t){ return (t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
-var STM = {'訪問済': 'v', '話せた': 't', 'あとで回る': 'l', '行かない': 's', '社長取り次ぎ': 'ref'};
+var STM = {'訪問済': 'v', '話せた': 't', 'あとで回る': 'l', '行かない': 's', '断られた': 's', '社長取り次ぎ': 'ref'};
 var PEN = {'Not visited': 'v', 'Visited': 'v', 'Talked': 't', 'Card exchanged': 't', 'Next step': 't'};
 var PRES_J = {'売りたい人': 'seller', '買いたい人': 'buyer', '今回は不要': 'not', 'その他': 'other', '検討中1': 'c1', '検討中2': 'c2'};
 var PRES_E = {'Seller': 'seller', 'Buyer': 'buyer', 'Not this time': 'not', 'Other': 'other', 'Considering 1': 'c1', 'Considering 2': 'c2'};
