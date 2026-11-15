@@ -95,7 +95,7 @@ a.back{color:#173a6b;font-size:13px}
 <div class="btns" id="selfDocs" style="display:none"></div>
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
-<span class="ctl"><button id="btnStampAll" type="button">🔴 押印する</button></span>
+<span class="ctl"><button id="btnStampAll" type="button">🔴 押印する</button><span class="rads" id="stampActs"></span></span>
 <span class="ctl a-draft a-check"><button id="btnSubmit" type="button" class="main">📤 提出</button><span class="rads"><label><input type="radio" name="subTo" value="ティリーニ"> ティリーニ</label><label><input type="radio" name="subTo" value="社長"> マンジュラ社長</label></span></span>
 <button id="btnReturn" type="button" class="a-check a-pres">↩ 差し戻し</button>
 </div>
@@ -150,7 +150,7 @@ function renderStatus(){
   else{chip.textContent=cur.name+'：'+STLABEL[r.status]+(r.status==='waiting'?'（'+r.waiting+'待ち）':'')+(r.status==='approved'?'（'+ymd(r.updated)+'）':'');}
   var _who=(role==='president')?'approver':(role==='checker'?'checker':'drafter');
   var _has=_who==='drafter'?stamped:(_who==='checker'?!!checkedAt:!!approvedAt);
-  document.getElementById('btnStampAll').textContent=_has?'🔴 押印を取り消す':(role==='checker'?'🔴 確認して社長へ上げる':(role==='president'?'🔴 決裁する':'🔴 押印する'));
+  document.getElementById('btnStampAll').textContent=_has?'🔴 押印を取り消す':'🔴 押印する';
   document.getElementById('btnStampAll').classList.toggle('on',_has);
   document.getElementById('btnLang').textContent=lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に切り替え';
   renderConds();
@@ -348,15 +348,16 @@ document.getElementById('btnLang').addEventListener('click',function(){lang=lang
 document.querySelectorAll('#roletabs button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role);});});
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
 document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');var _p={status:'waiting',waiting:sel?sel.value:'ティリーニ',subject:document.getElementById('fSubject').value};if(returnedAt){resubmittedAt=Date.now();_p.resubmittedAt=resubmittedAt;}touch(_p);renderStatus();renderBoard();render();});
-document.getElementById('btnReturn').addEventListener('click',function(){if(!cur)return;checkedAt=null;approvedAt=null;approvedBy=null;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';touch({status:'returned',checkedAt:null,approvedAt:null,approvedBy:null,returnedAt:returnedAt,returnedBy:returnedBy});render();renderStatus();});
+function doReturn(){if(!cur)return;checkedAt=null;approvedAt=null;approvedBy=null;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';touch({status:'returned',checkedAt:null,approvedAt:null,approvedBy:null,returnedAt:returnedAt,returnedBy:returnedBy});render();renderStatus();renderBoard();}
+document.getElementById('btnReturn').addEventListener('click',doReturn);
 document.getElementById('btnStampAll').addEventListener('click',function(){if(!cur)return;var who=(role==='president')?'approver':(role==='checker'?'checker':'drafter');
   if(who==='drafter'){stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
   else if(who==='checker'){
     if(checkedAt){checkedAt=null;var _u={checkedAt:null};var _r=rec();if(_r&&_r.status==='waiting'&&_r.waiting==='社長')_u.waiting='ティリーニ';touch(_u);}
-    else{checkedAt=Date.now();touch({checkedAt:checkedAt,status:'waiting',waiting:'社長'});}
+    else{var _a=document.querySelector('input[name="stampAct"]:checked');if(_a&&_a.value==='return'){doReturn();return;}checkedAt=Date.now();touch({checkedAt:checkedAt,status:'waiting',waiting:'社長'});}
   }
   else if(approvedAt){approvedAt=null;approvedBy=null;var r0=rec();var patch={approvedAt:null,approvedBy:null};if(r0&&r0.status==='approved')patch.status='draft';touch(patch);}
-  else{approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
+  else{var _b=document.querySelector('input[name="stampAct"]:checked');if(_b&&_b.value==='return'){doReturn();return;}approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
   render();renderStatus();renderBoard();});
 document.getElementById('btnPrint').addEventListener('click',function(){window.print();});
 document.getElementById('btnCopy').addEventListener('click',function(){
@@ -369,11 +370,14 @@ document.getElementById('btnCopy').addEventListener('click',function(){
 function applyRole(){document.querySelectorAll('#roletabs button').forEach(function(b){b.classList.toggle('on',b.dataset.role===role);});
   var map={drafter:'a-draft',checker:'a-check',president:'a-pres'};
   document.querySelectorAll('.a-draft,.a-check,.a-pres').forEach(function(el){el.style.display=el.classList.contains(map[role])?'':'none';});
-  var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');}
+  var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');
+  var sa=document.getElementById('stampActs');
+  if(sa){sa.innerHTML=(role==='checker')?'<label><input type="radio" name="stampAct" value="check" checked> 確認</label><label><input type="radio" name="stampAct" value="return"> 差し戻し</label>':(role==='president')?'<label><input type="radio" name="stampAct" value="approve" checked> 決裁</label><label><input type="radio" name="stampAct" value="return"> 差し戻し</label>':'';}
+  var br=document.getElementById('btnReturn');if(br)br.style.display='none';}
 function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
 function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();var r4=rec();if(!(r4&&(r4.subject||r4.purpose)))autoTexts();syncBodyField();render();renderStatus();renderSelfDocs();}
 var UIEN=(typeof FORCE_EN_UI!=='undefined'&&FORCE_EN_UI);
-var UIDICT=[['新しい稟議書','New ringi'],['この下書きを削除','Delete this draft'],['稟議書ボード','Ringi board'],['稟議書待ち','Waiting for approval'],['差し戻し・下書き','Returned / drafts'],['過去稟議書','Past ringi'],['稟議書をつくる','Create a ringi'],['担当者（東）','Drafter (Azuma)'],['確認（ティリーニ）','Checker (Thilini)'],['決裁（マンジュラ社長）','Approver (President Manjula)'],['押印を取り消す','Remove stamp'],['確認して社長へ上げる','Check & forward to the President'],['決裁する','Approve'],['押印する','Stamp'],['ティリーニ待ち','waiting for Thilini'],['社長待ち','waiting for the President'],['提出済み','Submitted'],['確定（決裁済み）','Finalised (approved)'],['条件・特記','Conditions / notes'],['管理・決裁者追記欄','Notes by management / approver'],['提案・報告事項（本文）','Proposals & reports (body)'],['当日の接触メモ','On-site memo'],['条件を加筆する','Add note'],['裏面（日本語）を見る','View the Japanese side'],['英文に切り替え','Switch to English'],['日本語に戻す','Back to Japanese'],['マンジュラ社長','President Manjula'],['ティリーニ','Thilini'],['社長','the President'],['提出','Submit'],['差し戻し','Send back'],['印刷する','Print'],['本文をコピー','Copy text'],['件名','Subject'],['区分','Category'],['目的','Purpose'],['下書き','Draft'],['（無題）','(untitled)'],['（待ち）',' (waiting)'],['削除','Delete'],['稟議書','Ringi']];
+var UIDICT=[['新しい稟議書','New ringi'],['この下書きを削除','Delete this draft'],['稟議書ボード','Ringi board'],['稟議書待ち','Waiting for approval'],['差し戻し・下書き','Returned / drafts'],['過去稟議書','Past ringi'],['稟議書をつくる','Create a ringi'],['担当者（東）','Drafter (Azuma)'],['確認（ティリーニ）','Checker (Thilini)'],['決裁（マンジュラ社長）','Approver (President Manjula)'],['押印を取り消す','Remove stamp'],['確認して社長へ上げる','Check & forward to the President'],['決裁する','Approve'],['押印する','Stamp'],['ティリーニ待ち','waiting for Thilini'],['社長待ち','waiting for the President'],['提出済み','Submitted'],['確定（決裁済み）','Finalised (approved)'],['決裁','Approve'],['確認','Check'],['条件・特記','Conditions / notes'],['管理・決裁者追記欄','Notes by management / approver'],['提案・報告事項（本文）','Proposals & reports (body)'],['当日の接触メモ','On-site memo'],['条件を加筆する','Add note'],['裏面（日本語）を見る','View the Japanese side'],['英文に切り替え','Switch to English'],['日本語に戻す','Back to Japanese'],['マンジュラ社長','President Manjula'],['ティリーニ','Thilini'],['社長','the President'],['提出','Submit'],['差し戻し','Send back'],['印刷する','Print'],['本文をコピー','Copy text'],['件名','Subject'],['区分','Category'],['目的','Purpose'],['下書き','Draft'],['（無題）','(untitled)'],['（待ち）',' (waiting)'],['削除','Delete'],['稟議書','Ringi']];
 var _uieBusy=false;
 function applyUiEn(){
   if(!UIEN||_uieBusy)return;_uieBusy=true;
