@@ -83,4 +83,5 @@ secEl.addEventListener('change',render);
 document.getElementById('qrOpen').addEventListener('click',function(){document.getElementById('qrmodal').style.display='block';});
 document.getElementById('qrClose').addEventListener('click',function(){document.getElementById('qrmodal').style.display='none';});
 render();
+try{var cm=location.hash.match(/^#co=(\d+)$/);if(cm){var ci=parseInt(cm[1],10);if(DATA[ci])openDetail(ci);}}catch(e){}
 </script></body></html>
