@@ -227,7 +227,7 @@ function select(ci){
   document.getElementById('fBody').value=r?(r.body||''):'';
   autoTexts();
   if(r){if(r.subject)document.getElementById('fSubject').value=r.subject;if(r.kind)document.getElementById('fKind').value=r.kind;if(r.purpose)document.getElementById('fPurpose').value=r.purpose;}
-  renderList();render();renderStatus();renderSelfDocs();
+  renderBoard();renderList();render();renderStatus();renderSelfDocs();
 }
 function render(){
   var el=document.getElementById('sheet');
