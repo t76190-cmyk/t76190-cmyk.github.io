@@ -89,8 +89,8 @@ a.back{color:#173a6b;font-size:13px}
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
 <button id="btnStamp" type="button" class="a-draft">🔴 押印する</button>
-<button id="btnSubT" type="button" class="main a-draft">📤 ティリーニへ提出</button>
-<button id="btnSubP" type="button" class="main a-draft a-check">📤 社長へ提出</button>
+<span class="a-draft a-check" style="display:inline-flex;gap:12px;align-items:center;font-size:14px;font-weight:700;color:#173a6b"><label><input type="radio" name="subTo" value="ティリーニ"> ティリーニ</label><label><input type="radio" name="subTo" value="社長"> マンジュラ</label></span>
+<button id="btnSubmit" type="button" class="main a-draft a-check">📤 提出</button>
 <button id="btnCheck" type="button" class="a-check">✔ ティリーニ確認（押印）</button>
 <button id="btnApproveT" type="button" class="a-check">✅ 決裁（ティリーニ権限）</button>
 <button id="btnReturn" type="button" class="a-check a-pres">↩ 差し戻し</button>
@@ -256,8 +256,7 @@ document.getElementById('btnLang').addEventListener('click',function(){lang=lang
 document.querySelectorAll('#roletabs button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role);});});
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
 document.getElementById('btnStamp').addEventListener('click',function(){if(!cur)return;stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});render();renderStatus();});
-document.getElementById('btnSubT').addEventListener('click',function(){if(!cur)return;touch({status:'waiting',waiting:'ティリーニ',subject:document.getElementById('fSubject').value});renderStatus();});
-document.getElementById('btnSubP').addEventListener('click',function(){if(!cur)return;touch({status:'waiting',waiting:'社長',subject:document.getElementById('fSubject').value});renderStatus();});
+document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');touch({status:'waiting',waiting:sel?sel.value:'ティリーニ',subject:document.getElementById('fSubject').value});renderStatus();});
 document.getElementById('btnCheck').addEventListener('click',function(){if(!cur)return;checkedAt=Date.now();touch({checkedAt:checkedAt});render();renderStatus();});
 document.getElementById('btnReturn').addEventListener('click',function(){if(!cur)return;checkedAt=null;approvedAt=null;approvedBy=null;touch({status:'returned',checkedAt:null,approvedAt:null,approvedBy:null});render();renderStatus();});
 document.getElementById('btnApprove').addEventListener('click',function(){if(!cur)return;approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:'manjula'});render();renderStatus();});
@@ -274,8 +273,9 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
   var map={drafter:'a-draft',checker:'a-check',president:'a-pres'};
   document.querySelectorAll('.a-draft,.a-check,.a-pres').forEach(function(el){el.style.display=el.classList.contains(map[role])?'':'none';});
   var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');}
-function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();autoTexts();render();renderStatus();}
-applyRole();renderBoard();renderList();renderStatus();
+function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
+function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();autoTexts();render();renderStatus();}
+applyRole();subDef();renderBoard();renderList();renderStatus();
 var m=/#co=(\d+)/.exec(location.hash||'');
 if(m)select(+m[1]);
 </script>
