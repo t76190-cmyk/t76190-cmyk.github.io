@@ -76,6 +76,7 @@ a.back{color:#173a6b;font-size:13px}
   #sheet{box-shadow:none;max-width:none;padding:0}
   @page{size:A4;margin:11.5mm 16mm 10mm}
 }
+.ui[data-role="president"] .preshide{display:none!important}
 </style>
 </head>
 <body>
@@ -86,13 +87,13 @@ a.back{color:#173a6b;font-size:13px}
 <div id="board"></div>
 <div id="createBox" class="a-draft"><h2 class="b">稟議書をつくる</h2>
 <div class="row"><input type="text" id="q" placeholder="会社名で検索（例：Sustech）"><div id="clist"></div></div></div>
-<div class="row"><label>件名</label><input type="text" id="fSubject"></div>
-<div class="row"><label>区分</label><input type="text" id="fKind"></div>
-<div class="row"><label>目的（編集できます）</label><textarea id="fPurpose"></textarea></div>
-<div class="row" id="fMemoWrap"><label>当日の接触メモ（担当者・話した内容・先方の反応）</label><textarea id="fMemo" placeholder="例：営業部 ○○様と名刺交換。系統用蓄電池の販売網に関心。資料送付を約束。"></textarea></div>
-<div class="row" id="fBodyWrap" style="display:none"><label>提案・報告事項（本文）</label><textarea id="fBody" placeholder="例：①号外シリーズ全4弾の完成報告 ②ドメイン取得の提案"></textarea></div>
-<div class="row"><span id="statusChip">未選択</span></div>
-<div class="btns" id="selfDocs" style="display:none"></div>
+<div class="row preshide"><label>件名</label><input type="text" id="fSubject"></div>
+<div class="row preshide"><label>区分</label><input type="text" id="fKind"></div>
+<div class="row preshide"><label>目的（編集できます）</label><textarea id="fPurpose"></textarea></div>
+<div class="row preshide" id="fMemoWrap"><label>当日の接触メモ（担当者・話した内容・先方の反応）</label><textarea id="fMemo" placeholder="例：営業部 ○○様と名刺交換。系統用蓄電池の販売網に関心。資料送付を約束。"></textarea></div>
+<div class="row preshide" id="fBodyWrap" style="display:none"><label>提案・報告事項（本文）</label><textarea id="fBody" placeholder="例：①号外シリーズ全4弾の完成報告 ②ドメイン取得の提案"></textarea></div>
+<div class="row preshide"><span id="statusChip">未選択</span></div>
+<div class="btns preshide" id="selfDocs" style="display:none"></div>
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
 <span class="ctl"><button id="btnStampAll" type="button">🔴 押印する</button><span class="rads" id="stampActs"></span></span>
@@ -393,6 +394,7 @@ document.getElementById('btnCopy').addEventListener('click',function(){
 });
 function applyRole(){document.querySelectorAll('#roletabs button').forEach(function(b){b.classList.toggle('on',b.dataset.role===role);});
   var map={drafter:'a-draft',checker:'a-check',president:'a-pres'};
+  var _ui=document.querySelector('.ui');if(_ui)_ui.dataset.role=role;
   document.querySelectorAll('.a-draft,.a-check,.a-pres').forEach(function(el){el.style.display=el.classList.contains(map[role])?'':'none';});
   var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');
   var sa=document.getElementById('stampActs');
