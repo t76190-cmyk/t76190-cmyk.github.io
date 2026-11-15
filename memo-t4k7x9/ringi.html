@@ -364,10 +364,10 @@ document.getElementById('btnStampAll').addEventListener('click',function(){if(!c
   if(who==='drafter'){stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
   else if(who==='checker'){
     if(checkedAt){checkedAt=null;var _u={checkedAt:null};var _r=rec();if(_r&&_r.status==='waiting'&&_r.waiting==='社長')_u.waiting='ティリーニ';touch(_u);}
-    else{checkedAt=Date.now();touch({checkedAt:checkedAt,status:'waiting',waiting:'社長'});}
+    else{var _a=document.querySelector('input[name="stampAct"]:checked');if(_a&&_a.value==='return'){doReturn();return;}checkedAt=Date.now();touch({checkedAt:checkedAt,status:'waiting',waiting:'社長'});}
   }
   else if(approvedAt){approvedAt=null;approvedBy=null;var r0=rec();var patch={approvedAt:null,approvedBy:null};if(r0&&r0.status==='approved')patch.status='draft';touch(patch);}
-  else{approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
+  else{var _b=document.querySelector('input[name="stampAct"]:checked');if(_b&&_b.value==='return'){doReturn();return;}approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
   render();renderStatus();renderBoard();});
 document.getElementById('btnPrint').addEventListener('click',function(){window.print();});
 document.getElementById('btnCopy').addEventListener('click',function(){
@@ -382,7 +382,7 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
   document.querySelectorAll('.a-draft,.a-check,.a-pres').forEach(function(el){el.style.display=el.classList.contains(map[role])?'':'none';});
   var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');
   var sa=document.getElementById('stampActs');
-  if(sa){sa.innerHTML=(role==='checker')?'<label><input type="radio" name="stampAct" value="check" checked> 確認</label>':(role==='president')?'<label><input type="radio" name="stampAct" value="approve" checked> 決裁</label>':'';}
+  if(sa){sa.innerHTML=(role==='checker')?'<label><input type="radio" name="stampAct" value="check" checked> 確認</label><label><input type="radio" name="stampAct" value="return"> 差し戻し</label>':(role==='president')?'<label><input type="radio" name="stampAct" value="approve" checked> 決裁</label><label><input type="radio" name="stampAct" value="return"> 差し戻し</label>':'';}
   var ra=document.getElementById('retActs');
   if(ra){ra.innerHTML=(role==='drafter')?'':'<span style="font-size:12px;color:#42506b">戻し先</span><label><input type="radio" name="retTo" value="東" checked> 東</label>';}}
 function subDef(){document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value==='社長');});}
