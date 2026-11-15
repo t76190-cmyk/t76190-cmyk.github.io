@@ -89,6 +89,7 @@ a.back{color:#173a6b;font-size:13px}
 <div class="row" id="fMemoWrap"><label>当日の接触メモ（担当者・話した内容・先方の反応）</label><textarea id="fMemo" placeholder="例：営業部 ○○様と名刺交換。系統用蓄電池の販売網に関心。資料送付を約束。"></textarea></div>
 <div class="row" id="fBodyWrap" style="display:none"><label>提案・報告事項（本文）</label><textarea id="fBody" placeholder="例：①号外シリーズ全4弾の完成報告 ②ドメイン取得の提案"></textarea></div>
 <div class="row"><span id="statusChip">未選択</span></div>
+<div class="btns" id="selfDocs" style="display:none"></div>
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
 <span class="ctl"><button id="btnStampAll" type="button">🔴 押印する</button><span class="rads"><label><input type="radio" name="stampWho" value="drafter"> 担当</label><label><input type="radio" name="stampWho" value="checker"> 確認</label><label><input type="radio" name="stampWho" value="approver"> 決裁</label></span></span>
@@ -113,12 +114,16 @@ function enDate(d){return d.toLocaleDateString('en-US',{year:'numeric',month:'sh
 function mdhm(ts){var d=new Date(ts);return (d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
 function ymd(ts){var d=new Date(ts);return d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate();}
 function tsText(ts){var d=new Date(ts);return d.getFullYear()+'/'+('0'+(d.getMonth()+1)).slice(-2)+'/'+('0'+d.getDate()).slice(-2)+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
-function loadStore(){try{return JSON.parse(localStorage.getItem(SKEY)||'{}')||{};}catch(e){return{};}}
+function loadStore(){try{var s=JSON.parse(localStorage.getItem(SKEY)||'{}')||{};if(s['0']&&!s.__self){s.__self={docs:{d0:s['0']},cur:'d0'};delete s['0'];}return s;}catch(e){return{};}}
+function selfSS(s){if(!s.__self)s.__self={docs:{},cur:null};return s.__self;}
 function saveStore(s){try{localStorage.setItem(SKEY,JSON.stringify(s));}catch(e){}}
-function rec(){if(!cur)return null;var s=loadStore();return s[cur.ci]||null;}
+function rec(){if(!cur)return null;var s=loadStore();if(cur.ci===0){var ss=selfSS(s);return ss.cur?(ss.docs[ss.cur]||null):null;}return s[cur.ci]||null;}
 function touch(patch){
-  if(!cur)return;var s=loadStore();var r=s[cur.ci]||{ci:cur.ci,name:cur.name,status:'draft',waiting:'',stamped:false,memo:'',subject:''};
-  for(var k in patch)r[k]=patch[k];r.updated=Date.now();r.name=cur.name;s[cur.ci]=r;saveStore(s);renderBoard();renderStatus();
+  if(!cur)return;var s=loadStore();
+  if(cur.ci===0){var ss=selfSS(s);if(!ss.cur||!ss.docs[ss.cur]){var nid='d'+Date.now();ss.docs[nid]={ci:0,name:cur.name,status:'draft',waiting:'',stamped:false,memo:'',body:'',subject:'',created:Date.now()};ss.cur=nid;}
+    var r=ss.docs[ss.cur];for(var k in patch)r[k]=patch[k];r.updated=Date.now();r.name=cur.name;saveStore(s);renderBoard();renderStatus();renderSelfDocs();return;}
+  var r2=s[cur.ci]||{ci:cur.ci,name:cur.name,status:'draft',waiting:'',stamped:false,memo:'',subject:''};
+  for(var k2 in patch)r2[k2]=patch[k2];r2.updated=Date.now();r2.name=cur.name;s[cur.ci]=r2;saveStore(s);renderBoard();renderStatus();
 }
 var STLABEL={draft:'下書き',waiting:'提出済み（待ち）',returned:'差し戻し',approved:'確定'};
 function renderStatus(){
@@ -132,23 +137,48 @@ function renderStatus(){
   document.getElementById('btnStampAll').classList.toggle('on',_has);
   document.getElementById('btnLang').textContent=lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に切り替え';
 }
+function renderSelfDocs(){
+  var box=document.getElementById('selfDocs');if(!box)return;
+  if(!isSelfC()){box.style.display='none';box.innerHTML='';return;}
+  box.style.display='';
+  var s=loadStore();var ss=selfSS(s);var ids=Object.keys(ss.docs);
+  var h='<span style="font-size:13px;font-weight:700;color:#173a6b">自社の稟議書：</span>';
+  ids.forEach(function(id){var d0=ss.docs[id];var lb=(d0.subject||'（無題）');if(lb.length>16)lb=lb.slice(0,16)+'…';h+='<button type="button" data-sdoc="'+id+'" class="'+(ss.cur===id?'on':'')+'">'+esc(lb)+'（'+(STLABEL[d0.status]||'下書き')+'）</button>';});
+  h+='<button type="button" id="btnNewDoc">＋ 新しい稟議書</button>';
+  var cd=ss.cur?ss.docs[ss.cur]:null;
+  if(cd&&(cd.status==='draft'||cd.status==='returned'||!cd.status))h+='<button type="button" id="btnDelDoc">🗑 この下書きを削除</button>';
+  box.innerHTML=h;
+  box.querySelectorAll('[data-sdoc]').forEach(function(b){b.addEventListener('click',function(){switchDoc(b.getAttribute('data-sdoc'));});});
+  document.getElementById('btnNewDoc').addEventListener('click',newDoc);
+  var bd=document.getElementById('btnDelDoc');if(bd)bd.addEventListener('click',deleteDoc);
+}
+function switchDoc(id){var s=loadStore();var ss=selfSS(s);if(!ss.docs[id])return;ss.cur=id;saveStore(s);select(0);}
+function newDoc(){var s=loadStore();var ss=selfSS(s);var id='d'+Date.now();ss.docs[id]={ci:0,name:'日本エコソーラー',status:'draft',waiting:'',stamped:false,memo:'',body:'',subject:'',created:Date.now(),updated:Date.now()};ss.cur=id;saveStore(s);select(0);}
+function deleteDoc(){var s=loadStore();var ss=selfSS(s);var d0=ss.cur?ss.docs[ss.cur]:null;if(!d0)return;if(!(d0.status==='draft'||d0.status==='returned'||!d0.status)){alert('提出済み・確定済みの稟議書は削除できません');return;}if(!confirm('この下書きを削除しますか？'))return;delete ss.docs[ss.cur];var ids=Object.keys(ss.docs);ss.cur=ids.length?ids[ids.length-1]:null;saveStore(s);select(0);}
+function openSelf(id){switchDoc(id);window.scrollTo(0,document.getElementById('board').offsetTop);}
 function renderBoard(){
-  var s=loadStore();var rs=Object.keys(s).map(function(k){return s[k];});
+  var s=loadStore();var rs=Object.keys(s).filter(function(k){return k!=='__self';}).map(function(k){return s[k];});
+  var ssB=selfSS(s);var sdocs=Object.keys(ssB.docs).map(function(id){var d0=ssB.docs[id];return {sid:id,status:d0.status||'draft',waiting:d0.waiting||'',updated:d0.updated||0,subject:d0.subject||''};});
+  function sbtn(d0,extra){var lb=d0.subject||'（無題）';if(lb.length>14)lb=lb.slice(0,14)+'…';return '<button type="button" data-sdoc2="'+d0.sid+'">日本エコソーラー：'+esc(lb)+(extra?' '+extra:'')+'</button>';}
   var wait=rs.filter(function(r){return r.status==='waiting';});
   var ret=rs.filter(function(r){return r.status==='returned';});
   var dr=rs.filter(function(r){return r.status==='draft';});
   var ap=rs.filter(function(r){return r.status==='approved';}).sort(function(a,b){return b.updated-a.updated;});
   function btn(r,extra){return '<button type="button" data-bci="'+r.ci+'">'+esc(r.name)+(extra?' '+extra:'')+'</button>';}
   var h='<div class="grp"><span class="gname">■ 稟議書待ち</span><br>';
-  h+=wait.length?wait.map(function(r){return btn(r,'（'+esc(r.waiting)+'待ち・'+mdhm(r.updated)+'）');}).join(''):'<span class="none">なし</span>';
+  var swait=sdocs.filter(function(d0){return d0.status==='waiting';});
+  h+=(wait.length||swait.length)?wait.map(function(r){return btn(r,'（'+esc(r.waiting)+'待ち・'+mdhm(r.updated)+'）');}).join('')+swait.map(function(d0){return sbtn(d0,'（'+esc(d0.waiting)+'待ち・'+mdhm(d0.updated)+'）');}).join(''):'<span class="none">なし</span>';
   h+='</div><div class="grp"><span class="gname">■ 差し戻し・下書き</span><br>';
   var pend=ret.concat(dr);
-  h+=pend.length?pend.map(function(r){return btn(r,'（'+STLABEL[r.status]+'）');}).join(''):'<span class="none">なし</span>';
+  var spend=sdocs.filter(function(d0){return d0.status==='returned'||d0.status==='draft';});
+  h+=(pend.length||spend.length)?pend.map(function(r){return btn(r,'（'+STLABEL[r.status]+'）');}).join('')+spend.map(function(d0){return sbtn(d0,'（'+(STLABEL[d0.status]||'下書き')+'）');}).join(''):'<span class="none">なし</span>';
   h+='</div><div class="grp"><span class="gname">■ 過去稟議書（確定）</span><br>';
-  h+=ap.length?ap.map(function(r){return btn(r,'（確定 '+ymd(r.updated)+'）');}).join(''):'<span class="none">なし</span>';
+  var sap=sdocs.filter(function(d0){return d0.status==='approved';}).sort(function(a,b){return b.updated-a.updated;});
+  h+=(ap.length||sap.length)?ap.map(function(r){return btn(r,'（確定 '+ymd(r.updated)+'）');}).join('')+sap.map(function(d0){return sbtn(d0,'（確定 '+ymd(d0.updated)+'）');}).join(''):'<span class="none">なし</span>';
   h+='</div>';
   var box=document.getElementById('board');box.innerHTML=h;
   box.querySelectorAll('[data-bci]').forEach(function(b){b.addEventListener('click',function(){select(+b.getAttribute('data-bci'));window.scrollTo(0,document.getElementById('board').offsetTop);});});
+  box.querySelectorAll('[data-sdoc2]').forEach(function(b){b.addEventListener('click',function(){openSelf(b.getAttribute('data-sdoc2'));});});
 }
 function renderList(){
   var q=document.getElementById('q').value.trim();
@@ -197,7 +227,7 @@ function select(ci){
   document.getElementById('fBody').value=r?(r.body||''):'';
   autoTexts();
   if(r){if(r.subject)document.getElementById('fSubject').value=r.subject;if(r.kind)document.getElementById('fKind').value=r.kind;if(r.purpose)document.getElementById('fPurpose').value=r.purpose;}
-  renderList();render();renderStatus();
+  renderList();render();renderStatus();renderSelfDocs();
 }
 function render(){
   var el=document.getElementById('sheet');
