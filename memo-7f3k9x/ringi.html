@@ -60,6 +60,7 @@ a.back{color:#173a6b;font-size:13px}
 #sheet table.stamp img.seal{width:30px;height:30px}
 #sheet table.stamp img.seal.ts{width:24px;height:24px}
 #sheet .sealts{font-size:6.5pt;color:#c0392b;text-align:center;line-height:1.15;font-weight:700}
+#sheet .retmark{font-size:7.5pt;color:#b03a2e;text-align:center;line-height:1.5;padding-top:12px;font-weight:700}
 #sheet h2{font-size:11.5pt;color:#173a6b;margin:16px 0 5px;border-left:3.5pt solid #f39800;padding-left:8px}
 #sheet p{font-size:10.5pt;line-height:1.65;margin:0 0 7px;text-align:justify;white-space:pre-wrap}
 #sheet table.kv{width:100%;border-collapse:collapse;font-size:10pt}
@@ -108,7 +109,7 @@ var SEAL_M="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAlgAAAJYCAYAAAC+ZpjcAA
 var SELF_BODY="①号外シリーズ全4弾の完成（配布物）\n号外は第3弾・第4弾が完成し、全4弾が揃いました（第1・2弾は先日お送りしたものです）。添付の目的資料に、配布の考え方と使い方をまとめています。\n\n②グループページ群の公開\nグループ各社のページを公開しました。商談の場でそのまま見せられる会社案内です。\nhttps://t76190-cmyk.github.io/sew2026/nihon-ecosolar.html\n\n③当日ツールの進捗共有（制作途中）\n展示会当日に使う社内ツールを、役割別に3つの版で作っています。いずれも制作途中の確認用として共有します。公開ページとは別の場所にあり、リンクを知っている方だけが開けます。\nティリーニさん用：https://t76190-cmyk.github.io/memo-t4k7x9/\n社長用：https://t76190-cmyk.github.io/memo-m9k2x4/\n\n④ドメイン nihoneco.solar の取得提案\nイベント後の展開も見据えて、グループページの受け皿になるドメインの提案を添付します。取得の手順まで含めたカタログ形式にしています。\n\n⑤FIT公開データの集計共有\n資源エネルギー庁の公開データ（「事業計画認定情報」2026年10月31日版）を集計したダッシュボードは、Googleドライブでティリーニさんに閲覧共有済みです（11月14日）。展示会での話題づくりにも使えるかと思います。\n\n⑥バナーの共有（当日は使用しません）\n別添のバナーは共有用に添付したものです。歌詞を含むため、イベント当日の利用については権利関係（JASRAC等）の申請が間に合いません。当日は使用しない前提での共有としてご覧ください。\n\n⑦資源エネルギー庁への相談書面・稟議書の持参予告\nFIT未稼働案件のデータ活用について、資源エネルギー庁への相談書面と社内稟議書の下書きを用意しています。添付はしませんが、展示会に印刷して持参しますので、対面でご相談させてください。\n\n⑧公式キャラクター「ヌル」デザインシートの共有（事後報告）\n社長との面談時にご許可をいただいた件です。事後報告として、ひかりマッチの公式キャラクター「ヌル」のデザインをまとめたシートを添付します。キャッチフレーズは「亀は万年、猫ねんね。」です。\n\n⑨A3パンフレット（見開き4ページ）の事後報告\n展示会で配布する見開き4ページのA3パンフレットは、社長との面談時にご許可をいただき、印刷入稿済みです。事後報告として記載します。";
 var SELF_BODY_EN="①Completion of the four-part \"Gogai\" extra series (handouts)\nIssues 3 and 4 are complete, and all four issues are now ready (Issues 1 and 2 were sent earlier). The attached purpose document sets out how they are to be distributed and used.\n\n②Publication of the group company pages\nPages for each group company have been published — a company brochure that can be shown as-is during business talks.\nhttps://t76190-cmyk.github.io/sew2026/nihon-ecosolar.html\n\n③Progress sharing: event-day tools (in production)\nInternal tools for the exhibition days are being built in three role-based editions, shared here as works in progress for review. They are kept apart from the public pages and open only via their links.\nFor Thilini: https://t76190-cmyk.github.io/memo-t4k7x9/\nFor the President: https://t76190-cmyk.github.io/memo-m9k2x4/\n\n④Proposal: acquire the domain nihoneco.solar\nWith post-event development in mind, a proposal for a domain to host the group pages is attached, in catalogue format including the acquisition steps.\n\n⑤Sharing the FIT public-data dashboard\nThe dashboard compiled from the Agency for Natural Resources and Energy's public data (\"Business Plan Certification Information\", as of October 31, 2026) has been shared with Thilini on Google Drive (view access, November 14). It may also serve as a conversation piece at the exhibition.\n\n⑥Sharing the banner (not for use on the day)\nThe attached banner is shared for reference only. As it contains song lyrics, the rights clearance (JASRAC and others) cannot be completed in time for the event, so please regard it as not to be used on the day.\n\n⑦Notice: consultation documents for the Agency for Natural Resources and Energy\nDraft consultation documents and an internal ringi concerning the use of data on not-yet-operating FIT projects have been prepared. They are not attached; I will bring printed copies to the exhibition and would like to consult in person.\n\n⑧Sharing the official character \"NULL\" design sheet (post-facto report)\nThis item was approved at my meeting with the President. As a post-facto report, I attach the design sheet for HIKARI match's official character \"NULL\". Its catchphrase is \"Kame wa mannen, neko nenne.\" — turtles live ten thousand years; cats just nap.\n\n⑨Post-facto report: A3 pamphlet (4-page spread)\nThe 4-page A3 pamphlet for distribution at the exhibition was approved at my meeting with the President and has been sent to print. Recorded here as a post-facto report.";
 var SKEY='ringiStoreV1';
-var cur=null, lang='jp', stamped=false, stampedAt=null, checkedAt=null, approvedAt=null, approvedBy=null, conditions=[];
+var cur=null, lang='jp', stamped=false, stampedAt=null, checkedAt=null, approvedAt=null, approvedBy=null, conditions=[], returnedAt=null, returnedBy=null;
 var role=localStorage.getItem('ringiRoleV1')||'drafter';
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 function reiwa(d){return '令和'+(d.getFullYear()-2018)+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';}
@@ -246,7 +247,7 @@ function select(ci){
   document.getElementById('q').value=cur.name;
   var r=rec();
   if(cur.name==='日本エコソーラー'&&r&&!(r.body||'').trim()&&!r.stamped&&!r.checkedAt&&!r.approvedAt&&(r.status==='draft'||!r.status)){touch({body:SELF_BODY});r=rec();}
-  stamped=r?!!r.stamped:false;stampedAt=r?(r.stampedAt||null):null;checkedAt=r?(r.checkedAt||null):null;approvedAt=r?(r.approvedAt||null):null;approvedBy=r?(r.approvedBy||null):null;conditions=r?(r.conditions||[]):[];
+  stamped=r?!!r.stamped:false;stampedAt=r?(r.stampedAt||null):null;checkedAt=r?(r.checkedAt||null):null;approvedAt=r?(r.approvedAt||null):null;approvedBy=r?(r.approvedBy||null):null;conditions=r?(r.conditions||[]):[];returnedAt=r?(r.returnedAt||null):null;returnedBy=r?(r.returnedBy||null):null;
   document.getElementById('fMemo').value=r?(r.memo||''):'';
   var _sf=cur.name==='日本エコソーラー';
   document.getElementById('fBodyWrap').style.display=_sf?'':'none';
@@ -268,12 +269,13 @@ function render(){
   var ovTxt=y.overview,bizTxt=y.business||c.summary,tagsTxt=c.tags,secTxt=c.section;
   if(lang!=='jp'&&isSelf){ovTxt=SELF_EN.ov;bizTxt=SELF_EN.biz;tagsTxt=SELF_EN.tags;secTxt=SELF_EN.sec;}
   var sealCell=stamped?'<img class="seal ts" src="'+SEAL+'" alt="seal"><div class="sealts">'+tsText(stampedAt||Date.now())+'</div>':'';
-  var chkCell=checkedAt?'<img class="seal ts" src="'+SEAL_T+'" alt="seal"><div class="sealts">'+tsText(checkedAt)+'</div>':'';
+  var retMark=function(){return '<div class="retmark">'+(lang==='jp'?'差し戻し':'Sent back')+'<br>'+tsText(returnedAt)+'</div>';};
+  var chkCell=checkedAt?'<img class="seal ts" src="'+SEAL_T+'" alt="seal"><div class="sealts">'+tsText(checkedAt)+'</div>':((returnedAt&&returnedBy==='thilini')?retMark():'');
   var condHtml='';
   var _enC=(lang!=='jp');var condHead=_enC?(isSelf?'Notes by management / approver':'Conditions / Notes'):(isSelf?'管理・決裁者追記欄':'条件・特記');
   if(conditions.length){condHtml='<div class="conds"><h4>'+condHead+'</h4>'+conditions.map(function(c){return '<p>・'+(c.by==='manjula'?'President Manjula / マンジュラ社長':'Thilini / ティリーニ')+'（'+ymd(c.ts)+'）：'+esc(c.text)+'</p>';}).join('')+'</div>';}
   else if(isSelf){condHtml='<div class="conds"><h4>'+condHead+'</h4><p>　</p><p>　</p></div>';}
-  var appCell=approvedAt?'<img class="seal ts" src="'+(approvedBy==='thilini'?SEAL_T:SEAL_M)+'" alt="seal"><div class="sealts">'+tsText(approvedAt)+'</div>':'';
+  var appCell=approvedAt?'<img class="seal ts" src="'+(approvedBy==='thilini'?SEAL_T:SEAL_M)+'" alt="seal"><div class="sealts">'+tsText(approvedAt)+'</div>':((returnedAt&&returnedBy==='manjula')?retMark():'');
   if(lang==='jp'){
     h+='<div class="head"><div class="t">稟議書</div></div>';
     h+='<table class="meta"><tr><td class="k">件名</td><td><b>'+esc(subj)+'</b></td></tr>';
@@ -342,14 +344,14 @@ document.getElementById('q').addEventListener('input',renderList);
 document.getElementById('btnLang').addEventListener('click',function(){lang=lang==='jp'?'en':'jp';var r3=rec();if(!(r3&&(r3.subject||r3.purpose)))autoTexts();syncBodyField();render();renderStatus();applyRole();});
 document.querySelectorAll('#roletabs button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role);});});
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
-document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');touch({status:'waiting',waiting:sel?sel.value:'ティリーニ',subject:document.getElementById('fSubject').value});renderStatus();});
-document.getElementById('btnReturn').addEventListener('click',function(){if(!cur)return;checkedAt=null;approvedAt=null;approvedBy=null;touch({status:'returned',checkedAt:null,approvedAt:null,approvedBy:null});render();renderStatus();});
+document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');returnedAt=null;returnedBy=null;touch({status:'waiting',waiting:sel?sel.value:'ティリーニ',subject:document.getElementById('fSubject').value,returnedAt:null,returnedBy:null});renderStatus();renderBoard();render();});
+document.getElementById('btnReturn').addEventListener('click',function(){if(!cur)return;checkedAt=null;approvedAt=null;approvedBy=null;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';touch({status:'returned',checkedAt:null,approvedAt:null,approvedBy:null,returnedAt:returnedAt,returnedBy:returnedBy});render();renderStatus();});
 document.querySelectorAll('input[name="stampWho"]').forEach(function(x){x.addEventListener('change',renderStatus);});
 document.getElementById('btnStampAll').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="stampWho"]:checked');var who=sel?sel.value:'drafter';
   if(who==='drafter'){stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
-  else if(who==='checker'){checkedAt=checkedAt?null:Date.now();touch({checkedAt:checkedAt});}
+  else if(who==='checker'){checkedAt=checkedAt?null:Date.now();var _cp={checkedAt:checkedAt};if(checkedAt&&returnedBy==='thilini'){returnedAt=null;returnedBy=null;_cp.returnedAt=null;_cp.returnedBy=null;}touch(_cp);}
   else if(approvedAt){approvedAt=null;approvedBy=null;var r0=rec();var patch={approvedAt:null,approvedBy:null};if(r0&&r0.status==='approved')patch.status='draft';touch(patch);}
-  else{approvedAt=Date.now();approvedBy=(role==='checker')?'thilini':'manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
+  else{approvedAt=Date.now();approvedBy=(role==='checker')?'thilini':'manjula';returnedAt=null;returnedBy=null;touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy,returnedAt:null,returnedBy:null});}
   render();renderStatus();});
 document.getElementById('btnPrint').addEventListener('click',function(){window.print();});
 document.getElementById('btnCopy').addEventListener('click',function(){
