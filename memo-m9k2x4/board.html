@@ -56,7 +56,7 @@ a.nmbtn{text-decoration:none;display:block}a.srow{text-decoration:none}.srow{dis
 .dsec h3{font-size:14px;margin:0 0 6px;color:var(--blue)}
 .lk{font-size:13px;color:var(--blue);text-decoration:none;border:1px solid var(--blue);padding:6px 12px;border-radius:8px;display:inline-block}
 footer{padding:14px 12px 30px;font-size:11px;color:var(--mut);line-height:1.6}
-</style>
+.mv{background:#fff;border:1.5px solid #3a4a8c;border-radius:12px;padding:12px 14px;margin:12px 0}.mv h2{font-size:14px;margin:0 0 6px;color:#3a4a8c}.mv p{font-size:12px;color:#666;line-height:1.6;margin:0 0 8px}.mv textarea{width:100%;box-sizing:border-box;height:74px;border:1.5px solid #c9c2b4;border-radius:10px;padding:9px;font-size:12.5px}.mv button{background:#3a4a8c;color:#fff;border:none;font-weight:700;font-size:13px;padding:8px 18px;border-radius:999px;cursor:pointer;margin-top:7px}.mv .bar-row{display:flex;align-items:center;gap:8px;font-size:12px;margin:4px 0}.mv .lb{width:110px;text-align:right;color:#444}.mv .tr{flex:1;background:#eee9db;border-radius:6px;height:14px;overflow:hidden}.mv .fl{display:block;height:100%;background:#33688c}.mv .fl.green{background:#3e8e5a}.mv .n{width:44px;font-weight:700}.mv ul{font-size:12.5px;line-height:1.8;margin:6px 0 0;padding-left:17px}</style>
 </head>
 <body>
 <header>
@@ -68,7 +68,7 @@ footer{padding:14px 12px 30px;font-size:11px;color:var(--mut);line-height:1.6}
 <button class="tabbtn" data-tab="fuyu">Not-needed list <span class="cnt" id="cntFuyu"></span></button>
 <button class="tabbtn" data-tab="search">Search</button>
 </div>
-<div class="copybar"><button id="copyBtn">Copy status</button><span id="copyMsg"></span></div>
+<section class="mv"><h2>Team movements</h2><p>Paste the latest status text copied from Thilini's or the field board / index ("Copy status") to see the current picture here.</p><textarea id="mvPaste" placeholder="Paste status text"></textarea><button id="mvGo" type="button">Show movements</button><div id="mvOut" style="margin-top:10px"></div></section><div class="copybar"><button id="copyBtn">Copy status</button><span id="copyMsg"></span></div>
 </header>
 <div id="sumline"></div>
 <main id="list"></main>
@@ -299,5 +299,43 @@ setTimeout(() => { msg.textContent = "";}, 3000);
 
 render();
 </script>
-</body>
+<script>
+var MV_DEC={'売りたい人':'Seller','買いたい人':'Buyer','今回は不要':'Not this time','その他':'Other','検討中1':'Considering 1','検討中2':'Considering 2','Seller':'Seller','Buyer':'Buyer','Not this time':'Not this time','Other':'Other','Considering 1':'Considering 1','Considering 2':'Considering 2'};
+function mvBar(lb,n,total,cls){var pct=total?Math.round(n/total*100):0;return '<div class="bar-row"><span class="lb">'+lb+'</span><span class="tr"><span class="fl '+(cls||'')+'" style="width:'+pct+'%"></span></span><span class="n">'+n+'</span></div>';}
+function mvParse(text){
+  var R={counts:null,connected:[],decisions:{},sections:{}};
+  var m=text.match(/集計：未訪問\s*(\d+)／訪問済み\s*(\d+)／話せた\s*(\d+)／名刺交換済み\s*(\d+)／次につながった\s*(\d+)／不要\s*(\d+)/);
+  if(m){R.counts={'Not visited':+m[1],'Visited':+m[2],'Talked':+m[3],'Card exchanged':+m[4],'Next step':+m[5],'Not needed':+m[6]};}
+  var m2=text.match(/Summary:\s*Not visited\s*(\d+)\s*／Visited\s*(\d+)\s*／Talked\s*(\d+)\s*／Card exchanged\s*(\d+)\s*／Next step\s*(\d+)\s*／Not needed\s*(\d+)/);
+  if(m2){R.counts={'Not visited':+m2[1],'Visited':+m2[2],'Talked':+m2[3],'Card exchanged':+m2[4],'Next step':+m2[5],'Not needed':+m2[6]};}
+  var cur='';
+  text.split(/\n/).forEach(function(line){
+    var h=line.match(/^【(.+)】$/)||line.match(/^■(.+)$/);
+    if(h){cur=h[1];R.sections[cur]=R.sections[cur]||[];return;}
+    if(line.indexOf('・')===0&&cur){R.sections[cur].push(line.slice(1));}
+    var d=line.match(/社長：([^／]+)/)||line.match(/President:\s*([^/]+)/);
+    if(d){var k=MV_DEC[d[1].trim()]||d[1].trim();R.decisions[k]=(R.decisions[k]||0)+1;}
+  });
+  (R.sections['繋がった']||R.sections['Connected']||[]).forEach(function(x){R.connected.push(x);});
+  if(!R.counts){
+    var LBL={'訪問済み':'Visited','話せた':'Talked','あとで回る':'Later','行かない':'Skip'};
+    var c={'Visited':0,'Talked':0,'Later':0,'Skip':0};
+    Object.keys(LBL).forEach(function(k){if(R.sections[k])c[LBL[k]]=R.sections[k].length;});
+    var done=c['Visited']+c['Talked']+c['Later']+c['Skip'];
+    if(done>0){R.counts={'Not visited':Math.max(0,210-done),'Visited':c['Visited'],'Talked':c['Talked'],'Later':c['Later'],'Skip':c['Skip']};
+      (R.sections['話せた']||[]).forEach(function(x){R.connected.push(x);});}
+  }
+  return R;
+}
+document.getElementById('mvGo').addEventListener('click',function(){
+  var text=document.getElementById('mvPaste').value,out=document.getElementById('mvOut');
+  if(!text.trim()){out.innerHTML='<p>Nothing pasted yet.</p>';return;}
+  var R=mvParse(text),h='';
+  if(R.counts){['Visited','Talked','Card exchanged','Next step','Later','Skip','Not needed'].forEach(function(k){if(R.counts[k]!=null)h+=mvBar(k,R.counts[k],210,(k==='Talked'||k==='Next step')?'green':'');});h+=mvBar('Not visited',R.counts['Not visited'],210,'');}
+  var dk=Object.keys(R.decisions);
+  if(dk.length){h+='<p style="margin:10px 0 4px"><b>President classifications</b></p>';dk.forEach(function(k){h+=mvBar(k,R.decisions[k],Math.max(1,dk.reduce(function(a,x){return a+R.decisions[x];},0)),'green');});}
+  if(R.connected.length){h+='<p style="margin:10px 0 2px"><b>Connected ('+R.connected.length+')</b></p><ul>'+R.connected.map(function(x){return '<li>'+x.replace(/</g,'&lt;')+'</li>';}).join('')+'</ul>';}
+  out.innerHTML=h||'<p>No summary found in the pasted text.</p>';
+});
+</script></body>
 </html>
