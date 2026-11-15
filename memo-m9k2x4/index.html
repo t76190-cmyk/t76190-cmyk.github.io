@@ -1,116 +1,175 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="robots" content="noindex,nofollow">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>President's Dashboard — SMART ENERGY WEEK Kansai 2026</title>
-<style>
-body{font-family:-apple-system,"Hiragino Kaku Gothic ProN",sans-serif;margin:0;background:#f6f4ef;color:#222}
-header{background:#fff;color:#222;padding:16px 14px;border-bottom:3px solid #f39800}
-header h1{font-size:19px;margin:0 0 4px}
-header p{font-size:12px;margin:0;color:#666;line-height:1.6}
-main{max-width:860px;margin:0 auto;padding:14px 12px 30px}
-.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
-.btnrow a,.btnrow button{border:none;cursor:pointer;font-size:14px;font-weight:700;padding:10px 18px;border-radius:999px;text-decoration:none;color:#fff}
-.b-amb{background:#7a1f1f}.b-board{background:#3a4a8c}.b-radar{background:#33688c}.b-qr{background:#f39800}
-section{background:#fff;border:1px solid #e3ddcf;border-radius:12px;padding:14px 16px;margin-bottom:14px}
-section h2{font-size:15px;margin:0 0 8px;color:#20304d}
-section p.note{font-size:12px;color:#666;line-height:1.7;margin:0 0 10px}
-textarea{width:100%;box-sizing:border-box;height:110px;border:1.5px solid #c9c2b4;border-radius:10px;padding:10px;font-size:13px}
-#go{background:#20304d;color:#fff;border:none;font-weight:700;font-size:14px;padding:10px 22px;border-radius:999px;cursor:pointer;margin-top:8px}
-.bar-row{display:flex;align-items:center;gap:8px;font-size:12.5px;margin:5px 0}
-.bar-row .lb{width:118px;text-align:right;color:#444}
-.bar-row .tr{flex:1;background:#eee9db;border-radius:6px;height:16px;overflow:hidden}
-.bar-row .fl{height:100%;background:#f39800}
-.bar-row .fl.blue{background:#33688c}.bar-row .fl.red{background:#b0483e}.bar-row .fl.green{background:#3e8e5a}
-.bar-row .n{width:52px;font-weight:700}
-ul.res{font-size:13px;line-height:1.8;margin:6px 0 0;padding-left:18px}
-#qrModal{position:fixed;inset:0;background:rgba(20,24,34,.94);z-index:60;display:flex;align-items:center;justify-content:center;padding:18px}
-#qrModal[hidden]{display:none}
-.qrbox{background:#fff;border-radius:16px;max-width:420px;width:100%;padding:22px;text-align:center}
-.qrbox img{width:min(68vw,280px);height:auto}
-.qrbox h2{font-size:17px;margin:0 0 6px;color:#20304d}
-.qrbox p{font-size:13px;line-height:1.7;color:#444;margin:0 0 12px}
-.qrbox button{background:#20304d;color:#fff;border:none;font-weight:700;font-size:14px;padding:10px 24px;border-radius:999px;cursor:pointer}
-footer{font-size:11px;color:#999;text-align:center;padding:10px}
-</style></head><body>
-<header>
-<h1>President's Dashboard</h1>
-<p>SMART ENERGY WEEK Kansai 2026 · Nov 18–20 · Intex Osaka · Our booth SC1-6<br>
-The same master data as the field editions — Ambition, dossiers, the board and live progress, in one place.</p>
-</header>
-<main>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard (President) — SMART ENERGY WEEK Kansai 2026</title><style>
+:root{--blue:#2f5d8a;--org:#f39800;--ink:#222;--mut:#667}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:#fff}
+header{padding:14px 16px 10px;border-bottom:3px solid var(--org)}
+h1{font-size:20px;margin:0 0 4px}header p{margin:0;color:var(--mut);font-size:12.5px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:12px 16px 0}
+.btnrow a,.btnrow button{flex:1;min-width:130px;text-align:center;background:#fdf3e3;border:1.5px solid var(--org);color:#8a5a00;font-weight:700;font-size:14px;padding:11px 8px;border-radius:10px;text-decoration:none;cursor:pointer}
+main{max-width:860px;margin:0 auto;padding:14px 16px 30px}
+h2{font-size:15px;margin:20px 0 8px;border-left:5px solid var(--org);padding-left:8px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{background:#f7fafc;border:1.5px solid #dbe5ee;border-radius:12px;padding:12px;text-align:center}
+.kpi .n{font-size:30px;font-weight:800;color:var(--blue);line-height:1.1}
+.kpi .l{font-size:12px;color:var(--mut);margin-top:3px}
+.kpi.hot .n{color:#c77400}
+.bar{height:14px;background:#eef1f4;border-radius:7px;overflow:hidden;margin:5px 0 3px}
+.bar i{display:block;height:100%;background:var(--org)}
+.dayrow{font-size:13.5px;margin:10px 0}
+.dayrow b{display:inline-block;min-width:86px}
+.tgt{font-size:11.5px;color:var(--mut)}
+textarea{width:100%;min-height:100px;border:1.5px solid #c9d4df;border-radius:10px;padding:10px;font-size:13px}
+button.act{background:var(--blue);color:#fff;border:none;font-weight:700;font-size:14px;padding:11px 22px;border-radius:10px;cursor:pointer}
+.cfg{display:flex;flex-wrap:wrap;gap:14px;font-size:13.5px}
+.cfg label{background:#f7fafc;border:1.5px solid #dbe5ee;border-radius:10px;padding:10px 12px}
+.cfg input{width:70px;font-size:15px;padding:5px 7px;border:1.5px solid #c9d4df;border-radius:7px;margin-left:6px}
+.note{font-size:12px;color:var(--mut);line-height:1.7}
+#qrModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;align-items:center;justify-content:center}
+#qrModal .box{background:#fff;border-radius:14px;padding:22px;text-align:center;max-width:320px;width:88%}
+#qrModal img{width:220px;height:220px}
+footer{padding:14px 16px;color:var(--mut);font-size:11.5px;border-top:1px solid #eee}
+</style></head>
+<body>
+<header><h1>Dashboard — Numbers for decisions</h1>
+<p>President's edition · SMART ENERGY WEEK Kansai 2026 · INTEX Osaka, Nov 18–20 · Our booth: Nihon Eco Solar, SC1-6. Numbers come from the team's status copies (paste below); they are stored on this device only.</p></header>
 <div class="btnrow">
-<a class="b-amb" href="companies.html">🔥 Ambition</a>
-<a class="b-board" href="board.html">📋 Board</a>
-<a class="b-radar" href="radar.html">🔍 Radar</a>
-<button class="b-qr" id="qrOpen" type="button">📩 Show QR</button>
+<a href="companies.html">🔥 Ambition — Manjula Search</a>
+<a href="board.html">📋 Board</a>
+<a href="radar.html">🔍 Radar</a>
+<button id="qrBtn" type="button">📩 Show QR</button>
 </div>
-<section>
-<h2>📊 Field progress</h2>
-<p class="note">Paste the status text copied from the field index or board ("Copy status"), then press the button. The graphs below are drawn from that text — the freshest paste is the current picture.</p>
-<textarea id="paste" placeholder="Paste the copied status text here"></textarea>
-<button id="go" type="button">Show progress</button>
-<div id="out" style="margin-top:12px"></div>
-</section>
-<section>
-<h2>How decisions flow</h2>
-<p class="note">On the <b>Board</b>, each company can be classified — Seller / Buyer / Not this time / Other / Considering 1 / Considering 2. Classifications are kept on this device and can be sent back with "Copy status" on the board. Full dossiers are under <b>Ambition</b> (the Manjula search); the strategy grades list is <a href="ambition.html">here</a>. Team movements — including Thilini's — appear on the <b>Board</b> when the latest status text is pasted there.</p>
-</section>
+<main>
+<h2>Progress — 3 days, 210 companies</h2>
+<div class="kpis">
+<div class="kpi hot"><div class="n" id="kDone">0</div><div class="l">Visited + talked</div><div class="l" id="kDonePct"></div></div>
+<div class="kpi"><div class="n" id="kTalk">0</div><div class="l">Talked</div></div>
+<div class="kpi"><div class="n" id="kVisit">0</div><div class="l">Visited</div></div>
+<div class="kpi hot"><div class="n" id="kProspect">0</div><div class="l">Prospects — yes</div></div>
+<div class="kpi"><div class="n" id="kNoProspect">0</div><div class="l">Prospects — no</div></div>
+<div class="kpi"><div class="n" id="kLater">0</div><div class="l">Later</div></div>
+</div>
+<div class="bar"><i id="doneBar" style="width:0%"></i></div>
+<p class="note">Skipped / not going: <b id="kSkip">0</b> · <span id="upd"></span></p>
+<h2>By day</h2>
+<div id="days"></div>
+<h2>President's classification (from the Board)</h2>
+<p style="font-size:14px" id="presLine"></p>
+<h2>Data in — paste a status copy</h2>
+<textarea id="paste" placeholder="Paste the status copy text from the field index or the Board (JP or EN)."></textarea>
+<p><button class="act" id="parseBtn" type="button">Read &amp; update numbers</button> <span class="note" id="pasteMsg"></span></p>
+<h2>Settings</h2>
+<div class="cfg">
+<label>Visits target / day<input id="cfg_dayVisit" type="number" min="1"></label>
+<label>Talks target / day<input id="cfg_dayTalk" type="number" min="1"></label>
+<label>Total done target (of 210)<input id="cfg_totalDone" type="number" min="1" max="210"></label>
+</div>
+<p style="margin-top:16px"><button id="clearBtn" type="button" style="background:none;border:1.5px solid #c9d4df;color:#667;font-size:12px;font-weight:700;padding:7px 16px;border-radius:999px;cursor:pointer">Clear stored numbers</button></p>
+<p class="note">This page holds numbers and settings only. Company details are in Manjula Search; team movements are on the Board.</p>
 </main>
-<footer>Internal only — do not share these links outside the company.</footer>
-<div id="qrModal" hidden><div class="qrbox">
-<h2>HIKARI match</h2>
-<p>If you are interested, please scan this QR code and send a blank email.<br>We will send you information about HIKARI match by email.</p>
-<img src="data:image/png;base64,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" alt="QR code for a blank email to HIKARI match">
-<p style="font-size:12px;color:#888">Booth SC1-6 · SMART ENERGY WEEK Kansai 2026</p>
-<button id="qrClose" type="button">Close</button>
-</div></div>
+<div id="qrModal"><div class="box"><p style="font-weight:700;margin:0 0 6px">HIKARI match — send a blank email</p>
+<img src="data:image/png;base64,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" alt="QR code">
+<p class="note">Scan to send a blank email — the HIKARI match guide arrives by reply.</p></div></div>
+<footer>Internal edition — do not share this link outside the company.</footer>
 <script>
-var DEC_EN={'売りたい人':'Seller','買いたい人':'Buyer','今回は不要':'Not this time','その他':'Other','検討中1':'Considering 1','検討中2':'Considering 2','Seller':'Seller','Buyer':'Buyer','Not this time':'Not this time','Other':'Other','Considering 1':'Considering 1','Considering 2':'Considering 2'};
-function bar(lb,n,total,cls){var pct=total?Math.round(n/total*100):0;return '<div class="bar-row"><span class="lb">'+lb+'</span><span class="tr"><span class="fl '+(cls||'')+'" style="display:block;width:'+pct+'%"></span></span><span class="n">'+n+'</span></div>';}
-function parseStatus(text){
-  var R={counts:null,connected:[],decisions:{},sections:{}};
-  var m=text.match(/集計：未訪問\s*(\d+)／訪問済み\s*(\d+)／話せた\s*(\d+)／名刺交換済み\s*(\d+)／次につながった\s*(\d+)／不要\s*(\d+)/);
-  if(m){R.counts={'Not visited':+m[1],'Visited':+m[2],'Talked':+m[3],'Card exchanged':+m[4],'Next step':+m[5],'Not needed':+m[6]};}
-  var m2=text.match(/Summary:\s*Not visited\s*(\d+)\s*／Visited\s*(\d+)\s*／Talked\s*(\d+)\s*／Card exchanged\s*(\d+)\s*／Next step\s*(\d+)\s*／Not needed\s*(\d+)/);
-  if(m2){R.counts={'Not visited':+m2[1],'Visited':+m2[2],'Talked':+m2[3],'Card exchanged':+m2[4],'Next step':+m2[5],'Not needed':+m2[6]};}
-  var cur='';
-  text.split(/\n/).forEach(function(line){
-    var h=line.match(/^【(.+)】$/)||line.match(/^■(.+)$/);
-    if(h){cur=h[1];R.sections[cur]=R.sections[cur]||[];return;}
-    if(line.indexOf('・')===0&&cur){R.sections[cur].push(line.slice(1));}
-    var d=line.match(/社長：([^／]+)/)||line.match(/President:\s*([^/]+)/);
-    if(d){var k=DEC_EN[d[1].trim()]||d[1].trim();R.decisions[k]=(R.decisions[k]||0)+1;}
+var NKEY = 'presidentNumsV1', CKEY = 'presidentCfgV1';
+function loadJ(k){ try { return JSON.parse(localStorage.getItem(k) || '{}') || {}; } catch (e) { return {}; } }
+function saveJ(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+var store = loadJ(NKEY); if (!store.companies) store = {companies: {}, updated: ''};
+var cfg = loadJ(CKEY);
+if (!cfg.dayVisit) cfg = {dayVisit: 30, dayTalk: 10, totalDone: 100};
+function esc(t){ return (t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+var STM = {'訪問済': 'v', '話せた': 't', 'あとで回る': 'l', '行かない': 's'};
+var PEN = {'Not visited': 'v', 'Visited': 'v', 'Talked': 't', 'Card exchanged': 't', 'Next step': 't'};
+var PRES_J = {'売りたい人': 'seller', '買いたい人': 'buyer', '今回は不要': 'not', 'その他': 'other', '検討中1': 'c1', '検討中2': 'c2'};
+var PRES_E = {'Seller': 'seller', 'Buyer': 'buyer', 'Not this time': 'not', 'Other': 'other', 'Considering 1': 'c1', 'Considering 2': 'c2'};
+function rec(name){ if (!store.companies[name]) store.companies[name] = {}; return store.companies[name]; }
+function parseCopy(text){
+  var lines = text.split(/\n/), mode = '', changed = 0;
+  lines.forEach(function(ln){
+    ln = ln.trim(); if (!ln) return;
+    var m;
+    if (m = ln.match(/^【(.+?)】/)) { mode = STM[m[1]] || ''; return; }
+    if (ln.indexOf('■繋がった') === 0 || ln.indexOf('■Connected') === 0) { mode = 'conn'; return; }
+    if (ln.indexOf('■訪問') === 0 || ln.indexOf('■Visited') === 0) { mode = 'board'; return; }
+    if (ln.indexOf('■不要') === 0 || ln.indexOf('■Not needed') === 0) { mode = 'boardnot'; return; }
+    if (ln.charAt(0) !== '・') return;
+    var body = ln.slice(1);
+    var name = body.split('（')[0].split('(')[0].trim();
+    if (!name) return;
+    var r = rec(name);
+    if (mode === 'v' || mode === 't' || mode === 'l' || mode === 's') {
+      r.s = mode;
+      var dm = body.match(/(\d{1,2})\/(\d{1,2}) \d{1,2}:\d{2}/);
+      if (dm) r.d = (+dm[1]) + '/' + (+dm[2]);
+      if (body.indexOf('見込みあり') >= 0) r.o = 'a';
+      if (body.indexOf('見込みなし') >= 0) r.o = 'n';
+      changed++;
+    } else if (mode === 'conn' || mode === 'board' || mode === 'boardnot') {
+      r.conn = true;
+      var pm = body.match(/社長[:：]\s*([^／]+)/) || body.match(/President:\s*([^\/]+)/);
+      if (pm) { var pv = pm[1].trim(); if (PRES_J[pv]) r.pres = PRES_J[pv]; if (PRES_E[pv]) r.pres = PRES_E[pv]; }
+      var vm = body.match(/僕[:：]\s*([^／]+)/) || body.match(/Visit:\s*([^\/]+)/);
+      if (vm) { var vv = vm[1].trim(); var code = {'訪問済': 'v', '話せた': 't', '名刺交換済み': 't', '次につながった': 't', 'あとで回る': 'l'}[vv] || PEN[vv]; if (code && !r.s) r.s = code; }
+      if (mode === 'boardnot' && !r.pres) r.pres = 'not';
+      changed++;
+    }
   });
-  (R.sections['繋がった']||R.sections['Connected']||[]).forEach(function(s){R.connected.push(s);});
-  if(!R.counts){
-    var LBL={'訪問済み':'Visited','話せた':'Talked','あとで回る':'Later','行かない':'Skip'};
-    var c={'Visited':0,'Talked':0,'Later':0,'Skip':0};
-    Object.keys(LBL).forEach(function(k){if(R.sections[k])c[LBL[k]]=R.sections[k].length;});
-    var done=c['Visited']+c['Talked']+c['Later']+c['Skip'];
-    if(done>0){R.counts={'Not visited':Math.max(0,210-done),'Visited':c['Visited'],'Talked':c['Talked'],'Later':c['Later'],'Skip':c['Skip']};
-      (R.sections['話せた']||[]).forEach(function(s){R.connected.push(s);});}
-  }
-  return R;
+  return changed;
 }
-document.getElementById('go').addEventListener('click',function(){
-  var text=document.getElementById('paste').value;
-  var out=document.getElementById('out');
-  if(!text.trim()){out.innerHTML='<p class="note">Nothing pasted yet.</p>';return;}
-  var R=parseStatus(text),h='';
-  if(R.counts){
-    var total=210;
-    h+='<h3 style="font-size:13px;margin:4px 0 6px">Visits (of 210 companies)</h3>';
-    ['Visited','Talked','Card exchanged','Next step','Later','Skip','Not needed'].forEach(function(k){if(R.counts[k]!=null)h+=bar(k,R.counts[k],total,k==='Talked'||k==='Next step'?'green':(k==='Skip'||k==='Not needed'?'red':'blue'));});
-    h+=bar('Not visited',R.counts['Not visited'],total,'');
-  } else {h+='<p class="note">No summary found in the pasted text.</p>';}
-  var dk=Object.keys(R.decisions);
-  if(dk.length){h+='<h3 style="font-size:13px;margin:12px 0 6px">President classifications</h3>';var dt=dk.reduce(function(a,k){return a+R.decisions[k];},0);dk.forEach(function(k){h+=bar(k,R.decisions[k],Math.max(dt,1),'green');});}
-  if(R.connected.length){h+='<h3 style="font-size:13px;margin:12px 0 4px">Connected companies ('+R.connected.length+')</h3><ul class="res">'+R.connected.map(function(s){return '<li>'+s.replace(/</g,'&lt;')+'</li>';}).join('')+'</ul>';}
-  out.innerHTML=h;
+function nums(){
+  var c = store.companies, n = {v: 0, t: 0, l: 0, s: 0, oa: 0, on: 0, days: {}, pres: {}, conn: 0, total: 210, touched: 0};
+  Object.keys(c).forEach(function(k){
+    var r = c[k];
+    if (r.s) { n[r.s]++; n.touched++; if ((r.s === 'v' || r.s === 't') && r.d) n.days[r.d] = (n.days[r.d] || 0) + 1; }
+    if (r.o === 'a') n.oa++; if (r.o === 'n') n.on++;
+    if (r.pres) n.pres[r.pres] = (n.pres[r.pres] || 0) + 1;
+    if (r.conn) n.conn++;
+  });
+  n.done = n.v + n.t;
+  return n;
+}
+function render(){
+  var n = nums();
+  document.getElementById('kDone').textContent = n.done;
+  document.getElementById('kDonePct').textContent = Math.round(n.done / 210 * 100) + '% of 210 · target ' + cfg.totalDone;
+  document.getElementById('doneBar').style.width = Math.min(100, n.done / Math.max(1, cfg.totalDone) * 100) + '%';
+  document.getElementById('kTalk').textContent = n.t;
+  document.getElementById('kVisit').textContent = n.v;
+  document.getElementById('kProspect').textContent = n.oa;
+  document.getElementById('kNoProspect').textContent = n.on;
+  document.getElementById('kLater').textContent = n.l;
+  document.getElementById('kSkip').textContent = n.s;
+  var days = ['11/18', '11/19', '11/20'];
+  document.getElementById('days').innerHTML = days.map(function(d){
+    var c = n.days[d] || 0;
+    return '<div class="dayrow"><b>' + d.replace('11/', 'Nov ') + '</b>' + c + ' visits/talks <span class="tgt">/ target ' + cfg.dayVisit + ' per day</span><div class="bar"><i style="width:' + Math.min(100, c / Math.max(1, cfg.dayVisit) * 100) + '%"></i></div></div>';
+  }).join('');
+  var pl = {'seller': 'Sellers', 'buyer': 'Buyers', 'c1': 'Considering 1', 'c2': 'Considering 2', 'other': 'Other', 'not': 'Not this time'};
+  document.getElementById('presLine').textContent = Object.keys(pl).map(function(k){ return pl[k] + ' ' + (n.pres[k] || 0); }).join(' · ') + ' · Connected records ' + n.conn;
+  document.getElementById('upd').textContent = store.updated ? ('Last updated: ' + store.updated + ' · records held: ' + Object.keys(store.companies).length) : 'No data pasted yet.';
+}
+document.getElementById('parseBtn').addEventListener('click', function(){
+  var t = document.getElementById('paste').value;
+  if (!t.trim()) return;
+  var c = parseCopy(t);
+  store.updated = new Date().toLocaleString('en-GB');
+  saveJ(NKEY, store);
+  document.getElementById('pasteMsg').textContent = c ? ('Read ' + c + ' lines. Numbers updated.') : 'No company lines found in that text.';
+  document.getElementById('paste').value = '';
+  render();
 });
-var qm=document.getElementById('qrModal');
-document.getElementById('qrOpen').addEventListener('click',function(){qm.hidden=false;});
-document.getElementById('qrClose').addEventListener('click',function(){qm.hidden=true;});
-qm.addEventListener('click',function(e){if(e.target===qm)qm.hidden=true;});
+document.getElementById('clearBtn').addEventListener('click', function(){
+  if (confirm('Clear all stored numbers?')) { store = {companies: {}, updated: ''}; saveJ(NKEY, store); render(); }
+});
+['dayVisit', 'dayTalk', 'totalDone'].forEach(function(k){
+  var el = document.getElementById('cfg_' + k);
+  el.value = cfg[k];
+  el.addEventListener('change', function(){ cfg[k] = Math.max(1, +el.value || 1); saveJ(CKEY, cfg); render(); });
+});
+document.getElementById('qrBtn').addEventListener('click', function(){ document.getElementById('qrModal').style.display = 'flex'; });
+document.getElementById('qrModal').addEventListener('click', function(){ this.style.display = 'none'; });
+render();
 </script></body></html>
