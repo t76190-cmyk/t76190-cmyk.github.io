@@ -546,7 +546,7 @@ var dd=document.getElementById('details-data');
 if(dd){
   var DETAILS=JSON.parse(dd.textContent);
   var detailEl=document.getElementById('detail'),detailBody=document.getElementById('detailBody');
-  try{var cm=location.hash.match(/^#co=(\d+)$/);if(cm){window.FROM_RADAR=true;var ci=parseInt(cm[1],10);if(DETAILS[ci])openDetail(ci);}}catch(e){}
+  try{var cm=location.hash.match(/^#co=(\d+)$/);if(cm){window.FROM_RADAR=true;var ci=parseInt(cm[1],10);window.addEventListener('load',function(){try{if(DETAILS[ci])openDetail(ci);}catch(e){}});}}catch(e){}
   function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function linkBtn(href,label,cls){return '<a class="lk '+(cls||'')+'" href="'+href+'" target="_blank" rel="noopener">'+label+'</a>';}
   function boothMap(booth){
