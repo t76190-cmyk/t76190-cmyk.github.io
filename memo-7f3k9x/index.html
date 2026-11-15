@@ -525,6 +525,7 @@ function stateText(){
     var names=[];cards.forEach(function(c,idx){var st=peekState(idx);if(st.s===code){var nm=c.querySelector('.nm').textContent;var bt=c.querySelector('.b-booth');names.push(nm+(bt?'（'+bt.textContent+'）':'')+(st.t?' '+fmtTime(st.t):'')+(st.o==='a'?'／見込みあり':(st.o==='n'?'／見込みなし':''))+(st.p?'／優先'+st.p:''));}});
     if(names.length){lines.push('【'+STMETA[code].label+'】');names.forEach(function(nm){lines.push('・'+nm);});lines.push('');}
   });
+  try{var ys=JSON.parse(localStorage.getItem('yabouSettingsV1')||'{}');var tk=[];cards.forEach(function(c,idx){var st=ys[idx];if(st&&st.take){var nm=c.querySelector('.nm').textContent;var bt=c.querySelector('.b-booth');tk.push(nm+(bt?'（'+bt.textContent+'）':''));}});if(tk.length){lines.push('【社長取り次ぎ】');tk.forEach(function(nm){lines.push('・'+nm);});lines.push('');}}catch(e){}
   return lines.join('\n');
 }
 function copyText(txt,btn){

@@ -41,7 +41,7 @@ main{max-width:860px;margin:0 auto;padding:12px}
 .flagrow .fbar{flex:1;height:12px;background:#eee9db;border-radius:6px;overflow:hidden}
 .flagrow .fbar i{display:block;height:100%}
 .flagrow .fg-pros{background:#f39800}.flagrow .fg-take{background:#7a1f1f}
-.flagrow b{color:#7a1f1f;min-width:30px;text-align:right}
+.flagrow b{color:#7a1f1f;min-width:86px;text-align:right}
 footer{font-size:11px;color:#999;text-align:center;padding:14px}
 #resetBtn{background:none;border:1.5px solid #c9c2b4;color:#777;font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;cursor:pointer}
 #resetAllBtn{background:none;border:1.5px solid #b0483e;color:#b0483e;font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;cursor:pointer;margin-left:8px}
@@ -171,9 +171,9 @@ function renderSum(){
   var pct = function(n){ return tot ? (n / tot * 100) : 0; };
   document.getElementById('sum').innerHTML = '<b>実績</b>（野望' + tot + '社）時間指定 ' + timed + '社'
     + '<div class="stack"><i class="sg-t" style="width:' + pct(t) + '%"></i><i class="sg-v" style="width:' + pct(v) + '%"></i><i class="sg-l" style="width:' + pct(l) + '%"></i><i class="sg-k" style="width:' + pct(sk) + '%"></i><i class="sg-s" style="width:' + pct(s) + '%"></i><i class="sg-r" style="width:' + pct(rest) + '%"></i></div>'
-    + '<div class="legend"><span><i class="lg-t"></i>話せた ' + t + '</span><span><i class="lg-v"></i>訪問済 ' + v + '</span><span><i class="lg-l"></i>あとで回る ' + l + '</span><span><i class="lg-k"></i>今日はまわらない ' + sk + '</span><span><i class="lg-s"></i>行かない ' + s + '</span><span><i class="lg-r"></i>まだ ' + rest + '</span></div>'
-    + '<div class="flagrow"><span class="fl">◎ 見込みあり</span><div class="fbar"><i class="fg-pros" style="width:' + pct(oa) + '%"></i></div><b>' + oa + '</b></div>'
-    + '<div class="flagrow"><span class="fl">👔 社長取り次ぎ</span><div class="fbar"><i class="fg-take" style="width:' + pct(takes.length) + '%"></i></div><b>' + takes.length + '</b></div>'
+    + '<div class="legend"><span><i class="lg-t"></i>話せた ' + t + '（' + pct(t).toFixed(1) + '%）</span><span><i class="lg-v"></i>訪問済 ' + v + '（' + pct(v).toFixed(1) + '%）</span><span><i class="lg-l"></i>あとで回る ' + l + '（' + pct(l).toFixed(1) + '%）</span><span><i class="lg-k"></i>今日はまわらない ' + sk + '（' + pct(sk).toFixed(1) + '%）</span><span><i class="lg-s"></i>行かない ' + s + '（' + pct(s).toFixed(1) + '%）</span><span><i class="lg-r"></i>まだ ' + rest + '（' + pct(rest).toFixed(1) + '%）</span></div>'
+    + '<div class="flagrow"><span class="fl">◎ 見込みあり</span><div class="fbar"><i class="fg-pros" style="width:' + pct(oa) + '%"></i></div><b>' + oa + '（' + pct(oa).toFixed(1) + '%）</b></div>'
+    + '<div class="flagrow"><span class="fl">👔 社長取り次ぎ</span><div class="fbar"><i class="fg-take" style="width:' + pct(takes.length) + '%"></i></div><b>' + takes.length + '（' + pct(takes.length).toFixed(1) + '%）</b></div>'
     + '<span style="font-size:12px;color:#777">' + gs + '</span>'
     + (takes.length ? '<div class="takes"><b>社長取り次ぎ一覧：</b>' + takes.map(function(r){ return '<a href="index.html#co=' + r.ci + '" style="color:#7a1f1f;font-weight:700;text-decoration:none">' + esc(r.name) + '</a>'; }).join('、') + '</div>' : '');
 }
