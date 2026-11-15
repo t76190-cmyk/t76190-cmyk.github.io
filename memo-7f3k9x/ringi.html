@@ -150,7 +150,7 @@ function renderStatus(){
   else{chip.textContent=cur.name+'：'+STLABEL[r.status]+(r.status==='waiting'?'（'+r.waiting+'待ち）':'')+(r.status==='approved'?'（'+ymd(r.updated)+'）':'');}
   var _sa=document.querySelector('input[name="stampAct"]:checked');
   var _has=(role==='drafter')?stamped:((_sa&&_sa.value==='return')?!!returnedAt:((role==='checker')?!!checkedAt:!!approvedAt));
-  var _br=document.getElementById('btnReturn');if(_br){_br.disabled=!returnedAt||!!returnedSentAt;_br.classList.toggle('on',!!returnedSentAt);}
+  var _br=document.getElementById('btnReturn');if(_br){_br.disabled=!returnCycleOpen();_br.classList.toggle('on',!!returnedSentAt);}
   var _bsa=document.getElementById('btnStampAll');
   if(_sa&&_sa.value==='return'&&role!=='drafter'){_bsa.textContent=returnCycleOpen()?'🔴 押印する':'🔴 押印済み';_bsa.disabled=!returnCycleOpen();}
   else{_bsa.textContent=_has?'🔴 押印を取り消す':'🔴 押印する';_bsa.disabled=false;}
@@ -353,8 +353,8 @@ document.getElementById('stampActs').addEventListener('change',renderStatus);
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
 document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');var _p={status:'waiting',waiting:sel?sel.value:'社長',subject:document.getElementById('fSubject').value};if(returnedAt){resubmittedAt=Date.now();_p.resubmittedAt=resubmittedAt;}touch(_p);renderStatus();renderBoard();render();});
 function returnCycleOpen(){if(!returnedAt)return true;var _r=rec();var _s=returnedSentAt||(_r&&_r.returnedSentAt);var _re=resubmittedAt||(_r&&_r.resubmittedAt);return !!(_s&&_re&&_re>_s);}
-function stampReturn(){if(!cur||!returnCycleOpen())return;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=null;touch({returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:null});render();renderStatus();renderBoard();}
-function doReturn(){if(!cur||!returnedAt||returnedSentAt)return;returnedSentAt=Date.now();touch({status:'returned',returnedSentAt:returnedSentAt});render();renderStatus();renderBoard();}
+function stampReturn(){if(!cur||!returnCycleOpen())return;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt});render();renderStatus();renderBoard();}
+function doReturn(){stampReturn();}
 document.getElementById('btnReturn').addEventListener('click',doReturn);
 document.getElementById('btnStampAll').addEventListener('click',function(){if(!cur)return;var who=(role==='president')?'approver':(role==='checker'?'checker':'drafter');
   if(who==='drafter'){stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
