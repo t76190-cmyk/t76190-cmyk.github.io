@@ -71,13 +71,13 @@ function handledToday(ci){ var st = settings[ci] || {}; return st.handled === to
 function available(r){ return !done(r.ci) && !handledToday(r.ci); }
 var GO = {'S': 0, 'A': 1, 'B': 2, 'C': 3, 'D': 4, '-': 5};
 var PO = {'high': 0, 'mid': 1, '': 2, 'low': 3};
-function effKey(r){ var st = settings[r.ci] || {}; return [PO[st.p || ''], GO[r.ceo] != null ? GO[r.ceo] : 5, r.ci]; }
+function effKey(r){ var st = settings[r.ci] || {}; var vp = stOf(r.ci).p; return [PO[st.p || ''], vp ? 0 : 1, vp ? +vp : 99, GO[r.ceo] != null ? GO[r.ceo] : 5, r.ci]; }
 function timedKey(r){ var st = settings[r.ci] || {}; return (st.d && st.t) ? ('11/' + st.d + ' ' + st.t) : ''; }
 function queue(){
   var timed = [], prio = [];
   DATA.forEach(function(r){ if (!available(r)) return; if (timedKey(r)) timed.push(r); else prio.push(r); });
   timed.sort(function(a, b){ return timedKey(a) < timedKey(b) ? -1 : 1; });
-  prio.sort(function(a, b){ var x = effKey(a), y = effKey(b); return x[0] - y[0] || x[1] - y[1] || x[2] - y[2]; });
+  prio.sort(function(a, b){ var x = effKey(a), y = effKey(b); return x[0] - y[0] || x[1] - y[1] || x[2] - y[2] || x[3] - y[3] || x[4] - y[4]; });
   return timed.concat(prio);
 }
 function esc(t){ return (t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }

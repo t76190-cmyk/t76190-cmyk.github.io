@@ -443,7 +443,8 @@ apply();
 /*STATUS-BEGIN*/
 var visitState={};
 var STMETA={v:{label:'訪問済'},t:{label:'話せた'},l:{label:'あとで回る'},s:{label:'行かない'}};
-var LSKEY='visitState:'+location.pathname;
+var LSKEY='visitState:'+location.pathname.replace(/\/$/,'/index.html');
+try{if(!localStorage.getItem(LSKEY)){var _lg=localStorage.getItem('visitState:'+location.pathname);if(_lg)localStorage.setItem(LSKEY,_lg);}}catch(e){}
 function peekState(idx){
   var st=visitState[idx];
   if(!st)return {s:'',o:'',p:'',t:0};
@@ -572,6 +573,7 @@ function openDetail(i){
     h+='<div class="dsec"><h3>訪問ステータス</h3><div class="tabs stbtns">'+[['','未'],['v','訪問済'],['t','話せた'],['l','あとで回る'],['s','行かない']].map(function(pr){return '<button class="tabbtn" data-st="'+pr[0]+'">'+pr[1]+'</button>';}).join('')+'</div></div>';
     if(peekState(i).t){var _ps=peekState(i);h+='<p class="sttime">記録：'+fmtTime(_ps.t)+'（'+((_ps.s&&STMETA[_ps.s])?STMETA[_ps.s].label:'')+'）</p>';}
     h+='<div class="dsec"><h3>見込み（訪問後）</h3><div class="tabs stbtns">'+[['','未判定'],['a','見込みあり'],['n','見込みなし']].map(function(pr){return '<button class="tabbtn" data-o="'+pr[0]+'">'+pr[1]+'</button>';}).join('')+'</div></div>';
+    h+='<div class="dsec"><h3>社長取り次ぎ（マンジュラの野望と連動）</h3><div class="tabs stbtns"><button class="tabbtn" id="dtake" type="button">👔 取り次ぎする</button></div><p class="dnote">野望ページの全体グラフにも反映されます。</p></div>';
     h+='<div class="dsec"><h3>現場の優先順位</h3><select id="dprio"><option value="">未設定</option>'+[1,2,3,4,5,6,7,8,9,10].map(function(nn){return '<option value="'+nn+'">優先'+nn+'</option>';}).join('')+'</select><p class="dnote">並び替え「優先順位順」で上に来ます。訪問が終わった先は自動で後ろに下がります。</p></div>';
     h+='<div class="dsec"><h3>基本データ</h3><table class="kv"><tr><th>展示会</th><td>'+esc(d.section)+'</td></tr><tr><th>小間</th><td>'+esc(d.booth||'—')+'</td></tr><tr><th>概要</th><td>'+esc(d.summary||'—')+'</td></tr><tr><th>タグ</th><td>'+esc(d.tags.join(' / ')||'—')+'</td></tr></table><div class="links">'+(d.official_url?linkBtn(d.official_url,'公式サイト','lk-official'):linkBtn(d.search_url,'公式サイト検索'))+(d.page_url?linkBtn(d.page_url,'企業データ','lk-official'):'')+(d.group_url?linkBtn(d.group_url,'グループデータ','lk-official'):'')+linkBtn(d.news_url,'最新ニュース')+linkBtn(d.pr_url,'公式発表を検索')+'</div>'+(d.official_checked?'<p class="dnote">公式リンク確認日：'+esc(d.official_checked)+'</p>':'<p class="dnote">公式サイトは未確認のため検索リンクです。当日まで更新します。</p>')+'</div>';
     var ev='';
@@ -601,6 +603,10 @@ function openDetail(i){
     });
     var dp=document.getElementById('dprio');
     if(dp){dp.value=peekState(i).p?String(peekState(i).p):'';dp.addEventListener('change',function(){setPrio(i,dp.value?+dp.value:'');});}
+    var dt=document.getElementById('dtake');
+    if(dt){var _ys0={};try{_ys0=JSON.parse(localStorage.getItem('yabouSettingsV1')||'{}');}catch(e){}
+      if(_ys0[i]&&_ys0[i].take){dt.classList.add('on');dt.textContent='👔 取り次ぎ済み（タップで解除）';}
+      dt.addEventListener('click',function(){var ys={};try{ys=JSON.parse(localStorage.getItem('yabouSettingsV1')||'{}');}catch(e){} ys[i]=ys[i]||{}; if(ys[i].take){delete ys[i].take;dt.classList.remove('on');dt.textContent='👔 取り次ぎする';}else{ys[i].take=Date.now();dt.classList.add('on');dt.textContent='👔 取り次ぎ済み（タップで解除）';} try{localStorage.setItem('yabouSettingsV1',JSON.stringify(ys));}catch(e){}});}
     var pre=document.getElementById('dossierText');
     if(pre){ pre.textContent='【ぶつける案件 ― ひかりマッチ掲載物件（2026-11-14確認）】 \n\n'+(d.pitch||''); }
     detailEl.hidden=false;document.body.style.overflow='hidden';
@@ -646,12 +652,12 @@ function openDetail(i){
       if (_cfgH.handled === _today || _cfgH.skip === _today) return;
       var cfg = settings[ci] || {};
       rows.push({ci: ci, name: d.name, booth: d.booth || '', ceo: y.ceo || '-',
-                 timed: (cfg.d && cfg.t) ? ('11/' + cfg.d + ' ' + cfg.t) : '', p: cfg.p || ''});
+                 timed: (cfg.d && cfg.t) ? ('11/' + cfg.d + ' ' + cfg.t) : '', p: cfg.p || '', vp: (function(){ var _p = peekState(ci).p; return _p ? +_p : 0; })()});
     });
     if (!rows.length) return null;
     var timed = rows.filter(function(r){ return r.timed; }).sort(function(a, b){ return a.timed < b.timed ? -1 : 1; });
     var prio = rows.filter(function(r){ return !r.timed; }).sort(function(a, b){
-      return (PO[a.p] - PO[b.p]) || ((GO[a.ceo] != null ? GO[a.ceo] : 5) - (GO[b.ceo] != null ? GO[b.ceo] : 5)) || (a.ci - b.ci);
+      return (PO[a.p] - PO[b.p]) || ((a.vp ? 0 : 1) - (b.vp ? 0 : 1)) || ((a.vp || 99) - (b.vp || 99)) || ((GO[a.ceo] != null ? GO[a.ceo] : 5) - (GO[b.ceo] != null ? GO[b.ceo] : 5)) || (a.ci - b.ci);
     });
     var seq = timed.concat(prio);
     var main = seq[0];
