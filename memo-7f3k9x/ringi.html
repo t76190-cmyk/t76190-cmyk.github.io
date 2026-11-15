@@ -88,6 +88,7 @@ a.back{color:#173a6b;font-size:13px}
 <div class="row"><label>目的（編集できます）</label><textarea id="fPurpose"></textarea></div>
 <div class="row"><label>当日の接触メモ（担当者・話した内容・先方の反応）</label><textarea id="fMemo" placeholder="例：営業部 ○○様と名刺交換。系統用蓄電池の販売網に関心。資料送付を約束。"></textarea></div>
 <div class="row"><span id="statusChip">未選択</span></div>
+<div class="btns"><button id="btnDel" type="button">🗑 この会社の記録を削除</button></div>
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
 <span class="ctl"><button id="btnStampAll" type="button">🔴 押印する</button><span class="rads"><label><input type="radio" name="stampWho" value="drafter"> 担当</label><label><input type="radio" name="stampWho" value="checker"> 確認</label><label><input type="radio" name="stampWho" value="approver"> 決裁</label></span></span>
@@ -264,6 +265,7 @@ document.getElementById('btnStampAll').addEventListener('click',function(){if(!c
   else if(approvedAt){approvedAt=null;approvedBy=null;var r0=rec();var patch={approvedAt:null,approvedBy:null};if(r0&&r0.status==='approved')patch.status='draft';touch(patch);}
   else{approvedAt=Date.now();approvedBy=(role==='checker')?'thilini':'manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
   render();renderStatus();});
+document.getElementById('btnDel').addEventListener('click',function(){if(!cur)return;if(!confirm(cur.name+' の稟議書記録を削除しますか？'))return;var s=loadStore();delete s[cur.ci];saveStore(s);stamped=false;stampedAt=null;checkedAt=null;approvedAt=null;approvedBy=null;conditions=[];document.getElementById('fMemo').value='';autoTexts();render();renderStatus();renderBoard();});
 document.getElementById('btnPrint').addEventListener('click',function(){window.print();});
 document.getElementById('btnCopy').addEventListener('click',function(){
   if(!cur)return;
