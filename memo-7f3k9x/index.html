@@ -442,7 +442,7 @@ apply();
 
 /*STATUS-BEGIN*/
 var visitState={};
-var STMETA={v:{label:'訪問済'},t:{label:'話せた'},l:{label:'あとで回る'},s:{label:'行かない'}};
+var STMETA={v:{label:'訪問済'},t:{label:'話せた'},l:{label:'あとで回る'},s:{label:'行かない'},x:{label:'断られた'}};
 var LSKEY='visitState:'+location.pathname.replace(/\/$/,'/index.html');
 try{if(!localStorage.getItem(LSKEY)){var _lg=localStorage.getItem('visitState:'+location.pathname);if(_lg)localStorage.setItem(LSKEY,_lg);}}catch(e){}
 function peekState(idx){
@@ -481,7 +481,7 @@ function prioBadge(c,pv){
 }
 function paintCard(idx){
   var c=cards[idx];if(!c)return;var st=peekState(idx);
-  ['v','t','l','s'].forEach(function(k){c.classList.remove('st-'+k);});
+  ['v','t','l','s','x'].forEach(function(k){c.classList.remove('st-'+k);});
   if(st.s)c.classList.add('st-'+st.s);
   statusBadge(c,st.s);outcomeBadge(c,st.o);prioBadge(c,st.p);
 }
@@ -522,7 +522,7 @@ function sortHits(hit,sm){
 function fmtTime(ts){var d=new Date(ts);return (d.getMonth()+1)+'/'+d.getDate()+' '+('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2);}
 function stateText(){
   var lines=['SMART ENERGY WEEK 関西｜出展社まわり状況','記録時点：'+fmtTime(Date.now()),''];
-  ['v','t','l','s'].forEach(function(code){
+  ['v','t','l','s','x'].forEach(function(code){
     var names=[];cards.forEach(function(c,idx){var st=peekState(idx);if(st.s===code){var nm=c.querySelector('.nm').textContent;var bt=c.querySelector('.b-booth');names.push(nm+(bt?'（'+bt.textContent+'）':'')+(st.t?' '+fmtTime(st.t):'')+(st.o==='a'?'／見込みあり':(st.o==='n'?'／見込みなし':''))+(st.p?'／優先'+st.p:''));}});
     if(names.length){lines.push('【'+STMETA[code].label+'】');names.forEach(function(nm){lines.push('・'+nm);});lines.push('');}
   });
@@ -563,16 +563,39 @@ if(dd){
   }
   return '<svg width="150" height="109" viewBox="0 -5 150 109"><rect x="4" y="8" width="66" height="88" fill="#f3ead2" stroke="#55596e" stroke-width="1.2"/><rect x="80" y="8" width="66" height="88" fill="#eef2e4" stroke="#55596e" stroke-width="1.2"/><text x="37" y="5" font-size="7.5" text-anchor="middle" fill="#55596e">Dホール</text><text x="113" y="5" font-size="7.5" text-anchor="middle" fill="#55596e">Cホール</text><rect x="71" y="46" width="8" height="12" fill="#c9a227"/>'+pin+'</svg>';
 }
-function openDetail(i){
+function uClassOf(idx){
+    var st=peekState(idx); var ys={}; try{ys=JSON.parse(localStorage.getItem('yabouSettingsV1')||'{}');}catch(e){}
+    var y=ys[idx]||{}; var today=(new Date().getMonth()+1)+'/'+new Date().getDate();
+    if(y.take)return 'take'; if(st.o==='a')return 'pros'; if(st.s==='t')return 'talk'; if(st.s==='v')return 'visit'; if(st.s==='l')return 'later'; if(st.s==='x')return 'reject'; if(st.s==='s')return 'no'; if(y.skip===today)return 'skip'; if(st.o==='n')return 'nopros'; return '';
+  }
+  function setUStatus(idx,code){
+    var prev=peekState(idx); var nv={s:'',o:'',p:prev.p,t:0};
+    var ys={}; try{ys=JSON.parse(localStorage.getItem('yabouSettingsV1')||'{}');}catch(e){}
+    var y=ys[idx]||{}; delete y.take; delete y.skip;
+    var today=(new Date().getMonth()+1)+'/'+new Date().getDate();
+    if(code==='take')y.take=Date.now();
+    else if(code==='pros')nv.o='a';
+    else if(code==='talk'){nv.s='t';nv.t=Date.now();}
+    else if(code==='visit'){nv.s='v';nv.t=Date.now();}
+    else if(code==='later'){nv.s='l';nv.t=Date.now();}
+    else if(code==='skip')y.skip=today;
+    else if(code==='no')nv.s='s';
+    else if(code==='reject'){nv.s='x';nv.t=Date.now();}
+    else if(code==='nopros')nv.o='n';
+    ys[idx]=y; try{localStorage.setItem('yabouSettingsV1',JSON.stringify(ys));}catch(e){}
+    visitState[idx]=nv; saveState();
+    if(typeof paintCard==='function')paintCard(idx);
+    if(typeof updateStatusUI==='function')updateStatusUI();
+  }
+  function openDetail(i){
     var d=DETAILS[i],h='';
     if(window.FROM_RADAR){h+='<p style="margin:0 0 10px"><a href="radar.html" style="display:inline-block;border:1.5px solid #3a4a8c;color:#3a4a8c;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;text-decoration:none;background:#fff">← レアタグに戻る</a></p>';}
     h+='<h2>'+esc(d.name)+'</h2>';
     h+='<div class="badges">'+(d.booth?'<span class="badge b-booth">'+esc(d.booth)+'</span>':'')+d.flags.map(function(x){return '<span class="badge">'+esc(x)+'</span>';}).join('')+'<span class="sec">'+esc(d.section)+'</span></div>';
     if(window.YABOU && YABOU[d.name]){ h+=yabouPage(d, YABOU[d.name]); }
     h+='<div class="dsec boothmap"><h3>小間位置（概略）</h3>'+boothMap(d.booth)+'</div>';
-    h+='<div class="dsec"><h3>訪問ステータス</h3><div class="tabs stbtns">'+[['','未'],['v','訪問済'],['t','話せた'],['l','あとで回る'],['s','行かない']].map(function(pr){return '<button class="tabbtn" data-st="'+pr[0]+'">'+pr[1]+'</button>';}).join('')+'</div></div>';
+    h+='<div class="dsec"><h3>ステータス（野望グラフと連動）</h3><div class="tabs stbtns">'+[['','未'],['take','👔 社長取り次ぎ'],['pros','◎ 見込みあり'],['talk','話せた'],['visit','訪問済'],['later','あとで回る'],['skip','今日はまわらない'],['no','行かない'],['reject','断られた'],['nopros','見込みなし']].map(function(pr){return '<button class="tabbtn" data-u="'+pr[0]+'">'+pr[1]+'</button>';}).join('')+'</div><p class="dnote">選べるのは1つだけ。野望の全体グラフにそのまま反映されます。</p></div>';
     if(peekState(i).t){var _ps=peekState(i);h+='<p class="sttime">記録：'+fmtTime(_ps.t)+'（'+((_ps.s&&STMETA[_ps.s])?STMETA[_ps.s].label:'')+'）</p>';}
-    h+='<div class="dsec"><h3>フラグ（野望グラフと連動）</h3><div class="tabs stbtns"><button class="tabbtn" id="dtake" type="button">👔 社長取り次ぎ</button><button class="tabbtn" id="dpros" type="button">◎ 見込みあり</button><button class="tabbtn" id="dskip" type="button">今日はまわらない</button></div><p class="dnote">グラフでは「取り次ぎ＞見込み＞話せた＞訪問済」の順で色が付きます。</p></div>';
     h+='<div class="dsec"><h3>現場の優先順位</h3><select id="dprio"><option value="">未設定</option>'+[1,2,3,4,5,6,7,8,9,10].map(function(nn){return '<option value="'+nn+'">優先'+nn+'</option>';}).join('')+'</select><p class="dnote">並び替え「優先順位順」で上に来ます。訪問が終わった先は自動で後ろに下がります。</p></div>';
     h+='<div class="dsec"><h3>基本データ</h3><table class="kv"><tr><th>展示会</th><td>'+esc(d.section)+'</td></tr><tr><th>小間</th><td>'+esc(d.booth||'—')+'</td></tr><tr><th>概要</th><td>'+esc(d.summary||'—')+'</td></tr><tr><th>タグ</th><td>'+esc(d.tags.join(' / ')||'—')+'</td></tr></table><div class="links">'+(d.official_url?linkBtn(d.official_url,'公式サイト','lk-official'):linkBtn(d.search_url,'公式サイト検索'))+(d.page_url?linkBtn(d.page_url,'企業データ','lk-official'):'')+(d.group_url?linkBtn(d.group_url,'グループデータ','lk-official'):'')+linkBtn(d.news_url,'最新ニュース')+linkBtn(d.pr_url,'公式発表を検索')+'</div>'+(d.official_checked?'<p class="dnote">公式リンク確認日：'+esc(d.official_checked)+'</p>':'<p class="dnote">公式サイトは未確認のため検索リンクです。当日まで更新します。</p>')+'</div>';
     var ev='';
@@ -592,20 +615,10 @@ function openDetail(i){
       }
     }
     detailBody.innerHTML=h;
-    detailBody.querySelectorAll('[data-st]').forEach(function(b){
-      if(peekState(i).s===b.getAttribute('data-st'))b.classList.add('on');
-      b.addEventListener('click',function(){setStatus(i,b.getAttribute('data-st'));detailBody.querySelectorAll('[data-st]').forEach(function(x){x.classList.remove('on');});b.classList.add('on');});
+    detailBody.querySelectorAll('[data-u]').forEach(function(b){
+      if(uClassOf(i)===b.getAttribute('data-u'))b.classList.add('on');
+      b.addEventListener('click',function(){setUStatus(i,b.getAttribute('data-u'));detailBody.querySelectorAll('[data-u]').forEach(function(x){x.classList.remove('on');});b.classList.add('on');});
     });
-    var _todayS=(new Date().getMonth()+1)+'/'+new Date().getDate();
-    function _loadYS(){try{return JSON.parse(localStorage.getItem('yabouSettingsV1')||'{}');}catch(e){return{};}}
-    function _saveYS(v){try{localStorage.setItem('yabouSettingsV1',JSON.stringify(v));}catch(e){}}
-    var dt=document.getElementById('dtake'), dpr=document.getElementById('dpros'), dsk=document.getElementById('dskip');
-    if(dt){var _y0=_loadYS(); if(_y0[i]&&_y0[i].take)dt.classList.add('on');
-      dt.addEventListener('click',function(){var ys=_loadYS(); ys[i]=ys[i]||{}; if(ys[i].take){delete ys[i].take;dt.classList.remove('on');}else{ys[i].take=Date.now();dt.classList.add('on');} _saveYS(ys);});}
-    if(dpr){if(peekState(i).o==='a')dpr.classList.add('on');
-      dpr.addEventListener('click',function(){var on=dpr.classList.contains('on'); setOutcome(i,on?'':'a'); dpr.classList.toggle('on',!on);});}
-    if(dsk){var _y1=_loadYS(); if(_y1[i]&&_y1[i].skip===_todayS)dsk.classList.add('on');
-      dsk.addEventListener('click',function(){var ys=_loadYS(); ys[i]=ys[i]||{}; if(ys[i].skip===_todayS){delete ys[i].skip;dsk.classList.remove('on');}else{ys[i].skip=_todayS;dsk.classList.add('on');} _saveYS(ys);});}
     var dp=document.getElementById('dprio');
     if(dp){dp.value=peekState(i).p?String(peekState(i).p):'';dp.addEventListener('change',function(){setPrio(i,dp.value?+dp.value:'');});}
     var pre=document.getElementById('dossierText');

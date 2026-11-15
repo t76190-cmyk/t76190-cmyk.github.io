@@ -31,10 +31,10 @@ main{max-width:860px;margin:0 auto;padding:12px}
 #sum b{color:#7a1f1f}
 .stack{display:flex;height:16px;border-radius:8px;overflow:hidden;margin:6px 0 7px;background:#eee9db}
 .stack i{display:block;height:100%}
-.stack .sg-take{background:#7a1f1f}.stack .sg-pros{background:#f39800}.stack .sg-t{background:#3e8e5a}.stack .sg-v{background:#33688c}.stack .sg-l{background:#d9a514}.stack .sg-k{background:#8e7cc3}.stack .sg-s{background:#b0483e}.stack .sg-r{background:#eee9db}
+.stack .sg-rej{background:#444}.stack .sg-nop{background:#a8bfd4}.stack .sg-take{background:#7a1f1f}.stack .sg-pros{background:#f39800}.stack .sg-t{background:#3e8e5a}.stack .sg-v{background:#33688c}.stack .sg-l{background:#d9a514}.stack .sg-k{background:#8e7cc3}.stack .sg-s{background:#b0483e}.stack .sg-r{background:#eee9db}
 .legend{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:12px;color:#555;margin-bottom:8px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
-.legend .lg-take{background:#7a1f1f}.legend .lg-pros{background:#f39800}.legend .lg-t{background:#3e8e5a}.legend .lg-v{background:#33688c}.legend .lg-l{background:#d9a514}.legend .lg-k{background:#8e7cc3}.legend .lg-s{background:#b0483e}.legend .lg-r{background:#ddd5c0}
+.legend .lg-rej{background:#444}.legend .lg-nop{background:#a8bfd4}.legend .lg-take{background:#7a1f1f}.legend .lg-pros{background:#f39800}.legend .lg-t{background:#3e8e5a}.legend .lg-v{background:#33688c}.legend .lg-l{background:#d9a514}.legend .lg-k{background:#8e7cc3}.legend .lg-s{background:#b0483e}.legend .lg-r{background:#ddd5c0}
 #sum .takes{font-size:12.5px;color:#555;border-top:1px dashed #e0dacb;margin-top:8px;padding-top:7px;line-height:1.8}
 .flagrow{display:flex;align-items:center;gap:9px;font-size:12.5px;margin-top:7px}
 .flagrow .fl{min-width:118px;color:#555;font-weight:700}
@@ -66,7 +66,7 @@ function saveSettings(){ try { localStorage.setItem(SKEY, JSON.stringify(setting
 function saveV(){ try { localStorage.setItem(VKEY, JSON.stringify(vstate)); } catch (e) {} }
 function todayStr(){ var d = new Date(); return (d.getMonth() + 1) + '/' + d.getDate(); }
 function stOf(ci){ var st = vstate[ci]; if (!st) return {s: '', o: '', p: '', t: 0}; if (typeof st === 'string') return {s: st, o: '', p: '', t: 0}; return {s: st.s || '', o: st.o || '', p: st.p || '', t: st.t || 0}; }
-function done(ci){ var s = stOf(ci).s; return s === 'v' || s === 't' || s === 's'; }
+function done(ci){ var s = stOf(ci).s; return s === 'v' || s === 't' || s === 's' || s === 'x'; }
 function handledToday(ci){ var st = settings[ci] || {}; return st.handled === todayStr() || st.skip === todayStr(); }
 function available(r){ return !done(r.ci) && !handledToday(r.ci); }
 var GO = {'S': 0, 'A': 1, 'B': 2, 'C': 3, 'D': 4, '-': 5};
@@ -133,11 +133,12 @@ function act(kind){
   var ci = cur.ci, prev = stOf(ci), prevHad = !!vstate[ci];
   var log = {ci: ci, act: kind, label: LABELS[kind], prevHad: prevHad, prev: prev, prevHandled: (settings[ci] || {}).handled || '', prevSkip: (settings[ci] || {}).skip || '', prevTake: (settings[ci] || {}).take || 0};
   settings[ci] = settings[ci] || {};
-  if (kind === 'talk') { vstate[ci] = {s: 't', o: prev.o, p: prev.p, t: Date.now()}; }
-  if (kind === 'later') { vstate[ci] = {s: 'l', o: prev.o, p: prev.p, t: Date.now()}; }
-  if (kind === 'pros') { vstate[ci] = {s: prev.s, o: 'a', p: prev.p, t: prev.t}; }
-  if (kind === 'pres') { settings[ci].take = Date.now(); }
-  if (kind === 'skip') { settings[ci].skip = todayStr(); }
+  delete settings[ci].take; delete settings[ci].skip;
+  if (kind === 'talk') { vstate[ci] = {s: 't', o: '', p: prev.p, t: Date.now()}; }
+  if (kind === 'later') { vstate[ci] = {s: 'l', o: '', p: prev.p, t: Date.now()}; }
+  if (kind === 'pros') { vstate[ci] = {s: '', o: 'a', p: prev.p, t: 0}; }
+  if (kind === 'pres') { vstate[ci] = {s: '', o: '', p: prev.p, t: 0}; settings[ci].take = Date.now(); }
+  if (kind === 'skip') { vstate[ci] = {s: '', o: '', p: prev.p, t: 0}; settings[ci].skip = todayStr(); }
   settings[ci].handled = todayStr();
   settings.__flow.push(log);
   saveV(); saveSettings();
@@ -165,7 +166,7 @@ function renderSum(){
   DATA.forEach(function(r){ var g = byGrade[r.ceo] = byGrade[r.ceo] || [0, 0]; g[0]++; if (done(r.ci) && stOf(r.ci).s !== 's') g[1]++; });
   var gs = Object.keys(byGrade).sort().map(function(g){ return '社長接触' + g + '：' + byGrade[g][1] + '/' + byGrade[g][0]; }).join(' ｜ ');
   var timed = DATA.filter(function(r){ return timedKey(r); }).length;
-  var CLS = [['take', '社長取り次ぎ', 'sg-take', 'lg-take'], ['pros', '見込みあり', 'sg-pros', 'lg-pros'], ['talk', '話せた', 'sg-t', 'lg-t'], ['visit', '訪問済', 'sg-v', 'lg-v'], ['later', 'あとで回る', 'sg-l', 'lg-l'], ['skip', '今日はまわらない', 'sg-k', 'lg-k'], ['no', '行かない', 'sg-s', 'lg-s'], ['rest', 'まだ', 'sg-r', 'lg-r']];
+  var CLS = [['take', '社長取り次ぎ', 'sg-take', 'lg-take'], ['pros', '見込みあり', 'sg-pros', 'lg-pros'], ['talk', '話せた', 'sg-t', 'lg-t'], ['visit', '訪問済', 'sg-v', 'lg-v'], ['later', 'あとで回る', 'sg-l', 'lg-l'], ['skip', '今日はまわらない', 'sg-k', 'lg-k'], ['no', '行かない', 'sg-s', 'lg-s'], ['reject', '断られた', 'sg-rej', 'lg-rej'], ['nopros', '見込みなし', 'sg-nop', 'lg-nop'], ['rest', 'まだ', 'sg-r', 'lg-r']];
   var cc = {}; CLS.forEach(function(c){ cc[c[0]] = 0; });
   DATA.forEach(function(r){
     var st = settings[r.ci] || {}, x = stOf(r.ci), k;
@@ -174,8 +175,10 @@ function renderSum(){
     else if (x.s === 't') k = 'talk';
     else if (x.s === 'v') k = 'visit';
     else if (x.s === 'l') k = 'later';
+    else if (x.s === 'x') k = 'reject';
     else if (x.s === 's') k = 'no';
     else if (st.skip === todayStr()) k = 'skip';
+    else if (x.o === 'n') k = 'nopros';
     else k = 'rest';
     cc[k]++;
   });
