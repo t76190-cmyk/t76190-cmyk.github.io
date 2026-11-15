@@ -363,19 +363,20 @@ document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur
 function returnCycleOpen(){if(!returnedAt)return true;var _r=rec();var _s=returnedSentAt||(_r&&_r.returnedSentAt);var _re=resubmittedAt||(_r&&_r.resubmittedAt);return !!(_s&&_re&&_re>_s);}
 function stampReturn(){if(!cur)return;var _r=rec();
   if(returnedAt&&!returnCycleOpen()){returnedAt=null;returnedBy=null;returnedSentAt=null;var _p={returnedAt:null,returnedBy:null,returnedTo:null,returnedSentAt:null,preReturnStatus:null,preReturnWaiting:null};_p.status=approvedAt?'approved':((_r&&_r.preReturnStatus)?_r.preReturnStatus:'draft');if(_r&&_r.preReturnWaiting)_p.waiting=_r.preReturnWaiting;touch(_p);}
-  else if(returnCycleOpen()){returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt,preReturnStatus:_r?_r.status:null,preReturnWaiting:_r?(_r.waiting||null):null});}
+  else if(returnCycleOpen()&&!checkedAt&&!approvedAt){returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt,preReturnStatus:_r?_r.status:null,preReturnWaiting:_r?(_r.waiting||null):null});}
   render();renderStatus();renderBoard();}
-function doReturn(){if(!cur||!returnCycleOpen())return;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;var _r=rec();touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt,preReturnStatus:_r?_r.status:null,preReturnWaiting:_r?(_r.waiting||null):null});render();renderStatus();renderBoard();}
+function doReturn(){if(!cur||!returnCycleOpen()||checkedAt||approvedAt)return;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;var _r=rec();touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt,preReturnStatus:_r?_r.status:null,preReturnWaiting:_r?(_r.waiting||null):null});render();renderStatus();renderBoard();}
 document.getElementById('btnReturn').addEventListener('click',doReturn);
 document.getElementById('btnStampAll').addEventListener('click',function(){if(!cur)return;var who=(role==='president')?'approver':(role==='checker'?'checker':'drafter');
   if(who==='drafter'){stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
   else if(who==='checker'){
     var _a=document.querySelector('input[name="stampAct"]:checked');
     if(_a&&_a.value==='return'){stampReturn();return;}
+    if(!checkedAt&&returnedAt)return;
     checkedAt=checkedAt?null:Date.now();touch({checkedAt:checkedAt});
   }
   else if(approvedAt){approvedAt=null;approvedBy=null;var r0=rec();var patch={approvedAt:null,approvedBy:null};if(r0&&r0.status==='approved')patch.status=returnedAt?'returned':(r0.waiting?'waiting':'draft');touch(patch);}
-  else{var _b=document.querySelector('input[name="stampAct"]:checked');if(_b&&_b.value==='return'){stampReturn();return;}approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
+  else{var _b=document.querySelector('input[name="stampAct"]:checked');if(_b&&_b.value==='return'){stampReturn();return;}if(returnedAt)return;approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
   render();renderStatus();renderBoard();});
 document.getElementById('btnPrint').addEventListener('click',function(){window.print();});
 document.getElementById('btnCopy').addEventListener('click',function(){
