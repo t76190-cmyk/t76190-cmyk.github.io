@@ -86,6 +86,7 @@ a.banner-img img{width:100%;height:auto;display:block}
 .stbadge.t{display:inline-block;background:var(--acc)}
 .stbadge.l{display:inline-block;background:var(--blue)}
 .stbtns .tabbtn.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
+.ubtns{flex-wrap:wrap}.ubtns .tabbtn{flex:1 1 30%;white-space:nowrap;text-align:center}
 .obadge{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:700;color:#fff;display:none}
 .obadge.a{display:inline-block;background:#2e9e5b}
 .obadge.n{display:inline-block;background:#888}
@@ -566,7 +567,7 @@ if(dd){
 function uClassOf(idx){
     var st=peekState(idx); var ys={}; try{ys=JSON.parse(localStorage.getItem('yabouSettingsV1')||'{}');}catch(e){}
     var y=ys[idx]||{}; var today=(new Date().getMonth()+1)+'/'+new Date().getDate();
-    if(y.take)return 'take'; if(st.o==='a')return 'pros'; if(st.s==='t')return 'talk'; if(st.s==='v')return 'visit'; if(st.s==='l')return 'later'; if(st.s==='x')return 'reject'; if(st.s==='s')return 'no'; if(y.skip===today)return 'skip'; if(st.o==='n')return 'nopros'; return '';
+    if(y.take)return 'take'; if(st.o==='a')return 'pros'; if(st.s==='t')return 'talk'; if(st.s==='l')return 'later'; if(st.s==='x')return 'reject'; if(y.skip===today)return 'skip'; return '';
   }
   function setUStatus(idx,code){
     var prev=peekState(idx); var nv={s:'',o:'',p:prev.p,t:0};
@@ -576,12 +577,10 @@ function uClassOf(idx){
     if(code==='take')y.take=Date.now();
     else if(code==='pros')nv.o='a';
     else if(code==='talk'){nv.s='t';nv.t=Date.now();}
-    else if(code==='visit'){nv.s='v';nv.t=Date.now();}
     else if(code==='later'){nv.s='l';nv.t=Date.now();}
     else if(code==='skip')y.skip=today;
-    else if(code==='no')nv.s='s';
     else if(code==='reject'){nv.s='x';nv.t=Date.now();}
-    else if(code==='nopros')nv.o='n';
+    
     ys[idx]=y; try{localStorage.setItem('yabouSettingsV1',JSON.stringify(ys));}catch(e){}
     visitState[idx]=nv; saveState();
     if(typeof paintCard==='function')paintCard(idx);
@@ -594,7 +593,7 @@ function uClassOf(idx){
     h+='<div class="badges">'+(d.booth?'<span class="badge b-booth">'+esc(d.booth)+'</span>':'')+d.flags.map(function(x){return '<span class="badge">'+esc(x)+'</span>';}).join('')+'<span class="sec">'+esc(d.section)+'</span></div>';
     if(window.YABOU && YABOU[d.name]){ h+=yabouPage(d, YABOU[d.name]); }
     h+='<div class="dsec boothmap"><h3>小間位置（概略）</h3>'+boothMap(d.booth)+'</div>';
-    h+='<div class="dsec"><h3>ステータス（野望グラフと連動）</h3><div class="tabs stbtns">'+[['','未'],['take','👔 社長取り次ぎ'],['pros','◎ 見込みあり'],['talk','話せた'],['visit','訪問済'],['later','あとで回る'],['skip','今日はまわらない'],['no','行かない'],['reject','断られた'],['nopros','見込みなし']].map(function(pr){return '<button class="tabbtn" data-u="'+pr[0]+'">'+pr[1]+'</button>';}).join('')+'</div><p class="dnote">選べるのは1つだけ。野望の全体グラフにそのまま反映されます。</p></div>';
+    h+='<div class="dsec"><h3>ステータス（野望グラフと連動）</h3><div class="tabs stbtns ubtns">'+[['','未'],['take','👔 社長取り次ぎ'],['pros','◎ 見込みあり'],['talk','話せた'],['later','あとで回る'],['skip','今日はまわらない'],['reject','断られた']].map(function(pr){return '<button class="tabbtn" data-u="'+pr[0]+'">'+pr[1]+'</button>';}).join('')+'</div><p class="dnote">選べるのは1つだけ。野望の全体グラフにそのまま反映されます。</p></div>';
     if(peekState(i).t){var _ps=peekState(i);h+='<p class="sttime">記録：'+fmtTime(_ps.t)+'（'+((_ps.s&&STMETA[_ps.s])?STMETA[_ps.s].label:'')+'）</p>';}
     h+='<div class="dsec"><h3>現場の優先順位</h3><select id="dprio"><option value="">未設定</option>'+[1,2,3,4,5,6,7,8,9,10].map(function(nn){return '<option value="'+nn+'">優先'+nn+'</option>';}).join('')+'</select><p class="dnote">並び替え「優先順位順」で上に来ます。訪問が終わった先は自動で後ろに下がります。</p></div>';
     h+='<div class="dsec"><h3>基本データ</h3><table class="kv"><tr><th>展示会</th><td>'+esc(d.section)+'</td></tr><tr><th>小間</th><td>'+esc(d.booth||'—')+'</td></tr><tr><th>概要</th><td>'+esc(d.summary||'—')+'</td></tr><tr><th>タグ</th><td>'+esc(d.tags.join(' / ')||'—')+'</td></tr></table><div class="links">'+(d.official_url?linkBtn(d.official_url,'公式サイト','lk-official'):linkBtn(d.search_url,'公式サイト検索'))+(d.page_url?linkBtn(d.page_url,'企業データ','lk-official'):'')+(d.group_url?linkBtn(d.group_url,'グループデータ','lk-official'):'')+linkBtn(d.news_url,'最新ニュース')+linkBtn(d.pr_url,'公式発表を検索')+'</div>'+(d.official_checked?'<p class="dnote">公式リンク確認日：'+esc(d.official_checked)+'</p>':'<p class="dnote">公式サイトは未確認のため検索リンクです。当日まで更新します。</p>')+'</div>';

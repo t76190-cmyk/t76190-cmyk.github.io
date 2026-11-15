@@ -66,7 +66,7 @@ function saveSettings(){ try { localStorage.setItem(SKEY, JSON.stringify(setting
 function saveV(){ try { localStorage.setItem(VKEY, JSON.stringify(vstate)); } catch (e) {} }
 function todayStr(){ var d = new Date(); return (d.getMonth() + 1) + '/' + d.getDate(); }
 function stOf(ci){ var st = vstate[ci]; if (!st) return {s: '', o: '', p: '', t: 0}; if (typeof st === 'string') return {s: st, o: '', p: '', t: 0}; return {s: st.s || '', o: st.o || '', p: st.p || '', t: st.t || 0}; }
-function done(ci){ var s = stOf(ci).s; return s === 'v' || s === 't' || s === 's' || s === 'x'; }
+function done(ci){ var s = stOf(ci).s; return s === 't' || s === 'x'; }
 function handledToday(ci){ var st = settings[ci] || {}; return st.handled === todayStr() || st.skip === todayStr(); }
 function available(r){ return !done(r.ci) && !handledToday(r.ci); }
 var GO = {'S': 0, 'A': 1, 'B': 2, 'C': 3, 'D': 4, '-': 5};
@@ -166,24 +166,21 @@ function renderSum(){
   DATA.forEach(function(r){ var g = byGrade[r.ceo] = byGrade[r.ceo] || [0, 0]; g[0]++; if (done(r.ci) && stOf(r.ci).s !== 's') g[1]++; });
   var gs = Object.keys(byGrade).sort().map(function(g){ return '社長接触' + g + '：' + byGrade[g][1] + '/' + byGrade[g][0]; }).join(' ｜ ');
   var timed = DATA.filter(function(r){ return timedKey(r); }).length;
-  var CLS = [['take', '社長取り次ぎ', 'sg-take', 'lg-take'], ['pros', '見込みあり', 'sg-pros', 'lg-pros'], ['talk', '話せた', 'sg-t', 'lg-t'], ['visit', '訪問済', 'sg-v', 'lg-v'], ['later', 'あとで回る', 'sg-l', 'lg-l'], ['skip', '今日はまわらない', 'sg-k', 'lg-k'], ['no', '行かない', 'sg-s', 'lg-s'], ['reject', '断られた', 'sg-rej', 'lg-rej'], ['nopros', '見込みなし', 'sg-nop', 'lg-nop'], ['rest', 'まだ', 'sg-r', 'lg-r']];
+  var CLS = [['take', '社長取り次ぎ', 'sg-take', 'lg-take'], ['pros', '見込みあり', 'sg-pros', 'lg-pros'], ['talk', '話せた', 'sg-t', 'lg-t'], ['later', 'あとで回る', 'sg-l', 'lg-l'], ['skip', '今日はまわらない', 'sg-k', 'lg-k'], ['reject', '断られた', 'sg-rej', 'lg-rej'], ['rest', 'まだ', 'sg-r', 'lg-r']];
   var cc = {}; CLS.forEach(function(c){ cc[c[0]] = 0; });
   DATA.forEach(function(r){
     var st = settings[r.ci] || {}, x = stOf(r.ci), k;
     if (st.take) k = 'take';
     else if (x.o === 'a') k = 'pros';
     else if (x.s === 't') k = 'talk';
-    else if (x.s === 'v') k = 'visit';
     else if (x.s === 'l') k = 'later';
     else if (x.s === 'x') k = 'reject';
-    else if (x.s === 's') k = 'no';
     else if (st.skip === todayStr()) k = 'skip';
-    else if (x.o === 'n') k = 'nopros';
     else k = 'rest';
     cc[k]++;
   });
   var pct = function(n){ return tot ? (n / tot * 100) : 0; };
-  document.getElementById('sum').innerHTML = '<b>実績</b>（野望' + tot + '社）時間指定 ' + timed + '社<br><span style="font-size:11.5px;color:#999">全体グラフは、各社をいちばん強い結果で1色に色分けしています（取り次ぎ＞見込み＞話せた＞訪問済）</span>'
+  document.getElementById('sum').innerHTML = '<b>実績</b>（野望' + tot + '社）時間指定 ' + timed + '社<br><span style="font-size:11.5px;color:#999">全体グラフは、各社をいちばん強い結果で1色に色分けしています（取り次ぎ＞見込み＞話せた）</span>'
     + '<div class="stack">' + CLS.map(function(c){ return '<i class="' + c[2] + '" style="width:' + pct(cc[c[0]]) + '%"></i>'; }).join('') + '</div>'
     + '<div class="legend">' + CLS.map(function(c){ return '<span><i class="' + c[3] + '"></i>' + c[1] + ' ' + cc[c[0]] + '（' + pct(cc[c[0]]).toFixed(1) + '%）</span>'; }).join('') + '</div>'
     + '<div class="flagrow"><span class="fl">◎ 見込みあり</span><div class="fbar"><i class="fg-pros" style="width:' + pct(oa) + '%"></i></div><b>' + oa + '（' + pct(oa).toFixed(1) + '%）</b></div>'
