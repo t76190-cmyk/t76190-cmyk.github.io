@@ -357,7 +357,7 @@ function stampReturn(){if(!cur)return;var _r=rec();
 function doReturn(){if(!cur||!returnCycleOpen()||checkedAt||approvedAt)return;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;var _r=rec();touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt,preReturnStatus:_r?_r.status:null,preReturnWaiting:_r?(_r.waiting||null):null});render();renderStatus();renderBoard();}
 document.getElementById('btnReturn').addEventListener('click',doReturn);
 document.getElementById('btnStampAll').addEventListener('click',function(){if(!cur)return;var who=(role==='president')?'approver':(role==='checker'?'checker':'drafter');
-  if(who==='drafter'){if(stamped&&returnedAt)return;stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
+  if(who==='drafter'){var _rs=rec();if(stamped&&_rs&&_rs.status&&_rs.status!=='draft')return;stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
   else if(who==='checker'){
     var _a=document.querySelector('input[name="stampAct"]:checked');
     if(_a&&_a.value==='return'){stampReturn();return;}
