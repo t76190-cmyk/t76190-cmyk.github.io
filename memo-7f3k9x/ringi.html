@@ -88,13 +88,11 @@ a.back{color:#173a6b;font-size:13px}
 <div class="row"><span id="statusChip">未選択</span></div>
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
-<button id="btnStamp" type="button" class="a-draft">🔴 押印する</button>
+<span style="display:inline-flex;gap:12px;align-items:center;font-size:14px;font-weight:700;color:#173a6b"><label><input type="radio" name="stampWho" value="drafter"> 担当</label><label><input type="radio" name="stampWho" value="checker"> 確認</label><label><input type="radio" name="stampWho" value="approver"> 決裁</label></span>
+<button id="btnStampAll" type="button">🔴 押印する</button>
 <span class="a-draft a-check" style="display:inline-flex;gap:12px;align-items:center;font-size:14px;font-weight:700;color:#173a6b"><label><input type="radio" name="subTo" value="ティリーニ"> ティリーニ</label><label><input type="radio" name="subTo" value="社長"> マンジュラ</label></span>
 <button id="btnSubmit" type="button" class="main a-draft a-check">📤 提出</button>
-<button id="btnCheck" type="button" class="a-check">✔ ティリーニ確認（押印）</button>
-<button id="btnApproveT" type="button" class="a-check">✅ 決裁（ティリーニ権限）</button>
 <button id="btnReturn" type="button" class="a-check a-pres">↩ 差し戻し</button>
-<button id="btnApprove" type="button" class="a-pres">✅ 決裁（押印）</button>
 </div>
 <div class="btns"><button id="btnPrint" type="button" class="main">🖨 印刷／PDFにする</button><button id="btnCopy" type="button">本文をコピー</button></div>
 <div class="btns a-check a-pres"><textarea id="condText" placeholder="条件・特記を加筆（確認・決裁のみ）"></textarea><button id="btnCond" type="button">✎ 条件を加筆する</button></div>
@@ -127,8 +125,10 @@ function renderStatus(){
   if(!cur){chip.textContent='未選択';}
   else if(!r){chip.textContent=cur.name+'：未作成';}
   else{chip.textContent=cur.name+'：'+STLABEL[r.status]+(r.status==='waiting'?'（'+r.waiting+'待ち）':'')+(r.status==='approved'?'（'+ymd(r.updated)+'）':'');}
-  document.getElementById('btnStamp').textContent=stamped?'🔴 押印を取り消す':'🔴 押印する';
-  document.getElementById('btnStamp').classList.toggle('on',stamped);
+  var _sel=document.querySelector('input[name="stampWho"]:checked');var _who=_sel?_sel.value:'drafter';
+  var _has=_who==='drafter'?stamped:(_who==='checker'?!!checkedAt:!!approvedAt);
+  document.getElementById('btnStampAll').textContent=_has?'🔴 押印を取り消す':'🔴 押印する';
+  document.getElementById('btnStampAll').classList.toggle('on',_has);
   document.getElementById('btnLang').textContent=lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に切り替え';
 }
 function renderBoard(){
@@ -255,12 +255,15 @@ document.getElementById('q').addEventListener('input',renderList);
 document.getElementById('btnLang').addEventListener('click',function(){lang=lang==='jp'?'en':'jp';autoTexts();render();renderStatus();applyRole();});
 document.querySelectorAll('#roletabs button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role);});});
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
-document.getElementById('btnStamp').addEventListener('click',function(){if(!cur)return;stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});render();renderStatus();});
 document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');touch({status:'waiting',waiting:sel?sel.value:'ティリーニ',subject:document.getElementById('fSubject').value});renderStatus();});
-document.getElementById('btnCheck').addEventListener('click',function(){if(!cur)return;checkedAt=Date.now();touch({checkedAt:checkedAt});render();renderStatus();});
 document.getElementById('btnReturn').addEventListener('click',function(){if(!cur)return;checkedAt=null;approvedAt=null;approvedBy=null;touch({status:'returned',checkedAt:null,approvedAt:null,approvedBy:null});render();renderStatus();});
-document.getElementById('btnApprove').addEventListener('click',function(){if(!cur)return;approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:'manjula'});render();renderStatus();});
-document.getElementById('btnApproveT').addEventListener('click',function(){if(!cur)return;approvedAt=Date.now();approvedBy='thilini';touch({status:'approved',approvedAt:approvedAt,approvedBy:'thilini'});render();renderStatus();});
+document.querySelectorAll('input[name="stampWho"]').forEach(function(x){x.addEventListener('change',renderStatus);});
+document.getElementById('btnStampAll').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="stampWho"]:checked');var who=sel?sel.value:'drafter';
+  if(who==='drafter'){stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
+  else if(who==='checker'){checkedAt=checkedAt?null:Date.now();touch({checkedAt:checkedAt});}
+  else if(approvedAt){approvedAt=null;approvedBy=null;var r0=rec();var patch={approvedAt:null,approvedBy:null};if(r0&&r0.status==='approved')patch.status='draft';touch(patch);}
+  else{approvedAt=Date.now();approvedBy=(role==='checker')?'thilini':'manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
+  render();renderStatus();});
 document.getElementById('btnPrint').addEventListener('click',function(){window.print();});
 document.getElementById('btnCopy').addEventListener('click',function(){
   if(!cur)return;
@@ -274,8 +277,9 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
   document.querySelectorAll('.a-draft,.a-check,.a-pres').forEach(function(el){el.style.display=el.classList.contains(map[role])?'':'none';});
   var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');}
 function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
-function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();autoTexts();render();renderStatus();}
-applyRole();subDef();renderBoard();renderList();renderStatus();
+function stampDef(){var v=(role==='president')?'approver':(role==='checker'?'checker':'drafter');document.querySelectorAll('input[name="stampWho"]').forEach(function(x){x.checked=(x.value===v);});}
+function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();autoTexts();render();renderStatus();}
+applyRole();subDef();stampDef();renderBoard();renderList();renderStatus();
 var m=/#co=(\d+)/.exec(location.hash||'');
 if(m)select(+m[1]);
 </script>
