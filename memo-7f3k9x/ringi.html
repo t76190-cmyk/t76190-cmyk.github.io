@@ -38,6 +38,10 @@ body{font-family:"Hiragino Kaku Gothic ProN","Noto Sans CJK JP",sans-serif;backg
 #sheet .conds{border:1px solid #d8dee9;border-left:5px solid #b3541e;padding:7px 10px;margin:0 0 10px;font-size:10.5pt}
 #sheet .conds h4{margin:0 0 4px;font-size:10.5pt;color:#8a3b12}
 #sheet .conds p{margin:0 0 3px}
+#sheet .envbox{border:1px solid #d8dee9;border-left:5px solid #173a6b;padding:7px 10px;margin-top:10px;font-size:9.5pt;color:#33475b}
+#sheet .envbox h4{margin:0 0 4px;font-size:10pt;color:#173a6b}
+#sheet .envbox ul{margin:0;padding-left:15px}
+#sheet .envbox li{margin:1px 0}
 #condText{flex:1;font-size:14px;border:1px solid #b9c4d6;border-radius:8px;padding:8px;min-height:40px}
 #board{background:#fff;border:1px solid #b9c4d4;border-radius:10px;padding:10px 12px}
 #board .grp{margin:6px 0}
@@ -270,6 +274,10 @@ function select(ci){
   syncTexts();
   renderBoard();renderList();render();renderStatus();renderSelfDocs();
 }
+function envBoxHtml(){
+ if(lang==='en')return '<div class="envbox"><h4>Production environment</h4><ul><li>t76190@gmail.com (personal email)</li><li>AI environment (required)<ul><li>Muse</li><li>Copilot</li><li>Gemini</li></ul></li><li>t76190t76190@gmail.com (personal email, newly registered)<ul><li>Email for Hikari Match</li><li>For the empty-mail QR code, etc.</li></ul></li></ul></div>';
+ return '<div class="envbox"><h4>制作環境</h4><ul><li>t76190@gmail.com（個人メール）</li><li>AI環境　必須<ul><li>ミューズ</li><li>Copilot</li><li>Gemini</li></ul></li><li>t76190t76190@gmail.com（個人メール・新規登録）<ul><li>光マッチ用メール</li><li>空メール用QRコード等</li></ul></li></ul></div>';
+}
 function render(){
   var el=document.getElementById('sheet');
   if(!cur){el.innerHTML='';return;}
@@ -347,6 +355,7 @@ function render(){
     h+='<h2>5. Request</h2><p>Please review and advise whether we may proceed with this business discussion, and if so, the next steps to take.</p>';
     h+='<div class="foot">'+(y.source?'Source: '+esc(y.source)+'<br>':'')+'Note: This document was auto-generated from the internal exhibitor index. Assessments and hypotheses are estimates, marked as such. Some source texts remain in Japanese.</div>';}
   }
+  h+=envBoxHtml();
   el.innerHTML=h;
 }
 ['fSubject','fKind','fPurpose'].forEach(function(id){document.getElementById(id).addEventListener('input',function(){render();if(cur)touch({subject:document.getElementById('fSubject').value,kind:document.getElementById('fKind').value,purpose:document.getElementById('fPurpose').value});});});
