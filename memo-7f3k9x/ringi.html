@@ -148,8 +148,9 @@ function renderStatus(){
   if(!cur){chip.textContent='未選択';}
   else if(!r){chip.textContent=cur.name+'：未作成';}
   else{chip.textContent=cur.name+'：'+STLABEL[r.status]+(r.status==='waiting'?'（'+r.waiting+'待ち）':'')+(r.status==='approved'?'（'+ymd(r.updated)+'）':'');}
+  if(role==='drafter'){var _sa0=document.getElementById('stampActs');if(returnedAt){if(!_sa0.querySelector('input[value="resubmit"]')){_sa0.innerHTML='<label><input type="radio" name="stampAct" value="own"'+(stamped?'':' checked')+'> 担当</label> <label><input type="radio" name="stampAct" value="resubmit"'+(stamped?' checked':'')+'> 再提出</label>';}}else{_sa0.innerHTML='';}}
   var _sa=document.querySelector('input[name="stampAct"]:checked');
-  var _has=(role==='drafter')?stamped:((_sa&&_sa.value==='return')?!!returnedAt:((role==='checker')?!!checkedAt:!!approvedAt));
+  var _has=(role==='drafter')?((_sa&&_sa.value==='resubmit')?false:stamped):((_sa&&_sa.value==='return')?!!returnedAt:((role==='checker')?!!checkedAt:!!approvedAt));
   document.getElementById('btnStampAll').textContent=_has?'🔴 押印を取り消す':'🔴 押印する';
   document.getElementById('btnStampAll').classList.toggle('on',_has);
   document.getElementById('btnLang').textContent=lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に切り替え';
@@ -273,7 +274,7 @@ function render(){
   var sealCell=stamped?'<img class="seal ts" src="'+SEAL+'" alt="seal"><div class="sealts">'+tsText(stampedAt||Date.now())+'</div>':'';
   var chkCell=checkedAt?'<img class="seal ts" src="'+SEAL_T+'" alt="seal"><div class="sealts">'+tsText(checkedAt)+'</div>':'';
   var retCell=returnedAt?'<img class="seal ts" src="'+(returnedBy==='manjula'?SEAL_M:SEAL_T)+'" alt="seal"><div class="sealts">'+tsText(returnedAt)+'</div>':'';
-  var resubCell=resubmittedAt?'<div class="resmark">'+tsText(resubmittedAt)+'</div>':'';
+  var resubCell=resubmittedAt?'<img class="seal ts" src="'+SEAL+'" alt="seal"><div class="sealts">'+tsText(resubmittedAt)+'</div>':'';
   var condHtml='';
   var _enC=(lang!=='jp');var condHead=_enC?(isSelf?'Notes by management / approver':'Conditions / Notes'):(isSelf?'管理・決裁者追記欄':'条件・特記');
   if(conditions.length){condHtml='<div class="conds"><h4>'+condHead+'</h4>'+conditions.map(function(c){return '<p>・'+(c.by==='manjula'?'President Manjula / マンジュラ社長':'Thilini / ティリーニ')+'（'+ymd(c.ts)+'）：'+esc(c.text)+'</p>';}).join('')+'</div>';}
@@ -357,7 +358,9 @@ function stampReturn(){if(!cur)return;var _r=rec();
 function doReturn(){if(!cur||!returnCycleOpen()||checkedAt||approvedAt)return;returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;var _r=rec();touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt,preReturnStatus:_r?_r.status:null,preReturnWaiting:_r?(_r.waiting||null):null});render();renderStatus();renderBoard();}
 document.getElementById('btnReturn').addEventListener('click',doReturn);
 document.getElementById('btnStampAll').addEventListener('click',function(){if(!cur)return;var who=(role==='president')?'approver':(role==='checker'?'checker':'drafter');
-  if(who==='drafter'){var _rs=rec();if(stamped&&_rs&&_rs.status&&_rs.status!=='draft')return;stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
+  if(who==='drafter'){var _ra=document.querySelector('input[name="stampAct"]:checked');
+    if(_ra&&_ra.value==='resubmit'&&returnedAt){resubmittedAt=Date.now();touch({status:'waiting',waiting:'ティリーニ',subject:document.getElementById('fSubject').value,resubmittedAt:resubmittedAt,returnedAt:null,returnedBy:null,returnedSentAt:null});returnedAt=null;returnedBy=null;returnedSentAt=null;render();renderStatus();renderBoard();return;}
+    var _rs=rec();if(stamped&&_rs&&_rs.status&&_rs.status!=='draft')return;stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
   else if(who==='checker'){
     var _a=document.querySelector('input[name="stampAct"]:checked');
     if(_a&&_a.value==='return'){stampReturn();return;}
