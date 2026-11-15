@@ -97,7 +97,7 @@ a.back{color:#173a6b;font-size:13px}
 <button id="btnReturn" type="button" class="a-check a-pres">↩ 差し戻し</button>
 </div>
 <div class="btns"><button id="btnPrint" type="button" class="main">🖨 印刷／PDFにする</button><button id="btnCopy" type="button">本文をコピー</button></div>
-<div class="btns a-check a-pres"><textarea id="condText" placeholder="条件・特記を加筆（確認・決裁のみ）"></textarea><button id="btnCond" type="button">✎ 条件を加筆する</button></div>
+<div class="btns a-check a-pres"><textarea id="condText" placeholder="条件・特記を加筆（確認・決裁のみ）"></textarea><button id="btnCond" type="button">✎ 条件を加筆する</button><div id="condList" style="flex-basis:100%"></div></div>
 </div>
 <div id="sheet"></div>
 <script>
@@ -128,6 +128,18 @@ function touch(patch){
   for(var k2 in patch)r2[k2]=patch[k2];r2.updated=Date.now();r2.name=cur.name;s[cur.ci]=r2;saveStore(s);renderBoard();renderStatus();
 }
 var STLABEL={draft:'下書き',waiting:'提出済み（待ち）',returned:'差し戻し',approved:'確定'};
+function renderConds(){
+  var box=document.getElementById('condList');if(!box)return;
+  var r=rec();var locked=!r||r.status==='approved';
+  var myKey=(role==='president')?'manjula':'thilini';
+  if(!conditions.length){box.innerHTML='';return;}
+  box.innerHTML=conditions.map(function(c,i){
+    var who=c.by==='manjula'?'マンジュラ（決裁）':'ティリーニ（確認・決裁）';
+    var del=(!locked&&role!=='drafter'&&c.by===myKey)?' <button type="button" data-cdel="'+i+'">✕ 削除</button>':'';
+    return '<div style="font-size:13px;margin-top:4px">・'+esc(c.text)+'（'+who+'／'+tsText(c.ts)+'）'+del+'</div>';
+  }).join('');
+  box.querySelectorAll('[data-cdel]').forEach(function(b){b.addEventListener('click',function(){if(!confirm('この加筆を削除しますか？'))return;conditions.splice(+b.getAttribute('data-cdel'),1);touch({conditions:conditions});render();renderStatus();});});
+}
 function renderStatus(){
   var chip=document.getElementById('statusChip');var r=rec();
   if(!cur){chip.textContent='未選択';}
@@ -138,6 +150,7 @@ function renderStatus(){
   document.getElementById('btnStampAll').textContent=_has?'🔴 押印を取り消す':'🔴 押印する';
   document.getElementById('btnStampAll').classList.toggle('on',_has);
   document.getElementById('btnLang').textContent=lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に切り替え';
+  renderConds();
 }
 function renderSelfDocs(){
   var box=document.getElementById('selfDocs');if(!box)return;
@@ -348,9 +361,16 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
 function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
 function stampDef(){var v=(role==='president')?'approver':(role==='checker'?'checker':'drafter');document.querySelectorAll('input[name="stampWho"]').forEach(function(x){x.checked=(x.value===v);});}
 function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();var r4=rec();if(!(r4&&(r4.subject||r4.purpose)))autoTexts();syncBodyField();render();renderStatus();renderSelfDocs();}
+if(role==='president')lang='en';
 applyRole();subDef();stampDef();renderBoard();renderList();renderStatus();
 var m=/#co=(\d+)/.exec(location.hash||'');
 if(m)select(+m[1]);
+if(!m&&role!=='drafter'){
+  var _s=loadStore();var _op=false;
+  var _rs=Object.keys(_s).filter(function(k){return k!=='__self';}).map(function(k){return _s[k];}).filter(function(r){return r.status==='waiting';});
+  if(_rs.length){select(_rs[0].ci);_op=true;}
+  if(!_op&&_s.__self){var _ids=Object.keys(_s.__self.docs);for(var _i=0;_i<_ids.length;_i++){if(_s.__self.docs[_ids[_i]].status==='waiting'){switchDoc(_ids[_i]);_op=true;break;}}}
+}
 </script>
 </body>
 </html>
