@@ -81,8 +81,8 @@ a.back{color:#173a6b;font-size:13px}
 <h1>📄 稟議書</h1>
 <div class="roletabs" id="roletabs"><button type="button" data-role="drafter">👤 担当者（東）</button><button type="button" data-role="checker">✔ 確認（ティリーニ）</button><button type="button" data-role="president">👔 決裁（マンジュラ）</button></div>
 <div id="board"></div>
-<h2 class="b">稟議書をつくる</h2>
-<div class="row"><input type="text" id="q" placeholder="会社名で検索（例：Sustech）"><div id="clist"></div></div>
+<div id="createBox" class="a-draft"><h2 class="b">稟議書をつくる</h2>
+<div class="row"><input type="text" id="q" placeholder="会社名で検索（例：Sustech）"><div id="clist"></div></div></div>
 <div class="row"><label>件名</label><input type="text" id="fSubject"></div>
 <div class="row"><label>区分</label><input type="text" id="fKind"></div>
 <div class="row"><label>目的（編集できます）</label><textarea id="fPurpose"></textarea></div>
@@ -146,12 +146,12 @@ function renderSelfDocs(){
   var s=loadStore();var ss=selfSS(s);var ids=Object.keys(ss.docs);
   var h='<span style="font-size:13px;font-weight:700;color:#173a6b">自社の稟議書：</span>';
   ids.forEach(function(id){var d0=ss.docs[id];var lb=(d0.subject||'（無題）');if(lb.length>16)lb=lb.slice(0,16)+'…';h+='<button type="button" data-sdoc="'+id+'" class="'+(ss.cur===id?'on':'')+'">'+esc(lb)+'（'+(STLABEL[d0.status]||'下書き')+'）</button>';});
-  h+='<button type="button" id="btnNewDoc">＋ 新しい稟議書</button>';
+  if(role==='drafter')h+='<button type="button" id="btnNewDoc">＋ 新しい稟議書</button>';
   var cd=ss.cur?ss.docs[ss.cur]:null;
-  if(cd&&(cd.status==='draft'||cd.status==='returned'||!cd.status))h+='<button type="button" id="btnDelDoc">🗑 この下書きを削除</button>';
+  if(role==='drafter'&&cd&&(cd.status==='draft'||cd.status==='returned'||!cd.status))h+='<button type="button" id="btnDelDoc">🗑 この下書きを削除</button>';
   box.innerHTML=h;
   box.querySelectorAll('[data-sdoc]').forEach(function(b){b.addEventListener('click',function(){switchDoc(b.getAttribute('data-sdoc'));});});
-  document.getElementById('btnNewDoc').addEventListener('click',newDoc);
+  var bn=document.getElementById('btnNewDoc');if(bn)bn.addEventListener('click',newDoc);
   var bd=document.getElementById('btnDelDoc');if(bd)bd.addEventListener('click',deleteDoc);
 }
 function switchDoc(id){var s=loadStore();var ss=selfSS(s);if(!ss.docs[id])return;ss.cur=id;saveStore(s);select(0);}
@@ -347,7 +347,7 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
   var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');}
 function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
 function stampDef(){var v=(role==='president')?'approver':(role==='checker'?'checker':'drafter');document.querySelectorAll('input[name="stampWho"]').forEach(function(x){x.checked=(x.value===v);});}
-function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();var r4=rec();if(!(r4&&(r4.subject||r4.purpose)))autoTexts();syncBodyField();render();renderStatus();}
+function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();var r4=rec();if(!(r4&&(r4.subject||r4.purpose)))autoTexts();syncBodyField();render();renderStatus();renderSelfDocs();}
 applyRole();subDef();stampDef();renderBoard();renderList();renderStatus();
 var m=/#co=(\d+)/.exec(location.hash||'');
 if(m)select(+m[1]);
