@@ -361,7 +361,7 @@ document.getElementById('stampActs').addEventListener('change',renderStatus);
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
 document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');var _p={status:'waiting',waiting:sel?sel.value:((role==='checker')?'社長':'ティリーニ'),subject:document.getElementById('fSubject').value};if(pendRetAt()){resubmittedAt=Date.now();_p.resubmittedAt=resubmittedAt;}touch(_p);renderStatus();renderBoard();render();});
 function pendRetAt(){return sentBackAt||returnedAt;}
-function retDest(){var _x=document.querySelector('input[name="retTo"]:checked');return _x?_x.value:'東';}
+function retDest(){var _x=document.querySelector('input[name="retTo"]:checked');if(_x)return _x.value;return (role==='president')?'ティリーニ':'東';}
 function returnCycleOpen(){var _p=pendRetAt();if(!_p)return true;var _r=rec();var _re=resubmittedAt||(_r&&_r.resubmittedAt);return !!(_re&&_re>_p);}
 function stampReturn(){if(!cur)return;var _r=rec();
   if(pendRetAt()&&!returnCycleOpen()){returnedAt=null;returnedBy=null;returnedSentAt=null;sentBackAt=null;var _p={returnedAt:null,returnedBy:null,returnedTo:null,returnedSentAt:null,sentBackAt:null,preReturnStatus:null,preReturnWaiting:null};_p.status=approvedAt?'approved':((_r&&_r.preReturnStatus)?_r.preReturnStatus:'draft');if(_r&&_r.preReturnWaiting)_p.waiting=_r.preReturnWaiting;touch(_p);}
@@ -399,7 +399,8 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
   var sb=document.getElementById('subActs');
   if(sb){sb.innerHTML=(role==='checker')?'<label><input type="radio" name="subTo" value="社長" checked> マンジュラ社長</label>':'<label><input type="radio" name="subTo" value="ティリーニ" checked> ティリーニ</label>';}
   var ra=document.getElementById('retActs');
-  if(ra){ra.innerHTML=(role==='drafter')?'':'<span style="font-size:12px;color:#42506b">戻し先</span>'+((role==='president')?'<label><input type="radio" name="retTo" value="ティリーニ" checked> ティリーニ</label>':'<label><input type="radio" name="retTo" value="東" checked> 東</label>');}}
+  if(ra){ra.innerHTML=(role==='drafter'||role==='president')?'':'<span style="font-size:12px;color:#42506b">戻し先</span><label><input type="radio" name="retTo" value="東" checked> 東</label>';}
+  document.getElementById('btnLang').style.display=(role==='president')?'none':'';}
 function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
 function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();var r4=rec();if(!(r4&&(r4.subject||r4.purpose)))autoTexts();syncBodyField();render();renderStatus();renderSelfDocs();}
 var UIEN=(typeof FORCE_EN_UI!=='undefined'&&FORCE_EN_UI);
