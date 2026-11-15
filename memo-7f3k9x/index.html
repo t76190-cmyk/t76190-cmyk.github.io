@@ -641,6 +641,8 @@ function openDetail(i){
     details.forEach(function(d, ci){
       var y = YABOU[d.name]; if (!y) return;
       var st = peekState(ci); if (st.s === 'v' || st.s === 't' || st.s === 's') return;
+      var _cfgH = settings[ci] || {}; var _today = (new Date().getMonth() + 1) + '/' + new Date().getDate();
+      if (_cfgH.handled === _today || _cfgH.skip === _today) return;
       var cfg = settings[ci] || {};
       rows.push({ci: ci, name: d.name, booth: d.booth || '', ceo: y.ceo || '-',
                  timed: (cfg.d && cfg.t) ? ('11/' + cfg.d + ' ' + cfg.t) : '', p: cfg.p || ''});
