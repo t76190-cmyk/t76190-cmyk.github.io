@@ -193,6 +193,11 @@ function renderList(){
 }
 var SELF_EN={ov:'Head office: 4-22-3 Hitachino-Nishi, Ushiku, Ibaraki / Founded: July 6, 2011 / Capital: JPY 50 million / Representative: Manjula Senarathna / TEL: 0120-190-730 / Unlisted',biz:'Development and sales of grid-scale battery storage plants. Over 15 years in renewable energy, starting from solar power; the battery storage business began in earnest last year. Exhibiting as a member of the group that operates HIKARI match.',tags:['Grid-scale battery storage','Batteries & ESS','Solar power'],sec:'Decarbonization Management Expo (36 companies)'};
 function isSelfC(){return !!cur&&cur.name==='日本エコソーラー';}
+function syncBodyField(){
+  if(!isSelfC())return;var f=document.getElementById('fBody');var v=f.value;
+  if(lang==='en'&&v.trim()===SELF_BODY.trim())f.value=SELF_BODY_EN;
+  else if(lang==='jp'&&v.trim()===SELF_BODY_EN.trim())f.value=SELF_BODY;
+}
 function mainText(){return isSelfC()?document.getElementById('fBody').value.trim():document.getElementById('fMemo').value.trim();}
 function autoTexts(){
   if(!cur)return;
@@ -230,6 +235,7 @@ function select(ci){
   document.getElementById('fMemoWrap').style.display=_sf?'none':'';
   document.getElementById('fBody').value=r?(r.body||''):'';
   if(_sf&&!r)document.getElementById('fBody').value=SELF_BODY;
+  syncBodyField();
   autoTexts();
   if(r){if(r.subject)document.getElementById('fSubject').value=r.subject;if(r.kind)document.getElementById('fKind').value=r.kind;if(r.purpose)document.getElementById('fPurpose').value=r.purpose;}
   renderBoard();renderList();render();renderStatus();renderSelfDocs();
@@ -315,7 +321,7 @@ function render(){
 document.getElementById('fMemo').addEventListener('input',function(){render();if(cur)touch({memo:document.getElementById('fMemo').value});});
 document.getElementById('fBody').addEventListener('input',function(){render();if(cur)touch({body:document.getElementById('fBody').value});});
 document.getElementById('q').addEventListener('input',renderList);
-document.getElementById('btnLang').addEventListener('click',function(){lang=lang==='jp'?'en':'jp';var r3=rec();if(!(r3&&(r3.subject||r3.purpose)))autoTexts();render();renderStatus();applyRole();});
+document.getElementById('btnLang').addEventListener('click',function(){lang=lang==='jp'?'en':'jp';var r3=rec();if(!(r3&&(r3.subject||r3.purpose)))autoTexts();syncBodyField();render();renderStatus();applyRole();});
 document.querySelectorAll('#roletabs button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role);});});
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
 document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');touch({status:'waiting',waiting:sel?sel.value:'ティリーニ',subject:document.getElementById('fSubject').value});renderStatus();});
@@ -341,7 +347,7 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
   var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');}
 function subDef(){var v=(role==='checker')?'社長':'ティリーニ';document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value===v);});}
 function stampDef(){var v=(role==='president')?'approver':(role==='checker'?'checker':'drafter');document.querySelectorAll('input[name="stampWho"]').forEach(function(x){x.checked=(x.value===v);});}
-function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();var r4=rec();if(!(r4&&(r4.subject||r4.purpose)))autoTexts();render();renderStatus();}
+function setRole(r){role=r;localStorage.setItem('ringiRoleV1',r);if(r==='president')lang='en';applyRole();subDef();stampDef();var r4=rec();if(!(r4&&(r4.subject||r4.purpose)))autoTexts();syncBodyField();render();renderStatus();}
 applyRole();subDef();stampDef();renderBoard();renderList();renderStatus();
 var m=/#co=(\d+)/.exec(location.hash||'');
 if(m)select(+m[1]);
