@@ -31,10 +31,10 @@ main{max-width:860px;margin:0 auto;padding:12px}
 #sum b{color:#7a1f1f}
 .stack{display:flex;height:16px;border-radius:8px;overflow:hidden;margin:6px 0 7px;background:#eee9db}
 .stack i{display:block;height:100%}
-.stack .sg-t{background:#3e8e5a}.stack .sg-v{background:#33688c}.stack .sg-l{background:#d9a514}.stack .sg-k{background:#8e7cc3}.stack .sg-s{background:#b0483e}.stack .sg-r{background:#eee9db}
+.stack .sg-take{background:#7a1f1f}.stack .sg-pros{background:#f39800}.stack .sg-t{background:#3e8e5a}.stack .sg-v{background:#33688c}.stack .sg-l{background:#d9a514}.stack .sg-k{background:#8e7cc3}.stack .sg-s{background:#b0483e}.stack .sg-r{background:#eee9db}
 .legend{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:12px;color:#555;margin-bottom:8px}
 .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
-.legend .lg-t{background:#3e8e5a}.legend .lg-v{background:#33688c}.legend .lg-l{background:#d9a514}.legend .lg-k{background:#8e7cc3}.legend .lg-s{background:#b0483e}.legend .lg-r{background:#ddd5c0}
+.legend .lg-take{background:#7a1f1f}.legend .lg-pros{background:#f39800}.legend .lg-t{background:#3e8e5a}.legend .lg-v{background:#33688c}.legend .lg-l{background:#d9a514}.legend .lg-k{background:#8e7cc3}.legend .lg-s{background:#b0483e}.legend .lg-r{background:#ddd5c0}
 #sum .takes{font-size:12.5px;color:#555;border-top:1px dashed #e0dacb;margin-top:8px;padding-top:7px;line-height:1.8}
 .flagrow{display:flex;align-items:center;gap:9px;font-size:12.5px;margin-top:7px}
 .flagrow .fl{min-width:118px;color:#555;font-weight:700}
@@ -165,13 +165,24 @@ function renderSum(){
   DATA.forEach(function(r){ var g = byGrade[r.ceo] = byGrade[r.ceo] || [0, 0]; g[0]++; if (done(r.ci) && stOf(r.ci).s !== 's') g[1]++; });
   var gs = Object.keys(byGrade).sort().map(function(g){ return '社長接触' + g + '：' + byGrade[g][1] + '/' + byGrade[g][0]; }).join(' ｜ ');
   var timed = DATA.filter(function(r){ return timedKey(r); }).length;
-  var sk = 0;
-  DATA.forEach(function(r){ if (stOf(r.ci).s === '' && (settings[r.ci] || {}).skip === todayStr()) sk++; });
-  var rest = tot - (v + t + l + s + sk);
+  var CLS = [['take', '社長取り次ぎ', 'sg-take', 'lg-take'], ['pros', '見込みあり', 'sg-pros', 'lg-pros'], ['talk', '話せた', 'sg-t', 'lg-t'], ['visit', '訪問済', 'sg-v', 'lg-v'], ['later', 'あとで回る', 'sg-l', 'lg-l'], ['skip', '今日はまわらない', 'sg-k', 'lg-k'], ['no', '行かない', 'sg-s', 'lg-s'], ['rest', 'まだ', 'sg-r', 'lg-r']];
+  var cc = {}; CLS.forEach(function(c){ cc[c[0]] = 0; });
+  DATA.forEach(function(r){
+    var st = settings[r.ci] || {}, x = stOf(r.ci), k;
+    if (st.take) k = 'take';
+    else if (x.o === 'a') k = 'pros';
+    else if (x.s === 't') k = 'talk';
+    else if (x.s === 'v') k = 'visit';
+    else if (x.s === 'l') k = 'later';
+    else if (x.s === 's') k = 'no';
+    else if (st.skip === todayStr()) k = 'skip';
+    else k = 'rest';
+    cc[k]++;
+  });
   var pct = function(n){ return tot ? (n / tot * 100) : 0; };
-  document.getElementById('sum').innerHTML = '<b>実績</b>（野望' + tot + '社）時間指定 ' + timed + '社'
-    + '<div class="stack"><i class="sg-t" style="width:' + pct(t) + '%"></i><i class="sg-v" style="width:' + pct(v) + '%"></i><i class="sg-l" style="width:' + pct(l) + '%"></i><i class="sg-k" style="width:' + pct(sk) + '%"></i><i class="sg-s" style="width:' + pct(s) + '%"></i><i class="sg-r" style="width:' + pct(rest) + '%"></i></div>'
-    + '<div class="legend"><span><i class="lg-t"></i>話せた ' + t + '（' + pct(t).toFixed(1) + '%）</span><span><i class="lg-v"></i>訪問済 ' + v + '（' + pct(v).toFixed(1) + '%）</span><span><i class="lg-l"></i>あとで回る ' + l + '（' + pct(l).toFixed(1) + '%）</span><span><i class="lg-k"></i>今日はまわらない ' + sk + '（' + pct(sk).toFixed(1) + '%）</span><span><i class="lg-s"></i>行かない ' + s + '（' + pct(s).toFixed(1) + '%）</span><span><i class="lg-r"></i>まだ ' + rest + '（' + pct(rest).toFixed(1) + '%）</span></div>'
+  document.getElementById('sum').innerHTML = '<b>実績</b>（野望' + tot + '社）時間指定 ' + timed + '社<br><span style="font-size:11.5px;color:#999">全体グラフは、各社をいちばん強い結果で1色に色分けしています（取り次ぎ＞見込み＞話せた＞訪問済）</span>'
+    + '<div class="stack">' + CLS.map(function(c){ return '<i class="' + c[2] + '" style="width:' + pct(cc[c[0]]) + '%"></i>'; }).join('') + '</div>'
+    + '<div class="legend">' + CLS.map(function(c){ return '<span><i class="' + c[3] + '"></i>' + c[1] + ' ' + cc[c[0]] + '（' + pct(cc[c[0]]).toFixed(1) + '%）</span>'; }).join('') + '</div>'
     + '<div class="flagrow"><span class="fl">◎ 見込みあり</span><div class="fbar"><i class="fg-pros" style="width:' + pct(oa) + '%"></i></div><b>' + oa + '（' + pct(oa).toFixed(1) + '%）</b></div>'
     + '<div class="flagrow"><span class="fl">👔 社長取り次ぎ</span><div class="fbar"><i class="fg-take" style="width:' + pct(takes.length) + '%"></i></div><b>' + takes.length + '（' + pct(takes.length).toFixed(1) + '%）</b></div>'
     + '<span style="font-size:12px;color:#777">' + gs + '</span>'
