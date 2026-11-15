@@ -602,6 +602,7 @@ function uClassOf(idx){
     h+='<div class="badges">'+(d.booth?'<span class="badge b-booth">'+esc(d.booth)+'</span>':'')+d.flags.map(function(x){return '<span class="badge">'+esc(x)+'</span>';}).join('')+'<span class="sec">'+esc(d.section)+'</span></div>';
     if(window.YABOU && YABOU[d.name]){ h+=yabouPage(d, YABOU[d.name]); }
     h+='<div class="dsec boothmap"><h3>小間位置（概略）</h3>'+boothMap(d.booth)+'</div>';
+    h+='<div class="dsec"><h3>稟議書</h3><p style="margin:0"><a href="ringi.html#co='+i+'" style="display:inline-block;border:1.5px solid #173a6b;color:#173a6b;border-radius:999px;padding:6px 16px;font-size:13.5px;font-weight:700;text-decoration:none;background:#fff">📄 この会社の稟議書を作る</a></p></div>';
     h+='<div class="dsec"><h3>ステータス（野望グラフと連動）</h3><div class="tabs stbtns ubtns">'+[['','未'],['take','👔 社長取り次ぎ'],['pros','◎ 見込みあり'],['talk','話せた'],['later','あとで回る'],['skip','今日はまわらない'],['reject','断られた']].map(function(pr){return '<button class="tabbtn" data-u="'+pr[0]+'">'+pr[1]+'</button>';}).join('')+'</div><p class="dnote">選べるのは1つだけ。野望の全体グラフにそのまま反映されます。</p></div>';
     if(peekState(i).t){var _ps=peekState(i);h+='<p class="sttime">記録：'+fmtTime(_ps.t)+'（'+((_ps.s&&STMETA[_ps.s])?STMETA[_ps.s].label:'')+'）</p>';}
     h+='<div class="dsec"><h3>現場の優先順位</h3><select id="dprio"><option value="">未設定</option>'+[1,2,3,4,5,6,7,8,9,10].map(function(nn){return '<option value="'+nn+'">優先'+nn+'</option>';}).join('')+'</select><p class="dnote">並び替え「優先順位順」で上に来ます。訪問が終わった先は自動で後ろに下がります。</p></div>';
