@@ -30,6 +30,12 @@ button.act{background:var(--blue);color:#fff;border:none;font-weight:700;font-si
 #qrModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;align-items:center;justify-content:center}
 #qrModal .box{background:#fff;border-radius:14px;padding:22px;text-align:center;max-width:320px;width:88%}
 #qrModal img{width:220px;height:220px}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.charts{grid-template-columns:1fr}}
+.chartbox{background:#fff;border:1.5px solid #dbe5ee;border-radius:12px;padding:12px}
+.chartbox .ct{font-size:12px;color:var(--mut);font-weight:700;margin-bottom:6px}
+.donutWrap{display:flex;align-items:center;justify-content:center;gap:10px}
+.donutWrap .big{font-size:26px;font-weight:800;color:var(--blue)}
 footer{padding:14px 16px;color:var(--mut);font-size:11.5px;border-top:1px solid #eee}
 </style></head>
 <body>
@@ -44,7 +50,7 @@ footer{padding:14px 16px;color:var(--mut);font-size:11.5px;border-top:1px solid 
 <main>
 <h2>Progress — 3 days, 210 companies</h2>
 <div class="kpis">
-<div class="kpi hot"><div class="n" id="kDone">0</div><div class="l">Visited + talked</div><div class="l" id="kDonePct"></div></div>
+<div class="kpi hot"><div class="donutWrap"><svg width="86" height="86" viewBox="0 0 86 86"><circle cx="43" cy="43" r="34" fill="none" stroke="#eef1f4" stroke-width="10"/><circle id="donutArc" cx="43" cy="43" r="34" fill="none" stroke="#f39800" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 213.6" transform="rotate(-90 43 43)"/><text id="donutPct" x="43" y="48" text-anchor="middle" font-size="16" font-weight="800" fill="#2f5d8a">0%</text></svg><div><div class="big" id="kDone">0</div><div class="l">Visited + talked<br><span id="kDonePct"></span></div></div></div></div>
 <div class="kpi"><div class="n" id="kTalk">0</div><div class="l">Talked</div></div>
 <div class="kpi"><div class="n" id="kVisit">0</div><div class="l">Visited</div></div>
 <div class="kpi hot"><div class="n" id="kProspect">0</div><div class="l">Prospects — yes</div></div>
@@ -54,6 +60,10 @@ footer{padding:14px 16px;color:var(--mut);font-size:11.5px;border-top:1px solid 
 <div class="bar"><i id="doneBar" style="width:0%"></i></div>
 <p class="note">Skipped / not going: <b id="kSkip">0</b> · <span id="upd"></span></p>
 <h2>By day</h2>
+<div class="charts">
+<div class="chartbox"><div class="ct">VISITS + TALKS BY DAY (bar = target)</div><div id="dayChart"></div></div>
+<div class="chartbox"><div class="ct">CUMULATIVE PROGRESS</div><div id="cumChart"></div></div>
+</div>
 <div id="days"></div>
 <h2>President's classification (from the Board)</h2>
 <p style="font-size:14px" id="presLine"></p>
@@ -142,7 +152,22 @@ function render(){
   document.getElementById('kNoProspect').textContent = n.on;
   document.getElementById('kLater').textContent = n.l;
   document.getElementById('kSkip').textContent = n.s;
+  var pct = Math.round(n.done / 210 * 100);
+  document.getElementById('donutPct').textContent = pct + '%';
+  document.getElementById('donutArc').setAttribute('stroke-dasharray', (213.6 * pct / 100) + ' 213.6');
   var days = ['11/18', '11/19', '11/20'];
+  var counts = days.map(function(d){ return n.days[d] || 0; });
+  var maxV = Math.max(cfg.dayVisit, Math.max.apply(null, counts.concat([1])));
+  var bars = counts.map(function(c, i){
+    var h = Math.round(c / maxV * 92), y = 104 - h;
+    return '<rect x="' + (26 + i * 62) + '" y="' + y + '" width="38" height="' + h + '" rx="4" fill="#f39800"/><text x="' + (45 + i * 62) + '" y="' + (y - 5) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#2f5d8a">' + c + '</text><text x="' + (45 + i * 62) + '" y="120" text-anchor="middle" font-size="11" fill="#667">' + days[i].replace('11/', 'Nov ') + '</text>';
+  }).join('');
+  var ty = 104 - Math.round(cfg.dayVisit / maxV * 92);
+  document.getElementById('dayChart').innerHTML = '<svg viewBox="0 0 200 124" width="100%"><line x1="14" y1="' + ty + '" x2="196" y2="' + ty + '" stroke="#2f5d8a" stroke-width="1.5" stroke-dasharray="5 4"/><text x="196" y="' + (ty - 4) + '" text-anchor="end" font-size="9.5" fill="#2f5d8a">target ' + cfg.dayVisit + '</text>' + bars + '</svg>';
+  var cum = [], run = 0; counts.forEach(function(c){ run += c; cum.push(run); });
+  var maxC = Math.max(cfg.totalDone, cum[2] || 0, 1);
+  var pts = cum.map(function(c, i){ return (30 + i * 70) + ',' + (104 - Math.round(c / maxC * 92)); }).join(' ');
+  document.getElementById('cumChart').innerHTML = '<svg viewBox="0 0 200 124" width="100%"><polygon points="30,104 ' + pts + ' 170,104" fill="rgba(243,152,0,.18)"/><polyline points="' + pts + '" fill="none" stroke="#f39800" stroke-width="2.5"/>' + cum.map(function(c, i){ var x = 30 + i * 70, y = 104 - Math.round(c / maxC * 92); return '<circle cx="' + x + '" cy="' + y + '" r="4" fill="#2f5d8a"/><text x="' + x + '" y="' + (y - 8) + '" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2f5d8a">' + c + '</text><text x="' + x + '" y="120" text-anchor="middle" font-size="11" fill="#667">' + days[i].replace('11/', 'Nov ') + '</text>'; }).join('') + '</svg>';
   document.getElementById('days').innerHTML = days.map(function(d){
     var c = n.days[d] || 0;
     return '<div class="dayrow"><b>' + d.replace('11/', 'Nov ') + '</b>' + c + ' visits/talks <span class="tgt">/ target ' + cfg.dayVisit + ' per day</span><div class="bar"><i style="width:' + Math.min(100, c / Math.max(1, cfg.dayVisit) * 100) + '%"></i></div></div>';
