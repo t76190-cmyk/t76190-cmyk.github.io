@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>当日管制盤 — SMART ENERGY WEEK 関西 2026</title>
+<style>
+:root{--acc:#f39800;--blue:#33688c;--bg:#f6f6f4;--card:#fff;--tx:#222;--mut:#666;--bd:#ddd}
+@media (prefers-color-scheme:dark){:root{--bg:#17181a;--card:#232427;--tx:#eee;--mut:#aaa;--bd:#3a3b3e}}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;background:var(--bg);color:var(--tx)}
+header{position:sticky;top:0;background:var(--bg);padding:10px 12px 8px;border-bottom:2px solid var(--acc);z-index:5}
+h1{font-size:17px;margin:2px 0 4px}
+.note{font-size:11px;color:var(--mut);margin:0 0 8px;line-height:1.5}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.tabbtn{border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:999px;padding:7px 14px;font-size:14px;cursor:pointer}
+.tabbtn.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
+.tabbtn.cnt{font-size:11px;opacity:.85}
+.copybar{display:flex;gap:8px;align-items:center;margin-top:2px}
+#copyBtn{border:1px solid var(--blue);background:var(--blue);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer}
+#copyMsg{font-size:12px;color:var(--mut)}
+main{padding:10px 12px 40px;display:grid;gap:8px}
+#sumline{font-size:12px;color:var(--mut);padding:2px 2px 0}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:10px 12px}
+.card.st-v{border-left:6px solid #2e9e5b}
+.card.st-t{border-left:6px solid var(--acc)}
+.card.st-l{border-left:6px solid var(--blue)}
+.row1{display:flex;align-items:flex-start;gap:8px}
+.nmbtn{background:none;border:none;color:inherit;font:inherit;font-size:16px;font-weight:700;text-align:left;padding:0;cursor:pointer;line-height:1.4;flex:1}
+.badge{font-size:11px;padding:2px 8px;border-radius:999px;background:var(--blue);border:1px solid var(--blue);color:#fff;font-weight:700;white-space:nowrap;margin-top:2px}
+.badge.none{background:var(--bg);border-color:var(--bd);color:var(--mut)}
+.ctrls{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.ctrls label{font-size:11px;color:var(--mut);display:block}
+select{font-size:14px;padding:7px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);width:100%;margin-top:2px}
+.fuyu{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:13px;color:var(--mut)}
+.fuyu input{width:20px;height:20px;accent-color:var(--acc)}
+.ts{font-size:11px;color:var(--mut);margin-top:6px}
+.fields{display:grid;gap:6px;margin-top:8px}
+.fields label{font-size:11px;color:var(--mut);display:block}
+.fields input[type=text],.fields input[type=tel],.fields input[type=email]{font-size:15px;padding:8px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--tx);width:100%;margin-top:2px}
+.cardimg{max-width:100%;border:1px solid var(--bd);border-radius:8px;margin-top:6px}
+input[type=file]{font-size:12px;color:var(--mut);margin-top:4px;max-width:100%}
+#q{width:100%;font-size:16px;padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--tx)}
+a.nmbtn{text-decoration:none;display:block}a.srow{text-decoration:none}.srow{display:flex;align-items:center;gap:8px;width:100%;background:none;border:none;color:inherit;font:inherit;text-align:left;padding:2px 0;cursor:pointer}
+.srow.nm{font-size:15px;font-weight:700;flex:1;line-height:1.4}
+.empty{font-size:13px;color:var(--mut);padding:14px 2px}
+.detail{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.detail[hidden]{display:none}
+.sheet{background:var(--card);color:var(--tx);width:100%;max-width:760px;max-height:92vh;border-radius:16px 16px 0 0;display:flex;flex-direction:column}
+.sheet-head{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:2px solid var(--acc)}
+.sheet-title{font-weight:800}
+.closebtn{border:1px solid var(--bd);background:var(--bg);color:var(--tx);border-radius:8px;padding:6px 10px;cursor:pointer}
+.sheet-body{overflow:auto;padding:12px 14px 24px}
+.sheet-body h2{font-size:19px;margin:2px 0 6px;line-height:1.4}
+.dsec{border-top:1px solid var(--bd);padding:10px 0}
+.dsec h3{font-size:14px;margin:0 0 6px;color:var(--blue)}
+.lk{font-size:13px;color:var(--blue);text-decoration:none;border:1px solid var(--blue);padding:6px 12px;border-radius:8px;display:inline-block}
+footer{padding:14px 12px 30px;font-size:11px;color:var(--mut);line-height:1.6}
+</style>
+</head>
+<body>
+<header>
+<h1>当日管制盤 — SMART ENERGY WEEK 関西 2026</h1>
+<p class="note">表は軽く。詳細はマンジュラ。会社名タップで詳細ビューへ。状態はこの端末の中にだけ保存されます。</p>
+<div class="tabs" id="tabbar">
+<button class="tabbtn on" data-tab="kanri">管理</button>
+<button class="tabbtn" data-tab="conn">繋がった <span class="cnt" id="cntConn"></span></button>
+<button class="tabbtn" data-tab="fuyu">不要一覧 <span class="cnt" id="cntFuyu"></span></button>
+<button class="tabbtn" data-tab="search">検索一覧</button>
+</div>
+<div class="copybar"><button id="copyBtn">状態をコピー</button><span id="copyMsg"></span></div>
+</header>
+<div id="sumline"></div>
+<main id="list"></main>
+<footer>SMART ENERGY WEEK 関西 2026（2026/11/18–20・インテックス大阪）当日用。会社名・小間番号は公式出展社検索の公開情報。内部評価等は含みません。名刺画像もこの端末内にのみ保存されます。</footer>
+
+<div class="detail" id="detail" hidden>
+<div class="sheet">
+<div class="sheet-head"><span class="sheet-title">企業詳細</span><button class="closebtn" id="dClose">閉じる</button></div>
+<div class="sheet-body" id="dBody"></div>
+</div>
+</div>
+
+<script>
+"use strict";
+const COMPANIES = [{"n": "日本エコソーラー", "b": "SC1-6", "ci": 0}, {"n": "厦門ウィントップ（XIAMEN WINTOP NEW ENERGY TECH.）", "b": "SD5-31", "ci": 1}, {"n": "WHERE", "b": "SD4-26", "ci": 2}, {"n": "宇信グリーンエナジー", "b": "SD2-6", "ci": 3}, {"n": "エースネットワークス", "b": "SD3-19", "ci": 4}, {"n": "エヌ・ピー・シー", "b": "SD3-1", "ci": 5}, {"n": "大塚刷毛製造", "b": "SD2-14", "ci": 6}, {"n": "小澤メンテナンス", "b": "SD3-13", "ci": 7}, {"n": "Carbon EX", "b": "SD3-36", "ci": 8}, {"n": "菊水", "b": "SD4-31", "ci": 9}, {"n": "久野商事", "b": "SD3-6", "ci": 10}, {"n": "Green Battery", "b": "SD4-1", "ci": 11}, {"n": "サステナブル地盤再利用協会", "b": "SD3-40", "ci": 12}, {"n": "GBP", "b": "SD5-35", "ci": 13}, {"n": "GVテクノロジーズ", "b": "SD3-25", "ci": 14}, {"n": "茂山組", "b": "SD5-5", "ci": 15}, {"n": "四国化成建材", "b": "SD5-11", "ci": 16}, {"n": "翔飛工業", "b": "SD4-40", "ci": 17}, {"n": "Solvvy", "b": "SD4-6", "ci": 18}, {"n": "中央自動車工業", "b": "SD2-26", "ci": 19}, {"n": "Tilda Corp.", "b": "SD4-36", "ci": 20}, {"n": "東信電気", "b": "SD3-5", "ci": 21}, {"n": "DOWAエコシステム", "b": "SD3-2", "ci": 22}, {"n": "ニプロン", "b": "SD4-37", "ci": 23}, {"n": "日本再エネ電力", "b": "SD3-26", "ci": 24}, {"n": "日本蓄電池情報提供センター", "b": "SD3-32", "ci": 25}, {"n": "ネグロス電工", "b": "SD5-19", "ci": 26}, {"n": "novis", "b": "SD5-45", "ci": 27}, {"n": "Person Energy", "b": "SD3-16", "ci": 28}, {"n": "Bluesun Japan", "b": "SD4-32", "ci": 29}, {"n": "ユナイト", "b": "SD4-20", "ci": 30}, {"n": "力電", "b": "SD5-1", "ci": 31}, {"n": "リセットカンパニー", "b": "SD4-20", "ci": 32}, {"n": "レフィクシア", "b": "SD5-25", "ci": 33}, {"n": "ATMOCE日本", "b": "SD4-14", "ci": 34}, {"n": "朝日写真ニュース社", "b": "SD6-26", "ci": 35}, {"n": "アルテックス", "b": "SD8-46", "ci": 36}, {"n": "アルメディオ", "b": "SD7-20", "ci": 37}, {"n": "インタコンポ", "b": "SD8-36", "ci": 38}, {"n": "エー・アンド・デイ", "b": "SD5-38", "ci": 39}, {"n": "エーディーエステック", "b": "SD8-31", "ci": 40}, {"n": "S&Z Smartech", "b": "SD6-36", "ci": 41}, {"n": "STL Japan", "b": "SD5-32", "ci": 42}, {"n": "エスティフロー", "b": "SD8-25", "ci": 43}, {"n": "エム・デー・エス", "b": "SD7-40", "ci": 44}, {"n": "カイセ", "b": "SD8-18", "ci": 45}, {"n": "ケミオ", "b": "SD8-19", "ci": 46}, {"n": "産業技術総合研究所／AIST Solutions", "b": "SD7-31", "ci": 47}, {"n": "親和パッケージ", "b": "SD8-32", "ci": 48}, {"n": "日本パリレン／Specialty Coating Systems", "b": "SD7-26", "ci": 49}, {"n": "太平洋精工", "b": "SD8-39", "ci": 50}, {"n": "大和製罐", "b": "SD7-45", "ci": 51}, {"n": "DMカードジャパン", "b": "SD6-35", "ci": 52}, {"n": "特種東海製紙", "b": "SD8-45", "ci": 53}, {"n": "中原製作所", "b": "SD7-39", "ci": 54}, {"n": "ナグシステム", "b": "SD5-26", "ci": 55}, {"n": "南海化学", "b": "SD6-40", "ci": 56}, {"n": "日新", "b": "SD7-32", "ci": 57}, {"n": "日本電子", "b": "SD5-20", "ci": 58}, {"n": "ノリタケ", "b": "SD8-40", "ci": 59}, {"n": "Beff", "b": "SD6-45", "ci": 60}, {"n": "マルエム商会", "b": "SD7-39", "ci": 61}, {"n": "三ツ波", "b": "SD8-26", "ci": 62}, {"n": "ヨクスル", "b": "SD6-23", "ci": 63}, {"n": "JBest", "b": "SD7-36", "ci": 64}, {"n": "KIBOR", "b": "SD6-22", "ci": 65}, {"n": "POHANG CITY", "b": "SD8-35", "ci": 66}, {"n": "Teplore", "b": "SD7-25", "ci": 67}, {"n": "Uncountable", "b": "SD6-32", "ci": 68}, {"n": "インフォバンク（infobank）", "b": "SD1-34", "ci": 69}, {"n": "ウェイプラス（WAYPLUS）", "b": "SD1-34", "ci": 70}, {"n": "四国総合研究所", "b": "SD0-35", "ci": 71}, {"n": "Sustech", "b": "SD2-32", "ci": 72}, {"n": "四国計測工業", "b": "SD0-35", "ci": 73}, {"n": "Tesla Japan", "b": "SD3-45", "ci": 74}, {"n": "日東工業", "b": "SD2-38", "ci": 75}, {"n": "日本気象協会", "b": "SD2-25", "ci": 76}, {"n": "日本電気協会新聞部", "b": "SD0-36", "ci": 77}, {"n": "樋口商店", "b": "SD1-32", "ci": 78}, {"n": "FLEXINK", "b": "SD1-34", "ci": 79}, {"n": "GOLDENPLANET", "b": "SD1-34", "ci": 80}, {"n": "Inforzia", "b": "SD1-34", "ci": 81}, {"n": "iTNew", "b": "SD1-34", "ci": 82}, {"n": "Nepirity", "b": "SD1-34", "ci": 83}, {"n": "NEXTEZ", "b": "SD1-34", "ci": 84}, {"n": "SSMI", "b": "SD1-34", "ci": 85}, {"n": "VGEN", "b": "SD1-34", "ci": 86}, {"n": "安芸総合樹脂", "b": "SD5-6", "ci": 87}, {"n": "奕微科半導體（e-Vehicle Semiconductor Technology）", "b": "SD8-13", "ci": 88}, {"n": "エス・エス・アロイ", "b": "SD5-6", "ci": 89}, {"n": "カワテックス", "b": "SD6-6", "ci": 90}, {"n": "キムラ", "b": "SD6-6", "ci": 91}, {"n": "高圧ガス保安協会（KHK）", "b": "SD8-14", "ci": 92}, {"n": "シントク", "b": "SD8-10", "ci": 93}, {"n": "水素バリューチェーン推進協議会（JH2A）", "b": "SD7-10", "ci": 94}, {"n": "武昌", "b": "SD5-6", "ci": 95}, {"n": "ツネイシクラフト＆ファシリティーズ", "b": "SD5-6", "ci": 96}, {"n": "テクニスコ", "b": "SD5-6", "ci": 97}, {"n": "寺田鉄工所", "b": "SD5-6", "ci": 98}, {"n": "巴工業", "b": "SD8-12", "ci": 99}, {"n": "ナックイメージテクノロジー", "b": "SD8-9", "ci": 100}, {"n": "日東工器", "b": "SD5-2", "ci": 101}, {"n": "日本原子力研究開発機構", "b": "SD6-14", "ci": 102}, {"n": "日本未来電機", "b": "SD8-1", "ci": 103}, {"n": "日本理化学工業", "b": "SD6-6", "ci": 104}, {"n": "バイオマスリサーチ", "b": "SD6-6", "ci": 105}, {"n": "広島県", "b": "SD5-6", "ci": 106}, {"n": "ひろしま産業振興機構", "b": "SD5-6", "ci": 107}, {"n": "ヒロテック", "b": "SD5-6", "ci": 108}, {"n": "福岡県水素グリーン成長戦略会議", "b": "SD8-11", "ci": 109}, {"n": "北海道GX推進課", "b": "SD6-6", "ci": 110}, {"n": "水戸工業", "b": "SD7-14", "ci": 111}, {"n": "山梨県", "b": "SD8-6", "ci": 112}, {"n": "山梨大学", "b": "SD8-6", "ci": 113}, {"n": "ヨシタケ", "b": "SD7-1", "ci": 114}, {"n": "よねざわ工業", "b": "SD6-6", "ci": 115}, {"n": "Gangwon State Free Economic Zone Authority", "b": "SD7-13", "ci": 116}, {"n": "JL Energy", "b": "SD7-6", "ci": 117}, {"n": "KAR", "b": "SD7-6", "ci": 118}, {"n": "KSC", "b": "SD6-10", "ci": 119}, {"n": "REVOLTIX", "b": "SD7-6", "ci": 120}, {"n": "Ulsan Technopark", "b": "SD7-6", "ci": 121}, {"n": "IHI", "b": "FP16", "ci": 122}, {"n": "アライドマテリアル", "b": "FP36", "ci": 123}, {"n": "EX-Fusion", "b": "FP4", "ci": 124}, {"n": "大阪冶金興業", "b": "FP10", "ci": 125}, {"n": "核融合科学研究所アウトリーチヘッドクォーター", "b": "FP35", "ci": 126}, {"n": "量子科学技術研究開発機構（QST）", "b": "FP6", "ci": 127}, {"n": "京都フュージョニアリング", "b": "小間番号未表示", "ci": 128}, {"n": "グレンエア", "b": "FP20", "ci": 129}, {"n": "グローブ・テック", "b": "FP26", "ci": 130}, {"n": "核融合科学研究所", "b": "FP21、FP35", "ci": 131}, {"n": "Starlight Engine", "b": "FP23", "ci": 132}, {"n": "大和合金", "b": "FP25", "ci": 133}, {"n": "テクノエーピー", "b": "FP12", "ci": 134}, {"n": "東芝", "b": "FP2（＋熱エネルギー展 SC3-35）", "ci": 135}, {"n": "ニチコン", "b": "FP19", "ci": 136}, {"n": "日東光器", "b": "FP5", "ci": 137}, {"n": "浜松ホトニクス", "b": "FP41", "ci": 138}, {"n": "フォトロン", "b": "FP40", "ci": 139}, {"n": "フジクラ", "b": "FP34", "ci": 140}, {"n": "フュージョンエネルギー産業協議会", "b": "FP11", "ci": 141}, {"n": "プラズマ・核融合学会", "b": "FP33", "ci": 142}, {"n": "Helical Fusion", "b": "FP17", "ci": 143}, {"n": "マイナビEdge", "b": "FP39", "ci": 144}, {"n": "LINEAイノベーション", "b": "FP1", "ci": 145}, {"n": "International Electric", "b": "FP27", "ci": 146}, {"n": "OOYOO（株）", "b": "", "ci": 147}, {"n": "ゴイク電池（株）", "b": "", "ci": 148}, {"n": "SIRC（株）", "b": "", "ci": 149}, {"n": "サンリット・シードリングス（株）", "b": "", "ci": 150}, {"n": "CNビジネスベース（株）", "b": "", "ci": 151}, {"n": "スパイスキューブ（株）", "b": "", "ci": 152}, {"n": "TI plusホールディングス（株）", "b": "", "ci": 153}, {"n": "古谷商店（株）", "b": "", "ci": 154}, {"n": "未来のコト（株）", "b": "", "ci": 155}, {"n": "RE100電力", "b": "SC0-2", "ci": 156}, {"n": "アスエネ", "b": "SC0-6", "ci": 157}, {"n": "e-dash", "b": "SC0-31", "ci": 158}, {"n": "Wave Energy", "b": "SC2-6", "ci": 159}, {"n": "エー・エス・エム", "b": "SC2-19", "ci": 160}, {"n": "エス・エー・エス・シー・ジャパン", "b": "SC3-13", "ci": 161}, {"n": "エニマス", "b": "SC3-6", "ci": 162}, {"n": "enechain", "b": "SC1-26", "ci": 163}, {"n": "大阪商工会議所（共同展示：OPI（株）、（株）NEXYZ.関西）", "b": "SC3-9", "ci": 164}, {"n": "大阪府", "b": "SC3-10", "ci": 165}, {"n": "オネスト／神戸スタンダード石油", "b": "SC1-20", "ci": 166}, {"n": "オムロン", "b": "SC3-25", "ci": 167}, {"n": "河村電器産業", "b": "SC0-11", "ci": 168}, {"n": "環境エネルギー事業協会", "b": "SC1-12", "ci": 169}, {"n": "関西広域連合 広域環境保全局", "b": "SC1-46", "ci": 170}, {"n": "関西電力", "b": "SC2-10", "ci": 171}, {"n": "協和化学工業", "b": "SC2-20", "ci": 172}, {"n": "協和機工", "b": "SC3-26", "ci": 173}, {"n": "神戸スタンダード石油", "b": "SC1-20", "ci": 174}, {"n": "三和エナジー", "b": "SC0-1", "ci": 175}, {"n": "z-works", "b": "SC0-46", "ci": 176}, {"n": "JAPAN/OSAKAゼロカーボン・スマートシティ・ファウンデーション", "b": "SC3-14", "ci": 177}, {"n": "セトラスホールディングス", "b": "SC2-20", "ci": 178}, {"n": "大豊産業", "b": "SC0-26", "ci": 179}, {"n": "東京証券取引所", "b": "SC2-32", "ci": 180}, {"n": "東京電力エナジーパートナー", "b": "SC3-1", "ci": 181}, {"n": "東北電力", "b": "SC0-45", "ci": 182}, {"n": "夏原工業", "b": "SC2-26", "ci": 183}, {"n": "日本ファシリティ・ソリューション", "b": "SC3-1", "ci": 184}, {"n": "浜島防災システム", "b": "SC2-14", "ci": 185}, {"n": "早水電機工業", "b": "SC2-13", "ci": 186}, {"n": "肥後銀行", "b": "SC0-20", "ci": 187}, {"n": "三井住友ファイナンス＆リースグループ", "b": "SC0-37", "ci": 188}, {"n": "YAMABISHI", "b": "SC0-21", "ci": 189}, {"n": "渡辺電機工業", "b": "SC3-18", "ci": 190}, {"n": "空研工業", "b": "SC2-40", "ci": 191}, {"n": "黒崎播磨", "b": "SC3-40", "ci": 192}, {"n": "三相電機", "b": "SC3-30", "ci": 193}, {"n": "NEDO（新エネルギー・産業技術総合開発機構）", "b": "SC1-36", "ci": 194}, {"n": "新日本レイキ", "b": "SC2-40", "ci": 195}, {"n": "東芝", "b": "SC3-35（＋FUSION POWER WORLD FP2）", "ci": 135}, {"n": "日本アビオニクス", "b": "SC3-39", "ci": 197}, {"n": "日本ジッパーチュービング", "b": "SC2-39", "ci": 198}, {"n": "ノーリツ", "b": "SC1-32", "ci": 199}, {"n": "ヒートポンプ・蓄熱センター", "b": "SC3-36", "ci": 200}, {"n": "まちのちから", "b": "SC1-40", "ci": 201}, {"n": "三浦工業", "b": "SC0-32", "ci": 202}, {"n": "Shanghai Mida EV Power", "b": "SD4-30", "ci": 203}, {"n": "Rhino Stone Tech", "b": "SD3-20", "ci": 204}, {"n": "RX Japan合同会社 事務局", "b": "MER1", "ci": 205}, {"n": "当日来場登録サポート", "b": "MER1", "ci": 206}, {"n": "SMFLみらいパートナーズ", "b": "SC0-37", "ci": 207}, {"n": "日本エネルギー総合システム", "b": "SC0-2", "ci": 208}, {"n": "宣伝会議（『環境ビジネス』）", "b": "SD1-26", "ci": 209}];
+const MY = ["未訪問","訪問済み","話せた","名刺交換済み","次につながった"];
+const BOSS = ["","売りたい人","買いたい人","今回は不要","その他","検討中1","検討中2"];
+const LSKEY = "contactBoardV1";
+let S = {};
+try { S = JSON.parse(localStorage.getItem(LSKEY) || "{}");} catch (e) { S = {};}
+let curTab = "kanri";
+let curDetail = -1;
+
+function st(i){ return S[i] || {};}
+function save(){ try { localStorage.setItem(LSKEY, JSON.stringify(S));} catch (e) {}}
+function setField(i, k, v){
+const o = st(i); o[k] = v; o.ts = Date.now(); S[i] = o; save();
+}
+function fmtTs(ts){
+if (!ts) return "";
+const d = new Date(ts), p = n => String(n).padStart(2, "0");
+return (d.getMonth()+1) + "/" + d.getDate() + " " + p(d.getHours()) + ":" + p(d.getMinutes());
+}
+function esc(s){ return String(s == null? "": s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function myIdx(o){ const i = MY.indexOf(o.my || "未訪問"); return i < 0? 0: i;}
+function isConn(i){
+const o = st(i);
+return myIdx(o) >= 2 ||!!(o.person || o.contact || o.appt || o.card);
+}
+function stClass(o){
+const i = myIdx(o);
+return i === 1? " st-v": i === 2? " st-t": i >= 3? " st-l": "";
+}
+function selHtml(kind, i, val, opts, labels){
+let h = '<select data-kind="' + kind + '" data-i="' + i + '">';
+opts.forEach((v, k) => {
+h += '<option value="' + esc(v) + '"' + (v === val? " selected": "") + '>' + esc(labels? labels[k]: v) + '</option>';
+});
+return h + '</select>';
+}
+function badge(b){ return b? '<span class="badge">' + esc(b) + '</span>': '<span class="badge none">小間—</span>';}
+
+function render(){
+document.querySelectorAll(".tabbtn").forEach(b => b.classList.toggle("on", b.dataset.tab === curTab));
+const connN = COMPANIES.filter((_, i) => isConn(i) &&!st(i).fuyu).length;
+const fuyuN = COMPANIES.filter((_, i) => st(i).fuyu).length;
+document.getElementById("cntConn").textContent = connN? "(" + connN + ")": "";
+document.getElementById("cntFuyu").textContent = fuyuN? "(" + fuyuN + ")": "";
+const sum = document.getElementById("sumline");
+const list = document.getElementById("list");
+let h = "";
+if (curTab === "kanri"){
+const c = [0,0,0,0,0];
+COMPANIES.forEach((_, i) => { if (!st(i).fuyu) c[myIdx(st(i))]++;});
+sum.textContent = "未訪問 " + c[0] + " ・ 訪問済み " + c[1] + " ・ 話せた " + c[2] + " ・ 名刺交換済み " + c[3] + " ・ 次につながった " + c[4] + " ・ 不要 " + fuyuN;
+COMPANIES.forEach((co, i) => {
+const o = st(i); if (o.fuyu) return;
+h += '<article class="card' + stClass(o) + '"><div class="row1"><a class="nmbtn" href="https://t76190-cmyk.github.io/memo-7f3k9x/index.html#co=' + co.ci + '" target="_blank" rel="noopener">' + esc(co.n) + '</a>' + badge(co.b) + '</div>'
++ '<div class="ctrls"><div><label>僕ステータス</label>' + selHtml("my", i, o.my || "未訪問", MY) + '</div>'
++ '<div><label>社長ステータス</label>' + selHtml("boss", i, o.boss || "", BOSS, ["（未選択）","売りたい人","買いたい人","今回は不要","その他","検討中1","検討中2"]) + '</div></div>'
++ '<label class="fuyu"><input type="checkbox" data-kind="fuyu" data-i="' + i + '"> 不要（不要一覧へ）</label>'
++ (o.ts? '<div class="ts">更新：' + fmtTs(o.ts) + '</div>': '')
++ '</article>';
+});
+if (!h) h = '<p class="empty">表示する企業がありません。</p>';
+} else if (curTab === "conn"){
+sum.textContent = "接点ができた企業の台帳。担当者・連絡先・アポだけを記録します。";
+COMPANIES.forEach((co, i) => {
+const o = st(i); if (!isConn(i) || o.fuyu) return;
+h += '<article class="card' + stClass(o) + '"><div class="row1"><a class="nmbtn" href="https://t76190-cmyk.github.io/memo-7f3k9x/index.html#co=' + co.ci + '" target="_blank" rel="noopener">' + esc(co.n) + '</a>' + badge(co.b) + '</div>'
++ '<div class="ts">僕：' + esc(o.my || "未訪問") + (o.boss? ' ／ 社長：' + esc(o.boss): '') + (o.ts? ' ／ 更新：' + fmtTs(o.ts): '') + '</div>'
++ '<div class="fields">'
++ '<div><label>担当者</label><input type="text" data-kind="person" data-i="' + i + '" value="' + esc(o.person || "") + '" placeholder="氏名・部署など"></div>'
++ '<div><label>連絡先</label><input type="text" data-kind="contact" data-i="' + i + '" value="' + esc(o.contact || "") + '" placeholder="メール・電話番号"></div>'
++ '<div><label>アポ</label><input type="text" data-kind="appt" data-i="' + i + '" value="' + esc(o.appt || "") + '" placeholder="次回アポ・約束ごと"></div>'
++ '<div><label>名刺画像</label><input type="file" accept="image/*" data-kind="cardfile" data-i="' + i + '">'
++ (o.card? '<img class="cardimg" src="' + o.card + '" alt="名刺画像">': '')
++ '</div></div></article>';
+});
+if (!h) h = '<p class="empty">まだ接点のある企業がありません。管理タブで「話せた」以上にすると、ここに載ります。</p>';
+} else if (curTab === "fuyu"){
+sum.textContent = "今回は追わない企業の一時退避。チェックを外すと管理タブへ戻ります（削除はしません）。";
+COMPANIES.forEach((co, i) => {
+const o = st(i); if (!o.fuyu) return;
+h += '<article class="card"><div class="row1"><a class="nmbtn" href="https://t76190-cmyk.github.io/memo-7f3k9x/index.html#co=' + co.ci + '" target="_blank" rel="noopener">' + esc(co.n) + '</a>' + badge(co.b) + '</div>'
++ '<label class="fuyu"><input type="checkbox" data-kind="fuyu" data-i="' + i + '" checked> 不要</label></article>';
+});
+if (!h) h = '<p class="empty">不要一覧は空です。</p>';
+} else {
+sum.textContent = "";
+h = '<input id="q" type="search" placeholder="会社名・小間番号で検索" autocomplete="off"><div id="sres" style="display:grid;gap:8px"></div>';
+}
+list.innerHTML = h;
+if (curTab === "search"){
+const q = document.getElementById("q");
+const draw = () => {
+const v = q.value.trim().toLowerCase();
+let sh = "";
+COMPANIES.forEach((co, i) => {
+if (v && (co.n + " " + co.b).toLowerCase().indexOf(v) < 0) return;
+sh += '<article class="card"><a class="srow" href="https://t76190-cmyk.github.io/memo-7f3k9x/index.html#co=' + co.ci + '" target="_blank" rel="noopener"><span class="nm">' + esc(co.n) + '</span>' + badge(co.b) + '</a></article>';
+});
+document.getElementById("sres").innerHTML = sh || '<p class="empty">見つかりませんでした。</p>';
+};
+q.addEventListener("input", draw); draw();
+}
+}
+
+function openDetail(i){
+curDetail = i;
+const co = COMPANIES[i], o = st(i);
+let h = '<h2>' + esc(co.n) + '</h2><div>' + badge(co.b) + '</div>'
++ '<div class="dsec"><h3>ステータス</h3><div class="ctrls">'
++ '<div><label style="font-size:11px;color:var(--mut)">僕ステータス</label>' + selHtml("my", i, o.my || "未訪問", MY) + '</div>'
++ '<div><label style="font-size:11px;color:var(--mut)">社長ステータス</label>' + selHtml("boss", i, o.boss || "", BOSS, ["（未選択）","売りたい人","買いたい人","今回は不要","その他","検討中1","検討中2"]) + '</div></div>'
++ '<label class="fuyu"><input type="checkbox" data-kind="fuyu" data-i="' + i + '"' + (o.fuyu? " checked": "") + '> 不要（不要一覧へ）</label>'
++ (o.ts? '<div class="ts">更新：' + fmtTs(o.ts) + '</div>': '') + '</div>';
+if (isConn(i)){
+h += '<div class="dsec"><h3>繋がった情報</h3><div class="fields">'
++ '<div><label>担当者</label><input type="text" data-kind="person" data-i="' + i + '" value="' + esc(o.person || "") + '"></div>'
++ '<div><label>連絡先</label><input type="text" data-kind="contact" data-i="' + i + '" value="' + esc(o.contact || "") + '"></div>'
++ '<div><label>アポ</label><input type="text" data-kind="appt" data-i="' + i + '" value="' + esc(o.appt || "") + '"></div>'
++ (o.card? '<img class="cardimg" src="' + o.card + '" alt="名刺画像">': '')
++ '</div></div>';
+}
+h += '<div class="dsec"><h3>マンジュラ詳細</h3><p style="font-size:12px;color:var(--mut);margin:0 0 8px;line-height:1.6">詳しい企業情報はマンジュラ（僕用さくいん）側にあります。</p>'
++ '<a class="lk" href="https://t76190-cmyk.github.io/memo-7f3k9x/index.html#co=' + co.ci + '" target="_blank" rel="noopener">マンジュラ詳細を開く</a></div>';
+document.getElementById("dBody").innerHTML = h;
+document.getElementById("detail").hidden = false;
+}
+function closeDetail(){ document.getElementById("detail").hidden = true; curDetail = -1; render();}
+
+document.getElementById("tabbar").addEventListener("click", e => {
+const b = e.target.closest(".tabbtn"); if (!b) return;
+curTab = b.dataset.tab; render();
+});
+document.getElementById("dClose").addEventListener("click", closeDetail);
+document.getElementById("detail").addEventListener("click", e => { if (e.target.id === "detail") closeDetail();});
+
+document.addEventListener("click", e => {
+const b = e.target.closest("[data-detail]");
+if (b) openDetail(Number(b.dataset.detail));
+});
+document.addEventListener("change", e => {
+const el = e.target, k = el.dataset.kind; if (!k) return;
+const i = Number(el.dataset.i);
+if (k === "cardfile"){
+const f = el.files && el.files[0]; if (!f) return;
+const rd = new FileReader();
+rd.onload = () => {
+const img = new Image();
+img.onload = () => {
+const max = 1024, sc = Math.min(1, max / Math.max(img.width, img.height));
+const cv = document.createElement("canvas");
+cv.width = Math.round(img.width * sc); cv.height = Math.round(img.height * sc);
+cv.getContext("2d").drawImage(img, 0, 0, cv.width, cv.height);
+setField(i, "card", cv.toDataURL("image/jpeg", 0.8));
+render(); if (curDetail === i) openDetail(i);
+};
+img.src = rd.result;
+};
+rd.readAsDataURL(f);
+return;
+}
+if (k === "fuyu") setField(i, "fuyu", el.checked);
+else if (k === "my") setField(i, "my", el.value);
+else if (k === "boss"){
+setField(i, "boss", el.value);
+if (el.value === "今回は不要") setField(i, "fuyu", true);
+}
+render(); if (curDetail === i) openDetail(i);
+});
+document.addEventListener("input", e => {
+const el = e.target, k = el.dataset.kind;
+if (k === "person" || k === "contact" || k === "appt"){
+const i = Number(el.dataset.i);
+const o = st(i); o[k] = el.value; o.ts = Date.now(); S[i] = o; save();
+}
+});
+
+document.getElementById("copyBtn").addEventListener("click", async () => {
+const now = new Date(), p = n => String(n).padStart(2, "0");
+const lines = ["" + (now.getMonth()+1) + "/" + now.getDate() + " " + p(now.getHours()) + ":" + p(now.getMinutes()) + " 時点"];
+const c = [0,0,0,0,0]; let fuyuN = 0;
+COMPANIES.forEach((_, i) => { const o = st(i); if (o.fuyu) fuyuN++; else c[myIdx(o)]++;});
+lines.push("集計：未訪問 " + c[0] + "／訪問済み " + c[1] + "／話せた " + c[2] + "／名刺交換済み " + c[3] + "／次につながった " + c[4] + "／不要 " + fuyuN);
+const conn = [], acted = [], fuyu = [];
+COMPANIES.forEach((co, i) => {
+const o = st(i);
+if (o.fuyu){ fuyu.push("・" + co.n + "（" + (co.b || "小間—") + "）"); return;}
+const base = "・" + co.n + "（" + (co.b || "小間—") + "）僕：" + (o.my || "未訪問") + (o.boss? "／社長：" + o.boss: "");
+if (isConn(i)){
+let s = base;
+if (o.person) s += "／担当：" + o.person;
+if (o.contact) s += "／連絡先：" + o.contact;
+if (o.appt) s += "／アポ：" + o.appt;
+if (o.ts) s += "／" + fmtTs(o.ts);
+conn.push(s);
+} else if (myIdx(o) > 0 || o.boss) acted.push(base);
+});
+if (conn.length){ lines.push("■繋がった"); lines.push.apply(lines, conn);}
+if (acted.length){ lines.push("■訪問・ステータスあり"); lines.push.apply(lines, acted);}
+if (fuyu.length){ lines.push("■不要"); lines.push.apply(lines, fuyu);}
+const text = lines.join("\n");
+const msg = document.getElementById("copyMsg");
+try {
+await navigator.clipboard.writeText(text);
+msg.textContent = "コピーしました";
+} catch (e) {
+const ta = document.createElement("textarea");
+ta.value = text; document.body.appendChild(ta); ta.select();
+try { document.execCommand("copy"); msg.textContent = "コピーしました";}
+catch (e2) { msg.textContent = "コピーできませんでした";}
+ta.remove();
+}
+setTimeout(() => { msg.textContent = "";}, 3000);
+});
+
+render();
+</script>
+</body>
+</html>
