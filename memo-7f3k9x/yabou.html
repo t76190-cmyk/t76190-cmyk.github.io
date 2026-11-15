@@ -38,13 +38,14 @@ main{max-width:860px;margin:0 auto;padding:12px}
 #sum .takes{font-size:12.5px;color:#555;border-top:1px dashed #e0dacb;margin-top:8px;padding-top:7px;line-height:1.8}
 footer{font-size:11px;color:#999;text-align:center;padding:14px}
 #resetBtn{background:none;border:1.5px solid #c9c2b4;color:#777;font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;cursor:pointer}
+#resetAllBtn{background:none;border:1.5px solid #b0483e;color:#b0483e;font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;cursor:pointer;margin-left:8px}
 </style></head><body>
 <header><h1>🔥 マンジュラの野望 — 次フローと実績</h1>
 <p>僕用ダッシュボード（非公開）：次に出る会社の結果ボタンを押すと記録して、次が出ます。記録はさくいんと共通。検索と全社リストはさくいん側にあります。 ｜ <a href="index.html">← さくいんに戻る</a></p></header>
 <main>
 <div id="next"></div>
 <div id="sum"></div>
-<p style="text-align:center"><button id="resetBtn" type="button">設定を全部リセット</button></p>
+<p style="text-align:center"><button id="resetBtn" type="button">設定を全部リセット</button><button id="resetAllBtn" type="button">記録・グラフをリセット</button></p>
 </main>
 <footer>出典：公式出展社検索（2026-11-12確認）＋社内調査。区分「推定」を含みます。社内限り・リンクを社外に共有しないでください。</footer>
 <script>
@@ -169,5 +170,6 @@ function renderSum(){
     + (takes.length ? '<div class="takes"><b>社長取り次ぎ一覧：</b>' + takes.map(function(r){ return '<a href="index.html#co=' + r.ci + '" style="color:#7a1f1f;font-weight:700;text-decoration:none">' + esc(r.name) + '</a>'; }).join('、') + '</div>' : '');
 }
 document.getElementById('resetBtn').addEventListener('click', function(){ if (confirm('優先・日・時刻・取り次ぎ等の設定を全部消しますか？（訪問記録は消えません）')) { settings = {__flow: []}; saveSettings(); renderNext(); renderSum(); } });
+document.getElementById('resetAllBtn').addEventListener('click', function(){ if (confirm('訪問記録とグラフを全部消して、まっさらに戻しますか？（さくいん側の訪問記録も消えます）')) { vstate = {}; saveV(); settings = {__flow: []}; saveSettings(); renderNext(); renderSum(); } });
 renderNext(); renderSum();
 </script></body></html>
