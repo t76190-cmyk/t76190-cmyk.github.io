@@ -86,7 +86,8 @@ a.back{color:#173a6b;font-size:13px}
 <div class="row"><label>件名</label><input type="text" id="fSubject"></div>
 <div class="row"><label>区分</label><input type="text" id="fKind"></div>
 <div class="row"><label>目的（編集できます）</label><textarea id="fPurpose"></textarea></div>
-<div class="row"><label>当日の接触メモ（担当者・話した内容・先方の反応）</label><textarea id="fMemo" placeholder="例：営業部 ○○様と名刺交換。系統用蓄電池の販売網に関心。資料送付を約束。"></textarea></div>
+<div class="row" id="fMemoWrap"><label>当日の接触メモ（担当者・話した内容・先方の反応）</label><textarea id="fMemo" placeholder="例：営業部 ○○様と名刺交換。系統用蓄電池の販売網に関心。資料送付を約束。"></textarea></div>
+<div class="row" id="fBodyWrap" style="display:none"><label>提案・報告事項（本文）</label><textarea id="fBody" placeholder="例：①号外シリーズ全4弾の完成報告 ②ドメイン取得の提案"></textarea></div>
 <div class="row"><span id="statusChip">未選択</span></div>
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
@@ -158,8 +159,23 @@ function renderList(){
   box.innerHTML=h||'<button type="button">該当なし</button>';
   box.querySelectorAll('[data-ci]').forEach(function(b){b.addEventListener('click',function(){select(+b.getAttribute('data-ci'));});});
 }
+var SELF_EN={ov:'Head office: 4-22-3 Hitachino-Nishi, Ushiku, Ibaraki / Founded: July 6, 2011 / Capital: JPY 50 million / Representative: Manjula Senarathna / TEL: 0120-190-730 / Unlisted',biz:'Development and sales of grid-scale battery storage plants. Over 15 years in renewable energy, starting from solar power; the battery storage business began in earnest last year. Exhibiting as a member of the group that operates HIKARI match.',tags:['Grid-scale battery storage','Batteries & ESS','Solar power'],sec:'Decarbonization Management Expo (36 companies)'};
+function isSelfC(){return !!cur&&cur.name==='日本エコソーラー';}
+function mainText(){return isSelfC()?document.getElementById('fBody').value.trim():document.getElementById('fMemo').value.trim();}
 function autoTexts(){
   if(!cur)return;
+  if(isSelfC()){
+    if(lang==='jp'){
+      document.getElementById('fSubject').value='展示会（SMART ENERGY WEEK 関西）に向けた制作物・提案について';
+      document.getElementById('fKind').value='展示会（SMART ENERGY WEEK 関西）出展に伴う制作物の確認・提案';
+      document.getElementById('fPurpose').value='2026年11月18日〜20日にインテックス大阪で開催されるSMART ENERGY WEEK 関西への出展にあたり、準備した制作物と提案を取りまとめ、ご確認とご判断をいただくため。';
+    }else{
+      document.getElementById('fSubject').value='Materials and proposals for the SMART ENERGY WEEK Kansai exhibition — request for approval';
+      document.getElementById('fKind').value='Exhibition materials — review and proposals';
+      document.getElementById('fPurpose').value='Ahead of our exhibition at SMART ENERGY WEEK Kansai (Nov 18-20, 2026, INTEX Osaka), I have compiled the materials and proposals prepared for the event. I would appreciate your review and guidance on how to proceed.';
+    }
+    return;
+  }
   if(lang==='jp'){
     document.getElementById('fSubject').value=cur.name+'との商談推進について';
     document.getElementById('fKind').value='展示会（SMART ENERGY WEEK 関西）での商談取り次ぎ';
@@ -175,6 +191,10 @@ function select(ci){
   document.getElementById('q').value=cur.name;
   var r=rec();stamped=r?!!r.stamped:false;stampedAt=r?(r.stampedAt||null):null;checkedAt=r?(r.checkedAt||null):null;approvedAt=r?(r.approvedAt||null):null;approvedBy=r?(r.approvedBy||null):null;conditions=r?(r.conditions||[]):[];
   document.getElementById('fMemo').value=r?(r.memo||''):'';
+  var _sf=cur.name==='日本エコソーラー';
+  document.getElementById('fBodyWrap').style.display=_sf?'':'none';
+  document.getElementById('fMemoWrap').style.display=_sf?'none':'';
+  document.getElementById('fBody').value=r?(r.body||''):'';
   autoTexts();renderList();render();renderStatus();
 }
 function render(){
@@ -183,6 +203,9 @@ function render(){
   var c=cur,y=c.yabou||{};var h='';
   var subj=document.getElementById('fSubject').value,kind=document.getElementById('fKind').value,purp=document.getElementById('fPurpose').value;
   var memo=document.getElementById('fMemo').value.trim();
+  var isSelf=isSelfC();
+  var ovTxt=y.overview,bizTxt=y.business||c.summary,tagsTxt=c.tags,secTxt=c.section;
+  if(lang!=='jp'&&isSelf){ovTxt=SELF_EN.ov;bizTxt=SELF_EN.biz;tagsTxt=SELF_EN.tags;secTxt=SELF_EN.sec;}
   var sealCell=stamped?'<img class="seal ts" src="'+SEAL+'" alt="seal"><div class="sealts">'+tsText(stampedAt||Date.now())+'</div>':'';
   var chkCell=checkedAt?'<img class="seal ts" src="'+SEAL_T+'" alt="seal"><div class="sealts">'+tsText(checkedAt)+'</div>':'';
   var condHtml='';
@@ -195,15 +218,16 @@ function render(){
     h+='<tr><td class="k">区分</td><td>'+esc(kind)+'</td></tr></table>';
     h+='<table class="stamp"><tr><td class="k">決裁</td><td class="k">確認</td><td class="k">担当</td></tr><tr><td>'+appCell+'</td><td>'+chkCell+'</td><td>'+sealCell+'</td></tr></table>';
     h+='<h2>1．目的</h2><p>'+esc(purp)+'</p>';
-    h+='<h2>2．相手先の概要</h2><table class="kv">';
+    h+='<h2>'+(isSelf?'2．自社情報':'2．相手先の概要')+'</h2><table class="kv">';
     h+='<tr><th>会社名</th><td>'+esc(c.name)+'</td></tr>';
-    h+='<tr><th>小間</th><td>'+esc(c.booth||'—')+'（'+esc(c.section)+'）</td></tr>';
-    if(y.overview)h+='<tr><th>会社概要</th><td>'+esc(y.overview)+'</td></tr>';
-    h+='<tr><th>事業</th><td>'+esc(y.business||c.summary||'—')+'</td></tr>';
-    if(c.tags&&c.tags.length)h+='<tr><th>タグ</th><td>'+esc(c.tags.join(' / '))+'</td></tr>';
+    h+='<tr><th>小間</th><td>'+esc(c.booth||'—')+'（'+esc(secTxt)+'）</td></tr>';
+    if(ovTxt)h+='<tr><th>会社概要</th><td>'+esc(ovTxt)+'</td></tr>';
+    h+='<tr><th>事業</th><td>'+esc(bizTxt||'—')+'</td></tr>';
+    if(tagsTxt&&tagsTxt.length)h+='<tr><th>タグ</th><td>'+esc(tagsTxt.join(' / '))+'</td></tr>';
     if(c.url)h+='<tr><th>公式サイト</th><td>'+esc(c.url)+'</td></tr>';
     h+='</table>';
-    var mi='';
+    if(isSelf){var body=document.getElementById('fBody').value.trim();h+='<h2>3．提案・報告事項</h2><p>'+(body?esc(body):'（未記入）')+'</p>';h+=condHtml;h+='<h2>4．お願い</h2><p>ご確認のうえ、進めてよいもの・修正が必要なものをご指示ください。</p>';if(y.source)h+='<div class="foot">出典：'+esc(y.source)+'</div>';}
+    else{var mi='';
     if(c.priority)mi+='<p><b>優先'+esc(c.priority.rank)+'</b>｜方向：'+esc(c.priority.direction)+'<br>'+esc(c.priority.reason)+'</p>';
     if(c.cand)mi+='<p><b>'+esc(c.cand)+'</b></p>';
     if(y.taigi)mi+='<p>大義：'+esc(y.taigi)+'</p>';
@@ -216,7 +240,7 @@ function render(){
     h+='<h2>4．当日の接触メモ</h2><p>'+(memo?esc(memo):'（未記入）')+'</p>';
     h+=condHtml;
     h+='<h2>5．お願い</h2><p>ご確認のうえ、商談を進めてよいかご判断ください。進める場合は、次に取る段取りもあわせてご指示いただけますと幸いです。</p>';
-    if(y.source)h+='<div class="foot">出典：'+esc(y.source)+'<br>※本書は僕用さくいんのデータから自動生成したものです。見立て・仮説は推定であり、事実とは区別して記載しています。</div>';
+    if(y.source)h+='<div class="foot">出典：'+esc(y.source)+'<br>※本書は僕用さくいんのデータから自動生成したものです。見立て・仮説は推定であり、事実とは区別して記載しています。</div>';}
   }else{
     h+='<div class="head"><div class="t en">RINGI — REQUEST FOR APPROVAL</div></div>';
     h+='<table class="meta"><tr><td class="k">Subject</td><td><b>'+esc(subj)+'</b></td></tr>';
@@ -224,15 +248,16 @@ function render(){
     h+='<tr><td class="k">Category</td><td>'+esc(kind)+'</td></tr></table>';
     h+='<table class="stamp"><tr><td class="k">Approval</td><td class="k">Checked</td><td class="k">Prepared by</td></tr><tr><td>'+appCell+'</td><td>'+chkCell+'</td><td>'+sealCell+'</td></tr></table>';
     h+='<h2>1. Purpose</h2><p>'+esc(purp)+'</p>';
-    h+='<h2>2. About the company</h2><table class="kv">';
+    h+='<h2>'+(isSelf?'2. About us':'2. About the company')+'</h2><table class="kv">';
     h+='<tr><th>Company</th><td>'+esc(c.name)+'</td></tr>';
-    h+='<tr><th>Booth</th><td>'+esc(c.booth||'—')+' ('+esc(c.section)+')</td></tr>';
-    if(y.overview)h+='<tr><th>Profile</th><td>'+esc(y.overview)+'</td></tr>';
-    h+='<tr><th>Business</th><td>'+esc(y.business||c.summary||'—')+'</td></tr>';
-    if(c.tags&&c.tags.length)h+='<tr><th>Tags</th><td>'+esc(c.tags.join(' / '))+'</td></tr>';
+    h+='<tr><th>Booth</th><td>'+esc(c.booth||'—')+' ('+esc(secTxt)+')</td></tr>';
+    if(ovTxt)h+='<tr><th>Profile</th><td>'+esc(ovTxt)+'</td></tr>';
+    h+='<tr><th>Business</th><td>'+esc(bizTxt||'—')+'</td></tr>';
+    if(tagsTxt&&tagsTxt.length)h+='<tr><th>Tags</th><td>'+esc(tagsTxt.join(' / '))+'</td></tr>';
     if(c.url)h+='<tr><th>Official site</th><td>'+esc(c.url)+'</td></tr>';
     h+='</table>';
-    var mj='';
+    if(isSelf){var bodyE=document.getElementById('fBody').value.trim();h+='<h2>3. Proposals & reports</h2><p>'+(bodyE?esc(bodyE):'(not entered)')+'</p>';h+=condHtml;h+='<h2>4. Request</h2><p>Please review the above and advise which items may proceed and which need revision.</p>';h+='<div class="foot">'+(y.source?'Source: '+esc(y.source)+'<br>':'')+'Note: This document was auto-generated from the internal exhibitor index. Some source texts remain in Japanese.</div>';}
+    else{var mj='';
     if(c.priority)mj+='<p><b>Priority '+esc(c.priority.rank)+'</b> | Direction: '+esc(c.priority.direction)+'<br>'+esc(c.priority.reason)+'</p>';
     if(c.cand)mj+='<p><b>'+esc(c.cand)+'</b></p>';
     if(y.taigi)mj+='<p>Rationale: '+esc(y.taigi)+'</p>';
@@ -245,12 +270,13 @@ function render(){
     h+='<h2>4. On-site memo</h2><p>'+(memo?esc(memo):'(not entered)')+'</p>';
     h+=condHtml;
     h+='<h2>5. Request</h2><p>Please review and advise whether we may proceed with this business discussion, and if so, the next steps to take.</p>';
-    h+='<div class="foot">'+(y.source?'Source: '+esc(y.source)+'<br>':'')+'Note: This document was auto-generated from the internal exhibitor index. Assessments and hypotheses are estimates, marked as such. Some source texts remain in Japanese.</div>';
+    h+='<div class="foot">'+(y.source?'Source: '+esc(y.source)+'<br>':'')+'Note: This document was auto-generated from the internal exhibitor index. Assessments and hypotheses are estimates, marked as such. Some source texts remain in Japanese.</div>';}
   }
   el.innerHTML=h;
 }
 ['fSubject','fKind','fPurpose'].forEach(function(id){document.getElementById(id).addEventListener('input',render);});
 document.getElementById('fMemo').addEventListener('input',function(){render();if(cur)touch({memo:document.getElementById('fMemo').value});});
+document.getElementById('fBody').addEventListener('input',function(){render();if(cur)touch({body:document.getElementById('fBody').value});});
 document.getElementById('q').addEventListener('input',renderList);
 document.getElementById('btnLang').addEventListener('click',function(){lang=lang==='jp'?'en':'jp';autoTexts();render();renderStatus();applyRole();});
 document.querySelectorAll('#roletabs button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role);});});
@@ -268,8 +294,8 @@ document.getElementById('btnPrint').addEventListener('click',function(){window.p
 document.getElementById('btnCopy').addEventListener('click',function(){
   if(!cur)return;
   var t;
-  if(lang==='jp'){t='【稟議書】\n件名：'+document.getElementById('fSubject').value+'\n申請者：東 久順（起案日：'+reiwa(new Date())+'）\n区分：'+document.getElementById('fKind').value+'\n\n1．目的\n'+document.getElementById('fPurpose').value+'\n\n相手先：'+cur.name+'（小間 '+(cur.booth||'—')+'）\n接触メモ：'+(document.getElementById('fMemo').value.trim()||'（未記入）');}
-  else{t='[RINGI - Request for Approval]\nSubject: '+document.getElementById('fSubject').value+'\nSubmitted by: Hisanobu Azuma (Date: '+enDate(new Date())+')\nCategory: '+document.getElementById('fKind').value+'\n\n1. Purpose\n'+document.getElementById('fPurpose').value+'\n\nCompany: '+cur.name+' (Booth '+(cur.booth||'-')+')\nOn-site memo: '+(document.getElementById('fMemo').value.trim()||'(not entered)');}
+  if(lang==='jp'){t='【稟議書】\n件名：'+document.getElementById('fSubject').value+'\n申請者：東 久順（起案日：'+reiwa(new Date())+'）\n区分：'+document.getElementById('fKind').value+'\n\n1．目的\n'+document.getElementById('fPurpose').value+'\n\n相手先：'+cur.name+'（小間 '+(cur.booth||'—')+'）\n接触メモ：'+(mainText()||'（未記入）');}
+  else{t='[RINGI - Request for Approval]\nSubject: '+document.getElementById('fSubject').value+'\nSubmitted by: Hisanobu Azuma (Date: '+enDate(new Date())+')\nCategory: '+document.getElementById('fKind').value+'\n\n1. Purpose\n'+document.getElementById('fPurpose').value+'\n\nCompany: '+cur.name+' (Booth '+(cur.booth||'-')+')\nOn-site memo: '+(mainText()||'(not entered)');}
   if(navigator.clipboard)navigator.clipboard.writeText(t);
 });
 function applyRole(){document.querySelectorAll('#roletabs button').forEach(function(b){b.classList.toggle('on',b.dataset.role===role);});
