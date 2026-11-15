@@ -64,6 +64,7 @@ a.back{color:#173a6b;font-size:13px}
 #sheet table.stamp img.seal{width:30px;height:30px}
 #sheet table.stamp img.seal.ts{width:24px;height:24px}
 #sheet .sealts{font-size:6.5pt;color:#c0392b;text-align:center;line-height:1.15;font-weight:700}
+#sheet .sealtx{display:inline-block;border:1.6px solid #c0392b;color:#c0392b;border-radius:5px;padding:1px 5px;font-weight:700;font-size:8.5pt;line-height:1.25}
 #sheet .retmark{font-size:7.5pt;color:#b03a2e;text-align:center;line-height:1.5;padding-top:12px;font-weight:700}
 #sheet .resmark{font-size:7.5pt;color:#42506b;text-align:center;line-height:1.5;padding-top:12px;font-weight:700}
 #sheet .retnm{font-size:6.5pt;color:#8a93a5;font-weight:400}
@@ -295,15 +296,15 @@ function render(){
   var isSelf=isSelfC();
   var ovTxt=y.overview,bizTxt=y.business||c.summary,tagsTxt=c.tags,secTxt=c.section;
   if(lang!=='jp'&&isSelf){ovTxt=SELF_EN.ov;bizTxt=SELF_EN.biz;tagsTxt=SELF_EN.tags;secTxt=SELF_EN.sec;}
-  var sealCell=stamped?'<img class="seal ts" src="'+SEAL+'" alt="seal"><div class="sealts">'+tsText(stampedAt||Date.now())+'</div>':'';
-  var chkCell=checkedAt?'<img class="seal ts" src="'+SEAL_T+'" alt="seal"><div class="sealts">'+tsText(checkedAt)+'</div>':'';
-  var retCell=returnedAt?'<img class="seal ts" src="'+(returnedBy==='manjula'?SEAL_M:SEAL_T)+'" alt="seal"><div class="sealts">'+tsText(returnedAt)+'</div>':'';
-  var resubCell=resubmittedAt?'<img class="seal ts" src="'+SEAL+'" alt="seal"><div class="sealts">'+tsText(resubmittedAt)+'</div>':'';
+  var sealCell=stamped?'<span class="sealtx">東</span><div class="sealts">'+tsText(stampedAt||Date.now())+'</div>':'';
+  var chkCell=checkedAt?'<span class="sealtx">THILINI</span><div class="sealts">'+tsText(checkedAt)+'</div>':'';
+  var retCell=returnedAt?'<span class="sealtx">'+(returnedBy==='manjula'?'MANJULA':'THILINI')+'</span><div class="sealts">'+tsText(returnedAt)+'</div>':'';
+  var resubCell=resubmittedAt?'<span class="sealtx">東</span><div class="sealts">'+tsText(resubmittedAt)+'</div>':'';
   var condHtml='';
   var _enC=(lang!=='jp');var condHead=_enC?(isSelf?'Notes by management / approver':'Conditions / Notes'):(isSelf?'管理・決裁者追記欄':'条件・特記');
   if(conditions.length){condHtml='<div class="conds"><h4>'+condHead+'</h4>'+conditions.map(function(c){return '<p>・'+(c.by==='manjula'?'President Manjula / マンジュラ社長':'Thilini / ティリーニ')+'（'+ymd(c.ts)+'）：'+esc(c.text)+'</p>';}).join('')+'</div>';}
   else if(isSelf){condHtml='<div class="conds"><h4>'+condHead+'</h4><p>　</p><p>　</p></div>';}
-  var appCell=approvedAt?'<img class="seal ts" src="'+(approvedBy==='thilini'?SEAL_T:SEAL_M)+'" alt="seal"><div class="sealts">'+tsText(approvedAt)+'</div>':'';
+  var appCell=approvedAt?'<span class="sealtx">'+(approvedBy==='thilini'?'THILINI':'MANJULA')+'</span><div class="sealts">'+tsText(approvedAt)+'</div>':'';
   if(lang==='jp'){
     h+='<div class="head"><div class="t">稟議書</div></div>';
     h+='<table class="meta"><tr><td class="k">件名</td><td><b>'+esc(subj)+'</b></td></tr>';
