@@ -50,16 +50,15 @@ footer{padding:14px 16px;color:var(--mut);font-size:11.5px;border-top:1px solid 
 <main>
 <h2>Progress — 3 days, 210 companies</h2>
 <div class="kpis">
-<div class="kpi hot"><div class="donutWrap"><svg width="86" height="86" viewBox="0 0 86 86"><circle cx="43" cy="43" r="34" fill="none" stroke="#eef1f4" stroke-width="10"/><circle id="donutArc" cx="43" cy="43" r="34" fill="none" stroke="#f39800" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 213.6" transform="rotate(-90 43 43)"/><text id="donutPct" x="43" y="48" text-anchor="middle" font-size="16" font-weight="800" fill="#2f5d8a">0%</text></svg><div><div class="big" id="kDone">0</div><div class="l">Visited + talked<br><span id="kDonePct"></span></div></div></div></div>
+<div class="kpi hot"><div class="donutWrap"><svg width="86" height="86" viewBox="0 0 86 86"><circle cx="43" cy="43" r="34" fill="none" stroke="#eef1f4" stroke-width="10"/><circle id="donutArc" cx="43" cy="43" r="34" fill="none" stroke="#f39800" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 213.6" transform="rotate(-90 43 43)"/><text id="donutPct" x="43" y="48" text-anchor="middle" font-size="16" font-weight="800" fill="#2f5d8a">0%</text></svg><div><div class="big" id="kDone">0</div><div class="l">Talked + declined<br><span id="kDonePct"></span></div></div></div></div>
 <div class="kpi"><div class="n" id="kTalk">0</div><div class="l">Talked</div><div class="l" id="kTalkPct"></div></div>
-<div class="kpi"><div class="n" id="kVisit">0</div><div class="l">Visited</div></div>
 <div class="kpi hot"><div class="n" id="kProspect">0</div><div class="l">Prospects — yes</div><div class="l" id="kProspectPct"></div></div>
 <div class="kpi hot"><div class="n" id="kRef">0</div><div class="l">Referred to president</div><div class="l" id="kRefPct"></div></div>
 <div class="kpi"><div class="n" id="kNoProspect">0</div><div class="l">Prospects — no</div></div>
 <div class="kpi"><div class="n" id="kLater">0</div><div class="l">Later</div></div>
 </div>
 <div class="bar"><i id="doneBar" style="width:0%"></i></div>
-<p class="note">Skipped / not going: <b id="kSkip">0</b> · <span id="upd"></span></p>
+<p class="note">Declined: <b id="kSkip">0</b> · <span id="upd"></span></p>
 <h2>By day</h2>
 <div class="charts">
 <div class="chartbox"><div class="ct">VISITS + TALKS BY DAY (bar = target)</div><div id="dayChart"></div></div>
@@ -141,7 +140,7 @@ function nums(){
     if (r.pres) n.pres[r.pres] = (n.pres[r.pres] || 0) + 1;
     if (r.conn) n.conn++;
   });
-  n.done = n.v + n.t;
+  n.done = n.t + n.s;
   return n;
 }
 function render(){
@@ -154,7 +153,6 @@ function render(){
   document.getElementById('kRef').textContent = n.ref || 0;
   document.getElementById('kRefPct').textContent = Math.round((n.ref || 0) / 210 * 1000) / 10 + '% of 210';
   document.getElementById('kProspectPct').textContent = Math.round(n.oa / 210 * 1000) / 10 + '% of 210';
-  document.getElementById('kVisit').textContent = n.v;
   document.getElementById('kProspect').textContent = n.oa;
   document.getElementById('kNoProspect').textContent = n.on;
   document.getElementById('kLater').textContent = n.l;
