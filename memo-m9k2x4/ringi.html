@@ -159,7 +159,7 @@ function renderStatus(){
   if(!cur){chip.textContent='未選択';}
   else if(!r){chip.textContent=cur.name+'：未作成';}
   else{chip.textContent=cur.name+'：'+STLABEL[r.status]+(r.status==='waiting'?'（'+r.waiting+'待ち）':'')+(r.status==='approved'?'（'+ymd(r.updated)+'）':'');}
-  if(role==='drafter'){var _sa0=document.getElementById('stampActs');if(returnedAt){if(!_sa0.querySelector('input[value="resubmit"]')){_sa0.innerHTML='<label><input type="radio" name="stampAct" value="own"'+(stamped?'':' checked')+'> 担当</label> <label><input type="radio" name="stampAct" value="resubmit"'+(stamped?' checked':'')+'> 再提出</label>';}}else{_sa0.innerHTML='';}}
+  if(role==='drafter'){var _sa0=document.getElementById('stampActs');if(returnedAt&&!(resubmittedAt&&resubmittedAt>returnedAt)){if(!_sa0.querySelector('input[value="resubmit"]')){_sa0.innerHTML='<label><input type="radio" name="stampAct" value="own"'+(stamped?'':' checked')+'> 担当</label> <label><input type="radio" name="stampAct" value="resubmit"'+(stamped?' checked':'')+'> 再提出</label>';}}else{_sa0.innerHTML='';}}
   var _sa=document.querySelector('input[name="stampAct"]:checked');
   var _has=(role==='drafter')?((_sa&&_sa.value==='resubmit')?false:stamped):((_sa&&_sa.value==='return')?!!returnedAt:((role==='checker')?!!checkedAt:!!approvedAt));
   document.getElementById('btnStampAll').textContent=_has?'🔴 押印を取り消す':'🔴 押印する';
@@ -360,8 +360,8 @@ document.getElementById('btnLang').addEventListener('click',function(){lang=lang
 document.querySelectorAll('#roletabs button').forEach(function(b){b.addEventListener('click',function(){setRole(b.dataset.role);});});
 document.getElementById('stampActs').addEventListener('change',renderStatus);
 document.getElementById('btnCond').addEventListener('click',function(){if(!cur)return;var t=document.getElementById('condText').value.trim();if(!t)return;conditions.push({by:(role==='president'?'manjula':'thilini'),ts:Date.now(),text:t});touch({conditions:conditions});document.getElementById('condText').value='';render();});
-document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');var _p={status:'waiting',waiting:sel?sel.value:((role==='checker')?'社長':'ティリーニ'),subject:document.getElementById('fSubject').value};if(returnedAt){resubmittedAt=Date.now();_p.resubmittedAt=resubmittedAt;_p.returnedAt=null;_p.returnedBy=null;_p.returnedSentAt=null;returnedAt=null;returnedBy=null;returnedSentAt=null;}touch(_p);renderStatus();renderBoard();render();});
-function returnCycleOpen(){if(!returnedAt)return true;var _r=rec();var _s=returnedSentAt||(_r&&_r.returnedSentAt);var _re=resubmittedAt||(_r&&_r.resubmittedAt);return !!(_s&&_re&&_re>_s);}
+document.getElementById('btnSubmit').addEventListener('click',function(){if(!cur)return;var sel=document.querySelector('input[name="subTo"]:checked');var _p={status:'waiting',waiting:sel?sel.value:((role==='checker')?'社長':'ティリーニ'),subject:document.getElementById('fSubject').value};if(returnedAt){resubmittedAt=Date.now();_p.resubmittedAt=resubmittedAt;}touch(_p);renderStatus();renderBoard();render();});
+function returnCycleOpen(){if(!returnedAt)return true;var _r=rec();var _re=resubmittedAt||(_r&&_r.resubmittedAt);return !!(_re&&_re>returnedAt);}
 function stampReturn(){if(!cur)return;var _r=rec();
   if(returnedAt&&!returnCycleOpen()){returnedAt=null;returnedBy=null;returnedSentAt=null;var _p={returnedAt:null,returnedBy:null,returnedTo:null,returnedSentAt:null,preReturnStatus:null,preReturnWaiting:null};_p.status=approvedAt?'approved':((_r&&_r.preReturnStatus)?_r.preReturnStatus:'draft');if(_r&&_r.preReturnWaiting)_p.waiting=_r.preReturnWaiting;touch(_p);}
   else if(returnCycleOpen()&&!checkedAt&&!approvedAt){returnedAt=Date.now();returnedBy=(role==='president')?'manjula':'thilini';returnedSentAt=returnedAt;touch({status:'returned',returnedAt:returnedAt,returnedBy:returnedBy,returnedTo:'東',returnedSentAt:returnedSentAt,preReturnStatus:_r?_r.status:null,preReturnWaiting:_r?(_r.waiting||null):null});}
@@ -370,16 +370,16 @@ function doReturn(){if(!cur||!returnCycleOpen()||checkedAt||approvedAt)return;re
 document.getElementById('btnReturn').addEventListener('click',doReturn);
 document.getElementById('btnStampAll').addEventListener('click',function(){if(!cur)return;var who=(role==='president')?'approver':(role==='checker'?'checker':'drafter');
   if(who==='drafter'){var _ra=document.querySelector('input[name="stampAct"]:checked');
-    if(_ra&&_ra.value==='resubmit'&&returnedAt){resubmittedAt=Date.now();touch({status:'waiting',waiting:'ティリーニ',subject:document.getElementById('fSubject').value,resubmittedAt:resubmittedAt,returnedAt:null,returnedBy:null,returnedSentAt:null});returnedAt=null;returnedBy=null;returnedSentAt=null;render();renderStatus();renderBoard();return;}
+    if(_ra&&_ra.value==='resubmit'&&returnedAt&&!(resubmittedAt&&resubmittedAt>returnedAt)){resubmittedAt=Date.now();touch({status:'waiting',waiting:'ティリーニ',subject:document.getElementById('fSubject').value,resubmittedAt:resubmittedAt});render();renderStatus();renderBoard();return;}
     var _rs=rec();if(stamped&&_rs&&_rs.status&&_rs.status!=='draft')return;stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
   else if(who==='checker'){
     var _a=document.querySelector('input[name="stampAct"]:checked');
     if(_a&&_a.value==='return'){stampReturn();return;}
-    if(!checkedAt&&returnedAt)return;
+    if(!checkedAt&&returnedAt&&!(resubmittedAt&&resubmittedAt>returnedAt))return;
     checkedAt=checkedAt?null:Date.now();touch({checkedAt:checkedAt});
   }
   else if(approvedAt){approvedAt=null;approvedBy=null;var r0=rec();var patch={approvedAt:null,approvedBy:null};if(r0&&r0.status==='approved')patch.status=returnedAt?'returned':(r0.waiting?'waiting':'draft');touch(patch);}
-  else{var _b=document.querySelector('input[name="stampAct"]:checked');if(_b&&_b.value==='return'){stampReturn();return;}if(returnedAt)return;approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
+  else{var _b=document.querySelector('input[name="stampAct"]:checked');if(_b&&_b.value==='return'){stampReturn();return;}if(returnedAt&&!(resubmittedAt&&resubmittedAt>returnedAt))return;approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
   render();renderStatus();renderBoard();});
 document.getElementById('btnPrint').addEventListener('click',function(){window.print();});
 document.getElementById('btnCopy').addEventListener('click',function(){
