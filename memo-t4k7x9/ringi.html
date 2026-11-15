@@ -95,9 +95,9 @@ a.back{color:#173a6b;font-size:13px}
 <div class="btns" id="selfDocs" style="display:none"></div>
 <div class="btns">
 <button id="btnLang" type="button">🌐 英文に切り替え</button>
-<span class="ctl"><button id="btnStampAll" type="button">🔴 押印する</button><span class="rads" id="stampActs"></span><span class="rads" id="retActs"></span></span>
+<span class="ctl"><button id="btnStampAll" type="button">🔴 押印する</button><span class="rads" id="stampActs"></span></span>
 <span class="ctl a-draft a-check"><button id="btnSubmit" type="button" class="main">📤 提出</button><span class="rads"><label><input type="radio" name="subTo" value="社長"> マンジュラ社長</label></span></span>
-<button id="btnReturn" type="button" class="a-check a-pres">↩ 差し戻し</button>
+<span class="ctl a-check a-pres"><button id="btnReturn" type="button">↩ 差し戻し</button><span class="rads" id="retActs"></span></span>
 </div>
 <div class="btns"><button id="btnPrint" type="button" class="main">🖨 印刷／PDFにする</button><button id="btnCopy" type="button">本文をコピー</button></div>
 <div class="btns a-check a-pres"><textarea id="condText" placeholder="条件・特記を加筆（確認・決裁のみ）"></textarea><button id="btnCond" type="button">✎ 条件を加筆する</button><div id="condList" style="flex-basis:100%"></div></div>
@@ -282,7 +282,7 @@ function render(){
   if(lang!=='jp'&&isSelf){ovTxt=SELF_EN.ov;bizTxt=SELF_EN.biz;tagsTxt=SELF_EN.tags;secTxt=SELF_EN.sec;}
   var sealCell=stamped?'<img class="seal ts" src="'+SEAL+'" alt="seal"><div class="sealts">'+tsText(stampedAt||Date.now())+'</div>':'';
   var chkCell=checkedAt?'<img class="seal ts" src="'+SEAL_T+'" alt="seal"><div class="sealts">'+tsText(checkedAt)+'</div>':'';
-  var retCell=returnedAt?'<div class="retmark">'+tsText(returnedAt)+'<br><span class="retnm">'+(returnedBy==='manjula'?(lang==='jp'?'マンジュラ社長':'President Manjula'):(lang==='jp'?'ティリーニ':'Thilini'))+'</span></div>':'';
+  var retCell=returnedAt?'<img class="seal ts" src="'+(returnedBy==='manjula'?SEAL_M:SEAL_T)+'" alt="seal"><div class="sealts">'+tsText(returnedAt)+'</div>':'';
   var resubCell=resubmittedAt?'<div class="resmark">'+tsText(resubmittedAt)+'</div>':'';
   var condHtml='';
   var _enC=(lang!=='jp');var condHead=_enC?(isSelf?'Notes by management / approver':'Conditions / Notes'):(isSelf?'管理・決裁者追記欄':'条件・特記');
@@ -364,10 +364,10 @@ document.getElementById('btnStampAll').addEventListener('click',function(){if(!c
   if(who==='drafter'){stamped=!stamped;stampedAt=stamped?Date.now():null;touch({stamped:stamped,stampedAt:stampedAt});}
   else if(who==='checker'){
     if(checkedAt){checkedAt=null;var _u={checkedAt:null};var _r=rec();if(_r&&_r.status==='waiting'&&_r.waiting==='社長')_u.waiting='ティリーニ';touch(_u);}
-    else{var _a=document.querySelector('input[name="stampAct"]:checked');if(_a&&_a.value==='return'){doReturn();return;}checkedAt=Date.now();touch({checkedAt:checkedAt,status:'waiting',waiting:'社長'});}
+    else{checkedAt=Date.now();touch({checkedAt:checkedAt,status:'waiting',waiting:'社長'});}
   }
   else if(approvedAt){approvedAt=null;approvedBy=null;var r0=rec();var patch={approvedAt:null,approvedBy:null};if(r0&&r0.status==='approved')patch.status='draft';touch(patch);}
-  else{var _b=document.querySelector('input[name="stampAct"]:checked');if(_b&&_b.value==='return'){doReturn();return;}approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
+  else{approvedAt=Date.now();approvedBy='manjula';touch({status:'approved',approvedAt:approvedAt,approvedBy:approvedBy});}
   render();renderStatus();renderBoard();});
 document.getElementById('btnPrint').addEventListener('click',function(){window.print();});
 document.getElementById('btnCopy').addEventListener('click',function(){
@@ -382,8 +382,7 @@ function applyRole(){document.querySelectorAll('#roletabs button').forEach(funct
   document.querySelectorAll('.a-draft,.a-check,.a-pres').forEach(function(el){el.style.display=el.classList.contains(map[role])?'':'none';});
   var lt=document.getElementById('btnLang'); if(lt) lt.textContent=(role==='president')?(lang==='en'?'🇯🇵 裏面（日本語）を見る':'🌐 Back to English'):(lang==='jp'?'🌐 英文に切り替え':'🌐 日本語に戻す');
   var sa=document.getElementById('stampActs');
-  if(sa){sa.innerHTML=(role==='checker')?'<label><input type="radio" name="stampAct" value="check" checked> 確認</label><label><input type="radio" name="stampAct" value="return"> 差し戻し</label>':(role==='president')?'<label><input type="radio" name="stampAct" value="approve" checked> 決裁</label><label><input type="radio" name="stampAct" value="return"> 差し戻し</label>':'';}
-  var br=document.getElementById('btnReturn');if(br)br.style.display='none';
+  if(sa){sa.innerHTML=(role==='checker')?'<label><input type="radio" name="stampAct" value="check" checked> 確認</label>':(role==='president')?'<label><input type="radio" name="stampAct" value="approve" checked> 決裁</label>':'';}
   var ra=document.getElementById('retActs');
   if(ra){ra.innerHTML=(role==='drafter')?'':'<span style="font-size:12px;color:#42506b">戻し先</span><label><input type="radio" name="retTo" value="東" checked> 東</label>';}}
 function subDef(){document.querySelectorAll('input[name="subTo"]').forEach(function(x){x.checked=(x.value==='社長');});}
