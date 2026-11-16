@@ -114,6 +114,11 @@ function i18nApply(dict){
     }
   });
   if(dict[document.title] !== undefined) document.title = dict[document.title];
+  document.querySelectorAll('a[href]').forEach(function(a){
+    var h = a.getAttribute('href'); if(!h) return;
+    if(dict === I18N_JP_EN && /\.html$/.test(h)) a.setAttribute('href', h + '?lang=en');
+    if(dict === I18N_EN_JP && /\.html\?lang=en$/.test(h)) a.setAttribute('href', h.slice(0, -8));
+  });
 }
 document.getElementById('i18nBtn').addEventListener('click', function(){
   if(i18nLang === 'jp'){ i18nApply(I18N_JP_EN); i18nLang = 'en'; this.textContent = '日本語'; }
