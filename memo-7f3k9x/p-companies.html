@@ -241,7 +241,7 @@ function openDetail(i){
   document.getElementById('detailBody').innerHTML = h;
   document.getElementById('detail').style.display = 'flex';
 }
-document.getElementById('closeBtn').addEventListener('click', function(){ document.getElementById('detail').style.display = 'none'; if (fromHash && lastDetail >= 0) { var c = listEl.querySelector('.card[data-i="' + lastDetail + '"]'); if (c && c.scrollIntoView) c.scrollIntoView({ block: 'center' }); } });
+document.getElementById('closeBtn').addEventListener('click', function(){ document.getElementById('detail').style.display = 'none'; if (fromHash) { if (document.referrer && document.referrer.indexOf('/memo-7f3k9x/') >= 0) { history.back(); } else { location.href = 'power-map.html'; } return; } if (fromHash && lastDetail >= 0) { var c = listEl.querySelector('.card[data-i="' + lastDetail + '"]'); if (c && c.scrollIntoView) c.scrollIntoView({ block: 'center' }); } });
 document.getElementById('detail').addEventListener('click', function(e){ if (e.target === this) this.style.display = 'none'; });
 [].forEach.call(document.querySelectorAll('.chip'), function(c){ c.addEventListener('click', function(){ [].forEach.call(document.querySelectorAll('.chip'), function(x){ x.classList.remove('on'); }); c.classList.add('on'); chipF = c.getAttribute('data-f'); render(); }); });
 [secEl, tagEl, sortEl].forEach(function(el){ el.addEventListener('change', render); });
