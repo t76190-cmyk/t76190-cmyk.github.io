@@ -135,5 +135,7 @@ document.getElementById('i18nBtn').addEventListener('click', function(){
   if(i18nLang === 'jp'){ i18nApply(I18N_JP_EN); i18nLang = 'en'; this.textContent = '日本語'; }
   else { i18nApply(I18N_EN_JP); i18nLang = 'jp'; this.textContent = 'EN'; }
 });
+try{ if(new URLSearchParams(location.search).get('lang')==='en'){ i18nApply(I18N_JP_EN); i18nLang='en'; document.getElementById('i18nBtn').textContent='日本語'; } }catch(e){}
+
 </script>
 </body></html>
