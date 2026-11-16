@@ -172,10 +172,16 @@ function i18nApply(dict){
     }
   });
   if(dict[document.title] !== undefined) document.title = dict[document.title];
+  var PRES_TOP = 'https://t76190-cmyk.github.io/memo-m9k2x4/index.html';
   document.querySelectorAll('a[href]').forEach(function(a){
     var h = a.getAttribute('href'); if(!h) return;
-    if(dict === I18N_JP_EN && /\.html$/.test(h)) a.setAttribute('href', h + '?lang=en');
-    if(dict === I18N_EN_JP && /\.html\?lang=en$/.test(h)) a.setAttribute('href', h.slice(0, -8));
+    if(dict === I18N_JP_EN){
+      if(h === 'index.html' || h === 'index.html?lang=en') a.setAttribute('href', PRES_TOP);
+      else if(/\.html$/.test(h) && h.indexOf('http') !== 0) a.setAttribute('href', h + '?lang=en');
+    } else {
+      if(h === PRES_TOP) a.setAttribute('href', 'index.html');
+      else if(/\.html\?lang=en$/.test(h)) a.setAttribute('href', h.slice(0, -8));
+    }
   });
 }
 document.getElementById('i18nBtn').addEventListener('click', function(){
