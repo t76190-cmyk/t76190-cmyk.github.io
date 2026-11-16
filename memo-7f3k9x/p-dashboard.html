@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDVSS0T82"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PHDVSS0T82');
+</script>
+
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ダッシュボード（社長用・日本語ミラー）— SMART ENERGY WEEK 関西 2026</title><style>
+:root{--blue:#2f5d8a;--org:#f39800;--ink:#222;--mut:#667}
+*{box-sizing:border-box}body{margin:0;font-family:-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:#fff}
+header{padding:14px 16px 10px;border-bottom:3px solid var(--org)}
+h1{font-size:20px;margin:0 0 4px}header p{margin:0;color:var(--mut);font-size:12.5px}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;margin:12px 16px 0}
+.btnrow a,.btnrow button{flex:1;min-width:130px;text-align:center;background:#fdf3e3;border:1.5px solid var(--org);color:#8a5a00;font-weight:700;font-size:14px;padding:11px 8px;border-radius:10px;text-decoration:none;cursor:pointer}
+main{max-width:860px;margin:0 auto;padding:14px 16px 30px}
+h2{font-size:15px;margin:20px 0 8px;border-left:5px solid var(--org);padding-left:8px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.kpi{background:#f7fafc;border:1.5px solid #dbe5ee;border-radius:12px;padding:12px;text-align:center}
+.kpi .n{font-size:30px;font-weight:800;color:var(--blue);line-height:1.1}
+.kpi .l{font-size:12px;color:var(--mut);margin-top:3px}
+.kpi.hot .n{color:#c77400}
+.bar{height:14px;background:#eef1f4;border-radius:7px;overflow:hidden;margin:5px 0 3px}
+.bar i{display:block;height:100%;background:var(--org)}
+.dayrow{font-size:13.5px;margin:10px 0}
+.dayrow b{display:inline-block;min-width:86px}
+.tgt{font-size:11.5px;color:var(--mut)}
+textarea{width:100%;min-height:100px;border:1.5px solid #c9d4df;border-radius:10px;padding:10px;font-size:13px}
+button.act{background:var(--blue);color:#fff;border:none;font-weight:700;font-size:14px;padding:11px 22px;border-radius:10px;cursor:pointer}
+.cfg{display:flex;flex-wrap:wrap;gap:14px;font-size:13.5px}
+.cfg label{background:#f7fafc;border:1.5px solid #dbe5ee;border-radius:10px;padding:10px 12px}
+.cfg input{width:70px;font-size:15px;padding:5px 7px;border:1.5px solid #c9d4df;border-radius:7px;margin-left:6px}
+.note{font-size:12px;color:var(--mut);line-height:1.7}
+#qrModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:60;align-items:center;justify-content:center}
+#qrModal .box{background:#fff;border-radius:14px;padding:22px;text-align:center;max-width:320px;width:88%}
+#qrModal img{width:220px;height:220px}
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:640px){.charts{grid-template-columns:1fr}}
+.chartbox{background:#fff;border:1.5px solid #dbe5ee;border-radius:12px;padding:12px}
+.chartbox .ct{font-size:12px;color:var(--mut);font-weight:700;margin-bottom:6px}
+.donutWrap{display:flex;align-items:center;justify-content:center;gap:10px}
+.donutWrap .big{font-size:26px;font-weight:800;color:var(--blue)}
+footer{padding:14px 16px;color:var(--mut);font-size:11.5px;border-top:1px solid #eee}
+</style></head>
+<body>
+<header><h1>ダッシュボード — 判断のための数字</h1>
+<p>社長用・日本語ミラー · SMART ENERGY WEEK 関西 2026 · インテックス大阪 11/18–20 · 自社小間： Nihon Eco Solar, SC1-6. Numbers come from the team's status copies (paste below); they are stored on this device only.</p></header>
+<div class="btnrow">
+<a href="p-companies.html">🔥 野望 — 会社検索（日本語版）</a>
+<a href="p-board.html">📋 ボード</a>
+<a href="radar.html">🔍 レーダー</a>
+<button id="qrBtn" type="button">📩 QRを表示</button>
+</div>
+<main>
+<h2>進捗 — 3日間・全210社</h2>
+<div class="kpis">
+<div class="kpi hot"><div class="donutWrap"><svg width="86" height="86" viewBox="0 0 86 86"><circle cx="43" cy="43" r="34" fill="none" stroke="#eef1f4" stroke-width="10"/><circle id="donutArc" cx="43" cy="43" r="34" fill="none" stroke="#f39800" stroke-width="10" stroke-linecap="round" stroke-dasharray="0 213.6" transform="rotate(-90 43 43)"/><text id="donutPct" x="43" y="48" text-anchor="middle" font-size="16" font-weight="800" fill="#2f5d8a">0%</text></svg><div><div class="big" id="kDone">0</div><div class="l">話せた＋断られた<br><span id="kDonePct"></span></div></div></div></div>
+<div class="kpi"><div class="n" id="kTalk">0</div><div class="l">話せた</div><div class="l" id="kTalkPct"></div></div>
+<div class="kpi hot"><div class="n" id="kProspect">0</div><div class="l">見込みあり</div><div class="l" id="kProspectPct"></div></div>
+<div class="kpi hot"><div class="n" id="kRef">0</div><div class="l">社長取り次ぎ</div><div class="l" id="kRefPct"></div></div>
+<div class="kpi"><div class="n" id="kNoProspect">0</div><div class="l">見込みなし</div></div>
+<div class="kpi"><div class="n" id="kLater">0</div><div class="l">あとで回る</div></div>
+</div>
+<div class="bar"><i id="doneBar" style="width:0%"></i></div>
+<p class="note">断られた： <b id="kSkip">0</b> · <span id="upd"></span></p>
+<h2>日別</h2>
+<div class="charts">
+<div class="chartbox"><div class="ct">日別の訪問＋会話（バー＝目標）</div><div id="dayChart"></div></div>
+<div class="chartbox"><div class="ct">累計の進み具合</div><div id="cumChart"></div></div>
+</div>
+<div id="days"></div>
+<h2>社長の分類（ボードから）</h2>
+<p style="font-size:14px" id="presLine"></p>
+<h2>データ入力 — 状態コピーを貼り付け</h2>
+<textarea id="paste" placeholder="Paste the status copy text from the field index or the Board (JP or EN)."></textarea>
+<p><button class="act" id="parseBtn" type="button">読み込んで数字を更新</button> <span class="note" id="pasteMsg"></span></p>
+<h2>設定</h2>
+<div class="cfg">
+<label>1日の訪問目標<input id="cfg_dayVisit" type="number" min="1"></label>
+<label>1日の会話目標<input id="cfg_dayTalk" type="number" min="1"></label>
+<label>全体の消化目標（210社中）<input id="cfg_totalDone" type="number" min="1" max="210"></label>
+</div>
+<p style="margin-top:16px"><button id="clearBtn" type="button" style="background:none;border:1.5px solid #c9d4df;color:#667;font-size:12px;font-weight:700;padding:7px 16px;border-radius:999px;cursor:pointer">保存した数字を消す</button></p>
+<p class="note">このページは数字と設定だけです。会社の詳細は会社検索（日本語版）、チームの動きはボードにあります。</p>
+</main>
+<div id="qrModal"><div class="box"><p style="font-weight:700;margin:0 0 6px">ひかりマッチ — 空メールを送る</p>
+<img src="data:image/png;base64,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" alt="QR code">
+<p class="note">QRを読み取って空メールを送ると、ひかりマッチのご案内が返信で届きます。</p></div></div>
+<footer>社内版 — このリンクを社外に共有しないでください。</footer>
+<script>
+var NKEY = 'mirrorNumsV1', CKEY = 'mirrorCfgV1';
+function loadJ(k){ try { return JSON.parse(localStorage.getItem(k) || '{}') || {}; } catch (e) { return {}; } }
+function saveJ(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+var store = loadJ(NKEY); if (!store.companies) store = {companies: {}, updated: ''};
+var cfg = loadJ(CKEY);
+if (!cfg.dayVisit) cfg = {dayVisit: 30, dayTalk: 10, totalDone: 100};
+function esc(t){ return (t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;'); }
+var STM = {'訪問済': 'v', '話せた': 't', 'あとで回る': 'l', '行かない': 's', '断られた': 's', '社長取り次ぎ': 'ref'};
+var PEN = {'Referred to president': 'ref', 'Prospect': 'pros', 'Talked': 't', 'Later': 'l', 'Not today': 'skip', 'Declined': 's'};
+var PRES_J = {'売りたい人': 'seller', '買いたい人': 'buyer', '今回は不要': 'not', 'その他': 'other', '検討中1': 'c1', '検討中2': 'c2'};
+var PRES_E = {'Seller': 'seller', 'Buyer': 'buyer', 'Not this time': 'not', 'Other': 'other', 'Considering 1': 'c1', 'Considering 2': 'c2'};
+function rec(name){ if (!store.companies[name]) store.companies[name] = {}; return store.companies[name]; }
+function parseCopy(text){
+  var lines = text.split(/\n/), mode = '', changed = 0;
+  lines.forEach(function(ln){
+    ln = ln.trim(); if (!ln) return;
+    var m;
+    if (m = ln.match(/^【(.+?)】/)) { mode = STM[m[1]] || ''; return; }
+    if (ln.indexOf('■繋がった') === 0 || ln.indexOf('■Connected') === 0) { mode = 'conn'; return; }
+    if (ln.indexOf('■訪問') === 0 || ln.indexOf('■Visited') === 0) { mode = 'board'; return; }
+    if (ln.indexOf('■不要') === 0 || ln.indexOf('■Not needed') === 0) { mode = 'boardnot'; return; }
+    if (ln.charAt(0) !== '・') return;
+    var body = ln.slice(1);
+    var name = body.split('（')[0].split('(')[0].trim();
+    if (!name) return;
+    var r = rec(name);
+    if (mode === 'ref') { r.ref = true; changed++; }
+    else if (mode === 'v' || mode === 't' || mode === 'l' || mode === 's') {
+      r.s = mode;
+      var dm = body.match(/(\d{1,2})\/(\d{1,2}) \d{1,2}:\d{2}/);
+      if (dm) r.d = (+dm[1]) + '/' + (+dm[2]);
+      if (body.indexOf('見込みあり') >= 0) r.o = 'a';
+      if (body.indexOf('見込みなし') >= 0) r.o = 'n';
+      changed++;
+    } else if (mode === 'conn' || mode === 'board' || mode === 'boardnot') {
+      r.conn = true;
+      var pm = body.match(/社長[:：]\s*([^／]+)/) || body.match(/President:\s*([^\/]+)/);
+      if (pm) { var pv = pm[1].trim(); if (PRES_J[pv]) r.pres = PRES_J[pv]; if (PRES_E[pv]) r.pres = PRES_E[pv]; }
+      var vm = body.match(/僕[:：]\s*([^／]+)/) || body.match(/Visit:\s*([^\/]+)/);
+      if (vm) { var vv = vm[1].trim(); var code = {'社長取り次ぎ': 'ref', '見込みあり': 'pros', '話せた': 't', 'あとで回る': 'l', '今日はまわらない': 'skip', '断られた': 's'}[vv] || PEN[vv]; if (code === 'ref') r.ref = true; else if (code === 'pros') r.o = 'a'; else if (code && code !== 'skip' && !r.s) r.s = code; }
+      if (mode === 'boardnot' && !r.pres) r.pres = 'not';
+      changed++;
+    }
+  });
+  return changed;
+}
+function nums(){
+  var c = store.companies, n = {v: 0, t: 0, l: 0, s: 0, oa: 0, on: 0, days: {}, pres: {}, conn: 0, total: 210, touched: 0};
+  Object.keys(c).forEach(function(k){
+    var r = c[k];
+    if (r.s) { n[r.s]++; n.touched++; if ((r.s === 'v' || r.s === 't') && r.d) n.days[r.d] = (n.days[r.d] || 0) + 1; }
+    if (r.o === 'a') n.oa++; if (r.o === 'n') n.on++;
+    if (r.ref) n.ref = (n.ref || 0) + 1;
+    if (r.pres) n.pres[r.pres] = (n.pres[r.pres] || 0) + 1;
+    if (r.conn) n.conn++;
+  });
+  n.done = n.t + n.s;
+  return n;
+}
+function render(){
+  var n = nums();
+  document.getElementById('kDone').textContent = n.done;
+  document.getElementById('kDonePct').textContent = Math.round(n.done / 210 * 100) + '% of 210 · target ' + cfg.totalDone;
+  document.getElementById('doneBar').style.width = Math.min(100, n.done / Math.max(1, cfg.totalDone) * 100) + '%';
+  document.getElementById('kTalk').textContent = n.t;
+  document.getElementById('kTalkPct').textContent = Math.round(n.t / 210 * 1000) / 10 + '% of 210';
+  document.getElementById('kRef').textContent = n.ref || 0;
+  document.getElementById('kRefPct').textContent = Math.round((n.ref || 0) / 210 * 1000) / 10 + '% of 210';
+  document.getElementById('kProspectPct').textContent = Math.round(n.oa / 210 * 1000) / 10 + '% of 210';
+  document.getElementById('kProspect').textContent = n.oa;
+  document.getElementById('kNoProspect').textContent = n.on;
+  document.getElementById('kLater').textContent = n.l;
+  document.getElementById('kSkip').textContent = n.s;
+  var pct = Math.round(n.done / 210 * 100);
+  document.getElementById('donutPct').textContent = pct + '%';
+  document.getElementById('donutArc').setAttribute('stroke-dasharray', (213.6 * pct / 100) + ' 213.6');
+  var days = ['11/18', '11/19', '11/20'];
+  var counts = days.map(function(d){ return n.days[d] || 0; });
+  var maxV = Math.max(cfg.dayVisit, Math.max.apply(null, counts.concat([1])));
+  var bars = counts.map(function(c, i){
+    var h = Math.round(c / maxV * 92), y = 104 - h;
+    return '<rect x="' + (26 + i * 62) + '" y="' + y + '" width="38" height="' + h + '" rx="4" fill="#f39800"/><text x="' + (45 + i * 62) + '" y="' + (y - 5) + '" text-anchor="middle" font-size="13" font-weight="700" fill="#2f5d8a">' + c + '</text><text x="' + (45 + i * 62) + '" y="120" text-anchor="middle" font-size="11" fill="#667">' + days[i].replace('11/', '11/') + '</text>';
+  }).join('');
+  var ty = 104 - Math.round(cfg.dayVisit / maxV * 92);
+  document.getElementById('dayChart').innerHTML = '<svg viewBox="0 0 200 124" width="100%"><line x1="14" y1="' + ty + '" x2="196" y2="' + ty + '" stroke="#2f5d8a" stroke-width="1.5" stroke-dasharray="5 4"/><text x="196" y="' + (ty - 4) + '" text-anchor="end" font-size="9.5" fill="#2f5d8a">target ' + cfg.dayVisit + '</text>' + bars + '</svg>';
+  var cum = [], run = 0; counts.forEach(function(c){ run += c; cum.push(run); });
+  var maxC = Math.max(cfg.totalDone, cum[2] || 0, 1);
+  var pts = cum.map(function(c, i){ return (30 + i * 70) + ',' + (104 - Math.round(c / maxC * 92)); }).join(' ');
+  document.getElementById('cumChart').innerHTML = '<svg viewBox="0 0 200 124" width="100%"><polygon points="30,104 ' + pts + ' 170,104" fill="rgba(243,152,0,.18)"/><polyline points="' + pts + '" fill="none" stroke="#f39800" stroke-width="2.5"/>' + cum.map(function(c, i){ var x = 30 + i * 70, y = 104 - Math.round(c / maxC * 92); return '<circle cx="' + x + '" cy="' + y + '" r="4" fill="#2f5d8a"/><text x="' + x + '" y="' + (y - 8) + '" text-anchor="middle" font-size="12.5" font-weight="700" fill="#2f5d8a">' + c + '</text><text x="' + x + '" y="120" text-anchor="middle" font-size="11" fill="#667">' + days[i].replace('11/', '11/') + '</text>'; }).join('') + '</svg>';
+  document.getElementById('days').innerHTML = days.map(function(d){
+    var c = n.days[d] || 0;
+    return '<div class="dayrow"><b>' + d.replace('11/', '11/') + '</b>' + c + ' visits/talks <span class="tgt">/ target ' + cfg.dayVisit + ' per day</span><div class="bar"><i style="width:' + Math.min(100, c / Math.max(1, cfg.dayVisit) * 100) + '%"></i></div></div>';
+  }).join('');
+  var pl = {'seller': 'Sellers', 'buyer': 'Buyers', 'c1': 'Considering 1', 'c2': 'Considering 2', 'other': 'Other', 'not': 'Not this time'};
+  document.getElementById('presLine').textContent = Object.keys(pl).map(function(k){ return pl[k] + ' ' + (n.pres[k] || 0); }).join(' · ') + ' · Connected records ' + n.conn;
+  document.getElementById('upd').textContent = store.updated ? ('Last updated: ' + store.updated + ' · records held: ' + Object.keys(store.companies).length) : 'No data pasted yet.';
+}
+document.getElementById('parseBtn').addEventListener('click', function(){
+  var t = document.getElementById('paste').value;
+  if (!t.trim()) return;
+  var c = parseCopy(t);
+  store.updated = new Date().toLocaleString('en-GB');
+  saveJ(NKEY, store);
+  document.getElementById('pasteMsg').textContent = c ? ('Read ' + c + ' lines. Numbers updated.') : 'No company lines found in that text.';
+  document.getElementById('paste').value = '';
+  render();
+});
+document.getElementById('clearBtn').addEventListener('click', function(){
+  if (confirm('Clear all stored numbers?')) { store = {companies: {}, updated: ''}; saveJ(NKEY, store); render(); }
+});
+['dayVisit', 'dayTalk', 'totalDone'].forEach(function(k){
+  var el = document.getElementById('cfg_' + k);
+  el.value = cfg[k];
+  el.addEventListener('change', function(){ cfg[k] = Math.max(1, +el.value || 1); saveJ(CKEY, cfg); render(); });
+});
+document.getElementById('qrBtn').addEventListener('click', function(){ document.getElementById('qrModal').style.display = 'flex'; });
+document.getElementById('qrModal').addEventListener('click', function(){ this.style.display = 'none'; });
+render();
+</script></body></html>
