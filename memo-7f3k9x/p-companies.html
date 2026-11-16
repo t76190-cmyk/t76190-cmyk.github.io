@@ -123,8 +123,9 @@ function pass(d){
   if (q && (d.name + ' ' + (d.name_jp || '') + ' ' + d.booth + ' ' + d.tags.join(' ')).toLowerCase().indexOf(q) < 0) return false;
   return true;
 }
+var fromHash = false, lastDetail = -1;
 function isDefault(){
-  return chipF === 'all' && !secEl.value && !tagEl.value && sortEl.value === 'std' && !qEl.value.trim();
+  return !fromHash && chipF === 'all' && !secEl.value && !tagEl.value && sortEl.value === 'std' && !qEl.value.trim();
 }
 function render(){
   if (isDefault()){
@@ -156,6 +157,7 @@ function cardHtml(d){
     return h;
 }
 function openDetail(i){
+  lastDetail = i;
   var d = DATA[i], h = '<h2>' + esc(d.name) + '</h2><div>' + badges(d) + '<span class="sec">' + esc(d.section) + '</span></div>';
   if (d.summary) h += '<div class="dsec"><h4>ひと目で</h4><p>' + esc(d.summary) + '</p></div>';
   if (d.priority) h += '<div class="dsec"><h4>PRIORITY ' + d.priority.rank + (d.priority.direction ? ' — ' + esc(d.priority.direction) : '') + '</h4><p>' + esc(d.priority.reason) + '</p></div>';
@@ -166,7 +168,7 @@ function openDetail(i){
   document.getElementById('detailBody').innerHTML = h;
   document.getElementById('detail').style.display = 'flex';
 }
-document.getElementById('closeBtn').addEventListener('click', function(){ document.getElementById('detail').style.display = 'none'; });
+document.getElementById('closeBtn').addEventListener('click', function(){ document.getElementById('detail').style.display = 'none'; if (fromHash && lastDetail >= 0) { var c = listEl.querySelector('.card[data-i="' + lastDetail + '"]'); if (c && c.scrollIntoView) c.scrollIntoView({ block: 'center' }); } });
 document.getElementById('detail').addEventListener('click', function(e){ if (e.target === this) this.style.display = 'none'; });
 [].forEach.call(document.querySelectorAll('.chip'), function(c){ c.addEventListener('click', function(){ [].forEach.call(document.querySelectorAll('.chip'), function(x){ x.classList.remove('on'); }); c.classList.add('on'); chipF = c.getAttribute('data-f'); render(); }); });
 [secEl, tagEl, sortEl].forEach(function(el){ el.addEventListener('change', render); });
@@ -176,5 +178,5 @@ document.getElementById('qrOpen').addEventListener('click', function(){ qm.style
 document.getElementById('qrClose').addEventListener('click', function(){ qm.style.display = 'none'; });
 qm.addEventListener('click', function(e){ if (e.target === qm) qm.style.display = 'none'; });
 render();
-try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(cm[1], 10); if (DATA[ci]) openDetail(ci); } } catch (e) {}
+try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(cm[1], 10); if (DATA[ci]) { fromHash = true; render(); openDetail(ci); } } } catch (e) {}
 </script></body></html>
