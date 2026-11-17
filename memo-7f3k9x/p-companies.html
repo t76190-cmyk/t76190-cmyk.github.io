@@ -295,13 +295,30 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
       });
     });
   }
+  function addMemo(i){
+    var body = document.getElementById('detailBody'); if (!body) return;
+    var all = load(); var cur = all[i] || {};
+    var memo = cur.memo != null ? String(cur.memo) : '';
+    var det = document.createElement('details');
+    det.style.cssText = 'background:#fffdf4;border:1.5px solid #c9a227;border-radius:10px;padding:10px 12px;margin:14px 0 4px;';
+    if (memo) det.open = true;
+    det.innerHTML = '<summary style="font-weight:900;color:#7a5b00;font-size:13.5px;cursor:pointer;">📝 メモ ― 追加で言われたこと' + (memo ? '（記入あり）' : '') + '</summary>'
+      + '<textarea rows="4" placeholder="ここに書くと端末内に自動保存されます" style="width:100%;box-sizing:border-box;margin-top:8px;font-size:14px;line-height:1.6;padding:8px;border-radius:7px;border:1.5px solid #c9a227;">' + memo.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</textarea>';
+    body.appendChild(det);
+    var ta = det.querySelector('textarea');
+    ta.addEventListener('input', function(){
+      var all2 = load(); var rec = all2[i] || {};
+      if (ta.value === '') delete rec.memo; else rec.memo = ta.value;
+      all2[i] = rec; save(all2);
+    });
+  }
   var orig = window.openDetail;
   if (typeof orig === 'function') {
-    window.openDetail = function(i){ orig(i); addStance(i); };
+    window.openDetail = function(i){ orig(i); addStance(i); addMemo(i); };
   }
   try {
     var det = document.getElementById('detail');
-    if (det && det.style.display === 'flex' && typeof lastDetail === 'number' && lastDetail >= 0) addStance(lastDetail);
+    if (det && det.style.display === 'flex' && typeof lastDetail === 'number' && lastDetail >= 0) { addStance(lastDetail); addMemo(lastDetail); }
   } catch(e){}
 })();
 </script>
