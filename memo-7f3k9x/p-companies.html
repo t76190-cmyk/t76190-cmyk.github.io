@@ -276,14 +276,21 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
       for (var n = 1; n <= 9; n++) h += '<option value="' + n + '"' + (v === String(n) ? ' selected' : '') + '>' + n + (n === 5 ? '（基準）' : '') + '</option>';
       h += '</select><span style="font-size:11px;color:#666;">' + ax[3] + '</span></div>';
     });
+    var hv = cur.hikari != null ? String(cur.hikari) : '';
+    h += '<div style="display:flex;align-items:center;gap:8px;margin:8px 0 2px;border-top:1px dashed #9aa3c7;padding-top:8px;"><span style="width:86px;font-size:12.5px;font-weight:700;">光マッチ掲載</span>'
+      + '<select data-ax="hikari" style="font-size:15px;font-weight:700;padding:5px 8px;border-radius:7px;border:1.5px solid #131c44;background:' + (hv === 'ok' ? '#bfe3c0' : hv === 'ng' ? '#f6c9c9' : '#ffffff') + ';">'
+      + '<option value=""></option><option value="ok"' + (hv === 'ok' ? ' selected' : '') + '>可</option><option value="ng"' + (hv === 'ng' ? ' selected' : '') + '>否</option></select></div>'
+      + '<div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap;"><a href="nihon-ecosolar.html" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#fdf6dd;border:1.5px solid #c9a227;border-radius:999px;padding:6px 12px;text-decoration:none;">🏢 日本エコソーラー企業ページ（企業データ）</a>'
+      + '<a href="nesco.html" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#eef1fa;border:1.5px solid #131c44;border-radius:999px;padding:6px 12px;text-decoration:none;">👥 グループ</a></div>';
     box.innerHTML = h;
     h2.parentNode.insertBefore(box, h2.nextSibling);
     box.querySelectorAll('select').forEach(function(sel){
       sel.addEventListener('change', function(){
         var all2 = load(); var rec = all2[i] || {};
-        if (sel.value === '') delete rec[sel.getAttribute('data-ax')]; else rec[sel.getAttribute('data-ax')] = parseInt(sel.value, 10);
+        var axn = sel.getAttribute('data-ax');
+        if (sel.value === '') delete rec[axn]; else rec[axn] = (axn === 'hikari') ? sel.value : parseInt(sel.value, 10);
         all2[i] = rec; save(all2);
-        sel.style.background = colorOf(sel.value, sel.getAttribute('data-ax'));
+        sel.style.background = (axn === 'hikari') ? (sel.value === 'ok' ? '#bfe3c0' : sel.value === 'ng' ? '#f6c9c9' : '#ffffff') : colorOf(sel.value, axn);
       });
     });
   }
