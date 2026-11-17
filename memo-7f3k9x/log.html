@@ -29,6 +29,7 @@ h1.sub { display:block; font-size:11.5px; color:#cfd6f2; margin-top:3px; font-we
 <button class="copy" id="copyBtn">📋 ログをコピー（ミューへ）</button>
 <p class="cnt" id="cnt"></p>
 <div id="list"></div>
+<button class="copy" id="nullBtn" style="background:#e8ebf2;color:#8a8fa3;font-size:13px;margin-top:18px;">🐢 スタンスを全部消す（ヌルに戻す）</button>
 <a class="back" href="index.html" style="margin-top:16px;">← 出展社さくいんへ戻る</a>
 </div>
 <script>
@@ -52,6 +53,17 @@ if (!arr.length) lines.push('（まだ記録がありません）');
 arr.forEach(function(e){ lines.push(e.t + ' ' + e.text);});
 return lines.join('\n');
 }
+document.getElementById('nullBtn').addEventListener('click', function(){
+    if (!confirm('ヌル🐢だよ ― 三国スタンスの記録を全部消しますか？')) return;
+    if (!confirm('本当に消すよ🐱 消したら元に戻せません。いいですか？')) return;
+    try { localStorage.removeItem('sangokuStanceV1'); } catch(e){}
+    try {
+      var a = JSON.parse(localStorage.getItem('eventLogV1') || '[]');
+      a.push({ t: tsNow(), text: 'スタンスを全部消した（ヌル🐢に戻した）' });
+      localStorage.setItem('eventLogV1', JSON.stringify(a));
+    } catch(e){}
+    location.reload();
+  });
 document.getElementById('copyBtn').addEventListener('click', function(){
 var btn = this; var txt = logText();
 function done(){ btn.textContent = '✅ コピーしました ― ミューへ貼ってください'; setTimeout(function(){ btn.textContent = '📋 ログをコピー（ミューへ）';}, 2600);}
