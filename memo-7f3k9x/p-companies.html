@@ -291,6 +291,10 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
   if (typeof orig === 'function') {
     window.openDetail = function(i){ orig(i); addStance(i); };
   }
+  try {
+    var det = document.getElementById('detail');
+    if (det && det.style.display === 'flex' && typeof lastDetail === 'number' && lastDetail >= 0) addStance(lastDetail);
+  } catch(e){}
 })();
 </script>
 </body></html>
