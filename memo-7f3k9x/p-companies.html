@@ -259,7 +259,7 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
   function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return {}; } }
   function save(all){ try { localStorage.setItem(KEY, JSON.stringify(all)); } catch(e){} }
   var AXES = [['land','用地（発電）','売り','買い'],['grid','系統（蓄電）','売り','買い'],['fund','資金（投資）','調達','投資']];
-  function colorOf(v){ if (v === '' || v == null) return '#ffffff'; v = parseInt(v, 10); return v < 5 ? '#cfe1f7' : v === 5 ? '#f3d27a' : '#f9cf9a'; }
+  function colorOf(v, ax){ if (v === '' || v == null) return '#ffffff'; v = parseInt(v, 10); if (v === 5) return '#f3d27a'; if (ax === 'fund') return v > 5 ? '#cfe1f7' : '#bfe3c0'; return v < 5 ? '#f6c9c9' : '#bfe3c0'; }
   function addStance(i){
     var body = document.getElementById('detailBody'); if (!body) return;
     var h2 = body.querySelector('h2'); if (!h2) return;
@@ -271,7 +271,7 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
       var v = cur[ax[0]] != null ? String(cur[ax[0]]) : '';
       h += '<div style="display:flex;align-items:center;gap:8px;margin:5px 0;"><span style="width:86px;font-size:12.5px;font-weight:700;">' + ax[1] + '</span>'
         + '<span style="font-size:11px;color:#666;">' + ax[2] + '</span>'
-        + '<select data-ax="' + ax[0] + '" style="font-size:15px;font-weight:700;padding:5px 8px;border-radius:7px;border:1.5px solid #131c44;background:' + colorOf(v) + ';">'
+        + '<select data-ax="' + ax[0] + '" style="font-size:15px;font-weight:700;padding:5px 8px;border-radius:7px;border:1.5px solid #131c44;background:' + colorOf(v, ax[0]) + ';">'
         + '<option value=""></option>';
       for (var n = 1; n <= 9; n++) h += '<option value="' + n + '"' + (v === String(n) ? ' selected' : '') + '>' + n + (n === 5 ? '（基準）' : '') + '</option>';
       h += '</select><span style="font-size:11px;color:#666;">' + ax[3] + '</span></div>';
@@ -283,7 +283,7 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
         var all2 = load(); var rec = all2[i] || {};
         if (sel.value === '') delete rec[sel.getAttribute('data-ax')]; else rec[sel.getAttribute('data-ax')] = parseInt(sel.value, 10);
         all2[i] = rec; save(all2);
-        sel.style.background = colorOf(sel.value);
+        sel.style.background = colorOf(sel.value, sel.getAttribute('data-ax'));
       });
     });
   }
