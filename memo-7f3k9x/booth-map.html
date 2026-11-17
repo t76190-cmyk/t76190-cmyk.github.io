@@ -52,7 +52,7 @@ h2 { background:#131c44; color:#e9c766; font-size:15px; padding:7px 12px; border
   var AKEY = 'boothMapAxisV1';
   var sel = document.getElementById('axisSel');
   function loadSt(){ try { return JSON.parse(localStorage.getItem(SKEY) || '{}'); } catch(e){ return {}; } }
-  function colorOf(v, ax){ v = parseInt(v, 10); if (v === 5) return '#f3d27a'; if (ax === 'fund') return v > 5 ? '#cfe1f7' : '#bfe3c0'; return v < 5 ? '#f6c9c9' : '#bfe3c0'; }
+  function colorOf(v, ax){ v = parseInt(v, 10); if (v === 5) return '#f3d27a'; if (ax === 'fund') return v > 5 ? '#9dbfe8' : '#dcebfc'; return v < 5 ? '#f6c9c9' : '#bfe3c0'; }
   function render(){
     var mode = sel.value;
     try { localStorage.setItem(AKEY, mode); } catch(e){}

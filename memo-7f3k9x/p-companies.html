@@ -270,7 +270,7 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
   function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return {}; } }
   function save(all){ try { localStorage.setItem(KEY, JSON.stringify(all)); } catch(e){} }
   var AXES = [['land','用地（発電）','売り','買い'],['grid','系統（蓄電）','売り','買い'],['fund','資金（投資）','調達','投資']];
-  function colorOf(v, ax){ if (v === '' || v == null) return '#ffffff'; v = parseInt(v, 10); if (v === 5) return '#f3d27a'; if (ax === 'fund') return v > 5 ? '#cfe1f7' : '#bfe3c0'; return v < 5 ? '#f6c9c9' : '#bfe3c0'; }
+  function colorOf(v, ax){ if (v === '' || v == null) return '#ffffff'; v = parseInt(v, 10); if (v === 5) return '#f3d27a'; if (ax === 'fund') return v > 5 ? '#9dbfe8' : '#dcebfc'; return v < 5 ? '#f6c9c9' : '#bfe3c0'; }
   function addStance(i){
     var body = document.getElementById('detailBody'); if (!body) return;
     var h2 = body.querySelector('h2'); if (!h2) return;
