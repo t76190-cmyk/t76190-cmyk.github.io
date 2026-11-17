@@ -277,7 +277,7 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
       h += '</select><span style="font-size:11px;color:#666;">' + ax[3] + '</span></div>';
     });
     var hv = cur.hikari != null ? String(cur.hikari) : '';
-    h += '<div style="display:flex;align-items:center;gap:8px;margin:8px 0 2px;border-top:1px dashed #9aa3c7;padding-top:8px;"><span style="width:86px;font-size:12.5px;font-weight:700;">光マッチ掲載</span>'
+    h += '<div style="display:flex;align-items:center;gap:8px;margin:8px 0 2px;border-top:1px dashed #9aa3c7;padding-top:8px;"><span style="width:86px;font-size:12.5px;font-weight:700;">ひかりマッチ掲載</span>'
       + '<select data-ax="hikari" style="font-size:15px;font-weight:700;padding:5px 8px;border-radius:7px;border:1.5px solid #131c44;background:' + (hv === 'ok' ? '#bfe3c0' : hv === 'ng' ? '#f6c9c9' : '#ffffff') + ';">'
       + '<option value=""></option><option value="ok"' + (hv === 'ok' ? ' selected' : '') + '>可</option><option value="ng"' + (hv === 'ng' ? ' selected' : '') + '>否</option></select></div>'
       + '<div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap;"><a href="nihon-ecosolar.html" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#fdf6dd;border:1.5px solid #c9a227;border-radius:999px;padding:6px 12px;text-decoration:none;">🏢 日本エコソーラー企業ページ（企業データ）</a>'
