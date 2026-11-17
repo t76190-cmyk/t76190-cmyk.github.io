@@ -738,20 +738,6 @@ function uClassOf(idx){
       } catch(e){}
     };
   }
-  var cpBtn = document.getElementById('copyState');
-  if (cpBtn && !document.getElementById('copyLog')) {
-    var b = document.createElement('button');
-    b.id = 'copyLog'; b.className = 'chip'; b.textContent = '📋 記録ログをコピー（ミューへ）';
-    cpBtn.parentNode.insertBefore(b, cpBtn.nextSibling);
-    b.addEventListener('click', function(){
-      var arr = [];
-      try { arr = JSON.parse(localStorage.getItem(LOGKEY) || '[]'); } catch(e){}
-      var lines = ['【展示会 記録ログ】コピー時点：' + tsNow(), ''];
-      if (!arr.length) lines.push('（まだ記録がありません）');
-      arr.forEach(function(e){ lines.push(e.t + ' ' + e.text); });
-      copyText(lines.join('\n'), b);
-    });
-  }
 })();
 </script>
 </body></html>
