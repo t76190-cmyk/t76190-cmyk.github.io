@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDVSS0T82"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PHDVSS0T82');
+</script>
+
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>記録ログ｜僕用</title>
+<style>
+* { box-sizing: border-box;} body { font-family: "Noto Sans CJK JP", sans-serif; color:#1c2333; margin:0; background:#f4f5f9;}
+.wrap { max-width: 760px; margin: 0 auto; padding: 14px 12px 30px;}
+h1 { background: linear-gradient(135deg,#0b1029,#131c44 60%,#26356e); color:#e9c766; padding:14px 16px; border-radius:10px; font-size:19px; margin:0 0 10px;}
+h1.sub { display:block; font-size:11.5px; color:#cfd6f2; margin-top:3px; font-weight:600;}
+.back { display:block; text-align:center; background:#131c44; color:#e9c766; text-decoration:none; font-weight:700; padding:11px; border-radius:999px; margin:0 0 12px;}
+.copy { display:block; width:100%; text-align:center; background:#f39800; color:#131c44; font-weight:900; font-size:15px; padding:12px; border:none; border-radius:999px; margin:0 0 14px; cursor:pointer;}
+.item { background:#fff; border:1px solid #d8dce8; border-radius:8px; padding:8px 11px; margin:0 0 6px; font-size:13.5px; line-height:1.55;}
+.item.t { color:#131c44; font-weight:900; font-size:12px; margin-right:8px; white-space:nowrap;}
+.empty { color:#888; font-size:13px; padding:16px 4px;}
+.cnt { font-size:12.5px; color:#666; margin:0 0 10px;}
+</style></head><body><div class="wrap">
+<a class="back" href="index.html">← 出展社さくいんへ戻る</a>
+<h1>📋 記録ログ<span class="sub">訪問・スタンス・ひかりマッチ掲載・メモ ― どこで書いてもここに全部たまります（端末内保存）</span></h1>
+<button class="copy" id="copyBtn">📋 ログをコピー（ミューへ）</button>
+<p class="cnt" id="cnt"></p>
+<div id="list"></div>
+<a class="back" href="index.html" style="margin-top:16px;">← 出展社さくいんへ戻る</a>
+</div>
+<script>
+(function(){
+var LOGKEY = 'eventLogV1';
+function pad2(n){ return (n < 10? '0': '') + n;}
+function tsNow(){ var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes());}
+function esc(x){ return String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;');}
+var arr = [];
+try { arr = JSON.parse(localStorage.getItem(LOGKEY) || '[]');} catch(e){}
+document.getElementById('cnt').textContent = '全 ' + arr.length + ' 件（古い順）';
+var list = document.getElementById('list');
+if (!arr.length) {
+list.innerHTML = '<p class="empty">まだ記録がありません。さくいんやドシエで記録すると、ここにたまります。</p>';
+} else {
+list.innerHTML = arr.map(function(e){ return '<div class="item"><span class="t">' + esc(e.t) + '</span>' + esc(e.text) + '</div>';}).join('');
+}
+function logText(){
+var lines = ['コピー時点：' + tsNow(), ''];
+if (!arr.length) lines.push('（まだ記録がありません）');
+arr.forEach(function(e){ lines.push(e.t + ' ' + e.text);});
+return lines.join('\n');
+}
+document.getElementById('copyBtn').addEventListener('click', function(){
+var btn = this; var txt = logText();
+function done(){ btn.textContent = '✅ コピーしました ― ミューへ貼ってください'; setTimeout(function(){ btn.textContent = '📋 ログをコピー（ミューへ）';}, 2600);}
+if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(txt).then(done, function(){ fallback();});
+} else fallback();
+function fallback(){
+var ta = document.createElement('textarea');
+ta.value = txt; ta.style.cssText = 'position:fixed;opacity:0;';
+document.body.appendChild(ta); ta.select();
+try { document.execCommand('copy'); done();} catch(e){ btn.textContent = 'コピーできませんでした';}
+document.body.removeChild(ta);
+}
+});
+})();
+</script>
+</body></html>
