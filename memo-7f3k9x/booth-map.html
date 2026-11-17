@@ -29,6 +29,7 @@ h2 { background:#131c44; color:#e9c766; font-size:15px; padding:7px 12px; border
 .bx .st.on { display:block; }
 .bx .st .mini { display:block; font-size:9.5px; font-weight:700; color:#131c44; background:#eef1fa; border-radius:4px; padding:2px 3px; text-align:center; }
 .bx .st .one { display:block; font-size:13px; font-weight:900; color:#131c44; border-radius:4px; padding:2px 3px; text-align:center; border:1px solid #131c44; }
+.bx .st .one .axn { display:block; font-size:9px; font-weight:700; letter-spacing:.14em; }
 .minimap { display:flex; gap:10px; margin:2px 0 14px; }
 .hall { flex:1; background:#e8ebf2; border:1.5px solid #b9c0d4; border-radius:8px; padding:6px; }
 .mrow { display:flex; flex-wrap:wrap; gap:2px; margin:0 0 2px; }
@@ -75,12 +76,15 @@ h2 { background:#131c44; color:#e9c766; font-size:15px; padding:7px 12px; border
       st.innerHTML = ''; st.className = 'st';
       if (mode === 'all') {
         if (rec.land == null && rec.grid == null && rec.fund == null) return;
-        var f = function(x){ return x == null ? '-' : x; };
-        st.innerHTML = '<span class="mini">用' + f(rec.land) + ' 系' + f(rec.grid) + ' 資' + f(rec.fund) + '</span>';
+        var fw = function(x, lo, hi){ if (x == null) return '-'; x = parseInt(x, 10); return (x === 5 ? '基' : x < 5 ? lo : hi) + x; };
+        st.innerHTML = '<span class="mini">' + fw(rec.land, '売', '買') + ' ' + fw(rec.grid, '売', '買') + ' ' + fw(rec.fund, '調', '投') + '</span>';
         st.className = 'st on';
       } else {
         if (rec[mode] == null) return;
-        st.innerHTML = '<span class="one" style="background:' + colorOf(rec[mode], mode) + ';">' + rec[mode] + '</span>';
+        var AXN = { land: '用地', grid: '系統', fund: '投資' };
+        var vv = parseInt(rec[mode], 10);
+        var dir = vv === 5 ? '基準' : mode === 'fund' ? (vv < 5 ? '調達' : '投資') : (vv < 5 ? '売り' : '買い');
+        st.innerHTML = '<span class="one" style="background:' + colorOf(rec[mode], mode) + ';"><span class="axn">' + AXN[mode] + '</span>' + vv + ' ' + dir + '</span>';
         st.className = 'st on';
       }
     });
