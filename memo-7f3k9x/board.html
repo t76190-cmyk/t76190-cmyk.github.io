@@ -308,5 +308,34 @@ setTimeout(() => { msg.textContent = "";}, 3000);
 
 render();
 </script>
+<script>
+(function(){
+
+function pad2(n){ return (n < 10 ? '0' : '') + n; }
+function tsNow(){ var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
+function logEvent(text){
+  try {
+    var a = JSON.parse(localStorage.getItem('eventLogV1') || '[]');
+    a.push({ t: tsNow(), text: text });
+    localStorage.setItem('eventLogV1', JSON.stringify(a));
+  } catch(e){}
+}
+
+  function coLabel(i){ try { var c = COMPANIES[i]; return c ? (c.n + '（' + c.b + '）') : '#' + i; } catch(e){ return '#' + i; } }
+  if (typeof setField === 'function') {
+    var orig = setField;
+    setField = function(i, k, v){
+      orig(i, k, v);
+      try {
+        if (k === 'card') logEvent('管制盤 ' + coLabel(i) + ' 名刺画像を登録');
+        else if (k === 'my') logEvent('管制盤 ' + coLabel(i) + ' 自分 = ' + v);
+        else if (k === 'boss') logEvent('管制盤 ' + coLabel(i) + ' 社長 = ' + (v || '（消去）'));
+        else if (k === 'fuyu') logEvent('管制盤 ' + coLabel(i) + ' 付随 = ' + (v ? 'あり' : 'なし'));
+        else logEvent('管制盤 ' + coLabel(i) + ' ' + k + ' = ' + v);
+      } catch(e){}
+    };
+  }
+})();
+</script>
 </body>
 </html>

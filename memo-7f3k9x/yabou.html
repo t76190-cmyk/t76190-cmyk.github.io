@@ -200,4 +200,60 @@ function renderSum(){
 document.getElementById('resetBtn').addEventListener('click', function(){ if (confirm('優先・日・時刻・取り次ぎ等の設定を全部消しますか？（訪問記録は消えません）')) { settings = {__flow: []}; saveSettings(); renderNext(); renderSum(); } });
 document.getElementById('resetAllBtn').addEventListener('click', function(){ if (confirm('訪問記録とグラフを全部消して、まっさらに戻しますか？（さくいん側の訪問記録も消えます）')) { vstate = {}; saveV(); settings = {__flow: []}; saveSettings(); renderNext(); renderSum(); } });
 renderNext(); renderSum();
-</script></body></html>
+</script><script>
+(function(){
+
+function pad2(n){ return (n < 10 ? '0' : '') + n; }
+function tsNow(){ var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
+function logEvent(text){
+  try {
+    var a = JSON.parse(localStorage.getItem('eventLogV1') || '[]');
+    a.push({ t: tsNow(), text: text });
+    localStorage.setItem('eventLogV1', JSON.stringify(a));
+  } catch(e){}
+}
+
+  var STM = { v: '訪問済', t: '話せた', l: 'あとで回る', s: '行かない', x: '断られた' };
+  function coName(ci){ try { var r = DATA.filter(function(x){ return x.ci === ci; })[0]; return r ? (r.name + '（' + (r.booth || '') + '）') : '#' + ci; } catch(e){ return '#' + ci; } }
+  function snap(o){ try { return JSON.parse(JSON.stringify(o || {})); } catch(e){ return {}; } }
+  var prevV = snap(typeof vstate !== 'undefined' ? vstate : {});
+  if (typeof saveV === 'function') {
+    var origV = saveV;
+    saveV = function(){
+      origV();
+      try {
+        Object.keys(vstate || {}).forEach(function(k){
+          var a = prevV[k], bb = vstate[k];
+          if (JSON.stringify(a) !== JSON.stringify(bb) && bb) {
+            var s = typeof bb === 'string' ? bb : bb.s;
+            if (s) logEvent('野望 ' + coName(parseInt(k, 10)) + ' 訪問 = ' + (STM[s] || s));
+          }
+        });
+        prevV = snap(vstate);
+      } catch(e){}
+    };
+  }
+  var prevS = snap(typeof settings !== 'undefined' ? settings : {});
+  if (typeof saveSettings === 'function') {
+    var origS = saveSettings;
+    saveSettings = function(){
+      origS();
+      try {
+        Object.keys(settings || {}).forEach(function(k){
+          if (k === '__flow') return;
+          var a = prevS[k] || {}, bb = settings[k] || {};
+          if (JSON.stringify(a) === JSON.stringify(bb)) return;
+          var ci = parseInt(k, 10); var parts = [];
+          if (bb.handled && bb.handled !== a.handled) parts.push('対応済み');
+          if (bb.skip && bb.skip !== a.skip) parts.push('今日は回らない');
+          if ((bb.p || '') !== (a.p || '')) parts.push('優先度 = ' + (bb.p || '（消去）'));
+          if ((bb.d || '') !== (a.d || '') || (bb.t || '') !== (a.t || '')) parts.push('時刻指定 = ' + ((bb.d || '') + ' ' + (bb.t || '')).trim());
+          logEvent('野望 ' + coName(ci) + ' ' + (parts.length ? parts.join('／') : '設定を変更'));
+        });
+        prevS = snap(settings);
+      } catch(e){}
+    };
+  }
+})();
+</script>
+</body></html>

@@ -443,5 +443,47 @@ if(!m&&role!=='drafter'){
   if(!_op&&_s.__self){var _ids=Object.keys(_s.__self.docs);for(var _i=0;_i<_ids.length;_i++){if(_s.__self.docs[_ids[_i]].status==='waiting'){switchDoc(_ids[_i]);_op=true;break;}}}
 }
 </script>
+<script>
+(function(){
+
+function pad2(n){ return (n < 10 ? '0' : '') + n; }
+function tsNow(){ var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
+function logEvent(text){
+  try {
+    var a = JSON.parse(localStorage.getItem('eventLogV1') || '[]');
+    a.push({ t: tsNow(), text: text });
+    localStorage.setItem('eventLogV1', JSON.stringify(a));
+  } catch(e){}
+}
+
+  function stateDigest(){
+    try {
+      var s = JSON.parse(localStorage.getItem('ringiStoreV1') || '{}');
+      var parts = [];
+      function walk(o, path){
+        if (!o || typeof o !== 'object') return;
+        Object.keys(o).forEach(function(k){
+          var v = o[k];
+          if ((k === 'status' || k === 'waiting') && typeof v === 'string') parts.push(path + '.' + k + '=' + v);
+          else if (v && typeof v === 'object') walk(v, path + '.' + k);
+        });
+      }
+      walk(s, '');
+      return parts.sort().join('|');
+    } catch(e){ return ''; }
+  }
+  var prevDigest = stateDigest();
+  if (typeof saveStore === 'function') {
+    var origR = saveStore;
+    saveStore = function(s){
+      origR(s);
+      try {
+        var dg = stateDigest();
+        if (dg !== prevDigest) { logEvent('稟議書 状態を更新'); prevDigest = dg; }
+      } catch(e){}
+    };
+  }
+})();
+</script>
 </body>
 </html>
