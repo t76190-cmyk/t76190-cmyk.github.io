@@ -256,6 +256,17 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
 <script>
 (function(){
   var KEY = 'sangokuStanceV1';
+  var LOGKEY = 'eventLogV1';
+  function pad2(n){ return (n < 10 ? '0' : '') + n; }
+  function tsNow(){ var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
+  function logEvent(text){
+    try {
+      var arr = JSON.parse(localStorage.getItem(LOGKEY) || '[]');
+      arr.push({ t: tsNow(), text: text });
+      localStorage.setItem(LOGKEY, JSON.stringify(arr));
+    } catch(e){}
+  }
+  function coLabel(i){ try { var d = DATA[i]; return d.name + '（' + d.booth + '）'; } catch(e){ return '#' + i; } }
   function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return {}; } }
   function save(all){ try { localStorage.setItem(KEY, JSON.stringify(all)); } catch(e){} }
   var AXES = [['land','用地（発電）','売り','買い'],['grid','系統（蓄電）','売り','買い'],['fund','資金（投資）','調達','投資']];
@@ -291,6 +302,9 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
         var axn = sel.getAttribute('data-ax');
         if (sel.value === '') delete rec[axn]; else rec[axn] = (axn === 'hikari') ? sel.value : parseInt(sel.value, 10);
         all2[i] = rec; save(all2);
+        var AXLAB = { land: '用地', grid: '系統', fund: '資金', hikari: 'ひかりマッチ掲載' };
+        var vlab = sel.value === '' ? '（消去）' : (axn === 'hikari' ? (sel.value === 'ok' ? '可' : '否') : sel.value);
+        logEvent(coLabel(i) + ' ' + (AXLAB[axn] || axn) + ' = ' + vlab);
         sel.style.background = (axn === 'hikari') ? (sel.value === 'ok' ? '#bfe3c0' : sel.value === 'ng' ? '#f6c9c9' : '#ffffff') : colorOf(sel.value, axn);
       });
     });
@@ -310,6 +324,9 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
       var all2 = load(); var rec = all2[i] || {};
       if (ta.value === '') delete rec.memo; else rec.memo = ta.value;
       all2[i] = rec; save(all2);
+    });
+    ta.addEventListener('blur', function(){
+      if (ta.value) logEvent(coLabel(i) + ' メモ: ' + ta.value.replace(/\n/g, ' '));
     });
   }
   var orig = window.openDetail;

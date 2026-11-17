@@ -706,4 +706,51 @@ function uClassOf(idx){
   document.addEventListener('click', function(){ setTimeout(draw, 350); });
 })();
 </script>
+
+<script>
+(function(){
+  var LOGKEY = 'eventLogV1';
+  function pad2(n){ return (n < 10 ? '0' : '') + n; }
+  function tsNow(){ var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()) + ' ' + pad2(d.getHours()) + ':' + pad2(d.getMinutes()); }
+  function logEvent(text){
+    try {
+      var arr = JSON.parse(localStorage.getItem(LOGKEY) || '[]');
+      arr.push({ t: tsNow(), text: text });
+      localStorage.setItem(LOGKEY, JSON.stringify(arr));
+    } catch(e){}
+  }
+  function cardLabel(idx){
+    try {
+      var c = cards[idx]; if (!c) return '#' + idx;
+      var nm = c.querySelector('.nm'); var bt = c.querySelector('.b-booth');
+      return (nm ? nm.textContent.trim() : '#' + idx) + (bt ? '（' + bt.textContent.trim() + '）' : '');
+    } catch(e){ return '#' + idx; }
+  }
+  if (typeof _setField === 'function') {
+    var origSet = _setField;
+    _setField = function(idx, field, val){
+      origSet(idx, field, val);
+      try {
+        if (field === 's') logEvent(cardLabel(idx) + ' 訪問 = ' + (val ? (STMETA[val] ? STMETA[val].label : val) : '（消去）'));
+        else if (field === 'o') logEvent(cardLabel(idx) + ' 見込み = ' + (val === 'a' ? 'あり' : val === 'n' ? 'なし' : '（消去）'));
+        else if (field === 'p') logEvent(cardLabel(idx) + ' 優先 = ' + (val || '（消去）'));
+      } catch(e){}
+    };
+  }
+  var cpBtn = document.getElementById('copyState');
+  if (cpBtn && !document.getElementById('copyLog')) {
+    var b = document.createElement('button');
+    b.id = 'copyLog'; b.className = 'chip'; b.textContent = '📋 記録ログをコピー（ミューへ）';
+    cpBtn.parentNode.insertBefore(b, cpBtn.nextSibling);
+    b.addEventListener('click', function(){
+      var arr = [];
+      try { arr = JSON.parse(localStorage.getItem(LOGKEY) || '[]'); } catch(e){}
+      var lines = ['【展示会 記録ログ】コピー時点：' + tsNow(), ''];
+      if (!arr.length) lines.push('（まだ記録がありません）');
+      arr.forEach(function(e){ lines.push(e.t + ' ' + e.text); });
+      copyText(lines.join('\n'), b);
+    });
+  }
+})();
+</script>
 </body></html>
