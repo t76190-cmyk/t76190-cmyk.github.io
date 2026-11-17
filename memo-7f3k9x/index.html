@@ -691,6 +691,7 @@ function uClassOf(idx){
     return {main: main, why: main.timed ? ('時間指定 ' + main.timed) : '優先度順'};
   }
   function draw(){
+    if (HIDE_NEXT) { var _o = document.getElementById('nextStrip'); if (_o) _o.remove(); return; }
     var n = compute();
     var old = document.getElementById('nextStrip');
     if (old) old.remove();
