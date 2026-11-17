@@ -653,6 +653,63 @@ function uClassOf(idx){
 (function(){var m=document.getElementById('qrModal');var b=document.getElementById('qrBtn');var bk=document.getElementById('qrBack');if(!m||!b||!bk)return;b.addEventListener('click',function(){m.classList.add('open');});bk.addEventListener('click',function(){m.classList.remove('open');});m.addEventListener('click',function(e){if(e.target===m){m.classList.remove('open');}});})();
 </script>
 
+<style>
+#nextStrip{background:#fff4e0;border:2px solid #f39800;border-radius:12px;padding:11px 14px;margin:0 0 12px;cursor:pointer}
+#nextStrip .k{font-size:11px;font-weight:700;color:#c77400;letter-spacing:.05em}
+#nextStrip .nm{font-size:18px;font-weight:800;line-height:1.35;color:#7a1f1f;margin:2px 0}
+#nextStrip .meta{font-size:12.5px;color:#555}
+</style>
+
+<script>
+(function(){
+  function loadJ(k){ try { return JSON.parse(localStorage.getItem(k) || '{}') || {}; } catch (e) { return {}; } }
+  var GO = {'S': 0, 'A': 1, 'B': 2, 'C': 3, 'D': 4, '-': 5};
+  var PO = {'high': 0, 'mid': 1, '': 2, 'low': 3};
+  var HIDE_NEXT = true; // 2026-11-17 本人指示：今回は隠す（コードは残す）
+  function compute(){
+    var detEl = document.getElementById('details-data');
+    if (!detEl || typeof YABOU === 'undefined' || typeof peekState !== 'function') return null;
+    var details; try { details = JSON.parse(detEl.textContent); } catch (e) { return null; }
+    var settings = loadJ('yabouSettingsV1');
+    var rows = [];
+    details.forEach(function(d, ci){
+      var y = YABOU[d.name]; if (!y) return;
+      var st = peekState(ci); if (st.s === 'v' || st.s === 't' || st.s === 's') return;
+      var _cfgH = settings[ci] || {}; var _today = (new Date().getMonth() + 1) + '/' + new Date().getDate();
+      if (_cfgH.handled === _today || _cfgH.skip === _today) return;
+      var cfg = settings[ci] || {};
+      rows.push({ci: ci, name: d.name, booth: d.booth || '', ceo: y.ceo || '-',
+                 timed: (cfg.d && cfg.t) ? ('11/' + cfg.d + ' ' + cfg.t) : '', p: cfg.p || '', vp: (function(){ var _p = peekState(ci).p; return _p ? +_p : 0; })()});
+    });
+    if (!rows.length) return null;
+    var timed = rows.filter(function(r){ return r.timed; }).sort(function(a, b){ return a.timed < b.timed ? -1 : 1; });
+    var prio = rows.filter(function(r){ return !r.timed; }).sort(function(a, b){
+      return (PO[a.p] - PO[b.p]) || ((a.vp ? 0 : 1) - (b.vp ? 0 : 1)) || ((a.vp || 99) - (b.vp || 99)) || ((GO[a.ceo] != null ? GO[a.ceo] : 5) - (GO[b.ceo] != null ? GO[b.ceo] : 5)) || (a.ci - b.ci);
+    });
+    var seq = timed.concat(prio);
+    var main = seq[0];
+    return {main: main, why: main.timed ? ('時間指定 ' + main.timed) : '優先度順'};
+  }
+  function draw(){
+    var n = compute();
+    var old = document.getElementById('nextStrip');
+    if (old) old.remove();
+    if (!n) return;
+    var div = document.createElement('div');
+    div.id = 'nextStrip';
+    div.innerHTML = '<div class="k">🔥 次はここ（' + n.why + '）— 野望ダッシュボードの設定・実績から</div>'
+      + '<div class="nm">' + n.main.name + '</div>'
+      + '<div class="meta">' + (n.main.booth || '小間—') + ' ｜ タップで詳細を開く</div>';
+    div.addEventListener('click', function(){ if (typeof openDetail === 'function') openDetail(n.main.ci); });
+    var firstCard = document.querySelector('.card');
+    if (firstCard && firstCard.parentNode) firstCard.parentNode.insertBefore(div, firstCard);
+  }
+  window.__drawNextStrip = draw;
+  window.addEventListener('load', function(){ setTimeout(draw, 60); });
+  document.addEventListener('click', function(){ setTimeout(draw, 350); });
+})();
+</script>
+
 
 
 
