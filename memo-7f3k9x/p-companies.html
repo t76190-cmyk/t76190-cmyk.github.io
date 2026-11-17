@@ -252,4 +252,45 @@ document.getElementById('qrClose').addEventListener('click', function(){ qm.styl
 qm.addEventListener('click', function(e){ if (e.target === qm) qm.style.display = 'none'; });
 render();
 try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(cm[1], 10); if (DATA[ci]) { fromHash = true; render(); openDetail(ci); } } } catch (e) {}
-</script></body></html>
+</script>
+<script>
+(function(){
+  var KEY = 'sangokuStanceV1';
+  function load(){ try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e){ return {}; } }
+  function save(all){ try { localStorage.setItem(KEY, JSON.stringify(all)); } catch(e){} }
+  var AXES = [['land','用地（発電）','売り','買い'],['grid','系統（蓄電）','売り','買い'],['fund','資金（投資）','調達','投資']];
+  function colorOf(v){ if (v === '' || v == null) return '#ffffff'; v = parseInt(v, 10); return v < 5 ? '#cfe1f7' : v === 5 ? '#f3d27a' : '#f9cf9a'; }
+  function addStance(i){
+    var body = document.getElementById('detailBody'); if (!body) return;
+    var h2 = body.querySelector('h2'); if (!h2) return;
+    var all = load(); var cur = all[i] || {};
+    var box = document.createElement('div');
+    box.style.cssText = 'background:#f4f5f9;border:1.5px solid #131c44;border-radius:10px;padding:10px 12px;margin:10px 0;';
+    var h = '<div style="font-weight:900;color:#131c44;font-size:13.5px;margin-bottom:6px;">三国スタンス ― 聞けたら記録（5が基準）</div>';
+    AXES.forEach(function(ax){
+      var v = cur[ax[0]] != null ? String(cur[ax[0]]) : '';
+      h += '<div style="display:flex;align-items:center;gap:8px;margin:5px 0;"><span style="width:86px;font-size:12.5px;font-weight:700;">' + ax[1] + '</span>'
+        + '<span style="font-size:11px;color:#666;">' + ax[2] + '</span>'
+        + '<select data-ax="' + ax[0] + '" style="font-size:15px;font-weight:700;padding:5px 8px;border-radius:7px;border:1.5px solid #131c44;background:' + colorOf(v) + ';">'
+        + '<option value=""></option>';
+      for (var n = 1; n <= 9; n++) h += '<option value="' + n + '"' + (v === String(n) ? ' selected' : '') + '>' + n + (n === 5 ? '（基準）' : '') + '</option>';
+      h += '</select><span style="font-size:11px;color:#666;">' + ax[3] + '</span></div>';
+    });
+    box.innerHTML = h;
+    h2.parentNode.insertBefore(box, h2.nextSibling);
+    box.querySelectorAll('select').forEach(function(sel){
+      sel.addEventListener('change', function(){
+        var all2 = load(); var rec = all2[i] || {};
+        if (sel.value === '') delete rec[sel.getAttribute('data-ax')]; else rec[sel.getAttribute('data-ax')] = parseInt(sel.value, 10);
+        all2[i] = rec; save(all2);
+        sel.style.background = colorOf(sel.value);
+      });
+    });
+  }
+  var orig = window.openDetail;
+  if (typeof orig === 'function') {
+    window.openDetail = function(i){ orig(i); addStance(i); };
+  }
+})();
+</script>
+</body></html>
