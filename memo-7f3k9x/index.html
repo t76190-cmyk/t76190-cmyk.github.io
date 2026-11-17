@@ -596,10 +596,11 @@ function uClassOf(idx){
     if(typeof paintCard==='function')paintCard(idx);
     if(typeof updateStatusUI==='function')updateStatusUI();
   }
-  function openDetail(i){
+  window.__RARE={"72": ["①", "④"], "86": ["①"], "208": ["①"], "29": ["②"], "67": ["②"], "31": ["②"], "65": ["②"], "2": ["③"], "25": ["③"], "12": ["③"], "9": ["③", "④"], "24": ["④"], "11": ["④"], "51": ["⑤"], "39": ["⑤"], "18": ["⑤"], "7": ["⑤"], "150": ["⑥"], "8": ["⑥"], "70": ["⑥"], "28": ["⑥"], "68": ["⑥"], "60": ["⑥"], "57": ["⑥"]};window.__RAREMETA={'①':['蓄運','#2e9e5b'],'②':['機組','#33688c'],'③':['開発','#b7791f'],'④':['出口','#a33d8c'],'⑤':['評価','#0f766e'],'⑥':['拡張','#7c4dff']};
+function openDetail(i){
     var d=DETAILS[i],h='';
     if(window.FROM_RADAR){h+='<p style="margin:0 0 10px"><a href="radar.html" style="display:inline-block;border:1.5px solid #3a4a8c;color:#3a4a8c;border-radius:999px;padding:5px 14px;font-size:13px;font-weight:700;text-decoration:none;background:#fff">← レアタグに戻る</a></p>';}
-    h+='<h2>'+esc(d.name)+'</h2>';
+    h+='<h2>'+esc(d.name)+'</h2>'; var _rt=(window.__RARE||{})[i]||[]; if(_rt.length){h+='<div style="margin:2px 0 8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center;"><span style="font-size:11px;font-weight:800;color:#888;">レアタグ</span>'+_rt.map(function(t){var m=window.__RAREMETA[t];return '<a href="radar.html#cat'+t+'" style="display:inline-block;border:1.5px solid '+m[1]+';color:'+m[1]+';border-radius:999px;padding:2px 10px;font-size:12px;font-weight:800;text-decoration:none;background:#fff;">'+t+' '+m[0]+'</a>';}).join('')+'</div>';}
     h+='<div class="badges">'+(d.booth?'<span class="badge b-booth">'+esc(d.booth)+'</span>':'')+d.flags.map(function(x){return '<span class="badge">'+esc(x)+'</span>';}).join('')+'<span class="sec">'+esc(d.section)+'</span></div>';
     if(window.YABOU && YABOU[d.name]){ h+=yabouPage(d, YABOU[d.name]); }
     h+='<div class="dsec boothmap"><h3>小間位置（概略）</h3>'+boothMap(d.booth)+'</div>';
