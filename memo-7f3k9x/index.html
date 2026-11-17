@@ -157,7 +157,7 @@ a.banner-img img{width:100%;height:auto;display:block}
 <select id="sec"><option value="">展示会：すべて</option><option value="[関西]太陽光発電展 PV EXPO（34社）">[関西]太陽光発電展 PV EXPO（34社）</option><option value="[関西]二次電池展 BATTERY JAPAN（34社）">[関西]二次電池展 BATTERY JAPAN（34社）</option><option value="[関西]スマートグリッドEXPO（18社）">[関西]スマートグリッドEXPO（18社）</option><option value="[関西]水素・燃料電池展 H2 &amp; FC EXPO（35社）">[関西]水素・燃料電池展 H2 &amp; FC EXPO（35社）</option><option value="FUSION POWER WORLD（25社）">FUSION POWER WORLD（25社）</option><option value="CNポートパビリオン（9社／社名一覧のみ、小間番号・概要なし）">CNポートパビリオン（9社／社名一覧のみ、小間番号・概要なし）</option><option value="脱炭素経営EXPO（36社）">脱炭素経営EXPO（36社）</option><option value="熱エネルギー展 I-TEX JAPAN（12社）">熱エネルギー展 I-TEX JAPAN（12社）</option><option value="検索システムのみに掲載（社名一覧にない7件）">検索システムのみに掲載（社名一覧にない7件）</option></select>
 <select id="tag"><option value="">タグ：すべて</option><option value="蓄電池・ESS">蓄電池・ESS（29）</option><option value="太陽光発電">太陽光発電（23）</option><option value="計測・監視">計測・監視（10）</option><option value="脱炭素・CO2">脱炭素・CO2（10）</option><option value="水素・燃料電池">水素・燃料電池（10）</option><option value="核融合">核融合（8）</option><option value="系統用蓄電池">系統用蓄電池（7）</option><option value="リサイクル">リサイクル（7）</option><option value="EV・充電">EV・充電（7）</option><option value="太陽光パネル">太陽光パネル（6）</option><option value="保守・O&amp;M">保守・O&amp;M（6）</option><option value="施工">施工（6）</option><option value="キュービクル・受変電">キュービクル・受変電（6）</option><option value="資金・金融">資金・金融（4）</option></select>
 <select id="stf"><option value="">状態：すべて</option><option value="v">訪問済</option><option value="t">話せた</option><option value="l">あとで回る</option><option value="s">行かない</option><option value="none">未チェック</option></select>
-<select id="sort"><option value="">並び替え：標準</option><option value="prio">優先順位順</option><option value="booth">小間番号順</option><option value="name">会社名順</option></select> <select id="rare"><option value="">レアタグ：すべて</option><option value="①">① 蓄運</option><option value="②">② 機組</option><option value="③">③ 開発</option><option value="④">④ 出口</option><option value="⑤">⑤ 評価</option><option value="⑥">⑥ 拡張</option></select> <select id="sgf"><option value="">三国：すべて</option><option value="any">● 記録あり</option><optgroup label="用地"><option value="land-lo">売り寄り</option><option value="land-hi">買い寄り</option></optgroup><optgroup label="系統"><option value="grid-lo">売り寄り</option><option value="grid-hi">買い寄り</option></optgroup><optgroup label="資金"><option value="fund-lo">調達寄り</option><option value="fund-hi">投資寄り</option></optgroup></select>
+<select id="sort"><option value="">並び替え：標準</option><option value="prio">優先順位順</option><option value="booth">小間番号順</option><option value="name">会社名順</option></select> <select id="rare"><option value="">レアタグ：すべて</option><option value="①">① 蓄運</option><option value="②">② 機組</option><option value="③">③ 開発</option><option value="④">④ 出口</option><option value="⑤">⑤ 評価</option><option value="⑥">⑥ 拡張</option></select> <select id="sgf"><option value="">三国：すべて</option><option value="any">● 記録あり</option><optgroup label="用地"><option value="land-lo">売り寄り</option><option value="land-hi">買い寄り</option></optgroup><optgroup label="系統"><option value="grid-lo">売り寄り</option><option value="grid-hi">買い寄り</option></optgroup><optgroup label="資金"><option value="fund-lo">調達寄り</option><option value="fund-hi">投資寄り</option></optgroup></select> <select id="hkf"><option value="">ひかりマッチ掲載：すべて</option><option value="ok">掲載 可</option><option value="ng">掲載 否</option><option value="none">未確認</option></select>
 </div>
 <div id="cnt"></div>
 </header>
@@ -425,7 +425,7 @@ function apply(){
   var t=q.value.trim().toLowerCase(),s=sec.value,tg=tag.value,hit=[];
   cards.forEach(function(c,idx){
     var tags=(c.getAttribute('data-tags')||'').split('|');
-    var ok=(!flt||c.classList.contains(flt))&&(!s||c.querySelector('.sec').textContent===s)&&(!tg||tags.indexOf(tg)>=0)&&(!t||c.getAttribute('data-text').toLowerCase().indexOf(t)>=0)&&statusOk(idx)&&rareOk(idx)&&sangokuOk(idx);
+    var ok=(!flt||c.classList.contains(flt))&&(!s||c.querySelector('.sec').textContent===s)&&(!tg||tags.indexOf(tg)>=0)&&(!t||c.getAttribute('data-text').toLowerCase().indexOf(t)>=0)&&statusOk(idx)&&rareOk(idx)&&sangokuOk(idx)&&hikariOk(idx);
     if(ok)hit.push(c);
   });
   var sortEl=document.getElementById('sort');var sm=sortEl?sortEl.value:'';
@@ -442,7 +442,7 @@ function apply(){
   prev.disabled=page<=1;next.disabled=page>=pages;
 }
 function reset(){page=1;apply();}
-q.addEventListener('input',reset);sec.addEventListener('change',reset);tag.addEventListener('change',reset);var _r=document.getElementById('rare');if(_r)_r.addEventListener('change',reset);var _g=document.getElementById('sgf');if(_g)_g.addEventListener('change',reset);
+q.addEventListener('input',reset);sec.addEventListener('change',reset);tag.addEventListener('change',reset);var _r=document.getElementById('rare');if(_r)_r.addEventListener('change',reset);var _g=document.getElementById('sgf');if(_g)_g.addEventListener('change',reset);var _h=document.getElementById('hkf');if(_h)_h.addEventListener('change',reset);
 prev.addEventListener('click',function(){if(page>1){page--;apply();window.scrollTo(0,0);}});
 next.addEventListener('click',function(){page++;apply();window.scrollTo(0,0);});
 document.querySelectorAll('.chip[data-f]').forEach(function(b){b.addEventListener('click',function(){
@@ -470,6 +470,7 @@ function statusOk(idx){
 }
 function rareOk(idx){var el=document.getElementById('rare');if(!el||!el.value)return true;var t=(window.__RARE||{})[idx]||[];return t.indexOf(el.value)>=0;}
 function sangokuOk(idx){var el=document.getElementById('sgf');if(!el||!el.value)return true;var all={};try{all=JSON.parse(localStorage.getItem('sangokuStanceV1')||'{}');}catch(e){}var r=all[idx];if(el.value==='any')return !!r&&(r.land!=null||r.grid!=null||r.fund!=null);if(!r)return false;var ax=el.value.split('-');var v=r[ax[0]];if(v==null)return false;return ax[1]==='lo'?v<5:v>5;}
+function hikariOk(idx){var el=document.getElementById('hkf');if(!el||!el.value)return true;var all={};try{all=JSON.parse(localStorage.getItem('sangokuStanceV1')||'{}');}catch(e){}var r=all[idx];var h=r?r.hikari:null;if(el.value==='none')return !h;return h===el.value;}
 function saveState(){try{localStorage.setItem(LSKEY,JSON.stringify(visitState));}catch(e){}}
 function loadState(){
   try{var h=location.hash;if(h.indexOf('#s=')===0){visitState=JSON.parse(atob(h.slice(3)));}}catch(e){}
