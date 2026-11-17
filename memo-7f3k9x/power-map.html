@@ -119,7 +119,16 @@ function fmtVal(r) {
   if (metric === 'ckw' || metric === 'ukw') return (v / 1000).toFixed(2) + ' GW';
   return v.toLocaleString('ja-JP') + (metric === 'ops' ? ' 者' : ' 件');
 }
+function pct(x, t) { return (x / t * 100).toFixed(2) + ' %'; }
 function fmtSub(r) {
+  if (mode === 'pct') {
+    if (metric === 'rate') return '未稼働 ' + pct(r.un, TOT.un) + '・認定 ' + pct(r.cn, TOT.cn);
+    if (metric === 'ckw') return '件数 ' + pct(r.cn, TOT.cn) + '・未稼働 ' + pct(r.un, TOT.un);
+    if (metric === 'cn') return '出力 ' + pct(r.ckw, TOT.ckw) + '・未稼働 ' + pct(r.un, TOT.un);
+    if (metric === 'un') return '未稼働容量 ' + pct(r.ukw, TOT.ukw) + '・認定 ' + pct(r.cn, TOT.cn);
+    if (metric === 'ukw') return '未稼働 ' + pct(r.un, TOT.un) + '・認定出力 ' + pct(r.ckw, TOT.ckw);
+    return '認定 ' + pct(r.cn, TOT.cn);
+  }
   if (metric === 'rate') return '未稼働 ' + r.un.toLocaleString('ja-JP') + ' 件 / 認定 ' + r.cn.toLocaleString('ja-JP') + ' 件';
   if (metric === 'ckw') return r.cn.toLocaleString('ja-JP') + ' 件・未稼働 ' + r.un.toLocaleString('ja-JP') + ' 件';
   if (metric === 'cn') return '出力 ' + (r.ckw / 1000).toFixed(2) + ' GW・未稼働 ' + r.un.toLocaleString('ja-JP') + ' 件';
