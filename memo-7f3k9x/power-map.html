@@ -99,11 +99,49 @@ footer { margin-top:18px; font-size:11px; color:#8a99a6; line-height:1.6; }
   </div>
   <div class="cols" style="margin-top:14px">
     <div class="col">
-      <h3 class="mini">勢力ランキング ― 出力トップ10</h3>
-      <table class="data">
-        <tr><th></th><th>都道府県</th><th class="num">認定出力</th><th class="num">件数</th><th class="num">未稼働</th></tr>
-        <tr><td class="rk">1</td><td><b>愛知県</b></td><td class="num">7.88 GW</td><td class="num">15,063 件</td><td class="num">191 件</td></tr><tr><td class="rk">2</td><td><b>茨城県</b></td><td class="num">7.49 GW</td><td class="num">29,680 件</td><td class="num">432 件</td></tr><tr><td class="rk">3</td><td><b>福島県</b></td><td class="num">6.63 GW</td><td class="num">9,434 件</td><td class="num">231 件</td></tr><tr><td class="rk">4</td><td><b>北海道</b></td><td class="num">6.16 GW</td><td class="num">9,727 件</td><td class="num">507 件</td></tr><tr><td class="rk">5</td><td><b>青森県</b></td><td class="num">4.42 GW</td><td class="num">4,107 件</td><td class="num">269 件</td></tr><tr><td class="rk">6</td><td><b>長崎県</b></td><td class="num">3.91 GW</td><td class="num">6,983 件</td><td class="num">44 件</td></tr><tr><td class="rk">7</td><td><b>宮城県</b></td><td class="num">3.79 GW</td><td class="num">6,577 件</td><td class="num">102 件</td></tr><tr><td class="rk">8</td><td><b>山口県</b></td><td class="num">3.71 GW</td><td class="num">6,883 件</td><td class="num">117 件</td></tr><tr><td class="rk">9</td><td><b>兵庫県</b></td><td class="num">3.62 GW</td><td class="num">13,953 件</td><td class="num">132 件</td></tr><tr><td class="rk">10</td><td><b>鹿児島県</b></td><td class="num">3.38 GW</td><td class="num">15,963 件</td><td class="num">120 件</td></tr>
-      </table>
+      <h3 class="mini">勢力ランキング ― 認定出力トップ10</h3><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:4px 0 8px;">
+<select id="rankMetric" style="font-size:14px;padding:7px 10px;border-radius:8px;border:1.5px solid #131c44;background:#fff;">
+<option value="ckw">認定出力</option><option value="cn">認定件数</option><option value="un">未稼働 件数</option><option value="ukw">未稼働 容量</option><option value="rate">未稼働率</option><option value="ops">事業者数</option>
+</select>
+<button id="rankMode" type="button" style="font-size:13px;font-weight:700;padding:7px 14px;border-radius:999px;border:1.5px solid #131c44;background:#131c44;color:#e9c766;cursor:pointer;">実数</button>
+</div>
+<div id="rankTable"></div>
+<script>
+const PREFDATA = [{"pref": "北海道", "slug": "hokkaido", "cn": 9727, "ckw": 6163.1, "un": 507, "ukw": 1688.4, "ops": 4142}, {"pref": "青森県", "slug": "aomori", "cn": 4107, "ckw": 4415.9, "un": 269, "ukw": 2365.2, "ops": 2177}, {"pref": "岩手県", "slug": "iwate", "cn": 3297, "ckw": 2547.4, "un": 54, "ukw": 845.9, "ops": 1977}, {"pref": "宮城県", "slug": "miyagi", "cn": 6577, "ckw": 3795.2, "un": 102, "ukw": 1007.5, "ops": 3643}, {"pref": "秋田県", "slug": "akita", "cn": 1591, "ckw": 2304.3, "un": 49, "ukw": 911.8, "ops": 898}, {"pref": "山形県", "slug": "yamagata", "cn": 1156, "ckw": 1141.2, "un": 20, "ukw": 527.3, "ops": 685}, {"pref": "福島県", "slug": "fukushima", "cn": 9434, "ckw": 6628.8, "un": 231, "ukw": 903.0, "ops": 4979}, {"pref": "茨城県", "slug": "ibaraki", "cn": 29680, "ckw": 7488.6, "un": 432, "ukw": 330.0, "ops": 13272}, {"pref": "栃木県", "slug": "tochigi", "cn": 19123, "ckw": 2986.1, "un": 126, "ukw": 89.0, "ops": 9796}, {"pref": "群馬県", "slug": "gunma", "cn": 21210, "ckw": 2686.9, "un": 169, "ukw": 210.5, "ops": 10096}, {"pref": "埼玉県", "slug": "saitama", "cn": 9995, "ckw": 1219.8, "un": 47, "ukw": 28.6, "ops": 6106}, {"pref": "千葉県", "slug": "chiba", "cn": 21264, "ckw": 3181.3, "un": 160, "ukw": 57.9, "ops": 10454}, {"pref": "東京都", "slug": "tokyo", "cn": 1304, "ckw": 434.3, "un": 7, "ukw": 14.1, "ops": 865}, {"pref": "神奈川県", "slug": "kanagawa", "cn": 2157, "ckw": 483.5, "un": 17, "ukw": 16.6, "ops": 1488}, {"pref": "新潟県", "slug": "niigata", "cn": 1636, "ckw": 1492.4, "un": 39, "ukw": 855.6, "ops": 1080}, {"pref": "富山県", "slug": "toyama", "cn": 1605, "ckw": 500.2, "un": 16, "ukw": 75.7, "ops": 1058}, {"pref": "石川県", "slug": "ishikawa", "cn": 2303, "ckw": 1958.2, "un": 33, "ukw": 505.8, "ops": 1384}, {"pref": "福井県", "slug": "fukui", "cn": 1245, "ckw": 1176.6, "un": 27, "ukw": 145.9, "ops": 776}, {"pref": "山梨県", "slug": "yamanashi", "cn": 6297, "ckw": 704.9, "un": 39, "ukw": 54.7, "ops": 3457}, {"pref": "長野県", "slug": "nagano", "cn": 11896, "ckw": 1625.0, "un": 126, "ukw": 107.1, "ops": 7267}, {"pref": "岐阜県", "slug": "gifu", "cn": 12576, "ckw": 1516.0, "un": 114, "ukw": 69.1, "ops": 7325}, {"pref": "静岡県", "slug": "shizuoka", "cn": 15010, "ckw": 2591.6, "un": 166, "ukw": 155.5, "ops": 8711}, {"pref": "愛知県", "slug": "aichi", "cn": 15063, "ckw": 7882.7, "un": 191, "ukw": 79.9, "ops": 9042}, {"pref": "三重県", "slug": "mie", "cn": 16493, "ckw": 3179.0, "un": 195, "ukw": 340.1, "ops": 8546}, {"pref": "滋賀県", "slug": "shiga", "cn": 5296, "ckw": 924.5, "un": 50, "ukw": 203.6, "ops": 3446}, {"pref": "京都府", "slug": "kyoto", "cn": 3140, "ckw": 481.6, "un": 26, "ukw": 40.8, "ops": 2007}, {"pref": "大阪府", "slug": "osaka", "cn": 4127, "ckw": 748.6, "un": 24, "ukw": 6.9, "ops": 2888}, {"pref": "兵庫県", "slug": "hyogo", "cn": 13953, "ckw": 3617.1, "un": 132, "ukw": 118.8, "ops": 8166}, {"pref": "奈良県", "slug": "nara", "cn": 4025, "ckw": 505.9, "un": 22, "ukw": 27.3, "ops": 2438}, {"pref": "和歌山県", "slug": "wakayama", "cn": 4911, "ckw": 1238.0, "un": 18, "ukw": 310.4, "ops": 3009}, {"pref": "鳥取県", "slug": "tottori", "cn": 1686, "ckw": 874.1, "un": 33, "ukw": 327.3, "ops": 991}, {"pref": "島根県", "slug": "shimane", "cn": 1512, "ckw": 1902.5, "un": 62, "ukw": 328.4, "ops": 995}, {"pref": "岡山県", "slug": "okayama", "cn": 11806, "ckw": 2213.3, "un": 154, "ukw": 145.5, "ops": 6979}, {"pref": "広島県", "slug": "hiroshima", "cn": 12385, "ckw": 3068.3, "un": 124, "ukw": 175.5, "ops": 6765}, {"pref": "山口県", "slug": "yamaguchi", "cn": 6883, "ckw": 3713.6, "un": 117, "ukw": 232.4, "ops": 3883}, {"pref": "徳島県", "slug": "tokushima", "cn": 8067, "ckw": 953.4, "un": 76, "ukw": 43.4, "ops": 4129}, {"pref": "香川県", "slug": "kagawa", "cn": 5691, "ckw": 824.8, "un": 82, "ukw": 17.7, "ops": 3480}, {"pref": "愛媛県", "slug": "ehime", "cn": 6024, "ckw": 1152.8, "un": 56, "ukw": 131.4, "ops": 3319}, {"pref": "高知県", "slug": "kochi", "cn": 2480, "ckw": 970.9, "un": 30, "ukw": 298.6, "ops": 1503}, {"pref": "福岡県", "slug": "fukuoka", "cn": 10589, "ckw": 2833.7, "un": 70, "ukw": 43.4, "ops": 5887}, {"pref": "佐賀県", "slug": "saga", "cn": 5398, "ckw": 769.1, "un": 17, "ukw": 74.7, "ops": 3118}, {"pref": "長崎県", "slug": "nagasaki", "cn": 6983, "ckw": 3913.8, "un": 44, "ukw": 958.4, "ops": 3587}, {"pref": "熊本県", "slug": "kumamoto", "cn": 10641, "ckw": 2397.0, "un": 43, "ukw": 417.5, "ops": 5925}, {"pref": "大分県", "slug": "oita", "cn": 8964, "ckw": 2133.5, "un": 56, "ukw": 202.7, "ops": 3752}, {"pref": "宮崎県", "slug": "miyazaki", "cn": 10782, "ckw": 2001.0, "un": 32, "ukw": 189.7, "ops": 5567}, {"pref": "鹿児島県", "slug": "kagoshima", "cn": 15963, "ckw": 3384.2, "un": 120, "ukw": 769.5, "ops": 7559}, {"pref": "沖縄県", "slug": "okinawa", "cn": 3553, "ckw": 309.0, "un": 26, "ukw": 5.8, "ops": 2272}];
+const TOT = { ckw: 58320, cn: 389605, un: 4550, ukw: 16455, ops: PREFDATA.reduce((a, r) => a + r.ops, 0) };
+const LABEL = { ckw: '認定出力', cn: '認定件数', un: '未稼働 件数', ukw: '未稼働 容量', rate: '未稼働率', ops: '事業者数' };
+let metric = 'ckw', mode = 'abs';
+function val(r) { return metric === 'rate' ? (r.cn ? r.un / r.cn * 100 : 0) : r[metric]; }
+function fmtVal(r) {
+  const v = val(r);
+  if (metric === 'rate') return v.toFixed(2) + ' %';
+  if (mode === 'pct') return (v / TOT[metric] * 100).toFixed(2) + ' %';
+  if (metric === 'ckw' || metric === 'ukw') return (v / 1000).toFixed(2) + ' GW';
+  return v.toLocaleString('ja-JP') + (metric === 'ops' ? ' 者' : ' 件');
+}
+function fmtSub(r) {
+  if (metric === 'rate') return '未稼働 ' + r.un.toLocaleString('ja-JP') + ' 件 / 認定 ' + r.cn.toLocaleString('ja-JP') + ' 件';
+  if (metric === 'ckw') return r.cn.toLocaleString('ja-JP') + ' 件・未稼働 ' + r.un.toLocaleString('ja-JP') + ' 件';
+  if (metric === 'cn') return '出力 ' + (r.ckw / 1000).toFixed(2) + ' GW・未稼働 ' + r.un.toLocaleString('ja-JP') + ' 件';
+  if (metric === 'un') return '未稼働容量 ' + (r.ukw / 1000).toFixed(2) + ' GW・認定 ' + r.cn.toLocaleString('ja-JP') + ' 件';
+  if (metric === 'ukw') return '未稼働 ' + r.un.toLocaleString('ja-JP') + ' 件・認定出力 ' + (r.ckw / 1000).toFixed(2) + ' GW';
+  return '認定 ' + r.cn.toLocaleString('ja-JP') + ' 件';
+}
+function renderRank() {
+  const rows = [...PREFDATA].sort((a, b) => val(b) - val(a)).slice(0, 10);
+  let h = '<table class="data"><tr><th></th><th>都道府県</th><th class="num">' + LABEL[metric] + (mode === 'pct' && metric !== 'rate' ? '（全国比）' : '') + '</th><th class="num">参考</th></tr>';
+  rows.forEach((r, i) => {
+    h += '<tr><td class="rk">' + (i + 1) + '</td><td><a href="pref-' + r.slug + '.html" style="color:#131c44;font-weight:700;text-decoration:none;"><b>' + r.pref + '</b></a></td><td class="num">' + fmtVal(r) + '</td><td class="num" style="font-size:11.5px;color:#555;">' + fmtSub(r) + '</td></tr>';
+  });
+  h += '</table>';
+  if (metric === 'ops' && mode === 'pct') h += '<div style="font-size:11px;color:#888;margin-top:4px;">事業者数の全国比は県別合計に対する割合（複数県で活動する事業者は重複カウント）。</div>';
+  document.getElementById('rankTable').innerHTML = h;
+  document.querySelector('.cols .col h3.mini').textContent = '勢力ランキング ― ' + LABEL[metric] + 'トップ10';
+}
+document.getElementById('rankMetric').addEventListener('change', e => { metric = e.target.value; renderRank(); });
+document.getElementById('rankMode').addEventListener('click', e => { mode = mode === 'abs' ? 'pct' : 'abs'; e.target.textContent = mode === 'abs' ? '実数' : '割合'; renderRank(); });
+renderRank();
+</script>
     </div>
     <div class="col">
       <h3 class="mini">読みどころ</h3>
