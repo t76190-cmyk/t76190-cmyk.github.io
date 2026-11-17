@@ -282,9 +282,7 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
       + '<option value=""></option><option value="ok"' + (hv === 'ok' ? ' selected' : '') + '>可</option><option value="ng"' + (hv === 'ng' ? ' selected' : '') + '>否</option></select></div>'
       + '<div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap;"><a href="nihon-ecosolar.html" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#fdf6dd;border:1.5px solid #c9a227;border-radius:999px;padding:6px 12px;text-decoration:none;">🏢 日本エコソーラー企業ページ（企業データ）</a>'
       + '<a href="nesco.html" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#eef1fa;border:1.5px solid #131c44;border-radius:999px;padding:6px 12px;text-decoration:none;">👥 グループ</a>'
-      + '<a href="https://hikari-match.com/properties" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#7a4d00;background:#ffe9bd;border:1.5px solid #f39800;border-radius:999px;padding:6px 12px;text-decoration:none;">🔆 光マッチ（物件一覧）</a>'
-      + '<a href="https://www.wsew.jp/osaka/ja-jp/search/2026nov1118/directory.html#/" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#eef1fa;border:1.5px solid #131c44;border-radius:999px;padding:6px 12px;text-decoration:none;">🔍 公式出展社検索</a>'
-      + '<a href="https://www.wsew.jp/content/dam/sitebuilder/rxjp/rx-japan/doc/26/11/SEW26K_MAP_JE_1104.pdf" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#eef1fa;border:1.5px solid #131c44;border-radius:999px;padding:6px 12px;text-decoration:none;">🗺️ 公式フロアマップ</a></div>';
+      + '<a href="https://hikari-match.com/properties" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#7a4d00;background:#ffe9bd;border:1.5px solid #f39800;border-radius:999px;padding:6px 12px;text-decoration:none;">🔆 光マッチ（物件一覧）</a></div>';
     box.innerHTML = h;
     h2.parentNode.insertBefore(box, h2.nextSibling);
     box.querySelectorAll('select').forEach(function(sel){
