@@ -284,7 +284,7 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
         + '<span style="font-size:11px;color:#666;">' + ax[2] + '</span>'
         + '<select data-ax="' + ax[0] + '" style="font-size:15px;font-weight:700;padding:5px 8px;border-radius:7px;border:1.5px solid #131c44;background:' + colorOf(v, ax[0]) + ';">'
         + '<option value=""></option>';
-      for (var n = 1; n <= 9; n++) h += '<option value="' + n + '"' + (v === String(n) ? ' selected' : '') + '>' + n + (n === 5 ? '（基準）' : '') + '</option>';
+      for (var n = 1; n <= 9; n++) h += '<option value="' + n + '"' + (v === String(n) ? ' selected' : '') + '>' + (n === 5 ? '5（基準）' : n < 5 ? n + ' ↑' + ax[2] : n + ' ↓' + ax[3]) + '</option>';
       h += '</select><span style="font-size:11px;color:#666;">' + ax[3] + '</span></div>';
     });
     var hv = cur.hikari != null ? String(cur.hikari) : '';
