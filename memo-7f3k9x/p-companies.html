@@ -280,8 +280,8 @@ try { var cm = location.hash.match(/^#co=(\d+)$/); if (cm) { var ci = parseInt(c
     h += '<div style="display:flex;align-items:center;gap:8px;margin:8px 0 2px;border-top:1px dashed #9aa3c7;padding-top:8px;"><span style="width:86px;font-size:12.5px;font-weight:700;">ひかりマッチ掲載</span>'
       + '<select data-ax="hikari" style="font-size:15px;font-weight:700;padding:5px 8px;border-radius:7px;border:1.5px solid #131c44;background:' + (hv === 'ok' ? '#bfe3c0' : hv === 'ng' ? '#f6c9c9' : '#ffffff') + ';">'
       + '<option value=""></option><option value="ok"' + (hv === 'ok' ? ' selected' : '') + '>可</option><option value="ng"' + (hv === 'ng' ? ' selected' : '') + '>否</option></select></div>'
-      + '<div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap;"><a href="nihon-ecosolar.html" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#fdf6dd;border:1.5px solid #c9a227;border-radius:999px;padding:6px 12px;text-decoration:none;">🏢 日本エコソーラー企業ページ（企業データ）</a>'
-      + '<a href="nesco.html" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#eef1fa;border:1.5px solid #131c44;border-radius:999px;padding:6px 12px;text-decoration:none;">👥 グループ</a>'
+      + '<div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap;"><a href="nesco.html" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#fdf6dd;border:1.5px solid #c9a227;border-radius:999px;padding:6px 12px;text-decoration:none;">🏢 ネスコインベストメント企業ページ</a>'
+      + '<a href="nihon-ecosolar.html" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#131c44;background:#eef1fa;border:1.5px solid #131c44;border-radius:999px;padding:6px 12px;text-decoration:none;">👥 グループページ</a>'
       + '<a href="https://hikari-match.com/properties" target="_blank" rel="noopener" style="font-size:12.5px;font-weight:700;color:#7a4d00;background:#ffe9bd;border:1.5px solid #f39800;border-radius:999px;padding:6px 12px;text-decoration:none;">🔆 ひかりマッチ（物件一覧）</a></div>';
     box.innerHTML = h;
     h2.parentNode.insertBefore(box, h2.nextSibling);
