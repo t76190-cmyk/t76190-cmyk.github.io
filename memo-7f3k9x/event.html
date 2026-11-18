@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDVSS0T82"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-PHDVSS0T82');
+</script>
+
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>イベ｜イベントまとめ（僕用）</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: "Noto Sans CJK JP", sans-serif; color:#1c2333; margin:0; background:#f4f5f9; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 14px 12px 30px; }
+h1 { background: linear-gradient(135deg,#0b1029,#131c44 60%,#26356e); color:#e9c766; padding:14px 16px; border-radius:10px; font-size:19px; margin:0 0 10px; }
+h1 .sub { display:block; font-size:11.5px; color:#cfd6f2; margin-top:3px; font-weight:600; }
+.back { display:block; text-align:center; background:#131c44; color:#e9c766; text-decoration:none; font-weight:700; padding:11px; border-radius:999px; margin:0 0 12px; }
+.sum { background:#fff; border:1px solid #d8dce8; border-radius:10px; padding:12px 14px; margin:0 0 12px; font-size:14px; line-height:1.9; }
+.sum b { color:#131c44; font-size:16px; }
+.co { background:#fff; border:1px solid #d8dce8; border-radius:10px; padding:10px 12px; margin:0 0 8px; }
+.co .nm { font-weight:900; font-size:15px; color:#131c44; text-decoration:none; }
+.co .bt { color:#7a8199; font-size:12px; font-weight:700; margin-left:6px; }
+.badges { margin:6px 0 0; }
+.bdg { display:inline-block; font-size:11.5px; font-weight:700; border-radius:999px; padding:2px 9px; margin:0 5px 4px 0; background:#eceef4; color:#3c4358; }
+.bdg.ok { background:#d9f0dc; color:#1d6b32; }
+.bdg.ng { background:#e8e8e8; color:#666; }
+.bdg.take { background:#131c44; color:#e9c766; }
+.bdg.pros { background:#fdeec9; color:#8a6100; }
+.axes { margin:7px 0 0; display:flex; gap:6px; flex-wrap:wrap; }
+.ax { flex:1; min-width:96px; text-align:center; border-radius:8px; padding:6px 4px; font-size:12px; font-weight:700; background:#f0f1f5; color:#9aa0b4; border:1px solid #e2e4ec; }
+.ax .v { display:block; font-size:15px; font-weight:900; margin-top:1px; }
+.ax.on { color:#1c2333; }
+.memo { margin:8px 0 0; font-size:13px; line-height:1.6; background:#fffbe9; border:1px dashed #d9c26a; border-radius:8px; padding:7px 10px; white-space:pre-wrap; }
+.empty { color:#888; font-size:13.5px; padding:18px 4px; }
+</style></head><body><div class="wrap">
+<a class="back" href="index.html">← 出展社さくいんへ戻る</a>
+<h1>🎪 イベ<span class="sub">イベントまとめ ― 記録した会社の「今の状態」を自動集計（端末内保存）</span></h1>
+<div class="sum" id="sum">読み込み中…</div>
+<div id="list"></div>
+<a class="back" href="index.html">← 出展社さくいんへ戻る</a>
+</div>
+<script>
+var COMPANIES = [{"n": "日本エコソーラー", "b": "SC1-6"}, {"n": "厦門ウィントップ（XIAMEN WINTOP NEW ENERGY TECH.）", "b": "SD5-31"}, {"n": "WHERE", "b": "SD4-26"}, {"n": "宇信グリーンエナジー", "b": "SD2-6"}, {"n": "エースネットワークス", "b": "SD3-19"}, {"n": "エヌ・ピー・シー", "b": "SD3-1"}, {"n": "大塚刷毛製造", "b": "SD2-14"}, {"n": "小澤メンテナンス", "b": "SD3-13"}, {"n": "Carbon EX", "b": "SD3-36"}, {"n": "菊水", "b": "SD4-31"}, {"n": "久野商事", "b": "SD3-6"}, {"n": "Green Battery", "b": "SD4-1"}, {"n": "サステナブル地盤再利用協会", "b": "SD3-40"}, {"n": "GBP", "b": "SD5-35"}, {"n": "GVテクノロジーズ", "b": "SD3-25"}, {"n": "茂山組", "b": "SD5-5"}, {"n": "四国化成建材", "b": "SD5-11"}, {"n": "翔飛工業", "b": "SD4-40"}, {"n": "Solvvy", "b": "SD4-6"}, {"n": "中央自動車工業", "b": "SD2-26"}, {"n": "Tilda Corp.", "b": "SD4-36"}, {"n": "東信電気", "b": "SD3-5"}, {"n": "DOWAエコシステム", "b": "SD3-2"}, {"n": "ニプロン", "b": "SD4-37"}, {"n": "日本再エネ電力", "b": "SD3-26"}, {"n": "日本蓄電池情報提供センター", "b": "SD3-32"}, {"n": "ネグロス電工", "b": "SD5-19"}, {"n": "novis", "b": "SD5-45"}, {"n": "Person Energy", "b": "SD3-16"}, {"n": "Bluesun Japan", "b": "SD4-32"}, {"n": "ユナイト", "b": "SD4-20"}, {"n": "力電", "b": "SD5-1"}, {"n": "リセットカンパニー", "b": "SD4-20"}, {"n": "レフィクシア", "b": "SD5-25"}, {"n": "ATMOCE日本", "b": "SD4-14"}, {"n": "朝日写真ニュース社", "b": "SD6-26"}, {"n": "アルテックス", "b": "SD8-46"}, {"n": "アルメディオ", "b": "SD7-20"}, {"n": "インタコンポ", "b": "SD8-36"}, {"n": "エー・アンド・デイ", "b": "SD5-38"}, {"n": "エーディーエステック", "b": "SD8-31"}, {"n": "S&Z Smartech", "b": "SD6-36"}, {"n": "STL Japan", "b": "SD5-32"}, {"n": "エスティフロー", "b": "SD8-25"}, {"n": "エム・デー・エス", "b": "SD7-40"}, {"n": "カイセ", "b": "SD8-18"}, {"n": "ケミオ", "b": "SD8-19"}, {"n": "産業技術総合研究所／AIST Solutions", "b": "SD7-31"}, {"n": "親和パッケージ", "b": "SD8-32"}, {"n": "日本パリレン／Specialty Coating Systems", "b": "SD7-26"}, {"n": "太平洋精工", "b": "SD8-39"}, {"n": "大和製罐", "b": "SD7-45"}, {"n": "DMカードジャパン", "b": "SD6-35"}, {"n": "特種東海製紙", "b": "SD8-45"}, {"n": "中原製作所", "b": "SD7-39"}, {"n": "ナグシステム", "b": "SD5-26"}, {"n": "南海化学", "b": "SD6-40"}, {"n": "日新", "b": "SD7-32"}, {"n": "日本電子", "b": "SD5-20"}, {"n": "ノリタケ", "b": "SD8-40"}, {"n": "Beff", "b": "SD6-45"}, {"n": "マルエム商会", "b": "SD7-39"}, {"n": "三ツ波", "b": "SD8-26"}, {"n": "ヨクスル", "b": "SD6-23"}, {"n": "JBest", "b": "SD7-36"}, {"n": "KIBOR", "b": "SD6-22"}, {"n": "POHANG CITY", "b": "SD8-35"}, {"n": "Teplore", "b": "SD7-25"}, {"n": "Uncountable", "b": "SD6-32"}, {"n": "インフォバンク（infobank）", "b": "SD1-34"}, {"n": "ウェイプラス（WAYPLUS）", "b": "SD1-34"}, {"n": "四国総合研究所", "b": "SD0-35"}, {"n": "Sustech", "b": "SD2-32"}, {"n": "四国計測工業", "b": "SD0-35"}, {"n": "Tesla Japan", "b": "SD3-45"}, {"n": "日東工業", "b": "SD2-38"}, {"n": "日本気象協会", "b": "SD2-25"}, {"n": "日本電気協会新聞部", "b": "SD0-36"}, {"n": "樋口商店", "b": "SD1-32"}, {"n": "FLEXINK", "b": "SD1-34"}, {"n": "GOLDENPLANET", "b": "SD1-34"}, {"n": "Inforzia", "b": "SD1-34"}, {"n": "iTNew", "b": "SD1-34"}, {"n": "Nepirity", "b": "SD1-34"}, {"n": "NEXTEZ", "b": "SD1-34"}, {"n": "SSMI", "b": "SD1-34"}, {"n": "VGEN", "b": "SD1-34"}, {"n": "安芸総合樹脂", "b": "SD5-6"}, {"n": "奕微科半導體（e-Vehicle Semiconductor Technology）", "b": "SD8-13"}, {"n": "エス・エス・アロイ", "b": "SD5-6"}, {"n": "カワテックス", "b": "SD6-6"}, {"n": "キムラ", "b": "SD6-6"}, {"n": "高圧ガス保安協会（KHK）", "b": "SD8-14"}, {"n": "シントク", "b": "SD8-10"}, {"n": "水素バリューチェーン推進協議会（JH2A）", "b": "SD7-10"}, {"n": "武昌", "b": "SD5-6"}, {"n": "ツネイシクラフト＆ファシリティーズ", "b": "SD5-6"}, {"n": "テクニスコ", "b": "SD5-6"}, {"n": "寺田鉄工所", "b": "SD5-6"}, {"n": "巴工業", "b": "SD8-12"}, {"n": "ナックイメージテクノロジー", "b": "SD8-9"}, {"n": "日東工器", "b": "SD5-2"}, {"n": "日本原子力研究開発機構", "b": "SD6-14"}, {"n": "日本未来電機", "b": "SD8-1"}, {"n": "日本理化学工業", "b": "SD6-6"}, {"n": "バイオマスリサーチ", "b": "SD6-6"}, {"n": "広島県", "b": "SD5-6"}, {"n": "ひろしま産業振興機構", "b": "SD5-6"}, {"n": "ヒロテック", "b": "SD5-6"}, {"n": "福岡県水素グリーン成長戦略会議", "b": "SD8-11"}, {"n": "北海道GX推進課", "b": "SD6-6"}, {"n": "水戸工業", "b": "SD7-14"}, {"n": "山梨県", "b": "SD8-6"}, {"n": "山梨大学", "b": "SD8-6"}, {"n": "ヨシタケ", "b": "SD7-1"}, {"n": "よねざわ工業", "b": "SD6-6"}, {"n": "Gangwon State Free Economic Zone Authority", "b": "SD7-13"}, {"n": "JL Energy", "b": "SD7-6"}, {"n": "KAR", "b": "SD7-6"}, {"n": "KSC", "b": "SD6-10"}, {"n": "REVOLTIX", "b": "SD7-6"}, {"n": "Ulsan Technopark", "b": "SD7-6"}, {"n": "IHI", "b": "FP16"}, {"n": "アライドマテリアル", "b": "FP36"}, {"n": "EX-Fusion", "b": "FP4"}, {"n": "大阪冶金興業", "b": "FP10"}, {"n": "核融合科学研究所アウトリーチヘッドクォーター", "b": "FP35"}, {"n": "量子科学技術研究開発機構（QST）", "b": "FP6"}, {"n": "京都フュージョニアリング", "b": "小間番号未表示"}, {"n": "グレンエア", "b": "FP20"}, {"n": "グローブ・テック", "b": "FP26"}, {"n": "核融合科学研究所", "b": "FP21、FP35"}, {"n": "Starlight Engine", "b": "FP23"}, {"n": "大和合金", "b": "FP25"}, {"n": "テクノエーピー", "b": "FP12"}, {"n": "東芝", "b": "FP2（＋熱エネルギー展 SC3-35）"}, {"n": "ニチコン", "b": "FP19"}, {"n": "日東光器", "b": "FP5"}, {"n": "浜松ホトニクス", "b": "FP41"}, {"n": "フォトロン", "b": "FP40"}, {"n": "フジクラ", "b": "FP34"}, {"n": "フュージョンエネルギー産業協議会", "b": "FP11"}, {"n": "プラズマ・核融合学会", "b": "FP33"}, {"n": "Helical Fusion", "b": "FP17"}, {"n": "マイナビEdge", "b": "FP39"}, {"n": "LINEAイノベーション", "b": "FP1"}, {"n": "International Electric", "b": "FP27"}, {"n": "OOYOO（株）", "b": ""}, {"n": "ゴイク電池（株）", "b": ""}, {"n": "SIRC（株）", "b": ""}, {"n": "サンリット・シードリングス（株）", "b": ""}, {"n": "CNビジネスベース（株）", "b": ""}, {"n": "スパイスキューブ（株）", "b": ""}, {"n": "TI plusホールディングス（株）", "b": ""}, {"n": "古谷商店（株）", "b": ""}, {"n": "未来のコト（株）", "b": ""}, {"n": "RE100電力", "b": "SC0-2"}, {"n": "アスエネ", "b": "SC0-6"}, {"n": "e-dash", "b": "SC0-31"}, {"n": "Wave Energy", "b": "SC2-6"}, {"n": "エー・エス・エム", "b": "SC2-19"}, {"n": "エス・エー・エス・シー・ジャパン", "b": "SC3-13"}, {"n": "エニマス", "b": "SC3-6"}, {"n": "enechain", "b": "SC1-26"}, {"n": "大阪商工会議所（共同展示：OPI（株）、（株）NEXYZ.関西）", "b": "SC3-9"}, {"n": "大阪府", "b": "SC3-10"}, {"n": "オネスト／神戸スタンダード石油", "b": "SC1-20"}, {"n": "オムロン", "b": "SC3-25"}, {"n": "河村電器産業", "b": "SC0-11"}, {"n": "環境エネルギー事業協会", "b": "SC1-12"}, {"n": "関西広域連合 広域環境保全局", "b": "SC1-46"}, {"n": "関西電力", "b": "SC2-10"}, {"n": "協和化学工業", "b": "SC2-20"}, {"n": "協和機工", "b": "SC3-26"}, {"n": "神戸スタンダード石油", "b": "SC1-20"}, {"n": "三和エナジー", "b": "SC0-1"}, {"n": "z-works", "b": "SC0-46"}, {"n": "JAPAN/OSAKAゼロカーボン・スマートシティ・ファウンデーション", "b": "SC3-14"}, {"n": "セトラスホールディングス", "b": "SC2-20"}, {"n": "大豊産業", "b": "SC0-26"}, {"n": "東京証券取引所", "b": "SC2-32"}, {"n": "東京電力エナジーパートナー", "b": "SC3-1"}, {"n": "東北電力", "b": "SC0-45"}, {"n": "夏原工業", "b": "SC2-26"}, {"n": "日本ファシリティ・ソリューション", "b": "SC3-1"}, {"n": "浜島防災システム", "b": "SC2-14"}, {"n": "早水電機工業", "b": "SC2-13"}, {"n": "肥後銀行", "b": "SC0-20"}, {"n": "三井住友ファイナンス＆リースグループ", "b": "SC0-37"}, {"n": "YAMABISHI", "b": "SC0-21"}, {"n": "渡辺電機工業", "b": "SC3-18"}, {"n": "空研工業", "b": "SC2-40"}, {"n": "黒崎播磨", "b": "SC3-40"}, {"n": "三相電機", "b": "SC3-30"}, {"n": "NEDO（新エネルギー・産業技術総合開発機構）", "b": "SC1-36"}, {"n": "新日本レイキ", "b": "SC2-40"}, {"n": "東芝", "b": "SC3-35（＋FUSION POWER WORLD FP2）"}, {"n": "日本アビオニクス", "b": "SC3-39"}, {"n": "日本ジッパーチュービング", "b": "SC2-39"}, {"n": "ノーリツ", "b": "SC1-32"}, {"n": "ヒートポンプ・蓄熱センター", "b": "SC3-36"}, {"n": "まちのちから", "b": "SC1-40"}, {"n": "三浦工業", "b": "SC0-32"}, {"n": "Shanghai Mida EV Power", "b": "SD4-30"}, {"n": "Rhino Stone Tech", "b": "SD3-20"}, {"n": "RX Japan合同会社 事務局", "b": "MER1"}, {"n": "当日来場登録サポート", "b": "MER1"}, {"n": "SMFLみらいパートナーズ", "b": "SC0-37"}, {"n": "日本エネルギー総合システム", "b": "SC0-2"}, {"n": "宣伝会議（『環境ビジネス』）", "b": "SD1-26"}];
+var STMETA = {v:'訪問済', t:'話せた', l:'あとで回る', s:'行かない', x:'断られた'};
+function loadJSON(k){ try { var r = localStorage.getItem(k); return r ? JSON.parse(r) : {}; } catch(e){ return {}; } }
+function visitKey(){
+  var p = location.pathname.replace(/[^\/]*$/, 'index.html');
+  return 'visitState:' + p;
+}
+function axisColor(axis, v){
+  if (v === 5) return '#f3d27a';
+  if (axis === 'fund') return v < 5 ? '#dcebfc' : '#9dbfe8';
+  return v < 5 ? '#f6c9c9' : '#bfe3c0';
+}
+function axisWord(axis, v){
+  if (v === 5) return '基準';
+  if (axis === 'fund') return v < 5 ? '調達' : '投資';
+  return v < 5 ? '売り' : '買い';
+}
+var AXES = [ ['land','用地'], ['grid','系統'], ['fund','資金'] ];
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function render(){
+  var stance = loadJSON('sangokuStanceV1');
+  var vs = loadJSON(visitKey());
+  if (!Object.keys(vs).length) {
+    var alt = loadJSON('visitState:' + location.pathname.replace(/[^\/]*$/, ''));
+    if (Object.keys(alt).length) vs = alt;
+  }
+  var yabou = loadJSON('yabouSettingsV1');
+  var rows = [];
+  var cnt = { ok:0, ng:0, talk:0, vis:0, pros:0, take:0 };
+  COMPANIES.forEach(function(c, ci){
+    var st = stance[ci] || {};
+    var v = vs[ci];
+    if (typeof v === 'string') v = { s: v };
+    v = v || {};
+    var y = yabou[ci] || {};
+    var hasStance = (st.land || st.grid || st.fund || st.hikari || (st.memo && st.memo.trim()));
+    var hasVisit = !!(v.s || v.o);
+    if (!hasStance && !hasVisit && !y.take) return;
+    if (st.hikari === 'ok') cnt.ok++;
+    if (st.hikari === 'ng') cnt.ng++;
+    if (v.s === 't') cnt.talk++;
+    if (v.s === 'v') cnt.vis++;
+    if (v.o === 'a') cnt.pros++;
+    if (y.take) cnt.take++;
+    rows.push({ ci: ci, c: c, st: st, v: v, y: y });
+  });
+  rows.sort(function(a, b){ return String(a.c.b).localeCompare(String(b.c.b), 'ja', { numeric: true }); });
+  var sum = document.getElementById('sum');
+  sum.innerHTML = '記録した会社 <b>' + rows.length + '</b> 社<br>' +
+    'ひかりマッチ掲載： 可 <b>' + cnt.ok + '</b> 社 ・ 否 <b>' + cnt.ng + '</b> 社<br>' +
+    '話せた <b>' + cnt.talk + '</b> ・ 訪問済 <b>' + cnt.vis + '</b> ・ 見込みあり <b>' + cnt.pros + '</b> ・ 社長取り次ぎ <b>' + cnt.take + '</b>';
+  var list = document.getElementById('list');
+  if (!rows.length) { list.innerHTML = '<p class="empty">まだ記録がありません。ドシエでスタンスや掲載を記録すると、ここにまとまります。</p>'; return; }
+  list.innerHTML = rows.map(function(r){
+    var h = '<div class="co"><a class="nm" href="p-companies.html#co=' + r.ci + '">' + esc(r.c.n) + '</a>';
+    if (r.c.b) h += '<span class="bt">' + esc(r.c.b) + '</span>';
+    h += '<div class="badges">';
+    if (r.y.take) h += '<span class="bdg take">👔 社長取り次ぎ</span>';
+    if (r.v.o === 'a') h += '<span class="bdg pros">◎ 見込みあり</span>';
+    if (r.v.s && STMETA[r.v.s]) h += '<span class="bdg">' + STMETA[r.v.s] + '</span>';
+    if (r.st.hikari === 'ok') h += '<span class="bdg ok">ひかりマッチ掲載 可</span>';
+    if (r.st.hikari === 'ng') h += '<span class="bdg ng">ひかりマッチ掲載 否</span>';
+    h += '</div><div class="axes">';
+    AXES.forEach(function(ax){
+      var val = r.st[ax[0]];
+      if (val) {
+        h += '<div class="ax on" style="background:' + axisColor(ax[0], +val) + '">' + ax[1] + '<span class="v">' + val + ' ' + axisWord(ax[0], +val) + '</span></div>';
+      } else {
+        h += '<div class="ax">' + ax[1] + '<span class="v">―</span></div>';
+      }
+    });
+    h += '</div>';
+    if (r.st.memo && r.st.memo.trim()) h += '<p class="memo">📝 ' + esc(r.st.memo) + '</p>';
+    h += '</div>';
+    return h;
+  }).join('');
+}
+render();
+</script>
+</div></body></html>
