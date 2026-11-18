@@ -73,6 +73,18 @@ h2 { background:#131c44; color:#e9c766; font-size:15px; padding:7px 12px; border
     document.querySelectorAll('.bx').forEach(function(bx){
       var st = bx.querySelector('.st'); if (!st) return;
       var rec = all[bx.getAttribute('data-ci')] || {};
+      if (!bx.classList.contains('self')) {
+        if (mode === 'all') {
+          var vs2 = [rec.land, rec.grid, rec.fund].filter(function(x){ return x != null; });
+          if (!vs2.length) { bx.style.background = ''; }
+          else {
+            var avg2 = vs2.reduce(function(a, b){ return a + b; }, 0) / vs2.length;
+            bx.style.background = avg2 === 5 ? '#f3d27a' : avg2 < 5 ? '#f6c9c9' : '#bfe3c0';
+          }
+        } else {
+          bx.style.background = rec[mode] == null ? '' : colorOf(rec[mode], mode);
+        }
+      }
       st.innerHTML = ''; st.className = 'st';
       if (mode === 'all') {
         if (rec.land == null && rec.grid == null && rec.fund == null) return;
