@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="utf-8">
+<title>できることを、持ち寄ろう。― ネスコインベストメント／ひかりマッチ</title>
+<style>
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: "Noto Sans CJK JP", sans-serif; color: #1c2333; }
+.page { width: 210mm; height: 296mm; page-break-after: always; position: relative; overflow: hidden; }
+.page:last-child { page-break-after: auto; }
+
+/* ---------- p1 cover ---------- */
+.cover { background: linear-gradient(160deg, #0b1029 0%, #131c44 55%, #26356e 100%); color: #fff; padding: 16mm 16mm 12mm; }
+.cover .logo { width: 62mm; background: #fff; border-radius: 3mm; padding: 3mm 4mm; }
+.cover h1 { font-size: 37pt; line-height: 1.35; font-weight: 900; margin-top: 13mm; letter-spacing: 0.02em; }
+.cover h1 .gold { color: #e9c766; }
+.cover .sub { font-size: 13.5pt; line-height: 1.9; color: #cfd6f2; margin-top: 7mm; font-weight: 600; }
+.cover .photo { width: 100%; height: 74mm; object-fit: cover; border-radius: 3mm; margin-top: 9mm; }
+.cover .foot { position: absolute; left: 16mm; right: 16mm; bottom: 11mm; border-top: 0.4mm solid #c9a227; padding-top: 4mm; }
+.cover .foot .to { font-size: 12.5pt; font-weight: 700; color: #e9c766; }
+.cover .foot .from { font-size: 10.5pt; color: #cfd6f2; margin-top: 1.5mm; line-height: 1.7; }
+
+/* ---------- content pages ---------- */
+.body-page { padding: 14mm 16mm 12mm; background: #fff; }
+.act { display: inline-block; background: #131c44; color: #e9c766; font-size: 10pt; font-weight: 700; border-radius: 999px; padding: 1.2mm 4mm; letter-spacing: 0.12em; }
+.body-page h2 { font-size: 21pt; line-height: 1.5; font-weight: 900; color: #131c44; margin-top: 5mm; }
+.body-page h2 .gold { color: #b7791f; }
+.body-page p { font-size: 11pt; line-height: 2.0; margin-top: 4.5mm; }
+.body-page p b { color: #131c44; }
+.foot-note { position: absolute; left: 16mm; right: 16mm; bottom: 9mm; font-size: 8pt; color: #8a90a5; line-height: 1.6; }
+
+/* graph */
+.graph { margin-top: 7mm; background: #f4f5f9; border: 0.3mm solid #d8dce8; border-radius: 3mm; padding: 6mm 7mm; }
+.graph .gt { font-size: 11pt; font-weight: 900; color: #131c44; }
+.grow { margin-top: 4.5mm; }
+.grow .gl { font-size: 10pt; font-weight: 700; }
+.grow .bar { height: 8.5mm; border-radius: 1.5mm; margin-top: 1.2mm; }
+.grow .gv { font-size: 15pt; font-weight: 900; margin-left: 3mm; vertical-align: -1mm; }
+.bar-a { background: #f39800; width: 100%; }
+.bar-b { background: #131c44; width: 1.6%; }
+.graph .src { font-size: 8pt; color: #8a90a5; margin-top: 4mm; line-height: 1.6; }
+.stat-row { margin-top: 6mm; }
+.stat { display: inline-block; width: 48%; vertical-align: top; background: #fff; border: 0.3mm solid #d8dce8; border-top: 1.2mm solid #c9a227; border-radius: 2mm; padding: 4mm 5mm; margin-right: 2%; }
+.stat:last-child { margin-right: 0; }
+.stat .n { font-size: 19pt; font-weight: 900; color: #131c44; }
+.stat .d { font-size: 9.5pt; line-height: 1.7; color: #3c4358; margin-top: 1mm; }
+
+/* group list */
+.glist { margin-top: 5mm; }
+.gitem { border-left: 1.4mm solid #c9a227; padding: 1mm 0 1mm 4.5mm; margin-top: 3.4mm; }
+.gitem .gn { font-size: 11.5pt; font-weight: 900; color: #131c44; }
+.gitem .gd { font-size: 9.8pt; line-height: 1.7; color: #3c4358; }
+.honest { margin-top: 6mm; background: #fffbe9; border: 0.35mm dashed #d9c26a; border-radius: 3mm; padding: 5mm 6mm; }
+.honest p { margin-top: 0; font-size: 10.8pt; }
+.body-page .photo { width: 100%; height: 52mm; object-fit: cover; border-radius: 3mm; margin-top: 6mm; }
+
+/* vision photos */
+.vrow { margin-top: 6mm; }
+.vmain { width: 100%; height: 62mm; object-fit: cover; border-radius: 3mm; }
+.vhalf { display: inline-block; width: 49%; height: 44mm; object-fit: cover; border-radius: 3mm; vertical-align: top; }
+.vhalf.r { margin-left: 1.4%; }
+.vcap { font-size: 8.5pt; color: #8a90a5; margin-top: 2mm; line-height: 1.6; }
+
+/* matching diagram */
+.match { margin-top: 6mm; }
+.mbox { border-radius: 3mm; padding: 5mm 6mm; }
+.mbox .mt { font-size: 13pt; font-weight: 900; }
+.mbox .md { font-size: 10pt; line-height: 1.85; margin-top: 1.5mm; }
+.m-us { background: #eef1fa; border: 0.35mm solid #b9c4e8; }
+.m-us .mt { color: #131c44; }
+.m-them { background: #fdf3e0; border: 0.35mm solid #ecc987; }
+.m-them .mt { color: #8a6100; }
+.m-plus { text-align: center; font-size: 17pt; font-weight: 900; color: #b7791f; margin: 2.5mm 0; }
+.m-result { background: linear-gradient(135deg, #0b1029, #131c44 60%, #26356e); color: #fff; }
+.m-result .mt { color: #e9c766; }
+.m-result .md { color: #e6eaf7; }
+.closing { margin-top: 7mm; text-align: center; }
+.closing .big { font-size: 16.5pt; font-weight: 900; color: #131c44; line-height: 1.8; }
+.contact { margin-top: 6mm; border-top: 0.4mm solid #c9a227; padding-top: 4mm; font-size: 10pt; line-height: 1.9; }
+</style></head><body>
+
+<!-- ================= p1 cover ================= -->
+<div class="page cover">
+  <img class="logo" data-k="logo" src="" alt="HIKARI match ひかりマッチ">
+  <h1>できることを、<br><span class="gold">持ち寄ろう。</span></h1>
+  <p class="sub">弊社の本業は、商いです。<br>売る力で、御社の未来図を広める。</p>
+  <img class="photo" data-k="booth" src="" alt="SMART ENERGY WEEK 関西 2026 ひかりマッチ ブース（日本エコソーラー SC1-6）">
+  <div class="foot">
+    <div class="to">大豊産業株式会社 御中 ― 協業のご提案</div>
+    <div class="from">株式会社ネスコインベストメント（ひかりマッチ運営）／ネスコグループ<br>SMART ENERGY WEEK 関西 2026 にて ― 2026年11月19日</div>
+  </div>
+</div>
+
+<!-- ================= p2 act 1 ================= -->
+<div class="page body-page">
+  <span class="act">第一幕 ― 市場のいま</span>
+  <h2>電気は足りている。<br>足りないのは、<span class="gold">つながり</span>だ。</h2>
+  <div class="graph">
+    <div class="gt">系統用蓄電池（高圧以上）の現状</div>
+    <div class="grow">
+      <span class="gl">接続検討の申込み</span>
+      <div class="bar bar-a"></div>
+      <span class="gl">約</span><span class="gv" style="color:#c77400;">211 GW</span>
+    </div>
+    <div class="grow">
+      <span class="gl">実際に連系できた分</span>
+      <div class="bar bar-b"></div>
+      <span class="gl">約</span><span class="gv" style="color:#131c44;">1.28 GW</span>
+    </div>
+    <p class="src">出典：資源エネルギー庁 第13回 次世代電力系統ワーキンググループ 資料2（2026年6月末時点）。バーは実寸比率です。「連系できた分」の細さが、そのまま市場の詰まりを表しています。</p>
+  </div>
+  <div class="stat-row">
+    <div class="stat"><div class="n">4,550 件</div><div class="d">FITの認定を受けながら、運転開始に至っていない案件（約16.5GW分）</div></div>
+    <div class="stat"><div class="n">170,447 者</div><div class="d">FIT認定の事業者数。大半は案件を1件だけ抱え、次の一歩を探している</div></div>
+  </div>
+  <p>土地も、案件も、技術も、資金も、世の中に存在しています。それでも前に進まない案件が積み上がっている。理由は単純で、<b>一社の守備範囲では、最初から最後までを担いきれない</b>からです。</p>
+  <p>作る会社は売る導線を持たず、売る側は作る手を持たない。詰まりの正体は「不足」ではなく、<b>「未接続」</b>なのです。</p>
+  <div class="foot-note">数値出典：資源エネルギー庁「事業計画認定情報」（2026年10月31日版）の集計、および上記ワーキンググループ資料。</div>
+</div>
+
+<!-- ================= p3 act 2 ================= -->
+<div class="page body-page">
+  <span class="act">第二幕 ― 弊社とは</span>
+  <h2>本業は、<span class="gold">商い</span>です。</h2>
+  <p>私たちネスコグループの本業は、ECサイトの運用をはじめとする「売る」仕事です。買い取って在庫を持たなくても、仕入れの筋があれば売る。<b>売る力こそが、グループの軸</b>です。</p>
+  <div class="glist">
+    <div class="gitem"><span class="gn">EC事業（グループ各社）</span><div class="gd">ECサイトの運用を通じて、モノとサービスを届けてきました。エネルギー事業についても、違う角度からの問い合わせが日々届きます。</div></div>
+    <div class="gitem"><span class="gn">株式会社日本エコソーラー</span><div class="gd">系統用蓄電池の開発・販売。自ら案件を持ち、作る側の当事者でもあります。</div></div>
+    <div class="gitem"><span class="gn">ひかりマッチ（株式会社ネスコインベストメント）</span><div class="gd">発電所・蓄電所・土地の売買の場。接続検討回答書の受領や保証金の支払状況まで開示する「案件の熟度」が見える仕組みです。売るための場づくりも、商いの一つです。</div></div>
+    <div class="gitem"><span class="gn">マーコグリーンパワー株式会社 ほかグループ各社</span><div class="gd">再エネ事業、農業（日本エコファーム）、ツアーズ、米国LLC。入口の広さがグループの資産です。</div></div>
+  </div>
+  <div class="honest">
+    <p>正直にお伝えします。事業の範囲が広い分、一つひとつの「作る力」は手薄になりがちです。私たちはそれを欠点として隠しません。<b>だからこそ、作る力を持つ会社と組む</b> ― できることを持ち寄り、リソースを補い合える可能性を探すことが、弊社の進む道です。</p>
+  </div>
+  <img class="photo" data-k="panels" src="" alt="ひかりマッチ 公開案件パネル（展示会ブース）">
+  <div class="foot-note">ひかりマッチ 公開案件：系統用蓄電池19件・事業用土地2件（2026年11月現在）。案件の詳細は hikari-match.com にて公開しています。</div>
+</div>
+
+<!-- ================= p4 act 3 ================= -->
+<div class="page body-page">
+  <span class="act">第三幕 ― 御社の未来図</span>
+  <h2>御社は、<span class="gold">街の未来</span>を描いている。</h2>
+  <p>ブースを拝見しました。太陽光と蓄電による独立型EVシェア「E-STATION」、コンバージョンEVの実車、そして太陽光・蓄電・EV・ドローンまでを一つの街として描いた模型。御社が見ているのは設備の納入ではなく、<b>エネルギーとモビリティが融合した地域の姿</b>そのものでした。公式サイトでは、ドローンによる離島への物流システムの構築・運営実績にも触れられています。模型は夢物語ではなく、実装の延長にある未来図です。</p>
+  <div class="vrow">
+    <img class="vmain" data-k="estation" src="" alt="E-STATION 太陽光発電＆蓄電による独立型EVシェアシステム（大豊産業株式会社ブース）">
+    <p class="vcap">E-STATION ― 100%再生可能エネルギーによるEVシェア。「エネルギー」と「モビリティ」の融合（大豊産業株式会社 様 ブース）</p>
+  </div>
+  <div class="vrow">
+    <img class="vhalf" data-k="ev" src="" alt="コンバージョンEV 実車展示">
+    <img class="vhalf r" data-k="diorama" src="" alt="地域エネルギーとモビリティの未来図 模型">
+    <p class="vcap">左：コンバージョンEV（改造型電気自動車）の実車　右：太陽光・蓄電・EV・物流ドローンを配した地域の未来図模型</p>
+  </div>
+  <p>この未来図を地域に広げていくには、作る力に加えて、<b>拠点となる土地と人、自治体や事業者との接点、そして広める・売る力</b>が要ります。そこが、弊社の出番だと考えています。</p>
+</div>
+
+<!-- ================= p5 act 4 ================= -->
+<div class="page body-page">
+  <span class="act">第四幕 ― ご一緒できれば</span>
+  <h2>「メリットは？」への、<span class="gold">正直な答え</span>。</h2>
+  <p>ブースでいただいたご質問への、答えを持ってまいりました。御社の強みは、制御・計装・ネットワークから設計・工事・保守までを束ねるトータルエンジニアリングと、街の未来図を描く構想力。それは、弊社にない力です。</p>
+  <div class="match">
+    <div class="mbox m-us">
+      <div class="mt">弊社グループ ― 売る力と、入口</div>
+      <div class="md">ECで培った販売の導線。系統用蓄電池の案件を持つ日本エコソーラー。売り手・買い手が集まるひかりマッチ。幅広い入口から、さまざまな角度の相談が届きます。</div>
+    </div>
+    <div class="m-plus">×</div>
+    <div class="mbox m-them">
+      <div class="mt">大豊産業株式会社 様 ― 作る力と、未来図</div>
+      <div class="md">制御・計装・ネットワークの技術基盤と、販売・設計・工事・保守までの一貫体制。E-STATIONに象徴される、地域の未来を実装する力です。</div>
+    </div>
+    <div class="m-plus">＝</div>
+    <div class="mbox m-result">
+      <div class="mt">未来図を、地域へ届ける</div>
+      <div class="md">御社の未来図に、弊社の売る力と入口を重ねる。拠点の場所と人を集め、仕組みを売り、届けるところまでを担えば、ビジョンは「展示」から「地域の実装」へ進みます。</div>
+    </div>
+  </div>
+  <div class="closing">
+    <div class="big">できることを、持ち寄りましょう。<br>まず小さな一歩から、補い合える形を探させてください。</div>
+  </div>
+  <div class="contact">
+    窓口：株式会社ネスコインベストメント（ひかりマッチ運営）<br>
+    担当：ティリーニ・ペレラ　thilini@marcogreenpower.com
+  </div>
+  <div class="foot-note">本資料は、協業の可能性を探るための提案資料です。具体的な条件は、個別の案件ごとに協議のうえ決定いたします。写真は SMART ENERGY WEEK 関西 2026 会場にて撮影。</div>
+</div>
+
+<script src="material-img-1.js"></script>
+<script src="material-img-2.js"></script>
+<script src="material-img-3.js"></script>
+<script src="material-img-4.js"></script>
+<script src="material-img-5.js"></script>
+<script src="material-img-6.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-PHDVSS0T82"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-PHDVSS0T82');
+document.querySelectorAll('img[data-k]').forEach(function(im){ im.src = window.__IMG[im.getAttribute('data-k')] || ''; });
+</script>
+</body></html>
