@@ -226,13 +226,14 @@ function renderList(){
 }
 var SELF_EN={ov:'Head office: 4-22-3 Hitachino-Nishi, Ushiku, Ibaraki / Founded: July 6, 2011 / Capital: JPY 50 million / Representative: Manjula Senarathna / TEL: 0120-190-730 / Unlisted',biz:'Development and sales of grid-scale battery storage plants. Over 15 years in renewable energy, starting from solar power; the battery storage business began in earnest last year. Exhibiting as a member of the group that operates HIKARI match.',tags:['Grid-scale battery storage','Batteries & ESS','Solar power'],sec:'Decarbonization Management Expo (36 companies)'};
 function isSelfC(){return !!cur&&cur.name==='日本エコソーラー';}
+function normT(s){return (s||'').replace(/\r\n?/g,'\n').split('\n').map(function(x){return x.trim();}).filter(function(x){return x.length>0;}).join('\n');}
 function syncBodyField(){
   if(!isSelfC())return;var f=document.getElementById('fBody');var v=f.value;
-  if(lang==='en'&&v.trim()===SELF_BODY.trim())f.value=SELF_BODY_EN;
-  else if(lang==='jp'&&v.trim()===SELF_BODY_EN.trim())f.value=SELF_BODY;
+  if(lang==='en'&&normT(v)===normT(SELF_BODY))f.value=SELF_BODY_EN;
+  else if(lang==='jp'&&normT(v)===normT(SELF_BODY_EN))f.value=SELF_BODY;
   v=f.value;
-  if(lang==='en'&&v.trim()===FUP_BODY.trim())f.value=FUP_BODY_EN;
-  else if(lang==='jp'&&v.trim()===FUP_BODY_EN.trim())f.value=FUP_BODY;
+  if(lang==='en'&&normT(v)===normT(FUP_BODY))f.value=FUP_BODY_EN;
+  else if(lang==='jp'&&normT(v)===normT(FUP_BODY_EN))f.value=FUP_BODY;
   syncTexts();
 }
 function mainText(){return isSelfC()?document.getElementById('fBody').value.trim():document.getElementById('fMemo').value.trim();}
@@ -344,7 +345,7 @@ function render(){
     h+='<tr><td class="k">Category</td><td>'+esc(kind)+'</td></tr></table>';
     h+='<table class="stamp"><tr><td class="k">Approval</td><td class="k">Sent back</td><td class="k">Resubmitted</td><td class="k">Checked</td><td class="k">Prepared by</td></tr><tr><td>'+appCell+'</td><td>'+retCell+'</td><td>'+resubCell+'</td><td>'+chkCell+'</td><td>'+sealCell+'</td></tr></table>';
     h+='<h2>1. Purpose</h2><p>'+esc(purp)+'</p>';
-    if(isSelf){var bodyE=document.getElementById('fBody').value.trim();if(bodyE&&bodyE===SELF_BODY.trim())bodyE=SELF_BODY_EN;if(bodyE&&bodyE===FUP_BODY.trim())bodyE=FUP_BODY_EN;h+='<h2>2. Proposals & reports</h2><p>'+(bodyE?esc(bodyE):'(not entered)')+'</p>';h+='<p>* Attachments will be sent by email.</p>';h+=condHtml;h+='<div class="foot">'+(y.source?'Source: '+esc(y.source)+'<br>':'')+'Note: This document was auto-generated from the internal exhibitor index. Some source texts remain in Japanese.</div>';}else{h+='<h2>2. About the company</h2><table class="kv">';
+    if(isSelf){var bodyE=document.getElementById('fBody').value.trim();if(bodyE&&normT(bodyE)===normT(SELF_BODY))bodyE=SELF_BODY_EN;if(bodyE&&normT(bodyE)===normT(FUP_BODY))bodyE=FUP_BODY_EN;h+='<h2>2. Proposals & reports</h2><p>'+(bodyE?esc(bodyE):'(not entered)')+'</p>';h+='<p>* Attachments will be sent by email.</p>';h+=condHtml;h+='<div class="foot">'+(y.source?'Source: '+esc(y.source)+'<br>':'')+'Note: This document was auto-generated from the internal exhibitor index. Some source texts remain in Japanese.</div>';}else{h+='<h2>2. About the company</h2><table class="kv">';
     h+='<tr><th>Company</th><td>'+esc(c.name)+'</td></tr>';
     h+='<tr><th>Booth</th><td>'+esc(c.booth||'—')+' ('+esc(secTxt)+')</td></tr>';
     if(ovTxt)h+='<tr><th>Profile</th><td>'+esc(ovTxt)+'</td></tr>';
