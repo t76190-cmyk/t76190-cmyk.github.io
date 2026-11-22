@@ -41,7 +41,6 @@ radial-gradient(ellipse 700px 480px at -10% 120%, rgba(64,110,168,.35), rgba(64,
 linear-gradient(140deg,#1b4069 0%,var(--navy) 42%,var(--navy-dark) 78%,var(--navy-deep) 100%);
 padding:64px 24px 58px;
 }
-/* 太陽のモチーフ（封筒の太陽マークへのオマージュ） */
 .sun{
 position:absolute;
 top:-58px;right:-38px;
@@ -121,7 +120,6 @@ section > h2::after{
 content:"";flex:1;height:1px;
 background:linear-gradient(90deg, rgba(23,55,94,.28), rgba(23,55,94,0));
 }
-section > h2.pnum{color:var(--orange);font-weight:700;letter-spacing:.04em;}
 .section-note{
 font-size:13.5px;color:var(--muted);margin:0 0 16px;
 }
@@ -148,7 +146,7 @@ border-top:1px dashed var(--line);
 font-size:14.5px;
 }
 .fact-list li:first-child{border-top:none;}
-.fact-list.fk{
+.fact-list .fk{
 display:inline-block;min-width:92px;
 font-weight:bold;color:var(--navy);
 }
@@ -165,7 +163,7 @@ margin:0 0 16px;
 .core p{
 margin:0 0 8px;font-size:15.5px;font-weight:600;color:var(--navy);line-height:1.75;
 }
-.core.core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
+.core .core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
 
 /* ===== 要点リスト ===== */
 .points{list-style:none;margin:0;padding:0;}
@@ -184,6 +182,117 @@ background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 5
 }
 .points li strong{color:var(--navy);}
 
+/* ===== 表 ===== */
+table.cmp, table.steps{
+width:100%;border-collapse:collapse;
+background:var(--card);
+border:1px solid var(--line);border-radius:12px;
+font-size:13.5px;
+margin:14px 0 6px;
+}
+table.cmp th, table.cmp td, table.steps th, table.steps td{
+border-top:1px solid var(--line);
+padding:9px 12px;text-align:left;vertical-align:top;
+}
+table.cmp thead th, table.steps thead th{
+background:linear-gradient(120deg, rgba(23,55,94,.06), rgba(23,55,94,.02));
+color:var(--navy);border-top:none;font-size:13px;
+}
+table.cmp tbody th{
+color:var(--navy);font-weight:bold;white-space:nowrap;background:#fbf9f5;
+}
+table.steps tbody th{color:var(--navy);font-weight:bold;white-space:nowrap;}
+.tbl-note{font-size:12px;color:var(--muted);margin:4px 0 0;}
+
+/* ===== 図の共通 ===== */
+.fig{
+background:var(--card);
+border:1px solid var(--line);border-radius:14px;
+padding:18px 18px 14px;
+margin:14px 0 6px;
+box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+}
+.fig .fig-cap{
+font-size:12.5px;color:var(--muted);margin:10px 0 2px;
+}
+.fig .fig-title{
+font-size:13px;font-weight:bold;color:var(--navy);letter-spacing:.06em;margin:0 0 12px;
+}
+
+/* ===== D-1 設備の一生フロー図 ===== */
+.flow{display:flex;align-items:stretch;gap:0;}
+.fstep{
+flex:1;
+background:#fbf9f5;
+border:1px solid var(--line);border-radius:10px;
+padding:10px 10px 8px;
+text-align:center;
+}
+.fstep strong{display:block;font-size:13.5px;color:var(--navy);line-height:1.45;}
+.fstep span{display:block;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:4px;}
+.fstep .fs-num{
+display:inline-block;
+font-size:10.5px;font-weight:bold;color:#fff;
+background:var(--navy);border-radius:999px;
+padding:0 8px;margin:0 0 5px;line-height:1.7;
+}
+.fstep.hot{
+background:linear-gradient(140deg, rgba(243,152,0,.16), rgba(249,178,51,.07));
+border-color:var(--amber);
+}
+.fstep.hot .fs-num{background:linear-gradient(120deg,var(--orange),var(--amber));}
+.fstep.hot .fs-core{
+font-size:12px;color:var(--navy);font-weight:bold;margin-top:6px;
+}
+.farrow{
+flex:none;align-self:center;
+color:var(--orange);font-weight:bold;font-size:15px;
+padding:0 3px;
+}
+
+/* ===== バー図（D-2 / D-3 共通） ===== */
+.brow{
+padding:9px 0 10px;border-top:1px dashed var(--line);
+}
+.brow:first-of-type{border-top:none;}
+.bhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:5px;}
+.bhead .bl{font-size:13px;font-weight:bold;color:var(--navy);line-height:1.45;}
+.bhead .bl small{font-weight:normal;color:var(--muted);font-size:11.5px;margin-left:8px;}
+.bhead .bv{font-size:14.5px;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.brow .bt{height:14px;background:#ece7db;border-radius:7px;}
+.brow .bf{
+display:block;height:14px;border-radius:7px;
+background:linear-gradient(90deg,var(--navy),#2c5a8f);
+}
+.brow .bf.org{background:linear-gradient(90deg,var(--orange),var(--amber));}
+.brow.own .bl{color:var(--orange);}
+.brow.own .band{
+display:block;height:14px;border-radius:7px;
+background:rgba(243,152,0,.45);
+border:1.5px solid var(--orange);
+}
+
+/* ===== D-4 参加の大きさ3層図 ===== */
+.layers{display:flex;flex-direction:column;gap:8px;}
+.layer{
+border:1px solid var(--line);border-radius:10px;
+background:#fbf9f5;
+padding:11px 14px 9px;
+display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.layer .lt{font-size:14.5px;font-weight:bold;color:var(--navy);flex:none;}
+.layer .ld{font-size:12.5px;color:var(--muted);}
+.layer.mid{
+background:linear-gradient(120deg, rgba(243,152,0,.15), rgba(249,178,51,.06));
+border:1.5px dashed var(--orange);
+}
+.layer .seat{
+margin-left:auto;flex:none;
+font-size:11px;font-weight:bold;letter-spacing:.06em;
+color:#fff;background:linear-gradient(120deg,var(--orange),var(--amber));
+border-radius:999px;padding:1px 10px;
+}
+
 .back-wrap{margin-top:48px;text-align:center;}
 .back-link{
 display:inline-block;
@@ -195,46 +304,6 @@ box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
 }
 .back-link:hover,.back-link:active{border-color:#d8cfbc;}
 
-/* ===== 目次 ===== */
-.toc{
-margin-top:26px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:14px;
-padding:16px 22px 8px;
-box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
-}
-.toc.toc-title{
-font-size:11.5px;letter-spacing:.24em;color:var(--muted);font-weight:bold;margin:0;
-}
-.toc.mi{
-display:flex;gap:12px;align-items:baseline;
-padding:9px 2px;border-top:1px dashed var(--line);
-color:var(--muted);font-size:15px;font-weight:600;
-}
-.toc a.mi{
-text-decoration:none;color:var(--ink);
-border-radius:8px;padding-left:10px;padding-right:10px;
-}
-.toc a.mi:hover,.toc a.mi:active{
-background:linear-gradient(90deg, rgba(243,152,0,.10), rgba(243,152,0,0) 78%);
-}
-.toc.mi.tn{color:var(--orange);font-weight:700;letter-spacing:.06em;flex:none;}
-.toc.mi.current{
-color:var(--navy);
-background:linear-gradient(90deg, rgba(243,152,0,.13), rgba(243,152,0,0) 78%);
-border-radius:8px;
-padding-left:10px;padding-right:10px;
-}
-.toc.mi.tag{
-margin-left:auto;flex:none;
-font-size:11px;font-weight:bold;letter-spacing:.08em;
-border-radius:999px;padding:1px 10px;
-}
-.toc.mi.tag.now{background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;}
-.toc.mi.tag.soon{background:#f3efe7;color:var(--muted);border:1px solid var(--line);}
-.toc.mi.tag.go{background:none;color:var(--orange);padding:1px 2px;letter-spacing:.04em;}
-
 /* ===== フッター ===== */
 footer{
 background:linear-gradient(160deg,var(--navy-dark),var(--navy-deep));
@@ -242,13 +311,13 @@ padding:30px 16px 34px;
 font-size:12.5px;color:#a9bccd;
 text-align:center;
 }
-footer.f-inner{max-width:1000px;margin:0 auto;}
-footer.null-walk{
+footer .f-inner{max-width:1000px;margin:0 auto;}
+footer .null-walk{
 display:block;height:56px;width:auto;margin:0 auto 14px;
 filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));
 }
 footer a{color:#ffd98a;font-weight:bold;text-decoration:none;}
-footer.f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
+footer .f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
 
 @media (max-width:560px){
 header{padding:44px 18px 40px;}
@@ -259,7 +328,22 @@ header{padding:44px 18px 40px;}
 section{margin-top:38px;}
 section > h2{font-size:18px;}
 main{padding:10px 14px 44px;}
-.fact-list.fk{min-width:78px;}
+.fact-list .fk{min-width:78px;}
+.flow{flex-direction:column;}
+.farrow{transform:rotate(90deg);padding:2px 0;}
+table.cmp thead{display:none;}
+table.cmp, table.cmp tbody, table.cmp tr, table.cmp td{display:block;width:100%;}
+table.cmp tr{border-top:1px solid var(--line);padding:6px 0;}
+table.cmp tbody th{display:block;border-top:none;background:none;padding:8px 12px 2px;}
+table.cmp td{border-top:none;padding:2px 12px 6px;}
+table.cmp td::before{
+content:attr(data-label);
+display:block;font-size:11px;font-weight:bold;color:var(--orange);letter-spacing:.05em;
+}
+table.steps{font-size:12.5px;}
+table.steps th, table.steps td{padding:7px 8px;}
+table.steps tbody th{white-space:normal;}
+.layer .seat{margin-left:0;}
 }
 </style>
 </head>
@@ -283,19 +367,100 @@ main{padding:10px 14px 44px;}
 
 <main>
 <section style="margin-top:34px;">
-<p class="lead">霞ヶ浦を、電気で遊び倒す。「駅から先」を電気でつなぐ構想です。</p>
+<p class="lead">霞ヶ浦という地域を舞台に、発電・蓄電・移動・遊び・配送を、一人の利用者の「一日」としてつなぐ構想を、結論を決めずに確かめる資料です。その本質は、商品を並べることではなく、「一日の体験」を作ること、そして電車を降りた後の「駅から先」を電気でつなぐことにあります。太陽光で作った電気が、地域の体験に変わる「出口」を作れないか、という案です。料金や収益見込みなどのお金の前提は、推測で数字を置いていません。</p>
 <div class="core">
-<p>「霞ヶ浦を、電気で遊び倒す。」</p>
+<p>商品ではなく「一日の体験」で考える。</p>
+<p>「駅から先」を電気でつなぐ。</p>
 <p>「潮来駅を降りる。小型EVで湖へ向かう。電動SUPで水上へ出る。腹が減ったら、ドローンから昼飯が来る。」</p>
-<p>「ちゃんぽんはまだ飛んでいない。でも、カレーはもう飛んだ。」</p>
+<p class="core-sub">核心の言葉は、原資料（構想メモ）の原文のまま残しています。</p>
 </div>
+<div class="fig">
+<p class="fig-title">一日の体験 ― 駅から先を電気でつなぐ</p>
+<div class="flow">
+<div class="fstep"><span class="fs-num">場面 1</span><strong>潮来駅に着く</strong><span>電車で到着。ここから先が「駅から先」</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">場面 2</span><strong>湖へ向かう</strong><span>小型EVで、駅と湖の間を移動する</span></div>
+<div class="farrow">→</div>
+<div class="fstep hot"><span class="fs-num">場面 3</span><strong>湖上へ出る</strong><span>電動SUPで水上へ。湖で遊ぶ</span><span class="fs-core">「電気で遊ぶ湖」へ</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">場面 4</span><strong>食べる</strong><span>食を届けるのはドローン（配送の実証は既にある）</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">場面 5</span><strong>帰る</strong><span>湖から駅へ戻り、電車で帰る</span></div>
+</div>
+<p class="fig-cap">一人の利用者の時間軸で並べた体験の流れです。各場面を全部一度に組み合わせるのではなく、条件が合う場所だけを段階的に組み合わせる前提です。</p>
+</div>
+</section>
+
+<section>
+<h2>本質と起点 ― 一日の体験で考える</h2>
 <ul class="points">
-<li><strong>起点は一日の体験：</strong>商品を並べるのではなく、一人の利用者の一日の時間軸で考えます。商品ではなく「一日の体験」で考える。駅から先の移動と滞在を、電気でつなぎます。</li>
-<li><strong>エネルギーループ：</strong>太陽光で作った電気が、地域の体験に変わる「出口」を作る構想です。設備を売るだけではなく、発電した電気が地域の体験へ変わる出口をつくります。</li>
-<li><strong>陸・水・空：</strong>陸は小型EV。「クルマを売る」商材としてではなく、「地域に移動手段を置く」入口として捉え直します（展示会では、原付ミニカー規格の1人乗りEVについて、税別148万円／航続約100km、代理店募集との説明がありました）。水は電動SUP等で、湖を「眺める」場所から「電気で遊ぶ」場所へ。空はドローン配送です。</li>
-<li><strong>冗談には実績の土台がある：</strong>ドローンで食を届ける実証は、霞ヶ浦で既に行われています。美浦村から行方市・天王崎公園へ、湖上約8.9kmを飛行し、ゴジラカレー8食を配送した実証です。「湖上で腹が減ったら、ちゃんぽんが飛んで来る。」——ちゃんぽんはまだ飛んでいない。でも、カレーはもう飛んだ。</li>
-<li><strong>ひかりマッチの役割：</strong>「全部持つ」ことではありません。場所・設備・運用・地域・資本を、案件ごとに組み合わせる入口になることです。自前で全部を運営する前提にはしません。</li>
+<li><strong>起点は「一日」：</strong>発電・蓄電・移動・遊び・配送を、別々の商品として並べるのではなく、一人の利用者の一日の時間軸に並べて考えます。</li>
+<li><strong>対象は観光客だけではない：</strong>バスアングラー（バス釣りをする人）、サイクリスト、キャンパーなど、霞ヶ浦を目的地にする人の移動と滞在を設計します。</li>
+<li><strong>【推論】最後の区間が鍵：</strong>駅から目的地までの「最後の区間」が埋まれば、霞ヶ浦への行き方そのものが変わる可能性があります。ただし、実際にどれだけの利用が見込めるかは確かめていません（要調査）。</li>
+<li><strong>エネルギーループ（電気の流れ）：</strong>太陽光で「つくる」→蓄電池に「ためる」→充電して「渡す」→小型EVが「走る」→水上モビリティ（湖の上の乗り物）で「遊ぶ」。設備を売るだけではなく、発電した電気が地域の体験へ変わる出口をつくる、という考え方です。</li>
 </ul>
+</section>
+
+<section>
+<h2>確認できた事実</h2>
+<div class="about-box">
+<ul class="fact-list">
+<li><span class="fk">空の実証</span>霞ヶ浦周辺では、ドローン配送の実証が実施されました。美浦村から行方市・天王崎公園へ湖上を配送し、約8.9kmを飛行してゴジラカレー8食を届け、復路では焼き芋を輸送しています。霞ヶ浦周辺のキャンプ場等の利便性向上を目的とした、ラストワンマイル（最後の区間の配送）の実証です（出典：国土交通省「霞ヶ浦を活用したキャンプ場利用者等へのラストワンマイル配送事業」／ドローンジャーナル）。「ドローンで食を届ける」こと自体は、この地域では実証済みの領域です。</li>
+<li><span class="fk">水の技術</span>SUP（スタンドアップパドルボード＝板の上に立って漕ぐ水上スポーツ）用の電動モーターには市販例があり（出典：ASIWO SUP電動モーター U1 製品情報）、カヤック等に対応する製品も存在します。水上移動を電動化する技術は、すでにあります。</li>
+<li><span class="fk">釣りの舞台</span>霞ヶ浦水系ではバスフィッシング大会が行われています（出典：MLF Japan／Basser）。観光客だけでなく、釣りを目的に霞ヶ浦を訪れる人の層が実在します。</li>
+<li><span class="fk">陸の候補</span>SMART ENERGY WEEK 関西の展示会記録では、小型EV「SOLIX-EV」について、原付ミニカー規格（原動機付自転車の規格）の1人乗りEVで、税別148万円／航続約100km、代理店を募集しており「1台20万円」との説明がありました（出典：展示会記録）。これは展示会の場での説明内容であり、確定した販売条件として確認したものではありません。条件の確定は、メーカー側との確認が前提です。</li>
+</ul>
+<p>いずれも構想の土台になる事実で、構想の実現を保証するものではありません。</p>
+</div>
+</section>
+
+<section>
+<h2>構想の方向 ― 陸・水・空</h2>
+<p class="lead">EV、充電、湖上アクティビティ、配送は、それぞれ単独でも成立しうるものです。全部を一度に組み合わせるのではなく、条件が合う場所だけを、段階的に組み合わせます。</p>
+<ul class="points">
+<li><strong>陸 ― 小型EVは「駅と湖の間」を埋める候補：</strong>展示会で出会った小型EVを、「クルマを売る」商材としてではなく、「地域に移動手段を置く」入口として捉え直す案です。「クルマを売る」から「地域に移動手段を置く」へ。ネスコインベストメントが販売代理店の候補になり、潮来駅周辺などで地域利用を検討し、観光・釣り・宿泊等への展開を探索します。なお、レンタル事業として貸し出す形にする場合は、車両の登録・保険・貸出の制度確認が別途必要で、この資料ではレンタル事業化の結論は置いていません。</li>
+<li><strong>水 ― 湖そのものを舞台にする：</strong>電動SUP・電動カヤックの体験、釣り・観光とのパッケージ、湖畔の充電／貸出拠点を組み合わせる案です。霞ヶ浦を「眺める湖」から「電気で遊ぶ湖」へ。航行区域、免許・登録、安全ルール等は、事業化の前に確認が必要です。</li>
+<li><strong>空 ― ドローンで食を届ける：</strong>「湖上で腹が減ったら、ちゃんぽんが飛んで来る。」――この「ちゃんぽん飛来」は構想です。メニュー・容器・運航・法規・採算は未検討で、あくまで体験設計の比喩（イメージ）です。汁漏れ対策を含め、実装条件は別途検討が必要です。ただし上の事実のとおり、ドローンで食を届ける実証そのものは、霞ヶ浦で既に行われています。</li>
+<li><strong>ひかりマッチの役割は「全部持つ」ことではない：</strong>地域の「使える場所」と「使える事業」を出会わせる入口になることです。場所・設備・運用・地域・資本を案件ごとに組み合わせ、自前で全部を運営する前提にはしません。【推論】代理店商材を「単品」で終わらせず、地域課題に合わせて組み込むことで、一つひとつの商材が別の顔を持つ可能性があります。</li>
+</ul>
+<div class="fig">
+<p class="fig-title">ひかりマッチが組み合わせる5つの要素</p>
+<div class="layers">
+<div class="layer"><span class="lt">場所</span><span class="ld">駅・湖畔・店舗</span></div>
+<div class="layer"><span class="lt">設備</span><span class="ld">充電・EV・SUP</span></div>
+<div class="layer"><span class="lt">運用</span><span class="ld">レンタル・物流</span></div>
+<div class="layer"><span class="lt">地域</span><span class="ld">食・観光・釣り</span></div>
+<div class="layer mid"><span class="lt">資本</span><span class="ld">投資・融資</span><span class="seat">案件ごとに組み合わせる</span></div>
+</div>
+<p class="fig-cap">ひかりマッチの役割は、この5つを全部持つことではなく、案件ごとに組み合わせる入口になることです。</p>
+</div>
+</section>
+
+<section>
+<h2>進め方と、まだ決めていないこと</h2>
+<p class="lead">分からないことは、分からないまま一覧にしました。ここが埋まらないと、計画にはなりません。調べと関係先との確認が先で、次の事項は意図的に決めていません。</p>
+<table class="steps">
+<thead>
+<tr><th>段階</th><th>すること</th><th>この段階で確かめること</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">調べる</th><td>潮来駅周辺・霞ヶ浦エリアの来訪者の規模と季節による変動（季節性）。小型EVのレンタル、電動SUPの体験への利用意向と料金の置き方（金額は未調査で、試算は置いていない）。湖畔の充電／貸出拠点を置ける場所の候補と、自治体・地域事業者との連携の進め方。ドローン配送を常設の運用にする場合の採算と運航体制。荒天時・冬季など、体験が成立しない条件の扱い</td><td>利用の見込みと、成立する条件</td></tr>
+<tr><th scope="row">専門家に確かめる</th><td>ドローン運航の許認可、運航区域、保険、安全責任の分担。飲食をドローンで届ける場合の衛生面と運搬条件のルール。原付ミニカー規格の車両をレンタルする場合の登録・保険・貸出の制度。湖上の航行区域、免許・登録、安全ルール。体験型の事業を行う場合の保険と事故時の責任分担。代理店条件・販売権・報酬体系（メーカー側との確認）</td><td>法律・制度・安全の前提</td></tr>
+<tr><th scope="row">小さく組み合わせる</th><td>条件が合う場所だけを、段階的に組み合わせる</td><td>場所ごとに成立するかどうか</td></tr>
+<tr><th scope="row">広げる判断</th><td>調べと確認の結果を見て、進めるかどうかを改めて判断する</td><td>――</td></tr>
+</tbody>
+</table>
+<ul class="points" style="margin-top:14px;">
+<li><strong>対象エリアの確定：</strong>潮来駅周辺を候補としますが、未確定です。</li>
+<li><strong>組み合わせる要素の範囲と事業の規模：</strong>段階的に、条件が合う場所から。決めていません。</li>
+<li><strong>料金設定・収益見込みなどの財務の前提：</strong>数字を置いていません。要調査です。</li>
+<li><strong>運営を誰が担うか：</strong>自前で全部を運営する前提にはしません。</li>
+<li><strong>「ちゃんぽん飛来」の実装可否：</strong>構想（比喩）のまま。実装条件は未検討です。</li>
+</ul>
+<div class="core" style="margin-top:18px;">
+<p>「ちゃんぽんはまだ飛んでいない。でも、カレーはもう飛んだ。」</p>
+<p class="core-sub">締めの言葉として、原文のまま置きます。ちゃんぽんは構想（比喩）ですが、カレーは上の実証で、ドローンが実際に届けたものです。</p>
+</div>
 </section>
 
 <div class="back-wrap">
