@@ -41,7 +41,6 @@ radial-gradient(ellipse 700px 480px at -10% 120%, rgba(64,110,168,.35), rgba(64,
 linear-gradient(140deg,#1b4069 0%,var(--navy) 42%,var(--navy-dark) 78%,var(--navy-deep) 100%);
 padding:64px 24px 58px;
 }
-/* 太陽のモチーフ（封筒の太陽マークへのオマージュ） */
 .sun{
 position:absolute;
 top:-58px;right:-38px;
@@ -121,7 +120,6 @@ section > h2::after{
 content:"";flex:1;height:1px;
 background:linear-gradient(90deg, rgba(23,55,94,.28), rgba(23,55,94,0));
 }
-section > h2.pnum{color:var(--orange);font-weight:700;letter-spacing:.04em;}
 .section-note{
 font-size:13.5px;color:var(--muted);margin:0 0 16px;
 }
@@ -148,7 +146,7 @@ border-top:1px dashed var(--line);
 font-size:14.5px;
 }
 .fact-list li:first-child{border-top:none;}
-.fact-list.fk{
+.fact-list .fk{
 display:inline-block;min-width:92px;
 font-weight:bold;color:var(--navy);
 }
@@ -165,7 +163,7 @@ margin:0 0 16px;
 .core p{
 margin:0 0 8px;font-size:15.5px;font-weight:600;color:var(--navy);line-height:1.75;
 }
-.core.core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
+.core .core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
 
 /* ===== 要点リスト ===== */
 .points{list-style:none;margin:0;padding:0;}
@@ -184,6 +182,117 @@ background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 5
 }
 .points li strong{color:var(--navy);}
 
+/* ===== 表 ===== */
+table.cmp, table.steps{
+width:100%;border-collapse:collapse;
+background:var(--card);
+border:1px solid var(--line);border-radius:12px;
+font-size:13.5px;
+margin:14px 0 6px;
+}
+table.cmp th, table.cmp td, table.steps th, table.steps td{
+border-top:1px solid var(--line);
+padding:9px 12px;text-align:left;vertical-align:top;
+}
+table.cmp thead th, table.steps thead th{
+background:linear-gradient(120deg, rgba(23,55,94,.06), rgba(23,55,94,.02));
+color:var(--navy);border-top:none;font-size:13px;
+}
+table.cmp tbody th{
+color:var(--navy);font-weight:bold;white-space:nowrap;background:#fbf9f5;
+}
+table.steps tbody th{color:var(--navy);font-weight:bold;white-space:nowrap;}
+.tbl-note{font-size:12px;color:var(--muted);margin:4px 0 0;}
+
+/* ===== 図の共通 ===== */
+.fig{
+background:var(--card);
+border:1px solid var(--line);border-radius:14px;
+padding:18px 18px 14px;
+margin:14px 0 6px;
+box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+}
+.fig .fig-cap{
+font-size:12.5px;color:var(--muted);margin:10px 0 2px;
+}
+.fig .fig-title{
+font-size:13px;font-weight:bold;color:var(--navy);letter-spacing:.06em;margin:0 0 12px;
+}
+
+/* ===== D-1 設備の一生フロー図 ===== */
+.flow{display:flex;align-items:stretch;gap:0;}
+.fstep{
+flex:1;
+background:#fbf9f5;
+border:1px solid var(--line);border-radius:10px;
+padding:10px 10px 8px;
+text-align:center;
+}
+.fstep strong{display:block;font-size:13.5px;color:var(--navy);line-height:1.45;}
+.fstep span{display:block;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:4px;}
+.fstep .fs-num{
+display:inline-block;
+font-size:10.5px;font-weight:bold;color:#fff;
+background:var(--navy);border-radius:999px;
+padding:0 8px;margin:0 0 5px;line-height:1.7;
+}
+.fstep.hot{
+background:linear-gradient(140deg, rgba(243,152,0,.16), rgba(249,178,51,.07));
+border-color:var(--amber);
+}
+.fstep.hot .fs-num{background:linear-gradient(120deg,var(--orange),var(--amber));}
+.fstep.hot .fs-core{
+font-size:12px;color:var(--navy);font-weight:bold;margin-top:6px;
+}
+.farrow{
+flex:none;align-self:center;
+color:var(--orange);font-weight:bold;font-size:15px;
+padding:0 3px;
+}
+
+/* ===== バー図（D-2 / D-3 共通） ===== */
+.brow{
+padding:9px 0 10px;border-top:1px dashed var(--line);
+}
+.brow:first-of-type{border-top:none;}
+.bhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:5px;}
+.bhead .bl{font-size:13px;font-weight:bold;color:var(--navy);line-height:1.45;}
+.bhead .bl small{font-weight:normal;color:var(--muted);font-size:11.5px;margin-left:8px;}
+.bhead .bv{font-size:14.5px;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.brow .bt{height:14px;background:#ece7db;border-radius:7px;}
+.brow .bf{
+display:block;height:14px;border-radius:7px;
+background:linear-gradient(90deg,var(--navy),#2c5a8f);
+}
+.brow .bf.org{background:linear-gradient(90deg,var(--orange),var(--amber));}
+.brow.own .bl{color:var(--orange);}
+.brow.own .band{
+display:block;height:14px;border-radius:7px;
+background:rgba(243,152,0,.45);
+border:1.5px solid var(--orange);
+}
+
+/* ===== D-4 参加の大きさ3層図 ===== */
+.layers{display:flex;flex-direction:column;gap:8px;}
+.layer{
+border:1px solid var(--line);border-radius:10px;
+background:#fbf9f5;
+padding:11px 14px 9px;
+display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.layer .lt{font-size:14.5px;font-weight:bold;color:var(--navy);flex:none;}
+.layer .ld{font-size:12.5px;color:var(--muted);}
+.layer.mid{
+background:linear-gradient(120deg, rgba(243,152,0,.15), rgba(249,178,51,.06));
+border:1.5px dashed var(--orange);
+}
+.layer .seat{
+margin-left:auto;flex:none;
+font-size:11px;font-weight:bold;letter-spacing:.06em;
+color:#fff;background:linear-gradient(120deg,var(--orange),var(--amber));
+border-radius:999px;padding:1px 10px;
+}
+
 .back-wrap{margin-top:48px;text-align:center;}
 .back-link{
 display:inline-block;
@@ -195,46 +304,6 @@ box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
 }
 .back-link:hover,.back-link:active{border-color:#d8cfbc;}
 
-/* ===== 目次 ===== */
-.toc{
-margin-top:26px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:14px;
-padding:16px 22px 8px;
-box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
-}
-.toc.toc-title{
-font-size:11.5px;letter-spacing:.24em;color:var(--muted);font-weight:bold;margin:0;
-}
-.toc.mi{
-display:flex;gap:12px;align-items:baseline;
-padding:9px 2px;border-top:1px dashed var(--line);
-color:var(--muted);font-size:15px;font-weight:600;
-}
-.toc a.mi{
-text-decoration:none;color:var(--ink);
-border-radius:8px;padding-left:10px;padding-right:10px;
-}
-.toc a.mi:hover,.toc a.mi:active{
-background:linear-gradient(90deg, rgba(243,152,0,.10), rgba(243,152,0,0) 78%);
-}
-.toc.mi.tn{color:var(--orange);font-weight:700;letter-spacing:.06em;flex:none;}
-.toc.mi.current{
-color:var(--navy);
-background:linear-gradient(90deg, rgba(243,152,0,.13), rgba(243,152,0,0) 78%);
-border-radius:8px;
-padding-left:10px;padding-right:10px;
-}
-.toc.mi.tag{
-margin-left:auto;flex:none;
-font-size:11px;font-weight:bold;letter-spacing:.08em;
-border-radius:999px;padding:1px 10px;
-}
-.toc.mi.tag.now{background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;}
-.toc.mi.tag.soon{background:#f3efe7;color:var(--muted);border:1px solid var(--line);}
-.toc.mi.tag.go{background:none;color:var(--orange);padding:1px 2px;letter-spacing:.04em;}
-
 /* ===== フッター ===== */
 footer{
 background:linear-gradient(160deg,var(--navy-dark),var(--navy-deep));
@@ -242,13 +311,13 @@ padding:30px 16px 34px;
 font-size:12.5px;color:#a9bccd;
 text-align:center;
 }
-footer.f-inner{max-width:1000px;margin:0 auto;}
-footer.null-walk{
+footer .f-inner{max-width:1000px;margin:0 auto;}
+footer .null-walk{
 display:block;height:56px;width:auto;margin:0 auto 14px;
 filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));
 }
 footer a{color:#ffd98a;font-weight:bold;text-decoration:none;}
-footer.f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
+footer .f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
 
 @media (max-width:560px){
 header{padding:44px 18px 40px;}
@@ -259,7 +328,22 @@ header{padding:44px 18px 40px;}
 section{margin-top:38px;}
 section > h2{font-size:18px;}
 main{padding:10px 14px 44px;}
-.fact-list.fk{min-width:78px;}
+.fact-list .fk{min-width:78px;}
+.flow{flex-direction:column;}
+.farrow{transform:rotate(90deg);padding:2px 0;}
+table.cmp thead{display:none;}
+table.cmp, table.cmp tbody, table.cmp tr, table.cmp td{display:block;width:100%;}
+table.cmp tr{border-top:1px solid var(--line);padding:6px 0;}
+table.cmp tbody th{display:block;border-top:none;background:none;padding:8px 12px 2px;}
+table.cmp td{border-top:none;padding:2px 12px 6px;}
+table.cmp td::before{
+content:attr(data-label);
+display:block;font-size:11px;font-weight:bold;color:var(--orange);letter-spacing:.05em;
+}
+table.steps{font-size:12.5px;}
+table.steps th, table.steps td{padding:7px 8px;}
+table.steps tbody th{white-space:normal;}
+.layer .seat{margin-left:0;}
 }
 </style>
 </head>
@@ -273,9 +357,8 @@ main{padding:10px 14px 44px;}
 </div>
 <div class="header-title" style="margin-top:26px;">
 <p class="eyebrow">Future Vision</p>
-<h1><span class="h1-main">SUN ISLAND PROJECT</span> <span class="h1-sub">可能性の光 ― 10の案のひとつ</span></h1>
+<h1><span class="h1-main">SUN ISLAND PROJECT</span> <span class="h1-sub">本物の太陽の塔をつくろう ― 可能性の光 ― 10の案のひとつ</span></h1>
 <span class="h1-rule" aria-hidden="true"></span>
-
 </div>
 <span class="internal-badge">社内向け</span>
 </div>
@@ -283,26 +366,112 @@ main{padding:10px 14px 44px;}
 
 <main>
 <section style="margin-top:34px;">
-<p class="lead">本物の太陽の塔をつくろう。無人島 × 次世代エネルギー × AIセンター × クラファン。束の中で最も遊びの要素が強い1本です。</p>
+<p class="lead">これは建設計画ではありません。最初に「狂った問い」を投げて、現実にできる部分を探すプロジェクトです。無人島に何かを建てる計画から始めるのではなく、答えのない問いを舞台に置くことで、場所・技術・資金・知恵が同じ絵の中に入るかを確かめます。本質は、大きな問いを消さずに残しながら、できない理由も含めて公開知（みんなで使える知識）に変えていくことにあります。束の中で最も遊びの要素が強い1本ですが、事実・仮説・構想・言葉遊びは分けて書きます。</p>
 <div class="core">
 <p>「本物の太陽の塔をつくろう」</p>
 <p>「ただ、ベラボーに明るい。」</p>
 <p>「島を買いたいわけではない。核融合炉を明日建てたいわけでもない。ただ、ベラボーに明るい未来を考えたい。」</p>
+<p class="core-sub">これは、建設計画ではない。最初に「狂った問い」を投げて、現実にできる部分を探す。</p>
 </div>
+</section>
+
+<section>
+<h2>本質・起点 ― 狂った問いを投げる</h2>
+<p class="lead">出発点は答えではなく問いです。【仮説】技術や場所や資金は、それぞれ別々に存在していても、組み合わせる場がなければ動きません。「島」という具体的な舞台を置くことで、別々だった要素が同じ絵の中に入る可能性があります。ただし、これは見立てであり、実際に組み合うかどうかは候補地と技術の条件次第です。</p>
 <ul class="points">
-<li><strong>起点は「狂った問い」：</strong>これは建設計画ではありません。最初に「狂った問い」を投げて、現実にできる部分を探すところから始めます。</li>
-<li><strong>島の材料箱：</strong>島に載せうる要素を、まずまとめずに全部置きます。次世代エネルギーの実証、AIセンター、クラウドファンディング（インターネットで広く支援を募る仕組み）。どれも確定ではなく、材料として置いた段階です。</li>
-<li><strong>ランドマーク：</strong>島の中央に置くランドマークは、太陽の塔の複製ではなく、未来・太陽・生命を象徴するオマージュの発想です（権利関係は専門家に確認します）。</li>
-<li><strong>CASE 00 鳥島——候補を消すことも成果：</strong>最初の候補地検討の教材が伊豆鳥島です。調べた結果、鳥島は無人の火山島で、島全体が天然保護区域、アホウドリの繁殖地として重要な場所でした。「無人島なら何でもできる」は誤りだった。その発見自体が成果です。「鳥島を見つけた。最高だった。調べた。難しかった。だから、みんなにも聞く。」</li>
-<li><strong>クラファンの役割：</strong>集めるのは建設費だけではありません。「正解を買う」のではなく、「正解に近づく人を集める」。「問い」と「参加口」を先につくります。できない理由も、公開知になります。</li>
-<li><strong>進め方：</strong>THROW → GATHER → SCREEN → MATCH → TEST。狂った問いから、現実の小さな実証へ。途中で候補を消すことも成果に含めます。</li>
+<li><strong>問い 01：</strong>場所のない技術に、実証できる「島」を渡せないか。</li>
+<li><strong>問い 02：</strong>エネルギーを島外へ運ばず、AIの計算資源（コンピューターの計算する力）として返せないか。</li>
+<li><strong>問い 03：</strong>資金だけでなく、知恵・技術・土地をクラファン（クラウドファンディング＝インターネットで広く支援を募る仕組み）で集められないか。</li>
+</ul>
+<div class="fig">
+<p class="fig-title">問いの大きさと、現実にできる部分の切り分け</p>
+<div class="layers">
+<div class="layer"><span class="lt">大きな問い</span><span class="ld">「無人島に太陽を」――消さずに残す。ここが起点</span></div>
+<div class="layer mid"><span class="lt">構想・仮説</span><span class="ld">材料箱・クラファン・組み合わせの見立て。やると決めたものではない</span><span class="seat">検証中</span></div>
+<div class="layer"><span class="lt">確認できた事実</span><span class="ld">鳥島の事例など、出典のあるものだけを事実として置く</span></div>
+<div class="layer"><span class="lt">現実にできる部分</span><span class="ld">ふるいにかけ、組み合わせ、小さな実証へ進められたもの</span></div>
+</div>
+<p class="fig-cap">大きな問いと、今日できることを混ぜないための切り分けです。数字のないところに数字は置いていません。</p>
+</div>
+</section>
+
+<section>
+<h2>確認できた事実</h2>
+<div class="about-box">
+<ul class="fact-list">
+<li><span class="fk">鳥島の事実</span>【確認できた事実】伊豆鳥島は無人の火山島です。島全体が天然保護区域で、アホウドリの繁殖地として重要です（原資料の調査メモに基づく記載）。つまり鳥島は「空いている土地」ではなく、自然保護・火山・物流（人と物資の輸送）・行政など、候補地選定で確認すべき論点を一気に含んだ場所でした。公的な出典の明示は原資料にないため、断定の強さは上げていません。</li>
+<li><span class="fk">思い込みの訂正</span>当初の思い込みは「無人島なら何でもできる」でした。調べた結果は逆で、自然保護・火山等の安全・物流・行政手続きの論点が重なっていました。鳥島は候補地としてそのまま進められる場所ではなく、まず「できない理由」を学ぶ教材（CASE 00）になりました。</li>
+<li><span class="fk">太陽の塔</span>太陽の塔は岡本太郎の作品です。この資料のランドマークは直接の複製ではなく、オマージュ（敬意を込めた表現）の発想として置きます。権利関係の結論は述べません。</li>
+<li><span class="fk">それ以外</span>次世代エネルギーの実証可否、AIセンターへの変換、クラファンの成立可能性は、いずれも現時点では【構想】【仮説】の段階です。裏付けが取れたものから順に、事実として移していきます。建設費・島の価格・調達目標額・発電量などの数字は、推測で置いていません。</li>
+</ul>
+<p>本人の言葉を、そのまま置きます。「鳥島を見つけた。最高だった。調べた。難しかった。だから、みんなにも聞く。」候補を消すことも、このプロジェクトの成果にします。できない理由が早い段階で分かれば、次の候補地の見方に活かせます。「できない理由も、公開知になる。」</p>
+</div>
+</section>
+
+<section>
+<h2>構想の方向 ― 島の材料箱</h2>
+<p class="lead">島に載せうる要素を、先にまとめず、いったん全部置きます。どれも確定ではなく、材料として置いた段階です【構想】。</p>
+<table class="cmp">
+<thead><tr><th>要素</th><th>中身</th></tr></thead>
+<tbody>
+<tr><th scope="row">次世代エネルギー</th><td data-label="中身">核融合関連技術、太陽光・蓄電・水素等。実証候補は専門確認前提。実現時期や技術的見通しは断定しません</td></tr>
+<tr><th scope="row">AI CENTER</th><td data-label="中身">島で生まれたエネルギーを、計算資源という価値へ変換する。返礼品案：「億トークン」（詳細はクラファンの節）</td></tr>
+<tr><th scope="row">ISLAND LAB</th><td data-label="中身">ドローン／自律モビリティ（自律して動く乗り物）、独立通信、防災。地域外の実証需要を受ける</td></tr>
+<tr><th scope="row">CROWD MATCH</th><td data-label="中身">支援者だけでなく、研究者・企業・法務・行政・島マニアまで参加者にする</td></tr>
+</tbody>
+</table>
+<p class="tbl-note">副産物の言葉遊びとして「なぜか釣り場になるかもしれない」があります。集魚性は魚種・光・海況等に左右されるため構想ネタであり、環境への影響も評価が必要です【要調査】。</p>
+<p class="lead" style="margin-top:16px;"><strong>ランドマーク：太陽の塔へのオマージュ。</strong>島の中央に置くランドマークは、太陽の塔の複製ではなく、未来・太陽・生命を象徴するオマージュの発想です。仮の呼び名は「太陽の塔ロボット」です。【専門家に確認】太陽の塔に関する権利関係（著作権・商標等）や、名称・形状の使用可否は、専門家に確かめる必要があります。言葉遊び「24時間、無駄に明るい。夜は無いと思え。」については、もちろん夜はあります。照明・光害（過剰な光による悪影響）・生態系への影響は、現実の計画では別の問題として扱います【要調査】。</p>
+<p class="lead"><strong>クラファン：正解に近づく人を集める。</strong>建設費を集める前に、「問い」と「参加口」をつくる、という順序です。集めたいものは資金だけではありません。本人の言葉：「正解を買う」のではなく、「正解に近づく人を集める」。</p>
+<table class="cmp">
+<thead><tr><th>集めるもの</th><th>参加してほしい人</th><th>返礼品の妄想</th></tr></thead>
+<tbody>
+<tr><th scope="row">資金</th><td data-label="参加してほしい人">研究者／エネルギー関係者</td><td data-label="返礼品の妄想">億トークン</td></tr>
+<tr><th scope="row">候補地・権利情報</th><td data-label="参加してほしい人">AI・データセンター関係者</td><td data-label="返礼品の妄想">実証見学／レポート</td></tr>
+<tr><th scope="row">技術・設備</th><td data-label="参加してほしい人">土地・島・物流の関係者</td><td data-label="返礼品の妄想">候補地投票</td></tr>
+<tr><th scope="row">専門知・反論</th><td data-label="参加してほしい人">行政／法務／環境の専門家</td><td data-label="返礼品の妄想">名称・アイデア参加</td></tr>
+</tbody>
+</table>
+<p class="tbl-note">「億トークン」は返礼品の妄想案として置いた言葉です【構想】。【専門家に確認】金融商品・暗号資産・計算資源の提供等に該当する場合は、制度・契約・税務等を別途確認する必要があります。この資料では法的な結論は述べません。</p>
+</section>
+
+<section>
+<h2>進め方と、まだ決めていないこと</h2>
+<p class="lead">狂った問いから、現実の小さな実証へ。5つの段階で進め、途中で候補を消すことも成果に含めます。鳥島のケースは、すでに SCREEN（ふるいにかける段階）で得られた学びです。</p>
+<div class="fig">
+<p class="fig-title">狂った問い → 現実にできる部分を探す</p>
+<div class="flow">
+<div class="fstep"><span class="fs-num">1 THROW</span><strong>問いを投げる</strong><span>「無人島に太陽を」という問いを投げる</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">2 GATHER</span><strong>集める</strong><span>場所・技術・知恵・反論を集める</span></div>
+<div class="farrow">→</div>
+<div class="fstep hot"><span class="fs-num">3 SCREEN</span><strong>ふるいにかける</strong><span>自然・法規・安全・物流の条件で確かめる</span><span class="fs-core">鳥島＝CASE 00の学び</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">4 MATCH</span><strong>組み合わせる</strong><span>技術 × 場所 × 資金を組み合わせる</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">5 TEST</span><strong>小さく試す</strong><span>実現可能な小さな実証へ進む</span></div>
+</div>
+<p class="fig-cap">「できる場所はどこか？」から、みんなで考えるための進め方です。各段階を誰が担い、どの順序と期間で進めるかは、まだ決めていません。</p>
+</div>
+<table class="steps">
+<thead><tr><th>調べること【要調査】</th><th>内容</th></tr></thead>
+<tbody>
+<tr><th scope="row">候補地の条件</th><td>自然保護区域の指定状況、火山等の安全、物流、行政手続きの窓口。鳥島以外の候補地の探し方と、CASE 00で得た確認項目の一般化</td></tr>
+<tr><th scope="row">環境への影響</th><td>照明や施設が生態系・環境へ与える影響の評価方法。「釣り場」ネタの集魚性の条件と環境影響の評価</td></tr>
+<tr><th scope="row">計算資源への変換</th><td>島で生まれたエネルギーを計算資源へ変換する形の技術的な前提（送電しない前提での成立条件）</td></tr>
+<tr><th scope="row">参加口の設計</th><td>クラファンの参加口の設計：反論や専門知を含めて集める方法。まず THROW と GATHER の形から検討する</td></tr>
+</tbody>
+</table>
+<ul class="points" style="margin-top:14px;">
+<li><strong>専門家に確かめること：</strong>核融合関連技術を含む次世代エネルギーの実証候補としての適否／「億トークン」等の返礼の制度・契約・税務／太陽の塔に関する権利関係とオマージュ表現の可否／無人島の土地の権利関係・利用に必要な許認可と行政手続き／ドローン・自律モビリティ・独立通信を島で運用する際の法規と安全条件。</li>
+<li><strong>今は決めないこと：</strong>候補地（鳥島は教材＝CASE 00、次の候補は未定）／建設費・島の取得費用・クラファンの目標額などの金額（数字を置いていない）／発電量・計算資源の規模などの技術的な前提（数字を置いていない）／核融合を含む次世代エネルギーの採否と時期（断定しない）／ランドマークの名称・形状の最終形（権利関係の確認が先）／返礼品の内容（「億トークン」を含む、妄想案の段階）。</li>
+<li><strong>素材の言葉：</strong>「最悪は爆発だ。」は岡本太郎「芸術は爆発だ」への言葉遊び的オマージュであり、技術・安全性を表す文言ではありません【言葉遊び】。「狂った問いから、現実の実証へ。候補を消すことも、このプロジェクトの成果にする。」</li>
 </ul>
 </section>
 
 <div class="back-wrap">
 <a class="back-link" href="vision.html">← 未来像ページへ戻る</a>
 </div>
-
 </main>
 
 <footer>
