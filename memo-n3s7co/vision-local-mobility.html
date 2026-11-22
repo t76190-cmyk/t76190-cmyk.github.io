@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>LOCAL MOBILITY PLAYGROUND（地域展開版）｜可能性の光と光市</title>
+<title>LOCAL MOBILITY PLAYGROUND 地域展開版｜可能性の光と光市</title>
 <style>
 :root{
 --navy:#17375e;
@@ -41,7 +41,6 @@ radial-gradient(ellipse 700px 480px at -10% 120%, rgba(64,110,168,.35), rgba(64,
 linear-gradient(140deg,#1b4069 0%,var(--navy) 42%,var(--navy-dark) 78%,var(--navy-deep) 100%);
 padding:64px 24px 58px;
 }
-/* 太陽のモチーフ（封筒の太陽マークへのオマージュ） */
 .sun{
 position:absolute;
 top:-58px;right:-38px;
@@ -121,7 +120,6 @@ section > h2::after{
 content:"";flex:1;height:1px;
 background:linear-gradient(90deg, rgba(23,55,94,.28), rgba(23,55,94,0));
 }
-section > h2.pnum{color:var(--orange);font-weight:700;letter-spacing:.04em;}
 .section-note{
 font-size:13.5px;color:var(--muted);margin:0 0 16px;
 }
@@ -148,7 +146,7 @@ border-top:1px dashed var(--line);
 font-size:14.5px;
 }
 .fact-list li:first-child{border-top:none;}
-.fact-list.fk{
+.fact-list .fk{
 display:inline-block;min-width:92px;
 font-weight:bold;color:var(--navy);
 }
@@ -165,7 +163,7 @@ margin:0 0 16px;
 .core p{
 margin:0 0 8px;font-size:15.5px;font-weight:600;color:var(--navy);line-height:1.75;
 }
-.core.core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
+.core .core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
 
 /* ===== 要点リスト ===== */
 .points{list-style:none;margin:0;padding:0;}
@@ -184,6 +182,117 @@ background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 5
 }
 .points li strong{color:var(--navy);}
 
+/* ===== 表 ===== */
+table.cmp, table.steps{
+width:100%;border-collapse:collapse;
+background:var(--card);
+border:1px solid var(--line);border-radius:12px;
+font-size:13.5px;
+margin:14px 0 6px;
+}
+table.cmp th, table.cmp td, table.steps th, table.steps td{
+border-top:1px solid var(--line);
+padding:9px 12px;text-align:left;vertical-align:top;
+}
+table.cmp thead th, table.steps thead th{
+background:linear-gradient(120deg, rgba(23,55,94,.06), rgba(23,55,94,.02));
+color:var(--navy);border-top:none;font-size:13px;
+}
+table.cmp tbody th{
+color:var(--navy);font-weight:bold;white-space:nowrap;background:#fbf9f5;
+}
+table.steps tbody th{color:var(--navy);font-weight:bold;white-space:nowrap;}
+.tbl-note{font-size:12px;color:var(--muted);margin:4px 0 0;}
+
+/* ===== 図の共通 ===== */
+.fig{
+background:var(--card);
+border:1px solid var(--line);border-radius:14px;
+padding:18px 18px 14px;
+margin:14px 0 6px;
+box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+}
+.fig .fig-cap{
+font-size:12.5px;color:var(--muted);margin:10px 0 2px;
+}
+.fig .fig-title{
+font-size:13px;font-weight:bold;color:var(--navy);letter-spacing:.06em;margin:0 0 12px;
+}
+
+/* ===== D-1 設備の一生フロー図 ===== */
+.flow{display:flex;align-items:stretch;gap:0;}
+.fstep{
+flex:1;
+background:#fbf9f5;
+border:1px solid var(--line);border-radius:10px;
+padding:10px 10px 8px;
+text-align:center;
+}
+.fstep strong{display:block;font-size:13.5px;color:var(--navy);line-height:1.45;}
+.fstep span{display:block;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:4px;}
+.fstep .fs-num{
+display:inline-block;
+font-size:10.5px;font-weight:bold;color:#fff;
+background:var(--navy);border-radius:999px;
+padding:0 8px;margin:0 0 5px;line-height:1.7;
+}
+.fstep.hot{
+background:linear-gradient(140deg, rgba(243,152,0,.16), rgba(249,178,51,.07));
+border-color:var(--amber);
+}
+.fstep.hot .fs-num{background:linear-gradient(120deg,var(--orange),var(--amber));}
+.fstep.hot .fs-core{
+font-size:12px;color:var(--navy);font-weight:bold;margin-top:6px;
+}
+.farrow{
+flex:none;align-self:center;
+color:var(--orange);font-weight:bold;font-size:15px;
+padding:0 3px;
+}
+
+/* ===== バー図（D-2 / D-3 共通） ===== */
+.brow{
+padding:9px 0 10px;border-top:1px dashed var(--line);
+}
+.brow:first-of-type{border-top:none;}
+.bhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:5px;}
+.bhead .bl{font-size:13px;font-weight:bold;color:var(--navy);line-height:1.45;}
+.bhead .bl small{font-weight:normal;color:var(--muted);font-size:11.5px;margin-left:8px;}
+.bhead .bv{font-size:14.5px;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.brow .bt{height:14px;background:#ece7db;border-radius:7px;}
+.brow .bf{
+display:block;height:14px;border-radius:7px;
+background:linear-gradient(90deg,var(--navy),#2c5a8f);
+}
+.brow .bf.org{background:linear-gradient(90deg,var(--orange),var(--amber));}
+.brow.own .bl{color:var(--orange);}
+.brow.own .band{
+display:block;height:14px;border-radius:7px;
+background:rgba(243,152,0,.45);
+border:1.5px solid var(--orange);
+}
+
+/* ===== D-4 参加の大きさ3層図 ===== */
+.layers{display:flex;flex-direction:column;gap:8px;}
+.layer{
+border:1px solid var(--line);border-radius:10px;
+background:#fbf9f5;
+padding:11px 14px 9px;
+display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.layer .lt{font-size:14.5px;font-weight:bold;color:var(--navy);flex:none;}
+.layer .ld{font-size:12.5px;color:var(--muted);}
+.layer.mid{
+background:linear-gradient(120deg, rgba(243,152,0,.15), rgba(249,178,51,.06));
+border:1.5px dashed var(--orange);
+}
+.layer .seat{
+margin-left:auto;flex:none;
+font-size:11px;font-weight:bold;letter-spacing:.06em;
+color:#fff;background:linear-gradient(120deg,var(--orange),var(--amber));
+border-radius:999px;padding:1px 10px;
+}
+
 .back-wrap{margin-top:48px;text-align:center;}
 .back-link{
 display:inline-block;
@@ -195,46 +304,6 @@ box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
 }
 .back-link:hover,.back-link:active{border-color:#d8cfbc;}
 
-/* ===== 目次 ===== */
-.toc{
-margin-top:26px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:14px;
-padding:16px 22px 8px;
-box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
-}
-.toc.toc-title{
-font-size:11.5px;letter-spacing:.24em;color:var(--muted);font-weight:bold;margin:0;
-}
-.toc.mi{
-display:flex;gap:12px;align-items:baseline;
-padding:9px 2px;border-top:1px dashed var(--line);
-color:var(--muted);font-size:15px;font-weight:600;
-}
-.toc a.mi{
-text-decoration:none;color:var(--ink);
-border-radius:8px;padding-left:10px;padding-right:10px;
-}
-.toc a.mi:hover,.toc a.mi:active{
-background:linear-gradient(90deg, rgba(243,152,0,.10), rgba(243,152,0,0) 78%);
-}
-.toc.mi.tn{color:var(--orange);font-weight:700;letter-spacing:.06em;flex:none;}
-.toc.mi.current{
-color:var(--navy);
-background:linear-gradient(90deg, rgba(243,152,0,.13), rgba(243,152,0,0) 78%);
-border-radius:8px;
-padding-left:10px;padding-right:10px;
-}
-.toc.mi.tag{
-margin-left:auto;flex:none;
-font-size:11px;font-weight:bold;letter-spacing:.08em;
-border-radius:999px;padding:1px 10px;
-}
-.toc.mi.tag.now{background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;}
-.toc.mi.tag.soon{background:#f3efe7;color:var(--muted);border:1px solid var(--line);}
-.toc.mi.tag.go{background:none;color:var(--orange);padding:1px 2px;letter-spacing:.04em;}
-
 /* ===== フッター ===== */
 footer{
 background:linear-gradient(160deg,var(--navy-dark),var(--navy-deep));
@@ -242,13 +311,13 @@ padding:30px 16px 34px;
 font-size:12.5px;color:#a9bccd;
 text-align:center;
 }
-footer.f-inner{max-width:1000px;margin:0 auto;}
-footer.null-walk{
+footer .f-inner{max-width:1000px;margin:0 auto;}
+footer .null-walk{
 display:block;height:56px;width:auto;margin:0 auto 14px;
 filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));
 }
 footer a{color:#ffd98a;font-weight:bold;text-decoration:none;}
-footer.f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
+footer .f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
 
 @media (max-width:560px){
 header{padding:44px 18px 40px;}
@@ -259,12 +328,26 @@ header{padding:44px 18px 40px;}
 section{margin-top:38px;}
 section > h2{font-size:18px;}
 main{padding:10px 14px 44px;}
-.fact-list.fk{min-width:78px;}
+.fact-list .fk{min-width:78px;}
+.flow{flex-direction:column;}
+.farrow{transform:rotate(90deg);padding:2px 0;}
+table.cmp thead{display:none;}
+table.cmp, table.cmp tbody, table.cmp tr, table.cmp td{display:block;width:100%;}
+table.cmp tr{border-top:1px solid var(--line);padding:6px 0;}
+table.cmp tbody th{display:block;border-top:none;background:none;padding:8px 12px 2px;}
+table.cmp td{border-top:none;padding:2px 12px 6px;}
+table.cmp td::before{
+content:attr(data-label);
+display:block;font-size:11px;font-weight:bold;color:var(--orange);letter-spacing:.05em;
+}
+table.steps{font-size:12.5px;}
+table.steps th, table.steps td{padding:7px 8px;}
+table.steps tbody th{white-space:normal;}
+.layer .seat{margin-left:0;}
 }
 </style>
 </head>
 <body>
-
 <header>
 <div class="sun" aria-hidden="true"></div>
 <div class="header-inner">
@@ -273,9 +356,8 @@ main{padding:10px 14px 44px;}
 </div>
 <div class="header-title" style="margin-top:26px;">
 <p class="eyebrow">Future Vision</p>
-<h1><span class="h1-main">LOCAL MOBILITY PLAYGROUND（地域展開版）</span> <span class="h1-sub">可能性の光 ― 10の案のひとつ</span></h1>
+<h1><span class="h1-main">LOCAL MOBILITY PLAYGROUND 地域展開版</span> <span class="h1-sub">可能性の光 ― 10の案のひとつ</span></h1>
 <span class="h1-rule" aria-hidden="true"></span>
-
 </div>
 <span class="internal-badge">社内向け</span>
 </div>
@@ -283,26 +365,106 @@ main{padding:10px 14px 44px;}
 
 <main>
 <section style="margin-top:34px;">
-<p class="lead">地域ごとに、乗り物を着替える。霞ヶ浦で考えた型を、他の地域へ広げる展開モデルです。</p>
+<p class="lead">霞ヶ浦で考えた2つの案 ―― 湖を遊ぶ「PLAYGROUND」と、「一周しなくていい、霞ヶ浦。SHORT TRIP MOBILITY」（短く乗って、止まる小型の移動手段の構想）―― を、1地域に閉じず他の地域へ広げて読む展開版です。本質は、長距離の移動そのものではなく、地域の中の「ちょっと遠い」を面白くすることにあります。乗り物は地域ごとに着替え、事業の進め方の骨格だけを共有します。結論を決めた計画ではなく、確かめられる形に整理した検証用の叩き台です。料金や収益見込みなどの数字は置いておらず、どの乗り物が各地域で実際に走れるかも、制度と安全の確認が先で、結論は置いていません。</p>
 <div class="core">
 <p>「地域ごとに、乗り物を着替える。」</p>
 <p>「短く乗る → 降りる → 食べる → 遊ぶ → 泊まる。」</p>
-<p>「地獄間の移動を、快適に。」（別府のサブコピー）</p>
+<p>「地獄間の移動を、快適に。」</p>
+<p class="core-sub">3つ目は別府のサブコピー（呼び名に添える一文）です。モデルは DISCOVER→MATCH→STOP で保持します。</p>
 </div>
+</section>
+
+<section>
+<h2>本質と起点 ― 「ちょっと遠い」を面白くする</h2>
+<p class="lead">起点は、霞ヶ浦編からそのまま引き継ぐ見方です。</p>
 <ul class="points">
-<li><strong>起点：</strong>長距離の移動そのものではなく、地域の中の「ちょっと遠い」を面白くすること。「車両ありき」ではなく、地域課題と体験から逆算します。全部回らなくていい。一周しなくていい。</li>
-<li><strong>6地域の読み：</strong>同じモビリティでも、地域が変われば役割が変わります。霞ヶ浦 → 湖を遊ぶ／伊豆大島 → 島を遊ぶ／川原湯温泉・八ッ場 → ダムと温泉を遊ぶ／草津 → 温泉街と周辺を遊ぶ／しまなみ海道 → 先行事例から学ぶ／別府 → 地獄を遊ぶ。</li>
-<li><strong>別府 HELL MOBILITY：</strong>別府の地獄めぐりでは、鉄輪側の5地獄は徒歩圏にまとまっていますが、血の池地獄・龍巻地獄までは約3km離れています。この「約3km」が、短距離モビリティを考える余白です。</li>
-<li><strong>事業の骨格は共有：</strong>地域ごとに乗り物は着替えますが、進め方の骨格はどの地域でも共有します。DISCOVER → MATCH → STOP。移動そのものより「途中で止まる理由」を増やす設計です。</li>
-<li><strong>地域共通のモジュール：</strong>ペット様モビリティ（ペット様ハイヤー）は、霞ヶ浦編で考えた要素ですが、特定の地域に閉じた話ではありません。地域共通のモジュールとして位置づけます。</li>
-<li><strong>裏付けの読み方：</strong>伊豆諸島の振興計画には島内交通・観光・再生可能エネルギーが含まれ、八ッ場の地域ビジョンにはレンタサイクル・周遊・SUP等が記載されています。しまなみ海道には、立ち寄り・消費促進のDX事業という先行事例があります。成功例はコピーせず、仕組みを読む対象として置いています。</li>
+<li><strong>全部回らなくていい。一周しなくていい：</strong>移動そのものより、「途中で止まる理由」を増やすことが狙いです。短く乗る → 降りる → 食べる → 遊ぶ → 泊まる、という止まり方を増やします。</li>
+<li><strong>「車両ありき」ではなく、地域課題と体験から逆算する：</strong>先に乗り物を決めるのではなく、その地域で何が「ちょっと遠い」のか、何で止まってほしいのかから組み合わせを考えます。</li>
+<li><strong>成功例はコピーせず、仕組みを読む：</strong>うまくいっている地域をそのまま真似るのではなく、なぜ「止まる」が生まれているのか、その仕組みを読む対象として扱います。</li>
+<li><strong>部品（モジュール）は共通、組み合わせは地域ごと：</strong>小型EV（1〜2人乗りの小さな電気自動車）、水素マイクロモビリティ（水素を使う小型の乗り物。マイクロモビリティ＝小型の乗り物の総称）、自転車（レンタサイクルを含む）、地域交通（巡回バス・シャトル等の既存の足）、ペット様ハイヤー、充電・エネルギー、食・宿・アクティビティ（「止まる理由」になる地域の受け皿）を持ちますが、顔ぶれが共通でも組み合わせは地域ごとに変えます【推論】。</li>
+</ul>
+</section>
+
+<section>
+<h2>確認できた事実</h2>
+<div class="about-box">
+<p>構想の土台になる、公開情報で確かめられた事実は次の5点です。いずれも、構想の実現や、乗り物の走行可否を保証するものではありません。</p>
+<ul class="fact-list">
+<li><span class="fk">伊豆諸島</span>伊豆諸島の振興計画には、島内交通・観光振興・再生可能エネルギー活用が含まれています。また、大島町の資料では、観光繁忙期の移動手段不足が課題とされています（出典：伊豆諸島の振興計画／大島町資料）。「島を遊ぶ」読みの土台は、行政の計画と課題の側にもあります。</li>
+<li><span class="fk">八ッ場</span>八ッ場の地域ビジョンには、レンタサイクル、周遊、SUP・カヤック等が記載されています（出典：八ッ場の地域ビジョン）。川原湯温泉・八ッ場の読みは、地域側の既存構想の上に足す形になります。小型モビリティ（小型の移動手段）の接続は、制度確認が前提です。</li>
+<li><span class="fk">草津温泉</span>草津温泉には町内巡回バスと、温泉街〜スキー場のシャトルがあります（出典：草津温泉の公開情報）。既存の地域交通がある場所では、新しい乗り物は「置き換え」ではなく「重ならない足し方」を考える必要があります。</li>
+<li><span class="fk">しまなみ海道</span>しまなみ海道では、約70kmのサイクリング観光が基盤にあり、周遊アプリ等により立ち寄り・消費促進を図るDX事業（DX＝デジタル技術による仕組みの改善）があります（出典：しまなみ海道の公開情報）。「止まる」を地域消費へつなぐ先行事例として、仕組みを読む対象です。</li>
+<li><span class="fk">別府</span>別府では、鉄輪側の5地獄は徒歩圏にあります。血の池地獄・龍巻地獄までは約3km離れており、公式は車・バスでの移動を推奨しています（出典：別府地獄めぐりの公式情報）。次の「約3kmの余白」の根拠です。</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>構想の方向 ― 地域ごとに着替える</h2>
+<p class="lead">同じモビリティでも、地域が変われば役割が変わります。水辺と島では役割が違い、温泉地でも、草津のように既存の足（巡回バス）がある場所と、別府のように名所どうしの距離に余白がある場所では、「止まり方」が違います。6地域の読みは、いずれも確定ではなく、地域の公開情報と組み合わせて読んだ見立てです。</p>
+<table class="cmp">
+<thead><tr><th>地域</th><th>遊び方</th><th>地域の読み</th></tr></thead>
+<tbody>
+<tr><th scope="row">霞ヶ浦</th><td data-label="遊び方">湖を遊ぶ</td><td data-label="地域の読み">湖岸を短距離で周遊。釣り・SUP・温泉・食で止まる。一周ではなく再訪を残す</td></tr>
+<tr><th scope="row">伊豆大島</th><td data-label="遊び方">島を遊ぶ</td><td data-label="地域の読み">島内交通＋観光＋再生可能エネルギー。港・空港から観光地点へ。繁忙期の移動不足も論点</td></tr>
+<tr><th scope="row">川原湯温泉・八ッ場</th><td data-label="遊び方">ダムと温泉を遊ぶ</td><td data-label="地域の読み">駅・温泉・ダム湖をつなぐ。レンタサイクル・周遊・SUP等の既存構想あり。小型モビリティの接続は要制度確認</td></tr>
+<tr><th scope="row">草津</th><td data-label="遊び方">温泉街と周辺を遊ぶ</td><td data-label="地域の読み">既存の町内巡回バス・シャトルがある。温泉街〜周辺の短距離移動を考える。歩行者環境・道路条件は要確認</td></tr>
+<tr><th scope="row">しまなみ海道</th><td data-label="遊び方">先行事例から学ぶ</td><td data-label="地域の読み">約70kmのサイクリング観光が基盤。レンタサイクル＋DXで立ち寄りを促進し、地域消費へつなぐ先行事例として研究</td></tr>
+<tr><th scope="row">別府</th><td data-label="遊び方">地獄を遊ぶ</td><td data-label="地域の読み">鉄輪側の5地獄は徒歩圏。血の池地獄・龍巻地獄までは約3km離れる。この「約3km」が余白</td></tr>
+</tbody>
+</table>
+<div class="fig">
+<p class="fig-title">地域ごとの着替え ― 地形・距離・目的が違えば、乗り物も替える</p>
+<div class="layers">
+<div class="layer"><span class="lt">湖・水辺 ― 霞ヶ浦／八ッ場</span><span class="ld">湖岸やダム湖を短距離でつなぐ。自転車・小型EV・SUP等と組み合わせ、食と温泉で止まる</span></div>
+<div class="layer"><span class="lt">島 ― 伊豆大島</span><span class="ld">港・空港から観光地点へ。島内交通と再生可能エネルギーを重ね、繁忙期の不足を補う足し方を考える</span></div>
+<div class="layer mid"><span class="lt">温泉街 ― 草津／別府</span><span class="ld">既存のバスがある草津では重ならない足し方、名所間に約3kmの余白がある別府ではその距離を埋める短距離の足</span><span class="seat">同じ温泉でも違う</span></div>
+<div class="layer"><span class="lt">海道 ― しまなみ海道</span><span class="ld">約70kmのサイクリングが基盤。真似るのではなく、立ち寄りと消費を生む仕組みを読む</span></div>
+</div>
+<p class="fig-cap">共通の部品を持ちながら、地域の地形・距離・目的に合わせて組み合わせを取り替える ―― それが「着替える」ということです。</p>
+</div>
+<p class="lead"><strong>別府 HELL MOBILITY ― 地獄間の「約3km」という余白：</strong>その約3kmは、歩くには少し遠く、車を出すほどでもない距離です。起点の言葉で言えば「ちょっと遠い」。短距離モビリティの出番を考える余白がここにあります。サブコピーは原文のまま「地獄間の移動を、快適に。」です。ただし、地獄周辺の道路条件、歩行者の多さ、貸し出しの拠点をどこに置くかは未確認で、どの乗り物が走れるかも含め、結論は置いていません。</p>
+<p class="lead"><strong>ペット様モビリティ ― 地域共通のモジュール：</strong>ペット様ハイヤー（ペット様を旅先へ送迎する車）は霞ヶ浦編で考えた要素ですが、特定の地域に閉じた話ではありません。ペット様を旅先へ送迎し、飼い主は別行程でも旅先で合流できる形で、人間だけの利用も想定します。犬様はAMARICO（ペットフード）で旅先の食も支援します ―― いつものフードを移動先でも、という「食」の部分です。温泉地や観光地はペット連れの旅行先としても選ばれるため、どの地域でも移動と食を足すと「止まる理由」が1つ増える可能性があります【推論】。ただし、ペットを送迎する事業としての形（許認可、保険、衛生・清掃の基準）は地域ごとに確かめる必要があります。</p>
+</section>
+
+<section>
+<h2>事業の骨格 ― DISCOVER→MATCH→STOP</h2>
+<p class="lead">地域ごとに乗り物は着替えますが、事業の進め方の骨格は、どの地域でも共有します。</p>
+<div class="fig">
+<p class="fig-title">DISCOVER→MATCH→STOP ― 3つの段階</p>
+<div class="flow">
+<div class="fstep"><span class="fs-num">段階 1</span><strong>DISCOVER</strong><span>探す ― 地域の「ちょっと遠い」「移動が面倒」「途中に寄ってほしい」を探す</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">段階 2</span><strong>MATCH</strong><span>組み合わせる ― EV、水素、自転車、既存バス等から、地域に合う移動手段を組み合わせる</span></div>
+<div class="farrow">→</div>
+<div class="fstep hot"><span class="fs-num">段階 3</span><strong>STOP</strong><span>止める ― 移動を店・温泉・宿・アクティビティへ接続し、「止まる」を価値にする</span></div>
+</div>
+<p class="fig-cap">地域ごとに着替える。でも、事業の骨格は共有する。骨格が共有できれば、1つの地域で確かめた進め方を次の地域の検討に持ち越せます【推論】。ただし持ち越せるのは「進め方」までで、結論は地域ごとに確かめ直す必要があります。</p>
+</div>
+</section>
+
+<section>
+<h2>進め方と、まだ決めていないこと</h2>
+<p class="lead">分からないことは、分からないまま置きます。ここが埋まらないと、計画にはなりません。特に、特定小型原付（電動キックボード等を含む新しい車両区分）・水素モビリティが各観光エリアで走行できるとは、まだ断定しません。</p>
+<table class="steps">
+<thead><tr><th>段階</th><th>すること</th><th>この段階で確かめること</th></tr></thead>
+<tbody>
+<tr><th scope="row">調べる</th><td>地域ごとに、どの区間が「ちょっと遠い」のか（名所・駅・宿のあいだの距離と現在の移動手段）、来訪者の規模と季節による変動、店・温泉・宿・アクティビティとの接続（立ち寄りの設計）、既存の地域交通と重ならない足し方、先行事例（しまなみ海道等）で何が「止まる」を生んでいるかを調べる</td><td>地域ごとの余白と、止まり方の設計</td></tr>
+<tr><th scope="row">専門家に確認</th><td>地域ごとに、特定小型原付・水素モビリティの走行可否、道路区分、交通規制、貸出条件、安全対策、貸出時の保険と運用責任、エネルギー供給条件（充電の場所、水素の供給・保管・整備）、歩行者環境への配慮が必要なエリア（温泉街等）での道路条件、ペットを送迎する事業の許認可・保険・衛生・清掃の基準を確認する</td><td>そもそも走れるか、安全に貸せるか</td></tr>
+</tbody>
+</table>
+<ul class="points" style="margin-top:14px;">
+<li><strong>展開する地域と、その順番：</strong>地域ごとの確認が先で、決めていません。</li>
+<li><strong>地域ごとの乗り物の組み合わせ：</strong>走行可否の確認が先で、決めていません。</li>
+<li><strong>料金設定・収益見込み・地域ごとの投資額などの財務の前提：</strong>数字を置いていません。要調査です。</li>
+<li><strong>運営を誰が担うか（地域の事業者との役割分担を含む）：</strong>未定です。</li>
+<li><strong>各地域のツアーや貸出の具体的な設計：</strong>「走れるか」の確認の後です。</li>
 </ul>
 </section>
 
 <div class="back-wrap">
 <a class="back-link" href="vision.html">← 未来像ページへ戻る</a>
 </div>
-
 </main>
 
 <footer>
