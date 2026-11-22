@@ -41,7 +41,6 @@ radial-gradient(ellipse 700px 480px at -10% 120%, rgba(64,110,168,.35), rgba(64,
 linear-gradient(140deg,#1b4069 0%,var(--navy) 42%,var(--navy-dark) 78%,var(--navy-deep) 100%);
 padding:64px 24px 58px;
 }
-/* 太陽のモチーフ（封筒の太陽マークへのオマージュ） */
 .sun{
 position:absolute;
 top:-58px;right:-38px;
@@ -121,7 +120,6 @@ section > h2::after{
 content:"";flex:1;height:1px;
 background:linear-gradient(90deg, rgba(23,55,94,.28), rgba(23,55,94,0));
 }
-section > h2.pnum{color:var(--orange);font-weight:700;letter-spacing:.04em;}
 .section-note{
 font-size:13.5px;color:var(--muted);margin:0 0 16px;
 }
@@ -148,7 +146,7 @@ border-top:1px dashed var(--line);
 font-size:14.5px;
 }
 .fact-list li:first-child{border-top:none;}
-.fact-list.fk{
+.fact-list .fk{
 display:inline-block;min-width:92px;
 font-weight:bold;color:var(--navy);
 }
@@ -165,7 +163,7 @@ margin:0 0 16px;
 .core p{
 margin:0 0 8px;font-size:15.5px;font-weight:600;color:var(--navy);line-height:1.75;
 }
-.core.core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
+.core .core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
 
 /* ===== 要点リスト ===== */
 .points{list-style:none;margin:0;padding:0;}
@@ -184,6 +182,117 @@ background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 5
 }
 .points li strong{color:var(--navy);}
 
+/* ===== 表 ===== */
+table.cmp, table.steps{
+width:100%;border-collapse:collapse;
+background:var(--card);
+border:1px solid var(--line);border-radius:12px;
+font-size:13.5px;
+margin:14px 0 6px;
+}
+table.cmp th, table.cmp td, table.steps th, table.steps td{
+border-top:1px solid var(--line);
+padding:9px 12px;text-align:left;vertical-align:top;
+}
+table.cmp thead th, table.steps thead th{
+background:linear-gradient(120deg, rgba(23,55,94,.06), rgba(23,55,94,.02));
+color:var(--navy);border-top:none;font-size:13px;
+}
+table.cmp tbody th{
+color:var(--navy);font-weight:bold;white-space:nowrap;background:#fbf9f5;
+}
+table.steps tbody th{color:var(--navy);font-weight:bold;white-space:nowrap;}
+.tbl-note{font-size:12px;color:var(--muted);margin:4px 0 0;}
+
+/* ===== 図の共通 ===== */
+.fig{
+background:var(--card);
+border:1px solid var(--line);border-radius:14px;
+padding:18px 18px 14px;
+margin:14px 0 6px;
+box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+}
+.fig .fig-cap{
+font-size:12.5px;color:var(--muted);margin:10px 0 2px;
+}
+.fig .fig-title{
+font-size:13px;font-weight:bold;color:var(--navy);letter-spacing:.06em;margin:0 0 12px;
+}
+
+/* ===== D-1 設備の一生フロー図 ===== */
+.flow{display:flex;align-items:stretch;gap:0;}
+.fstep{
+flex:1;
+background:#fbf9f5;
+border:1px solid var(--line);border-radius:10px;
+padding:10px 10px 8px;
+text-align:center;
+}
+.fstep strong{display:block;font-size:13.5px;color:var(--navy);line-height:1.45;}
+.fstep span{display:block;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:4px;}
+.fstep .fs-num{
+display:inline-block;
+font-size:10.5px;font-weight:bold;color:#fff;
+background:var(--navy);border-radius:999px;
+padding:0 8px;margin:0 0 5px;line-height:1.7;
+}
+.fstep.hot{
+background:linear-gradient(140deg, rgba(243,152,0,.16), rgba(249,178,51,.07));
+border-color:var(--amber);
+}
+.fstep.hot .fs-num{background:linear-gradient(120deg,var(--orange),var(--amber));}
+.fstep.hot .fs-core{
+font-size:12px;color:var(--navy);font-weight:bold;margin-top:6px;
+}
+.farrow{
+flex:none;align-self:center;
+color:var(--orange);font-weight:bold;font-size:15px;
+padding:0 3px;
+}
+
+/* ===== バー図（D-2 / D-3 共通） ===== */
+.brow{
+padding:9px 0 10px;border-top:1px dashed var(--line);
+}
+.brow:first-of-type{border-top:none;}
+.bhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:5px;}
+.bhead .bl{font-size:13px;font-weight:bold;color:var(--navy);line-height:1.45;}
+.bhead .bl small{font-weight:normal;color:var(--muted);font-size:11.5px;margin-left:8px;}
+.bhead .bv{font-size:14.5px;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.brow .bt{height:14px;background:#ece7db;border-radius:7px;}
+.brow .bf{
+display:block;height:14px;border-radius:7px;
+background:linear-gradient(90deg,var(--navy),#2c5a8f);
+}
+.brow .bf.org{background:linear-gradient(90deg,var(--orange),var(--amber));}
+.brow.own .bl{color:var(--orange);}
+.brow.own .band{
+display:block;height:14px;border-radius:7px;
+background:rgba(243,152,0,.45);
+border:1.5px solid var(--orange);
+}
+
+/* ===== D-4 参加の大きさ3層図 ===== */
+.layers{display:flex;flex-direction:column;gap:8px;}
+.layer{
+border:1px solid var(--line);border-radius:10px;
+background:#fbf9f5;
+padding:11px 14px 9px;
+display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.layer .lt{font-size:14.5px;font-weight:bold;color:var(--navy);flex:none;}
+.layer .ld{font-size:12.5px;color:var(--muted);}
+.layer.mid{
+background:linear-gradient(120deg, rgba(243,152,0,.15), rgba(249,178,51,.06));
+border:1.5px dashed var(--orange);
+}
+.layer .seat{
+margin-left:auto;flex:none;
+font-size:11px;font-weight:bold;letter-spacing:.06em;
+color:#fff;background:linear-gradient(120deg,var(--orange),var(--amber));
+border-radius:999px;padding:1px 10px;
+}
+
 .back-wrap{margin-top:48px;text-align:center;}
 .back-link{
 display:inline-block;
@@ -195,46 +304,6 @@ box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
 }
 .back-link:hover,.back-link:active{border-color:#d8cfbc;}
 
-/* ===== 目次 ===== */
-.toc{
-margin-top:26px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:14px;
-padding:16px 22px 8px;
-box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
-}
-.toc.toc-title{
-font-size:11.5px;letter-spacing:.24em;color:var(--muted);font-weight:bold;margin:0;
-}
-.toc.mi{
-display:flex;gap:12px;align-items:baseline;
-padding:9px 2px;border-top:1px dashed var(--line);
-color:var(--muted);font-size:15px;font-weight:600;
-}
-.toc a.mi{
-text-decoration:none;color:var(--ink);
-border-radius:8px;padding-left:10px;padding-right:10px;
-}
-.toc a.mi:hover,.toc a.mi:active{
-background:linear-gradient(90deg, rgba(243,152,0,.10), rgba(243,152,0,0) 78%);
-}
-.toc.mi.tn{color:var(--orange);font-weight:700;letter-spacing:.06em;flex:none;}
-.toc.mi.current{
-color:var(--navy);
-background:linear-gradient(90deg, rgba(243,152,0,.13), rgba(243,152,0,0) 78%);
-border-radius:8px;
-padding-left:10px;padding-right:10px;
-}
-.toc.mi.tag{
-margin-left:auto;flex:none;
-font-size:11px;font-weight:bold;letter-spacing:.08em;
-border-radius:999px;padding:1px 10px;
-}
-.toc.mi.tag.now{background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;}
-.toc.mi.tag.soon{background:#f3efe7;color:var(--muted);border:1px solid var(--line);}
-.toc.mi.tag.go{background:none;color:var(--orange);padding:1px 2px;letter-spacing:.04em;}
-
 /* ===== フッター ===== */
 footer{
 background:linear-gradient(160deg,var(--navy-dark),var(--navy-deep));
@@ -242,13 +311,13 @@ padding:30px 16px 34px;
 font-size:12.5px;color:#a9bccd;
 text-align:center;
 }
-footer.f-inner{max-width:1000px;margin:0 auto;}
-footer.null-walk{
+footer .f-inner{max-width:1000px;margin:0 auto;}
+footer .null-walk{
 display:block;height:56px;width:auto;margin:0 auto 14px;
 filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));
 }
 footer a{color:#ffd98a;font-weight:bold;text-decoration:none;}
-footer.f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
+footer .f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
 
 @media (max-width:560px){
 header{padding:44px 18px 40px;}
@@ -259,7 +328,22 @@ header{padding:44px 18px 40px;}
 section{margin-top:38px;}
 section > h2{font-size:18px;}
 main{padding:10px 14px 44px;}
-.fact-list.fk{min-width:78px;}
+.fact-list .fk{min-width:78px;}
+.flow{flex-direction:column;}
+.farrow{transform:rotate(90deg);padding:2px 0;}
+table.cmp thead{display:none;}
+table.cmp, table.cmp tbody, table.cmp tr, table.cmp td{display:block;width:100%;}
+table.cmp tr{border-top:1px solid var(--line);padding:6px 0;}
+table.cmp tbody th{display:block;border-top:none;background:none;padding:8px 12px 2px;}
+table.cmp td{border-top:none;padding:2px 12px 6px;}
+table.cmp td::before{
+content:attr(data-label);
+display:block;font-size:11px;font-weight:bold;color:var(--orange);letter-spacing:.05em;
+}
+table.steps{font-size:12.5px;}
+table.steps th, table.steps td{padding:7px 8px;}
+table.steps tbody th{white-space:normal;}
+.layer .seat{margin-left:0;}
 }
 </style>
 </head>
@@ -283,20 +367,112 @@ main{padding:10px 14px 44px;}
 
 <main>
 <section style="margin-top:34px;">
-<p class="lead">デジタルサイネージ代理店 × マッチング構想。既存店舗・駐車場・外壁という「場所」の資産に、もう一つの働きを足す話です。</p>
+<p class="lead">ひかりマッチを「物件の売り買いをする場」から、「場所の可能性をつなぐ場」へ広げられるかを、結論を決めずに確かめる資料です。本質は、既存の店舗・駐車場・外壁という「場所」の資産に、デジタルサイネージ（電子看板）を足して、もう一度働かせることです。新しく店を作る話ではなく、すでに持っている場所に、もう一つの働きを足す話です。そして、場所の持ち主と、サイネージ事業者・広告主をマッチング（条件の合う相手同士をつなぐこと）するのが、ひかりマッチの役割の広げ方です。</p>
 <div class="core">
 <p>「店舗を、もう一度働かせる。」</p>
 <p>「『新しい店を出しませんか』ではない。『今ある店、まだ働かせられますよ。』」</p>
 <p>「物件だけではなく『可能性』をマッチする。」</p>
+<p class="core-sub">場所は、もうある。店舗も、駐車場も、外壁もある。そこに「広告」と「電力」の可能性をマッチする。</p>
 </div>
+</section>
+
+<section>
+<h2>本質・起点 ― 場所は、もうある</h2>
+<p class="lead">店舗を持つ事業者は、「場所」という資産をすでに持っています。新規出店ではなく、今ある場所にもう一つの働きを足せないか、というのが起点です。営業の入口は、「新しい店を出しませんか」ではありません。</p>
 <ul class="points">
-<li><strong>起点：</strong>新しい店を出す話ではありません。既存店舗は「場所」という資産をすでに持っています。店舗も、駐車場も、外壁もある。そこに「広告」と「電力」の可能性をマッチします。</li>
-<li><strong>画面の二つの価値：</strong>サイネージ＝収益設備＋自社メディア。売れる時間は広告へ、空いている時間は自社コンテンツへ。「画面を置く」ではなく、「店舗に24時間使える発信面を持つ」と考えます。</li>
-<li><strong>代理店構想：</strong>メーカーを作るのではなく、場所を持つ顧客へ事業を届ける「入口」にネスコインベストメントがなる案です。</li>
-<li><strong>低圧BESSとの接点：</strong>サイネージと低圧の系統用蓄電池は別の商売ですが、同じ「場所」を起点に出会えます。別々に売れる。条件が合えば組める。</li>
-<li><strong>裏付けになる事実：</strong>デジタルサイネージ事業投資を扱う会社（テンフィールズファクトリー）とは展示会で接点があり、同社はひかりマッチ掲載について「可」とされた会社です。また、低圧の系統用蓄電池は、すでにひかりマッチに14件載っています（すべて茨城県内、1,950万円〜2,200万円）。</li>
-<li><strong>数字は置かない：</strong>サイネージの設置費用や広告枠の販売見込みは未調査のため、この案では試算を置いていません。ゼロから資産をつくるだけではない。すでにある場所の「眠っている面」を見つけて、必要な事業者・設備・資本をつなぐ、という考え方です。</li>
+<li><strong>今あるものが資産です：</strong>店舗・建物、駐車場・敷地、外壁・道路側の面、既存の来店動線（お客さんが店に来る流れ）――これらは、ふだんは意識されにくい「面」や「場所」そのものです。</li>
+<li><strong>足せるもの：</strong>デジタルサイネージ（電子看板）、広告枠、自社コンテンツ（自社の案内や情報）、地域情報・案内です。場所そのものは新しく作らなくても、足せる働きがあります。</li>
+<li><strong>【推論】眠っている面が働く余地：</strong>店舗の壁面や駐車場のように、ふだんは収益を生んでいない「面」が、発信と広告の場所として働く余地がある、という見立てです。ただし、どの場所にどれだけの価値があるかは、立地や人通りで大きく変わります。場所ごとの見極めが必要です（要調査）。</li>
 </ul>
+<div class="fig">
+<p class="fig-title">場所の資産 ― 3つの置き場所</p>
+<div class="layers">
+<div class="layer"><span class="lt">店舗・建物</span><span class="ld">店内・入口まわりに画面を置き、自社の案内と広告の両方を出す</span></div>
+<div class="layer mid"><span class="lt">駐車場・敷地</span><span class="ld">敷地の空いた面に広告枠としての画面を置く。来店動線の入口にもなる</span><span class="seat">場所の資産</span></div>
+<div class="layer"><span class="lt">外壁・道路側の面</span><span class="ld">道路に面した壁を発信面にする。通りかかる人への広告・地域情報の面になる</span></div>
+</div>
+<p class="fig-cap">いずれも「新しく作る場所」ではなく、今ある場所に足す置き方です。どの置き方が合うかは、場所ごとに確かめます。</p>
+</div>
+</section>
+
+<section>
+<h2>確認できた事実</h2>
+<div class="about-box">
+<ul class="fact-list">
+<li><span class="fk">事業モデル</span>デジタルサイネージ事業投資を扱う会社があります。テンフィールズファクトリーは、デジタルサイネージ事業投資を扱っており、同社の公開情報では、デジタル広告媒体の広告収入を事業収入とする仕組みが説明されています（出典：同社公開サイト／事業ナビ）。「店舗の画面を広告媒体として事業化する」モデル自体は、すでにある、ということです。</li>
+<li><span class="fk">展示会の接点</span>SMART ENERGY WEEK 関西（2026年11月18日〜20日、インテックス大阪）で、テンフィールズファクトリーと接点があり、同社はひかりマッチ掲載について「可」と判定された会社です（展示会の内部記録）。この資料では、公開情報と「掲載可という接点があった」という事実の範囲で書いています。</li>
+<li><span class="fk">低圧BESS</span>ひかりマッチの公開物件一覧（2026年11月21日取得）には、低圧の系統用蓄電池（比較的小規模な系統用蓄電池。BESS＝蓄電池システム）が14件載っています。14件とも茨城県内（東京電力の地域）で、価格は1,950万円〜2,200万円です。サイネージと組み合わせる相手方の設備は、すでにマッチングの対象として存在しています。</li>
+<li><span class="fk">いまの条件</span>ひかりマッチのサービス範囲や費用などの前提は、この案では新たに決めていません。サイネージ側の設置費用、広告枠の販売見込み、代理店の報酬などのお金の数字は、原資料にも置かれておらず、この資料でも置いていません（要調査）。</li>
+</ul>
+</div>
+<p class="section-note">いずれの事実も、構想の実現を保証するものではありません。土台として確かめられた範囲だけを置いています。</p>
+</section>
+
+<section>
+<h2>構想の方向</h2>
+<p class="lead">方向は3つです。画面に「広告収益だけにしない」二つの価値を持たせること、ネスコインベストメントがメーカーと店舗事業者の間に入る「入口」になること、そして同じ「場所」を起点に、低圧BESS（比較的小規模な系統用蓄電池）とも出会えるようにすることです。</p>
+<ul class="points">
+<li><strong>二つの価値（1）外部広告：</strong>広告枠を販売し、広告主の情報を出す使い方です。</li>
+<li><strong>二つの価値（2）自社発信：</strong>商品・サービスの案内、求人・会社紹介、店舗・地域情報を出す使い方です。広告がない時間も画面は働けます。売れる時間は広告へ。空いている時間は自社コンテンツへ。「画面を置く」のではなく、「店舗に24時間使える発信面を持つ」と考えます。核は、原資料の言葉のまま「サイネージ = 収益設備 + 自社メディア」です。</li>
+<li><strong>代理店構想 ― 入口になる：</strong>メーカーを作るのではなく、場所を持つ顧客へ事業を届ける「入口」にネスコインベストメントがなる案です。メーカーは事業・設備を提供し、ネスコインベストメントは顧客へ提案する入口となり、店舗事業者は場所を活用し、広告主等は広告・情報を出します。狙いは、「店舗を持っているだけ」の事業者を、新しい収益資産のオーナー候補へつなぐことです。</li>
+<li><strong>低圧BESSとの接点：</strong>サイネージ事業と低圧BESSの事業は別物です。ただし、どちらも店舗・土地という「場所」を起点にする点で重なります。原資料の言葉では「別々に売れる。条件が合えば組める。」です。【推論】同じ場所のオーナーに対して、サイネージと低圧BESSという二つの入口を提示できれば、片方だけでは動かなかった場所が動く可能性があります。ただし、組める条件（敷地の広さ、電力の契約、周辺環境など）は場所ごとに違います（要調査）。</li>
+<li><strong>ひかりマッチの役割：</strong>物件の売り買いだけではなく、場所の「可能性」をマッチすることへ広げられます。場所を持つ人（店舗・土地）、設備を持つ人（サイネージ・BESS）、運用する人（広告・電力の運用）、資金を出す人（投資・融資等）をつなぎ、ひかりマッチが組み合わせを作ります。本質は、原資料の言葉のまま置きます。「ゼロから資産をつくるだけではない。すでにある場所の『眠っている面』を見つけて、必要な事業者・設備・資本をつなぐ。」</li>
+</ul>
+<div class="fig">
+<p class="fig-title">マッチングの流れ ― 場所から広告主まで</p>
+<div class="flow">
+<div class="fstep"><span class="fs-num">1</span><strong>場所の持ち主</strong><span>店舗・駐車場・外壁という場所を持つ</span></div>
+<div class="farrow">→</div>
+<div class="fstep hot"><span class="fs-num">2</span><strong>ひかりマッチ</strong><span>場所の可能性と、事業者・設備・資本を組み合わせる</span><span class="fs-core">つなぐ</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">3</span><strong>サイネージ事業者</strong><span>設備と事業の仕組みを提供する</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">4</span><strong>広告主</strong><span>広告枠に広告・情報を出す。自社発信と併用もできる</span></div>
+</div>
+<p class="fig-cap">流れは一方向の説明図です。実際には、自社発信だけの使い方や、低圧BESS単体での組み合わせもあり得ます。</p>
+</div>
+<table class="cmp">
+<thead>
+<tr><th>つなぐ相手</th><th>持っているもの</th><th>この案での関わり</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">場所を持つ人</th><td data-label="持っているもの">店舗・土地</td><td data-label="関わり">場所を活用する。収益資産のオーナー候補になる</td></tr>
+<tr><th scope="row">設備を持つ人</th><td data-label="持っているもの">サイネージ・BESS</td><td data-label="関わり">事業・設備を提供する（メーカー等）</td></tr>
+<tr><th scope="row">運用する人</th><td data-label="持っているもの">広告・電力の運用</td><td data-label="関わり">広告枠の運用、電力の運用を担う</td></tr>
+<tr><th scope="row">資金を出す人</th><td data-label="持っているもの">投資・融資等</td><td data-label="関わり">必要な資本を出す側としてつなぐ候補</td></tr>
+<tr><th scope="row">ひかりマッチ</th><td data-label="持っているもの">組み合わせる力</td><td data-label="関わり">相手同士を組み合わせ、可能性をマッチする</td></tr>
+</tbody>
+</table>
+<p class="tbl-note">この表は役割の整理で、契約の形や報酬の数字は置いていません。</p>
+</section>
+
+<section>
+<h2>進め方と、まだ決めていないこと</h2>
+<p class="lead">いきなり代理店として始めるのではなく、まず調べと確認から進める案です。分からないことは、分からないまま置いています。ここが埋まらないと、計画にはなりません。</p>
+<table class="steps">
+<thead>
+<tr><th>段階</th><th>すること</th><th>この段階で確かめること</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">段階0：机上の確認</th><td>要調査事項を調べ、代理店条件や屋外広告のルールなどを関係先・専門家に聞く</td><td>そもそも可能な形かどうか</td></tr>
+<tr><th scope="row">段階1：候補の見極め</th><td>どんな店舗・立地なら広告枠に需要があるか、提案先の候補を絞る</td><td>場所ごとの価値の見極め方</td></tr>
+<tr><th scope="row">段階2：小さく試す</th><td>対象を絞って、サイネージ単体、または条件が合えば低圧BESSとの組み合わせを試す</td><td>自社コンテンツの制作・更新を誰が担えるか。組み合わせの条件</td></tr>
+<tr><th scope="row">段階3：広げる判断</th><td>試した結果を見て、代理店として広げるかどうかを改めて判断する</td><td>――</td></tr>
+</tbody>
+</table>
+<ul class="points" style="margin-top:14px;">
+<li><strong>要調査 ― サイネージの費用と見込み：</strong>設置にかかる費用と、広告枠の販売見込みは未調査です。金額の試算は置いていません。</li>
+<li><strong>要調査 ― 需要のある立地：</strong>どんな店舗・立地なら広告枠に需要があるか（人通り、道路側の面の有無など）。</li>
+<li><strong>要調査 ― 自社コンテンツの運用：</strong>自社コンテンツの制作と更新を、誰がどう担うか（店舗側の負担の大きさ）。</li>
+<li><strong>要調査 ― 低圧BESSと組める条件：</strong>敷地、電力契約、周辺環境など、場所ごとに違う条件。</li>
+<li><strong>要調査 ― 提案先の候補：</strong>どんな店舗事業者が候補になるか。提案先の店舗の選定基準も、まだ決めていません。</li>
+<li><strong>専門家に確認 ― 代理店条件：</strong>代理店条件・販売権・報酬体系は、メーカー側との確認が必要です。どのメーカーと組むかも未定です。</li>
+<li><strong>専門家に確認 ― 屋外広告のルール：</strong>屋外に広告を出す際の、自治体の条例や許可の要否（屋外広告物に関するルール）。</li>
+<li><strong>専門家に確認 ― 工事の資格・手続き：</strong>設置工事や電気工事に必要な資格・手続き（サイネージ側、低圧BESS側の両方）。</li>
+<li><strong>専門家に確認 ― 広告販売の規制：</strong>広告枠の販売の仕方が、広告関連の規制にどう当てはまるか。</li>
+<li><strong>まだ決めていない ― 財務の前提：</strong>収益見込み・広告収入の金額・回収期間などの前提は、数字を置いていません。要調査のままです。サイネージと低圧BESSを組み合わせる条件も、まだ決めていません。</li>
+</ul>
+<p class="lead" style="margin-top:16px;">この資料の役割は、可能性を「きれいに決める」ことではなく、検証で確かめられる形に残すことです。</p>
 </section>
 
 <div class="back-wrap">
