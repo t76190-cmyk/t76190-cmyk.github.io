@@ -345,6 +345,12 @@ table.steps th, table.steps td{padding:7px 8px;}
 table.steps tbody th{white-space:normal;}
 .layer .seat{margin-left:0;}
 }
+
+/* ===== 束の中の位置づけ・次の案 ===== */
+.bundle-pos{margin:18px 0 0;padding:12px 16px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:10px;font-size:13.5px;color:var(--muted);}
+.bundle-pos strong{color:var(--navy);}
+.next-plan{margin-top:40px;text-align:right;}
+.next-plan a{display:inline-block;background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;font-weight:bold;font-size:14px;padding:10px 22px;border-radius:999px;text-decoration:none;box-shadow:0 4px 12px rgba(243,152,0,.28);}
 </style>
 </head>
 <body>
@@ -357,7 +363,7 @@ table.steps tbody th{white-space:normal;}
 </div>
 <div class="header-title" style="margin-top:26px;">
 <p class="eyebrow">Future Vision</p>
-<h1><span class="h1-main">SUN ISLAND PROJECT</span> <span class="h1-sub">本物の太陽の塔をつくろう ― 可能性の光 ― 10の案のひとつ</span></h1>
+<h1><span class="h1-main">SUN ISLAND PROJECT</span> <span class="h1-sub">本物の太陽の塔をつくろう</span></h1>
 <span class="h1-rule" aria-hidden="true"></span>
 </div>
 <span class="internal-badge">社内向け</span>
@@ -367,6 +373,7 @@ table.steps tbody th{white-space:normal;}
 <main>
 <section style="margin-top:34px;">
 <p class="lead">これは建設計画ではありません。最初に「狂った問い」を投げて、現実にできる部分を探すプロジェクトです。無人島に何かを建てる計画から始めるのではなく、答えのない問いを舞台に置くことで、場所・技術・資金・知恵が同じ絵の中に入るかを確かめます。本質は、大きな問いを消さずに残しながら、できない理由も含めて公開知（みんなで使える知識）に変えていくことにあります。束の中で最も遊びの要素が強い1本ですが、事実・仮説・構想・言葉遊びは分けて書きます。</p>
+<p class="bundle-pos"><strong>この案の位置づけ：</strong>この案は、束の中で最も大きな問いを置く1本です。「無人島に太陽を」という狂った問いから、現実にできる部分を探します。</p>
 <div class="core">
 <p>「本物の太陽の塔をつくろう」</p>
 <p>「ただ、ベラボーに明るい。」</p>
@@ -432,27 +439,23 @@ table.steps tbody th{white-space:normal;}
 <tr><th scope="row">専門知・反論</th><td data-label="参加してほしい人">行政／法務／環境の専門家</td><td data-label="返礼品の妄想">名称・アイデア参加</td></tr>
 </tbody>
 </table>
-<p class="tbl-note">「億トークン」は返礼品の妄想案として置いた言葉です【構想】。【専門家に確認】金融商品・暗号資産・計算資源の提供等に該当する場合は、制度・契約・税務等を別途確認する必要があります。この資料では法的な結論は述べません。</p>
+<p class="tbl-note">「億トークン」は返礼品の妄想案として置いた言葉です【構想】。【専門家に確認】金融商品・暗号資産・計算資源の提供等に該当する場合は、制度・契約・税務等を別途確認する必要があります。この資料では法的な結論は述べません。「億トークン」をAIを使う価値の単位として考える検討は、<a href="vision-honey.html">HONEY AI工房</a>の案にまとめています。</p>
 </section>
 
 <section>
 <h2>進め方と、まだ決めていないこと</h2>
 <p class="lead">狂った問いから、現実の小さな実証へ。5つの段階で進め、途中で候補を消すことも成果に含めます。鳥島のケースは、すでに SCREEN（ふるいにかける段階）で得られた学びです。</p>
-<div class="fig">
-<p class="fig-title">狂った問い → 現実にできる部分を探す</p>
-<div class="flow">
-<div class="fstep"><span class="fs-num">1 THROW</span><strong>問いを投げる</strong><span>「無人島に太陽を」という問いを投げる</span></div>
-<div class="farrow">→</div>
-<div class="fstep"><span class="fs-num">2 GATHER</span><strong>集める</strong><span>場所・技術・知恵・反論を集める</span></div>
-<div class="farrow">→</div>
-<div class="fstep hot"><span class="fs-num">3 SCREEN</span><strong>ふるいにかける</strong><span>自然・法規・安全・物流の条件で確かめる</span><span class="fs-core">鳥島＝CASE 00の学び</span></div>
-<div class="farrow">→</div>
-<div class="fstep"><span class="fs-num">4 MATCH</span><strong>組み合わせる</strong><span>技術 × 場所 × 資金を組み合わせる</span></div>
-<div class="farrow">→</div>
-<div class="fstep"><span class="fs-num">5 TEST</span><strong>小さく試す</strong><span>実現可能な小さな実証へ進む</span></div>
-</div>
-<p class="fig-cap">「できる場所はどこか？」から、みんなで考えるための進め方です。各段階を誰が担い、どの順序と期間で進めるかは、まだ決めていません。</p>
-</div>
+<table class="steps">
+<thead><tr><th>段階</th><th>すること</th></tr></thead>
+<tbody>
+<tr><th scope="row">1. THROW</th><td>「無人島に太陽を」という問いを投げる</td></tr>
+<tr><th scope="row">2. GATHER</th><td>場所・技術・知恵・反論を集める</td></tr>
+<tr><th scope="row">3. SCREEN</th><td>自然・法規・安全・物流の条件でふるいにかける（鳥島＝CASE 00の学びはここで得られた）</td></tr>
+<tr><th scope="row">4. MATCH</th><td>技術 × 場所 × 資金を組み合わせる</td></tr>
+<tr><th scope="row">5. TEST</th><td>実現可能な小さな実証へ進む</td></tr>
+</tbody>
+</table>
+<p class="tbl-note">「できる場所はどこか？」から、みんなで考えるための進め方です。各段階を誰が担い、どの順序と期間で進めるかは、まだ決めていません。まず THROW と GATHER の形（問いをどこで、誰に向けて投げるか）から検討します。</p>
 <table class="steps">
 <thead><tr><th>調べること【要調査】</th><th>内容</th></tr></thead>
 <tbody>
@@ -468,6 +471,8 @@ table.steps tbody th{white-space:normal;}
 <li><strong>素材の言葉：</strong>「最悪は爆発だ。」は岡本太郎「芸術は爆発だ」への言葉遊び的オマージュであり、技術・安全性を表す文言ではありません【言葉遊び】。「狂った問いから、現実の実証へ。候補を消すことも、このプロジェクトの成果にする。」</li>
 </ul>
 </section>
+
+<div class="next-plan"><a href="vision-honey.html">次は、HONEY AI工房へ →</a></div>
 
 <div class="back-wrap">
 <a class="back-link" href="vision.html">← 未来像ページへ戻る</a>
