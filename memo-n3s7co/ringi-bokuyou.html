@@ -454,6 +454,7 @@ if(!m&&role!=='drafter'){
   if(_rs.length){select(_rs[0].ci);_op=true;}
   if(!_op&&_s.__self){var _ids=Object.keys(_s.__self.docs);for(var _i=0;_i<_ids.length;_i++){if(_s.__self.docs[_ids[_i]].status==='waiting'){switchDoc(_ids[_i]);_op=true;break;}}}
 }
+if(!cur&&role==='drafter')select(0);
 </script>
 </body>
 </html>
