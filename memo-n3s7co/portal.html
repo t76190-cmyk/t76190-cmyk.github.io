@@ -184,6 +184,40 @@
     transform:none;border-color:var(--line);
     box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
   }
+
+  /* ===== メニュー（リスト形式） ===== */
+  .menu-list{list-style:none;margin:0;padding:0;}
+  .menu-list li{
+    padding:15px 2px;
+    border-top:1px dashed var(--line);
+    font-size:16px;
+  }
+  .menu-list li:first-child{border-top:none;}
+  .menu-list .mrow{
+    display:flex;align-items:center;gap:12px;
+    color:var(--navy);font-weight:bold;letter-spacing:.02em;
+    text-decoration:none;
+  }
+  a.mrow{min-height:30px;}
+  a.mrow:active{opacity:.65;}
+  .menu-list .mrow .dot{
+    flex:none;width:11px;height:11px;border-radius:50%;
+    background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 55%, var(--orange) 100%);
+    box-shadow:0 0 0 3px rgba(243,152,0,.16), 0 0 10px rgba(243,152,0,.4);
+  }
+  .menu-list .mrow .arr{margin-left:auto;color:var(--orange);font-weight:bold;}
+  .menu-list .tag{
+    display:inline-block;background:#eef0f2;color:#8a8f98;
+    font-size:11px;font-weight:bold;border-radius:999px;
+    padding:1px 9px;margin-left:10px;vertical-align:2px;letter-spacing:.06em;
+  }
+  .menu-list .sub{
+    display:flex;gap:8px 22px;flex-wrap:wrap;align-items:center;
+    margin:8px 0 2px 23px;font-size:14px;
+  }
+  .menu-list .sub a{color:var(--navy);text-decoration:none;padding:4px 0;}
+  .menu-list .sub a:active{opacity:.65;}
+  .menu-list .sub .tag{margin-left:6px;}
   .about-box{
     position:relative;
     background:var(--card);
@@ -292,113 +326,41 @@
     </div>
   </section>
 
-  <!-- メニュー01：SMART ENERGY WEEK 関西の出展 -->
+  <!-- メニュー -->
   <section>
-    <h2>01 SMART ENERGY WEEK 関西の出展</h2>
-    <div class="grid">
-      <a class="card" href="exhibition.html">
-        <span class="num orange">出展ページ</span>
-        <h3>SMART ENERGY WEEK 関西の出展ページ</h3>
-        <p>出展の概要・成果の数字（名刺交換69名／取材23社）・自社販売案件4件をまとめたページです。</p>
-        <div class="meta"><span>Webページ</span><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
-      </a>
-    </div>
-  </section>
-
-  <!-- メニュー02：出展者一覧ページ210社のうち… -->
-  <section>
-    <h2>02 出展者一覧ページ210社のうち…</h2>
-    <p class="section-note">SMART ENERGY WEEK 関西の出展者210社を検索できるインデックス（さくいん）です。用途に合わせて3つの版があります。3版はそれぞれ独立しています。版どうしの連携は保留中です。</p>
-    <div class="grid">
-      <a class="card" href="https://t76190-cmyk.github.io/memo-7f3k9x/">
-        <span class="num">Webツール</span>
-        <h3>僕用さくいん（日本語マスター）</h3>
-        <p>全データの正本。訪問記録・三国スタンス・ひかりマッチ掲載可否の記録もここに集約されます。</p>
-        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
-      </a>
-      <a class="card" href="https://t76190-cmyk.github.io/memo-t4k7x9/">
-        <span class="num">Webツール</span> <span class="num unlinked">未連携</span>
-        <h3>ティリーニ用（会社運用版）</h3>
-        <p>会社内でそのまま回覧できる運用版。社内で共有するのはこの版と社長用です。</p>
-        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
-      </a>
-      <a class="card" href="https://t76190-cmyk.github.io/memo-m9k2x4/">
-        <span class="num">Webツール</span> <span class="num unlinked">未連携</span>
-        <h3>社長用（英語・全データ版）</h3>
-        <p>全データを英語で収めた意思決定用の版。各ページのENボタンで英語表示に切り替わります。</p>
-        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
-      </a>
-    </div>
-  </section>
-
-  <!-- メニュー03：イベント報告・反省・改善等 -->
-  <section>
-    <h2>03 イベント報告・反省・改善等</h2>
-    <div class="grid">
-      <div class="card card-static">
-        <span class="num unlinked">準備中</span>
-        <h3>イベント報告・反省・改善等</h3>
-        <p>出展報告書・反省点と改善案など、裏付け資料（エビデンス）のページとして作成中です。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- メニュー04：ネスコインベストメント未来像 -->
-  <section>
-    <h2>04 ネスコインベストメント未来像</h2>
-    <div class="grid">
-      <a class="card" href="vision.html">
-        <span class="num orange">未来像</span>
-        <h3>ネスコインベストメント未来像 ― 可能性の束と光市</h3>
-        <p>可能性の束（10の案）と光市 ― 一番見てほしいページです。</p>
-        <div class="meta"><span>Webページ</span><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
-      </a>
-    </div>
-  </section>
-
-  <!-- メニュー：グループ会社 -->
-  <section>
-    <h2>グループ会社</h2>
-    <div class="grid">
-      <div class="card card-static">
-        <span class="num unlinked">準備中</span>
-        <h3>グループ会社のご紹介</h3>
-        <p>グループ会社各社の紹介ページを作成中です。</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- メニュー：稟議書ツール -->
-  <section>
-    <h2>稟議書ツール</h2>
-    <div class="grid">
-      <a class="card" href="https://t76190-cmyk.github.io/memo-7f3k9x/ringi.html">
-        <span class="num orange">Webツール</span>
-        <h3>稟議書ツール</h3>
-        <p>稟議書の作成ツール。表面は日本語・裏面は英文、各1ページの形式で作成します。</p>
-        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
-      </a>
-    </div>
-  </section>
-
-  <!-- メニュー：ひかりマッチ本体 -->
-  <section>
-    <h2>ひかりマッチ本体</h2>
-    <p class="section-note">公開サイトへのリンクです。</p>
-    <div class="grid">
-      <a class="card" href="https://hikari-match.com/">
-        <span class="num orange">公式サイト</span>
-        <h3>ひかりマッチ トップページ</h3>
-        <p>系統用蓄電池・事業用土地のマッチングサービス「ひかりマッチ」の公式サイトです。</p>
-        <div class="meta"><span>hikari-match.com</span><span class="go">開く →</span></div>
-      </a>
-      <a class="card" href="https://hikari-match.com/properties">
-        <span class="num orange">公式サイト</span>
-        <h3>公開物件一覧</h3>
-        <p>現在掲載中の物件一覧（系統用蓄電池・事業用土地）です。</p>
-        <div class="meta"><span>hikari-match.com/properties</span><span class="go">開く →</span></div>
-      </a>
-    </div>
+    <h2>メニュー</h2>
+    <ul class="menu-list">
+      <li>
+        <a class="mrow" href="exhibition.html"><span class="dot" aria-hidden="true"></span>01 SMART ENERGY WEEK 関西の出展<span class="arr">→</span></a>
+      </li>
+      <li>
+        <span class="mrow"><span class="dot" aria-hidden="true"></span>02 出展者一覧ページ210社のうち…</span>
+        <div class="sub">
+          <a href="https://t76190-cmyk.github.io/memo-7f3k9x/">僕用</a>
+          <span><a href="https://t76190-cmyk.github.io/memo-t4k7x9/">ティリーニ用</a><span class="tag">未連携</span></span>
+          <span><a href="https://t76190-cmyk.github.io/memo-m9k2x4/">社長用</a><span class="tag">未連携</span></span>
+        </div>
+      </li>
+      <li>
+        <span class="mrow"><span class="dot" aria-hidden="true"></span>03 イベント報告・反省・改善等<span class="tag">準備中</span></span>
+      </li>
+      <li>
+        <a class="mrow" href="vision.html"><span class="dot" aria-hidden="true"></span>04 ネスコインベストメント未来像<span class="arr">→</span></a>
+      </li>
+      <li>
+        <span class="mrow"><span class="dot" aria-hidden="true"></span>グループ会社<span class="tag">準備中</span></span>
+      </li>
+      <li>
+        <a class="mrow" href="https://t76190-cmyk.github.io/memo-7f3k9x/ringi.html"><span class="dot" aria-hidden="true"></span>稟議書ツール<span class="arr">→</span></a>
+      </li>
+      <li>
+        <span class="mrow"><span class="dot" aria-hidden="true"></span>ひかりマッチ</span>
+        <div class="sub">
+          <a href="https://hikari-match.com/">公式サイト</a>
+          <a href="https://hikari-match.com/properties">公開物件一覧</a>
+        </div>
+      </li>
+    </ul>
   </section>
 
 </main>
