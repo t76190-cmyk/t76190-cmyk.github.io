@@ -345,6 +345,12 @@ table.steps th, table.steps td{padding:7px 8px;}
 table.steps tbody th{white-space:normal;}
 .layer .seat{margin-left:0;}
 }
+
+/* ===== 束の中の位置づけ・次の案 ===== */
+.bundle-pos{margin:18px 0 0;padding:12px 16px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--orange);border-radius:10px;font-size:13.5px;color:var(--muted);}
+.bundle-pos strong{color:var(--navy);}
+.next-plan{margin-top:40px;text-align:right;}
+.next-plan a{display:inline-block;background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;font-weight:bold;font-size:14px;padding:10px 22px;border-radius:999px;text-decoration:none;box-shadow:0 4px 12px rgba(243,152,0,.28);}
 </style>
 </head>
 <body>
@@ -368,6 +374,7 @@ table.steps tbody th{white-space:normal;}
 <main>
 <section style="margin-top:34px;">
 <p class="lead">蓄電所の値段を「電池の値段」として見るのではなく、系統接続（送電網につなぐこと）のできた拠点の値段として見直す資料です。「系統不動産」は、関西・中部圏の系統用蓄電池（送電網につなぐ大型の蓄電池）を、不動産のように「場所と権利」で捉える、考えるための仮の呼び名です。結論を決めた計画ではなく、可能性の束のひとつとして、確かめられる形に整理したものです。その本質は、5億円という値段の本体を「いま載っている電池」ではなく、系統接続拠点＝「場所の未来」に置き直すことにあります。</p>
+<p class="bundle-pos"><strong>この案の位置づけ：</strong>この案は、蓄電所の値段の「見方」を変える1本です。系統につながった拠点という、不足しやすいものを、「場所の未来」として捉え直します。</p>
 <div class="core">
 <p>「5億円は電池の値段ではなく、系統接続拠点＝『場所の未来』の値段」</p>
 <p>「電池を売るのではない。系統につながった『場所の未来』を流通させる。」</p>
@@ -402,19 +409,12 @@ table.steps tbody th{white-space:normal;}
 <h2>確認できた事実</h2>
 <div class="about-box">
 <ul class="fact-list">
-<li><span class="fk">載っている案件</span>ひかりマッチに載っている大型（高圧）の系統用蓄電池は5件で、すべて中部電力の地域にあります。大きさは出力1,996kW／容量8,360kWh、値段は5億2,000万円〜5億6,000万円（税別）です。送電網につなぐための事前確認（接続検討）への回答と、保証金の支払いは、5件とも済んでいます。場所も条件も違うのに、値段が5億円台の似た範囲に揃っていることが、この資料の起点の違和感です。</li>
-<li><span class="fk">蓄電所の相場</span>蓄電所の相場は、サイエンスエックスのコラム（2026年1月〜9月の観測、大型・2MW級、税別）によると、買う段階によって大きく変わります。権利だけ（つなぐための回答つき）で中央値1.2億円、完成して渡す（つなぐ前）で6.7億円、つないだ後で7.5億円です。「権利だけ」の段階にも1億円を超える相場がついていることは、値段の本体が設備そのものだけではない可能性を示します。</li>
+<li><span class="fk">載っている案件</span>ひかりマッチに載っている大型（高圧）の系統用蓄電池は5件で、すべて中部電力の地域にあり、値段は5億2,000万円〜5億6,000万円（税別）です。場所も条件も違うのに、値段が5億円台の似た範囲に揃っていることが、この資料の起点の違和感です。案件の詳しい内容は、<a href="vision-oruchiku.html">オルチク事業計画書</a>の「確認できた事実」にまとめています。</li>
+<li><span class="fk">蓄電所の相場</span>蓄電所の相場は、買う段階によって大きく変わります（サイエンスエックスのコラム、2026年1月〜9月の観測、大型・2MW級、税別）。設備がまだ無い「権利だけ」（つなぐための回答つき）の段階でも中央値1.2億円の値段がついていることは、値段の本体が設備そのものだけではない可能性を示します。相場の全体像（買う段階ごとの中央値と図）は、<a href="vision-oruchiku.html">オルチク事業計画書</a>の「確認できた事実」にまとめています。</li>
 </ul>
-<div class="fig" style="box-shadow:none;margin-top:4px;">
-<p class="fig-title">価格の正体 ― 相場は「買う段階」で変わる（中央値・税別）</p>
-<div class="brow"><div class="bhead"><span class="bl">権利だけ<small>つなぐための回答つき</small></span><span class="bv">1.2億円</span></div><div class="bt"><span class="bf" style="width:16%;"></span></div></div>
-<div class="brow"><div class="bhead"><span class="bl">完成して渡す<small>つなぐ前</small></span><span class="bv">6.7億円</span></div><div class="bt"><span class="bf" style="width:89%;"></span></div></div>
-<div class="brow"><div class="bhead"><span class="bl">つないだ後</span><span class="bv">7.5億円</span></div><div class="bt"><span class="bf" style="width:100%;"></span></div></div>
-<div class="brow own"><div class="bhead"><span class="bl">ひかりマッチの5件<small>完成して渡す段階の案件</small></span><span class="bv">5.2〜5.6億円</span></div><div class="bt"><span class="band" style="margin-left:69%;width:6%;"></span></div></div>
-<p class="fig-cap">出典：サイエンスエックスのコラム（2026年1月〜9月の観測、大型・2MW級）。設備がまだ無い「権利だけ」の段階で1.2億円の値段がつく――値段の本体は、電池ではなく「場所と接続の権利」にある、という見方を支える観測です。ただし、これは相場の観測であり、個々の案件の値付けを保証するものではありません。</p>
-</div>
+
 <ul class="fact-list">
-<li><span class="fk">申し込みと現実</span>経済産業省の資料（第13回 次世代電力系統ワーキンググループ 資料2、2026年6月末時点、大型以上）では、系統用蓄電池は、つなぐための検討の申し込みが約211GW、契約の申し込みが約41GWに対し、実際につながった量は1.28GWです。申し込みの量に比べて、つながった量はまだ小さい段階です。ただし、申し込みをしたものが全部建つわけではありませんし、この数字だけで個々の拠点の価値は判断できません。</li>
+<li><span class="fk">申し込みと現実</span>系統用蓄電池は、つなぐための検討の申し込みが約211GWに対し、実際につながった量は1.28GWにとどまります（経済産業省の資料、2026年6月末時点、大型以上）。ただし、申し込みをしたものが全部建つわけではありませんし、この数字だけで個々の拠点の価値は判断できません。数字の詳しい内訳は、<a href="vision-oruchiku.html">オルチク事業計画書</a>の「確認できた事実」にまとめています。</li>
 <li><span class="fk">読み取れること</span>【仮説】申し込みと実際につながった量の差は、「送電網につながっていること」自体が、まだ限られたものだという見方を支えます。系統不動産の見方が成り立つかどうかは、この希少性が続くかにかかっています。</li>
 </ul>
 </div>
@@ -466,6 +466,8 @@ table.steps tbody th{white-space:normal;}
 </table>
 <p class="lead" style="margin-top:16px;">まだ決めていないことは、意図的に決めていません。小口化の対象範囲、参加単位の金額、口数（仮説例のまま）。将来の設備更新の出力・容量（例：8MW／36MWhは仮説例）。「場所の未来」の値付けの方法。誰が資産を持ち、誰が運用するか。収益率・売却価格・建設費／運転費などの財務の前提。証券化を含む法的な形。専門家に確かめることは、資産の小口化と参加の募集が金融商品取引法などにどう当てはまるか、参加の単位の権利の形（何を持つことになるのか）と譲渡のしかた、ひかりマッチが「参加の単位への変換とマッチング」を担う場合の許認可や登録の要否、税金と会計の扱いです。調べと専門家の確認が先です。</p>
 </section>
+
+<div class="next-plan"><a href="vision-signage.html">次は、店舗を、もう一度働かせる（サイネージ代理店マッチング）へ →</a></div>
 
 <div class="back-wrap">
 <a class="back-link" href="vision.html">← 未来像ページへ戻る</a>
