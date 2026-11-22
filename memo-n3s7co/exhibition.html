@@ -296,6 +296,14 @@
   }
   .toc .mi .tag.now{background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;}
   .toc .mi .tag.soon{background:#f3efe7;color:var(--muted);border:1px solid var(--line);}
+  .toc a.mi{
+    text-decoration:none;color:var(--ink);
+    border-radius:8px;padding-left:10px;padding-right:10px;
+  }
+  .toc a.mi:hover,.toc a.mi:active{
+    background:linear-gradient(90deg, rgba(243,152,0,.10), rgba(243,152,0,0) 78%);
+  }
+  .toc .mi .tag.go{background:none;color:var(--orange);padding:1px 2px;letter-spacing:.04em;}
   section > h3.sub{
     font-size:16.5px;color:var(--navy);letter-spacing:.02em;margin:26px 0 10px;line-height:1.5;
   }
@@ -357,7 +365,7 @@
     <div class="mi current" aria-current="page"><span class="tn">01</span>SMART ENERGY WEEK 関西の出展<span class="tag now">表示中</span></div>
     <div class="mi"><span class="tn">02</span>出展者一覧ページ210社のうち…<span class="tag soon">準備中</span></div>
     <div class="mi"><span class="tn">03</span>イベント報告・反省・改善等<span class="tag soon">準備中</span></div>
-    <div class="mi"><span class="tn">04</span>ネスコインベストメント未来像<span class="tag soon">準備中</span></div>
+    <a class="mi" href="vision.html"><span class="tn">04</span>ネスコインベストメント未来像<span class="tag go">開く →</span></a>
   </nav>
 
   <!-- 01 SMART ENERGY WEEK 関西の出展 -->
