@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ネスコインベストメント 社内ポータル</title>
+<style>
+  :root{
+    --navy:#17375e;
+    --navy-dark:#0c1f3a;
+    --navy-deep:#081831;
+    --orange:#f39800;
+    --amber:#f9b233;
+    --sun-core:#ffeec2;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans CJK JP","Yu Gothic",sans-serif;
+    color:#fff;
+    -webkit-text-size-adjust:100%;
+  }
+  .cover{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse 640px 340px at 88% -60px, rgba(249,178,51,.34), rgba(249,178,51,0) 70%),
+      radial-gradient(ellipse 900px 520px at 108% -140px, rgba(243,152,0,.20), rgba(243,152,0,0) 70%),
+      radial-gradient(ellipse 700px 480px at -10% 120%, rgba(64,110,168,.35), rgba(64,110,168,0) 70%),
+      linear-gradient(140deg,#1b4069 0%,var(--navy) 42%,var(--navy-dark) 78%,var(--navy-deep) 100%);
+  }
+  /* 太陽のモチーフ（封筒の太陽マークへのオマージュ） */
+  .sun{
+    position:absolute;
+    top:-58px;right:-38px;
+    width:264px;height:264px;
+    border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, var(--sun-core) 0%, #ffd98a 34%, var(--amber) 62%, var(--orange) 82%, rgba(243,152,0,0) 100%);
+    opacity:.92;
+    pointer-events:none;
+  }
+  .sun::before{
+    content:"";
+    position:absolute;inset:-34px;
+    border-radius:50%;
+    border:1.5px solid rgba(255,217,138,.45);
+  }
+  .sun::after{
+    content:"";
+    position:absolute;inset:-72px;
+    border-radius:50%;
+    border:1px solid rgba(255,217,138,.22);
+  }
+  .cover-main{
+    position:relative;z-index:1;
+    flex:1;
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    text-align:center;
+    padding:72px 24px 32px;
+  }
+  .logo-chip{
+    background:#fff;border-radius:14px;
+    padding:10px 18px;
+    box-shadow:0 10px 28px rgba(4,16,34,.35);
+    margin-bottom:38px;
+  }
+  .logo-chip img{height:58px;width:auto;display:block;}
+  .eyebrow{
+    font-size:11.5px;letter-spacing:.34em;color:#ffd98a;font-weight:bold;
+    text-transform:uppercase;margin:0 0 12px;
+  }
+  h1{
+    margin:0;
+    font-size:46px;font-weight:700;
+    letter-spacing:.10em;line-height:1.25;
+    text-shadow:0 2px 18px rgba(4,16,34,.35);
+  }
+  .sub{
+    margin:14px 0 0;
+    font-size:16px;letter-spacing:.52em;font-weight:600;color:#ffe1ae;
+    text-indent:.52em;
+  }
+  .rule{
+    width:64px;height:3px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange),#ffd98a);
+    margin:28px 0 22px;
+  }
+  .catch{
+    margin:0 0 44px;
+    font-size:16.5px;line-height:1.9;color:#dbe6f2;letter-spacing:.06em;
+  }
+  .open-btn{
+    display:inline-block;
+    background:linear-gradient(120deg,var(--orange),var(--amber));
+    color:#fff;text-decoration:none;
+    font-size:16px;font-weight:bold;letter-spacing:.14em;
+    padding:15px 46px;border-radius:999px;
+    box-shadow:0 8px 22px rgba(243,152,0,.32);
+  }
+  .open-btn:hover{opacity:.92;}
+  footer{
+    position:relative;z-index:1;
+    display:flex;align-items:flex-end;justify-content:center;gap:12px;
+    padding:0 24px 22px;
+  }
+  footer img{height:44px;width:auto;opacity:.95;}
+  footer p{margin:0 0 6px;font-size:11px;letter-spacing:.18em;color:rgba(219,230,242,.65);}
+  @media (max-width:480px){
+    h1{font-size:32px;letter-spacing:.07em;}
+    .sub{font-size:13.5px;letter-spacing:.42em;text-indent:.42em;}
+    .catch{font-size:14.5px;}
+    .logo-chip img{height:46px;}
+    .logo-chip{margin-bottom:30px;}
+    .sun{width:176px;height:176px;top:-40px;right:-30px;}
+    .open-btn{padding:14px 38px;font-size:15px;}
+  }
+</style>
+</head>
+<body>
+  <div class="cover">
+    <div class="sun"></div>
+    <div class="cover-main">
+      <div class="logo-chip"><img src="assets/logo-main.png" alt="ひかりマッチ ロゴ"></div>
+      <p class="eyebrow">Nesco Investments</p>
+      <h1>ネスコインベストメント</h1>
+      <p class="sub">社内ポータル</p>
+      <div class="rule"></div>
+      <p class="catch">光をつなぎ、未来をひらく。</p>
+      <a class="open-btn" href="portal.html">ポータルを開く</a>
+    </div>
+    <footer>
+      <img src="assets/null-walk.png" alt="">
+      <p>社内向け資料</p>
+    </footer>
+  </div>
+</body>
+</html>

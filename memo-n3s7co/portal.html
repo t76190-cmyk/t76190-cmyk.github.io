@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ネスコインベストメント 社内ポータル｜ひかりマッチ関連資料</title>
+<style>
+  :root{
+    --navy:#17375e;
+    --navy-dark:#0c1f3a;
+    --navy-deep:#081831;
+    --orange:#f39800;
+    --amber:#f9b233;
+    --sun-core:#ffeec2;
+    --ink:#23272c;
+    --muted:#5f6871;
+    --line:#e3ded4;
+    --bg:#f7f4ef;
+    --card:#ffffff;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans CJK JP","Yu Gothic",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.7;
+    -webkit-text-size-adjust:100%;
+  }
+
+  /* ===== ヒーロー ===== */
+  header{
+    position:relative;
+    overflow:hidden;
+    color:#fff;
+    background:
+      radial-gradient(ellipse 640px 340px at 88% -60px, rgba(249,178,51,.34), rgba(249,178,51,0) 70%),
+      radial-gradient(ellipse 900px 520px at 108% -140px, rgba(243,152,0,.20), rgba(243,152,0,0) 70%),
+      radial-gradient(ellipse 700px 480px at -10% 120%, rgba(64,110,168,.35), rgba(64,110,168,0) 70%),
+      linear-gradient(140deg,#1b4069 0%,var(--navy) 42%,var(--navy-dark) 78%,var(--navy-deep) 100%);
+    padding:64px 24px 58px;
+  }
+  /* 太陽のモチーフ（封筒の太陽マークへのオマージュ） */
+  .sun{
+    position:absolute;
+    top:-58px;right:-38px;
+    width:264px;height:264px;
+    border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, var(--sun-core) 0%, #ffd98a 34%, var(--amber) 62%, var(--orange) 82%, rgba(243,152,0,0) 100%);
+    opacity:.92;
+    pointer-events:none;
+  }
+  .sun::before{
+    content:"";
+    position:absolute;inset:-34px;
+    border-radius:50%;
+    border:1.5px solid rgba(255,217,138,.45);
+  }
+  .sun::after{
+    content:"";
+    position:absolute;inset:-72px;
+    border-radius:50%;
+    border:1px solid rgba(255,217,138,.22);
+  }
+  .header-inner{position:relative;max-width:1000px;margin:0 auto;z-index:1;}
+  .logo-row{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .logo-row img{
+    height:56px;width:auto;background:#fff;border-radius:12px;padding:7px 12px;
+    box-shadow:0 8px 24px rgba(4,16,34,.35);
+  }
+  .eyebrow{
+    font-size:11.5px;letter-spacing:.34em;color:#ffd98a;font-weight:bold;
+    text-transform:uppercase;margin:0 0 10px;
+  }
+  .header-title h1{
+    margin:0;line-height:1.3;font-weight:700;
+  }
+  .header-title .h1-main{
+    display:block;
+    font-size:42px;letter-spacing:.10em;line-height:1.25;
+    text-shadow:0 2px 18px rgba(4,16,34,.35);
+  }
+  .header-title .h1-sub{
+    display:inline-block;
+    margin-top:10px;
+    font-size:15px;letter-spacing:.52em;font-weight:600;color:#ffe1ae;
+  }
+  .header-title .h1-rule{
+    display:block;width:64px;height:3px;border-radius:2px;
+    background:linear-gradient(90deg,var(--orange),#ffd98a);
+    margin:20px 0 16px;
+  }
+  .header-title p{
+    margin:0;font-size:13.5px;line-height:1.8;color:#ccd9e8;max-width:620px;
+  }
+  .internal-badge{
+    display:inline-block;margin-top:22px;
+    background:linear-gradient(120deg,var(--orange),var(--amber));
+    color:#fff;
+    font-size:12px;font-weight:bold;
+    padding:4px 16px;border-radius:999px;letter-spacing:.14em;
+    box-shadow:0 4px 12px rgba(243,152,0,.28);
+  }
+
+  /* ===== 本体 ===== */
+  main{max-width:1000px;margin:0 auto;padding:14px 20px 56px;}
+  section{margin-top:46px;}
+  section > h2{
+    display:flex;align-items:center;gap:12px;
+    font-size:21px;color:var(--navy);letter-spacing:.03em;
+    margin:0 0 8px;line-height:1.4;
+  }
+  section > h2::before{
+    content:"";
+    flex:none;width:15px;height:15px;border-radius:50%;
+    background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 55%, var(--orange) 100%);
+    box-shadow:0 0 0 4px rgba(243,152,0,.16), 0 0 14px rgba(243,152,0,.45);
+  }
+  section > h2::after{
+    content:"";flex:1;height:1px;
+    background:linear-gradient(90deg, rgba(23,55,94,.28), rgba(23,55,94,0));
+  }
+  section > h2.h2-sub{margin-top:34px;}
+  .section-note{
+    font-size:13.5px;color:var(--muted);margin:0 0 16px;
+  }
+  .grid{
+    display:flex;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .card{
+    position:relative;
+    display:block;
+    flex:1 1 280px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px 18px 15px;
+    text-decoration:none;color:var(--ink);
+    box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+    overflow:hidden;
+    transition:box-shadow .18s ease, transform .18s ease, border-color .18s ease;
+  }
+  .card::before{
+    content:"";
+    position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,var(--navy) 0%,#3d6390 55%,var(--orange) 130%);
+  }
+  .card:hover,.card:active{
+    box-shadow:0 4px 10px rgba(23,55,94,.08), 0 18px 38px rgba(23,55,94,.14);
+    transform:translateY(-2px);
+    border-color:#d8cfbc;
+  }
+  .card .num{
+    display:inline-block;
+    background:var(--navy);color:#fff;
+    font-size:11px;font-weight:bold;
+    border-radius:999px;padding:2px 11px;margin-bottom:10px;letter-spacing:.08em;
+  }
+  .card .num.orange{background:linear-gradient(120deg,var(--orange),var(--amber));}
+  .card h3{
+    margin:0 0 7px;font-size:16.5px;color:var(--navy);line-height:1.5;letter-spacing:.01em;
+  }
+  .card p{
+    margin:0 0 14px;font-size:13.5px;color:#3c454e;
+  }
+  .card .meta{
+    display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+    font-size:12px;color:var(--muted);
+    border-top:1px dashed var(--line);padding-top:11px;
+  }
+  .card .meta span{
+    background:#f3efe7;border-radius:999px;padding:1px 10px;
+  }
+  .card .meta span.go{
+    background:none;padding:1px 2px;margin-left:auto;
+    color:var(--orange);font-weight:bold;letter-spacing:.04em;
+  }
+  .about-box{
+    position:relative;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:24px 22px 12px;
+    box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+    overflow:hidden;
+  }
+  .about-box::before{
+    content:"";
+    position:absolute;top:0;left:0;right:0;height:4px;
+    background:linear-gradient(90deg,var(--orange) 0%,var(--amber) 45%,rgba(249,178,51,0) 95%);
+  }
+  .about-box p{margin:0 0 12px;font-size:14.5px;}
+  .about-box .addr{color:var(--muted);font-size:13.5px;}
+  .group-list{list-style:none;margin:6px 0 10px;padding:0;}
+  .group-list li{
+    padding:11px 2px;
+    border-top:1px dashed var(--line);
+    font-size:14.5px;
+  }
+  .group-list li:first-child{border-top:none;}
+  .group-list .gname{font-weight:bold;color:var(--navy);}
+  .group-list .gdesc{display:block;font-size:13.5px;color:#3c454e;margin-top:2px;}
+  .group-list .gtag{
+    display:inline-block;background:#f3efe7;color:var(--muted);
+    font-size:11.5px;border-radius:999px;padding:1px 9px;margin-left:8px;
+    vertical-align:1px;
+  }
+  .about-box h3{
+    margin:16px 0 4px;font-size:15px;color:var(--navy);
+  }
+
+  /* ===== フッター ===== */
+  footer{
+    background:linear-gradient(160deg,var(--navy-dark),var(--navy-deep));
+    padding:30px 16px 34px;
+    font-size:12.5px;color:#a9bccd;
+    text-align:center;
+  }
+  footer .f-inner{max-width:1000px;margin:0 auto;}
+  footer .null-walk{
+    display:block;height:56px;width:auto;margin:0 auto 14px;
+    filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));
+  }
+
+  @media (max-width:560px){
+    header{padding:44px 18px 40px;}
+    .sun{width:176px;height:176px;top:-44px;right:-52px;}
+    .header-title .h1-main{font-size:29px;letter-spacing:.07em;}
+    .header-title .h1-sub{font-size:13px;letter-spacing:.40em;}
+    .logo-row img{height:46px;}
+    .card{flex-basis:100%;}
+    section{margin-top:38px;}
+    section > h2{font-size:18px;}
+    main{padding:10px 14px 44px;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="sun" aria-hidden="true"></div>
+  <div class="header-inner">
+    <div class="logo-row">
+      <img src="assets/logo-main.png" alt="HIKARI match ロゴ">
+    </div>
+    <div class="header-title" style="margin-top:26px;">
+      <p class="eyebrow">NESCO INVESTMENTS</p>
+      <h1><span class="h1-main">ネスコインベストメント</span> <span class="h1-sub">社内ポータル</span></h1>
+      <span class="h1-rule" aria-hidden="true"></span>
+      <p>株式会社ネスコインベストメントの会社ページ ― 会社案内と、ひかりマッチ関連資料（さくいん／報告・成果・反省／可能性の束／光市）への入口</p>
+    </div>
+    <span class="internal-badge">社内向け</span>
+  </div>
+</header>
+
+<main>
+
+  <!-- セクション0：ネスコインベストメントについて -->
+  <section style="margin-top:30px;">
+    <h2>ネスコインベストメントについて</h2>
+    <div class="about-box">
+      <p><strong>株式会社ネスコインベストメント</strong>は、再生可能エネルギー関連事業のグループの中核として、系統用蓄電池等の売買マッチングサービス「ひかりマッチ」を運営しています。</p>
+      <p class="addr">所在地：東京都中央区銀座7丁目15-18 銀ビル5F</p>
+      <h3>グループ会社</h3>
+      <ul class="group-list">
+        <li>
+          <span class="gname">株式会社日本エコソーラー</span>
+          <span class="gdesc">系統用蓄電池の開発・販売を行い、自社で案件を持ちます。</span>
+        </li>
+        <li>
+          <span class="gname">マーコグリーンパワー株式会社</span><span class="gtag">グループ会社</span>
+        </li>
+        <li>
+          <span class="gname">株式会社日本エコファーム</span><span class="gtag">グループ会社</span>
+        </li>
+        <li>
+          <span class="gname">マーコグリーンパワーLLC</span><span class="gtag">米国／グループ会社</span>
+        </li>
+        <li>
+          <span class="gname">株式会社マーコツアーズ</span><span class="gtag">グループ会社</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- セクション1：さくいん -->
+  <section>
+    <h2>さくいん（出展者インデックス）</h2>
+    <p class="section-note">SMART ENERGY WEEK 関西の出展者210社を検索できるインデックスです。用途に合わせて3つの版があります。</p>
+    <div class="grid">
+      <a class="card" href="https://t76190-cmyk.github.io/memo-7f3k9x/">
+        <span class="num">Webツール</span>
+        <h3>僕用さくいん（日本語マスター）</h3>
+        <p>全データの正本。訪問記録・三国スタンス・ひかりマッチ掲載可否の記録もここに集約されます。</p>
+        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
+      </a>
+      <a class="card" href="https://t76190-cmyk.github.io/memo-t4k7x9/">
+        <span class="num">Webツール</span>
+        <h3>ティリーニ用（会社運用版）</h3>
+        <p>会社内でそのまま回覧できる運用版。社内で共有するのはこの版と社長用です。</p>
+        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
+      </a>
+      <a class="card" href="https://t76190-cmyk.github.io/memo-m9k2x4/">
+        <span class="num">Webツール</span>
+        <h3>社長用（英語・全データ版）</h3>
+        <p>全データを英語で収めた意思決定用の版。各ページのENボタンで英語表示に切り替わります。</p>
+        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
+      </a>
+      <a class="card" href="https://t76190-cmyk.github.io/memo-7f3k9x/ringi.html">
+        <span class="num orange">Webツール</span>
+        <h3>稟議書ツール</h3>
+        <p>稟議書の作成ツール。表面は日本語・裏面は英文、各1ページの形式で作成します。</p>
+        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- セクション2：イベントの報告 -->
+  <section>
+    <h2>イベントの報告</h2>
+    <p class="section-note">第14回 SMART ENERGY WEEK 関西（2026年11月18日〜20日、インテックス大阪）の出展報告です。この展示会の記録は「報告・成果・反省」で振り返り、その先に可能性の束の10の案、そして最後に「ただの光市」を置いています。<strong>10の案＋光市で「光イレブン」（11点）</strong>です。</p>
+    <div class="grid">
+<a class="card" href="docs/report-smart-energy-week-2026.pdf">
+        <span class="num orange">報告書</span>
+        <h3>出展報告書（日英合本）</h3>
+        <p>活動実績・取材結果（23社）・名刺交換者一覧（69名）・所見と結論をまとめた会社記録用の報告書。日本語版と英語版の合本です。</p>
+        <div class="meta"><span>全17頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- セクション3：成果 -->
+  <section>
+    <h2>成果（企業別資料）</h2>
+    <p class="section-note">展示会で頂いたパンフレットを、カタログ原本・テキスト全文（日英）・当日データ・名刺データで1社1本に束ねた資料です。全社分（台帳51社）は制作中で、完成後に合本として追加します。現在完成しているのは次の4社と、最後の「光市」セクションの1社です。</p>
+    <div class="grid">
+<a class="card" href="docs/company-hikari-match.pdf">
+        <span class="num">企業別資料</span>
+        <h3>ひかりマッチ（ネスコインベストメント）</h3>
+        <p>自社ブース（日本エコソーラー、SC1-6）で配布したパンフレットの資料化。企業別資料の標準形（見本）です。</p>
+        <div class="meta"><span>全12頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="docs/company-solvvy.pdf">
+        <span class="num">企業別資料</span>
+        <h3>Solvvy株式会社</h3>
+        <p>ブースSD4-6。ひかりマッチ掲載「可」。当日の聴取データ（用地・系統・資金）を含みます。</p>
+        <div class="meta"><span>全10頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="docs/company-greenbattery.pdf">
+        <span class="num">企業別資料</span>
+        <h3>株式会社Green Battery</h3>
+        <p>系統用蓄電池の事業者。カタログ原本とテキスト全文（日英）を収めています。</p>
+        <div class="meta"><span>全8頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="docs/company-tomoe.pdf">
+        <span class="num">企業別資料</span>
+        <h3>巴工業株式会社</h3>
+        <p>水素濃度センサー等のパンフレットを資料化。当日データ・名刺データはなく、パンフレットのみで構成しています。</p>
+        <div class="meta"><span>全17頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- セクション4：反省 -->
+  <section>
+    <h2>反省</h2>
+    <p class="section-note">出展の反省点と改善案です。2026年11月21日にティリーニ様へ送信したフィードバックの内容を転記しています。</p>
+    <div class="grid">
+      <a class="card" href="docs/feedback-reflection.pdf">
+        <span class="num orange">フィードバック</span>
+        <h3>出展の反省点と改善案</h3>
+        <p>反省点（当日参加組の多さ、登録への導線、特典の設計）と、その原因・改善案をまとめた資料。2026年11月21日にティリーニ様へ送信済みです。</p>
+        <div class="meta"><span>全2頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- セクション5：可能性の束（10の案） -->
+  <section>
+    <h2>可能性の束（10の案）</h2>
+    <p class="section-note">展示会を通じて見えてきた可能性を、事業計画書の形に整理した10本です。<strong>いずれも確定方針ではなく、可能性の提示です。</strong>組み合わせるか、練り直すか、進めるかは、ご覧いただいた上でご判断ください。各資料とも、確認できた事実・仮説・構想・要調査事項を分けて記載しています。</p>
+    <div class="grid">
+      <a class="card" href="docs/01-oruchiku-plan.pdf">
+        <span class="num">01</span>
+        <h3>オルチク事業計画書</h3>
+        <p>「オール蓄電器」＝関西・中部圏の系統用蓄電池への網羅的な分散投資のイメージと、売れるまで働かせる「働く在庫」、株式で参加する「中口」の案を整理しました。</p>
+        <div class="meta"><span>全20頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+      <a class="card" href="docs/02-future-vision.pdf">
+        <span class="num">02</span>
+        <h3>未来構想資料</h3>
+        <p>イベントのフィードバックと、そこから感じた未来像。瀬戸内エネルギーロジスティクス（電気を運ぶ）など、ひかりマッチの広がりを描きました。</p>
+        <div class="meta"><span>全17頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+      <a class="card" href="docs/03-site-proposal.pdf">
+        <span class="num">03</span>
+        <h3>提案書（サイト改善＋コラムのビジョン）</h3>
+        <p>第一部はひかりマッチサイトの改善提案（登録フォームの紹介者欄、物件の想定利回り表示、コラムの置き場、登録までの摩擦の低減）。第二部はコラムで描く大きなビジョンです。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+      <a class="card" href="docs/04-keito-fudosan.pdf">
+        <span class="num">04</span>
+        <h3>系統不動産という新しい資産の見方</h3>
+        <p>5億円は「電池の値段」ではなく、系統につながった拠点＝「場所の未来」の値段。電池は載せ替え、資本も入れ替える見方と、小口化の構想です。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+      <a class="card" href="docs/05-signage-matching.pdf">
+        <span class="num">05</span>
+        <h3>店舗を、もう一度働かせる（サイネージ代理店マッチング）</h3>
+        <p>既存店舗・駐車場・外壁という「場所」の資産に、デジタルサイネージ（収益設備＋自社メディア）と低圧BESSをマッチする構想です。</p>
+        <div class="meta"><span>全10頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+      <a class="card" href="docs/06-kasumigaura-playground.pdf">
+        <span class="num">06</span>
+        <h3>霞ヶ浦 Electric Playground</h3>
+        <p>商品ではなく一日の体験で考える。潮来駅から小型EV、電動SUP、ドローン配送まで、「駅から先」を電気でつなぐ構想です。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+      <a class="card" href="docs/07-kasumigaura-mobility.pdf">
+        <span class="num">07</span>
+        <h3>霞ヶ浦 SHORT TRIP MOBILITY</h3>
+        <p>「一周しなくていい、霞ヶ浦」。走破ではなく短距離周遊で地域に止まる理由を増やすモビリティと、ペット様を基準にした移動の構想です。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+      <a class="card" href="docs/08-local-mobility.pdf">
+        <span class="num">08</span>
+        <h3>LOCAL MOBILITY PLAYGROUND（地域展開版）</h3>
+        <p>地域ごとに、乗り物を着替える。霞ヶ浦・伊豆大島・八ッ場・草津・しまなみ海道・別府へ広げる展開モデルです。</p>
+        <div class="meta"><span>全10頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+      <a class="card" href="docs/09-sun-island.pdf">
+        <span class="num">09</span>
+        <h3>SUN ISLAND PROJECT</h3>
+        <p>「本物の太陽の塔をつくろう」。無人島×次世代エネルギー×AIセンター×クラファン。建設計画ではなく、狂った問いから現実にできる部分を探す資料です。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+      <a class="card" href="docs/10-honey-ai.pdf">
+        <span class="num">10</span>
+        <h3>HONEY AI工房</h3>
+        <p>AIを売る店ではなく、AIとの「相性」を探す店。24時間営業する企業アイコンHONEYと、関係を引き継ぐNULLの構想です。ヌル総出の最終巻。</p>
+        <div class="meta"><span>全12頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- セクション6：光市 -->
+  <section>
+    <h2>光市</h2>
+    <p class="section-note">「ただの光市」——山口県光市の会社、富士高圧フレキシブルホース株式会社の企業別資料です。本人の故郷・山口の会社という縁で、「光イレブン」の11点目として最後に置いています。</p>
+    <p class="section-note">【背景注記】同社のパンフレットには、山口県萩市の松陰神社の写真が載っています。吉田松陰は幕末の教育者で、私塾「松下村塾」で高杉晋作・伊藤博文ら、明治維新を担う人材を育てた——いわば「日本に光をもたらそうとした先生」です。晋作の辞世の句「面白きこともなき世を面白く」は、この束の作り方の底にも流れています。<br>Note: The company's brochure carries a photo of Shoin Shrine in Hagi, Yamaguchi. Yoshida Shoin was a teacher of the late Edo period whose private school, Shoka Sonjuku, raised the people who drove the Meiji Restoration — a teacher who tried to bring light to Japan. His student Takasugi Shinsaku left the words: "Make this uninteresting world interesting."</p>
+    <div class="grid">
+      <a class="card" href="docs/company-fujikoatsu.pdf">
+        <span class="num">企業別資料</span>
+        <h3>富士高圧フレキシブルホース株式会社（山口県光市）</h3>
+        <p>フレキシブルホース・継手・超高圧水素用配管のメーカー（一社一貫の生産体制）。会社案内パンフレットを資料化しました。展示会最終日に名刺交換（蔵岡 賢人様・営業部）。</p>
+        <div class="meta"><span>全10頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- セクション4：ひかりマッチ本体 -->
+  <section>
+    <h2>ひかりマッチ本体</h2>
+    <p class="section-note">公開サイトへのリンクです。</p>
+    <div class="grid">
+      <a class="card" href="https://hikari-match.com/">
+        <span class="num orange">公式サイト</span>
+        <h3>ひかりマッチ トップページ</h3>
+        <p>系統用蓄電池・事業用土地のマッチングサービス「ひかりマッチ」の公式サイトです。</p>
+        <div class="meta"><span>hikari-match.com</span><span class="go">開く →</span></div>
+      </a>
+      <a class="card" href="https://hikari-match.com/properties">
+        <span class="num orange">公式サイト</span>
+        <h3>公開物件一覧</h3>
+        <p>現在掲載中の物件一覧（系統用蓄電池・事業用土地）です。</p>
+        <div class="meta"><span>hikari-match.com/properties</span><span class="go">開く →</span></div>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="f-inner">
+    <img class="null-walk" src="assets/null-walk.png" alt="">
+    本ページは株式会社ネスコインベストメントの社内向け資料です。社外への共有はご遠慮ください。<br>
+    作成：2026年11月22日　作成者：東 久順（営業サポート）
+  </div>
+</footer>
+
+</body>
+</html>
