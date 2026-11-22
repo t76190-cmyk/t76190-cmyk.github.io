@@ -41,7 +41,6 @@ radial-gradient(ellipse 700px 480px at -10% 120%, rgba(64,110,168,.35), rgba(64,
 linear-gradient(140deg,#1b4069 0%,var(--navy) 42%,var(--navy-dark) 78%,var(--navy-deep) 100%);
 padding:64px 24px 58px;
 }
-/* 太陽のモチーフ（封筒の太陽マークへのオマージュ） */
 .sun{
 position:absolute;
 top:-58px;right:-38px;
@@ -121,7 +120,6 @@ section > h2::after{
 content:"";flex:1;height:1px;
 background:linear-gradient(90deg, rgba(23,55,94,.28), rgba(23,55,94,0));
 }
-section > h2.pnum{color:var(--orange);font-weight:700;letter-spacing:.04em;}
 .section-note{
 font-size:13.5px;color:var(--muted);margin:0 0 16px;
 }
@@ -148,7 +146,7 @@ border-top:1px dashed var(--line);
 font-size:14.5px;
 }
 .fact-list li:first-child{border-top:none;}
-.fact-list.fk{
+.fact-list .fk{
 display:inline-block;min-width:92px;
 font-weight:bold;color:var(--navy);
 }
@@ -165,7 +163,7 @@ margin:0 0 16px;
 .core p{
 margin:0 0 8px;font-size:15.5px;font-weight:600;color:var(--navy);line-height:1.75;
 }
-.core.core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
+.core .core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
 
 /* ===== 要点リスト ===== */
 .points{list-style:none;margin:0;padding:0;}
@@ -184,6 +182,117 @@ background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 5
 }
 .points li strong{color:var(--navy);}
 
+/* ===== 表 ===== */
+table.cmp, table.steps{
+width:100%;border-collapse:collapse;
+background:var(--card);
+border:1px solid var(--line);border-radius:12px;
+font-size:13.5px;
+margin:14px 0 6px;
+}
+table.cmp th, table.cmp td, table.steps th, table.steps td{
+border-top:1px solid var(--line);
+padding:9px 12px;text-align:left;vertical-align:top;
+}
+table.cmp thead th, table.steps thead th{
+background:linear-gradient(120deg, rgba(23,55,94,.06), rgba(23,55,94,.02));
+color:var(--navy);border-top:none;font-size:13px;
+}
+table.cmp tbody th{
+color:var(--navy);font-weight:bold;white-space:nowrap;background:#fbf9f5;
+}
+table.steps tbody th{color:var(--navy);font-weight:bold;white-space:nowrap;}
+.tbl-note{font-size:12px;color:var(--muted);margin:4px 0 0;}
+
+/* ===== 図の共通 ===== */
+.fig{
+background:var(--card);
+border:1px solid var(--line);border-radius:14px;
+padding:18px 18px 14px;
+margin:14px 0 6px;
+box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+}
+.fig .fig-cap{
+font-size:12.5px;color:var(--muted);margin:10px 0 2px;
+}
+.fig .fig-title{
+font-size:13px;font-weight:bold;color:var(--navy);letter-spacing:.06em;margin:0 0 12px;
+}
+
+/* ===== D-1 設備の一生フロー図 ===== */
+.flow{display:flex;align-items:stretch;gap:0;}
+.fstep{
+flex:1;
+background:#fbf9f5;
+border:1px solid var(--line);border-radius:10px;
+padding:10px 10px 8px;
+text-align:center;
+}
+.fstep strong{display:block;font-size:13.5px;color:var(--navy);line-height:1.45;}
+.fstep span{display:block;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:4px;}
+.fstep .fs-num{
+display:inline-block;
+font-size:10.5px;font-weight:bold;color:#fff;
+background:var(--navy);border-radius:999px;
+padding:0 8px;margin:0 0 5px;line-height:1.7;
+}
+.fstep.hot{
+background:linear-gradient(140deg, rgba(243,152,0,.16), rgba(249,178,51,.07));
+border-color:var(--amber);
+}
+.fstep.hot .fs-num{background:linear-gradient(120deg,var(--orange),var(--amber));}
+.fstep.hot .fs-core{
+font-size:12px;color:var(--navy);font-weight:bold;margin-top:6px;
+}
+.farrow{
+flex:none;align-self:center;
+color:var(--orange);font-weight:bold;font-size:15px;
+padding:0 3px;
+}
+
+/* ===== バー図（D-2 / D-3 共通） ===== */
+.brow{
+padding:9px 0 10px;border-top:1px dashed var(--line);
+}
+.brow:first-of-type{border-top:none;}
+.bhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:5px;}
+.bhead .bl{font-size:13px;font-weight:bold;color:var(--navy);line-height:1.45;}
+.bhead .bl small{font-weight:normal;color:var(--muted);font-size:11.5px;margin-left:8px;}
+.bhead .bv{font-size:14.5px;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.brow .bt{height:14px;background:#ece7db;border-radius:7px;}
+.brow .bf{
+display:block;height:14px;border-radius:7px;
+background:linear-gradient(90deg,var(--navy),#2c5a8f);
+}
+.brow .bf.org{background:linear-gradient(90deg,var(--orange),var(--amber));}
+.brow.own .bl{color:var(--orange);}
+.brow.own .band{
+display:block;height:14px;border-radius:7px;
+background:rgba(243,152,0,.45);
+border:1.5px solid var(--orange);
+}
+
+/* ===== D-4 参加の大きさ3層図 ===== */
+.layers{display:flex;flex-direction:column;gap:8px;}
+.layer{
+border:1px solid var(--line);border-radius:10px;
+background:#fbf9f5;
+padding:11px 14px 9px;
+display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.layer .lt{font-size:14.5px;font-weight:bold;color:var(--navy);flex:none;}
+.layer .ld{font-size:12.5px;color:var(--muted);}
+.layer.mid{
+background:linear-gradient(120deg, rgba(243,152,0,.15), rgba(249,178,51,.06));
+border:1.5px dashed var(--orange);
+}
+.layer .seat{
+margin-left:auto;flex:none;
+font-size:11px;font-weight:bold;letter-spacing:.06em;
+color:#fff;background:linear-gradient(120deg,var(--orange),var(--amber));
+border-radius:999px;padding:1px 10px;
+}
+
 .back-wrap{margin-top:48px;text-align:center;}
 .back-link{
 display:inline-block;
@@ -195,46 +304,6 @@ box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
 }
 .back-link:hover,.back-link:active{border-color:#d8cfbc;}
 
-/* ===== 目次 ===== */
-.toc{
-margin-top:26px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:14px;
-padding:16px 22px 8px;
-box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
-}
-.toc.toc-title{
-font-size:11.5px;letter-spacing:.24em;color:var(--muted);font-weight:bold;margin:0;
-}
-.toc.mi{
-display:flex;gap:12px;align-items:baseline;
-padding:9px 2px;border-top:1px dashed var(--line);
-color:var(--muted);font-size:15px;font-weight:600;
-}
-.toc a.mi{
-text-decoration:none;color:var(--ink);
-border-radius:8px;padding-left:10px;padding-right:10px;
-}
-.toc a.mi:hover,.toc a.mi:active{
-background:linear-gradient(90deg, rgba(243,152,0,.10), rgba(243,152,0,0) 78%);
-}
-.toc.mi.tn{color:var(--orange);font-weight:700;letter-spacing:.06em;flex:none;}
-.toc.mi.current{
-color:var(--navy);
-background:linear-gradient(90deg, rgba(243,152,0,.13), rgba(243,152,0,0) 78%);
-border-radius:8px;
-padding-left:10px;padding-right:10px;
-}
-.toc.mi.tag{
-margin-left:auto;flex:none;
-font-size:11px;font-weight:bold;letter-spacing:.08em;
-border-radius:999px;padding:1px 10px;
-}
-.toc.mi.tag.now{background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;}
-.toc.mi.tag.soon{background:#f3efe7;color:var(--muted);border:1px solid var(--line);}
-.toc.mi.tag.go{background:none;color:var(--orange);padding:1px 2px;letter-spacing:.04em;}
-
 /* ===== フッター ===== */
 footer{
 background:linear-gradient(160deg,var(--navy-dark),var(--navy-deep));
@@ -242,13 +311,13 @@ padding:30px 16px 34px;
 font-size:12.5px;color:#a9bccd;
 text-align:center;
 }
-footer.f-inner{max-width:1000px;margin:0 auto;}
-footer.null-walk{
+footer .f-inner{max-width:1000px;margin:0 auto;}
+footer .null-walk{
 display:block;height:56px;width:auto;margin:0 auto 14px;
 filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));
 }
 footer a{color:#ffd98a;font-weight:bold;text-decoration:none;}
-footer.f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
+footer .f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
 
 @media (max-width:560px){
 header{padding:44px 18px 40px;}
@@ -259,7 +328,22 @@ header{padding:44px 18px 40px;}
 section{margin-top:38px;}
 section > h2{font-size:18px;}
 main{padding:10px 14px 44px;}
-.fact-list.fk{min-width:78px;}
+.fact-list .fk{min-width:78px;}
+.flow{flex-direction:column;}
+.farrow{transform:rotate(90deg);padding:2px 0;}
+table.cmp thead{display:none;}
+table.cmp, table.cmp tbody, table.cmp tr, table.cmp td{display:block;width:100%;}
+table.cmp tr{border-top:1px solid var(--line);padding:6px 0;}
+table.cmp tbody th{display:block;border-top:none;background:none;padding:8px 12px 2px;}
+table.cmp td{border-top:none;padding:2px 12px 6px;}
+table.cmp td::before{
+content:attr(data-label);
+display:block;font-size:11px;font-weight:bold;color:var(--orange);letter-spacing:.05em;
+}
+table.steps{font-size:12.5px;}
+table.steps th, table.steps td{padding:7px 8px;}
+table.steps tbody th{white-space:normal;}
+.layer .seat{margin-left:0;}
 }
 </style>
 </head>
@@ -283,20 +367,104 @@ main{padding:10px 14px 44px;}
 
 <main>
 <section style="margin-top:34px;">
-<p class="lead">5億円は「電池の値段」ではない。系統につながった「場所の未来」を流通させる、という見方の転換です。</p>
+<p class="lead">蓄電所の値段を「電池の値段」として見るのではなく、系統接続（送電網につなぐこと）のできた拠点の値段として見直す資料です。「系統不動産」は、関西・中部圏の系統用蓄電池（送電網につなぐ大型の蓄電池）を、不動産のように「場所と権利」で捉える、考えるための仮の呼び名です。結論を決めた計画ではなく、可能性の束のひとつとして、確かめられる形に整理したものです。その本質は、5億円という値段の本体を「いま載っている電池」ではなく、系統接続拠点＝「場所の未来」に置き直すことにあります。</p>
 <div class="core">
+<p>「5億円は電池の値段ではなく、系統接続拠点＝『場所の未来』の値段」</p>
 <p>「電池を売るのではない。系統につながった『場所の未来』を流通させる。」</p>
 <p>「『5億円、高くない？』→『この5億円で、何世代の電力事業を支配できるの？』」</p>
-<p>「誰が100口を売るのか？ ひかりマッチやろ」</p>
+<p class="core-sub">核の言葉は、本人の言葉を原文のまま残しています。</p>
 </div>
+</section>
+
+<section>
+<h2>本質・起点 ― 見方を変える</h2>
 <ul class="points">
-<li><strong>起点は価格への違和感：</strong>場所も条件も違うのに、蓄電所の値段はなぜ似た金額に揃うのか。この違和感が起点です。</li>
-<li><strong>見方を変える：</strong>買うのは電池ではなく、送電網につながった拠点です。電池は劣化し、載せ替えられます。資本も入れ替えられます。でも、系統につながった拠点は事業を続けます。拠点は、設備を載せ替えて何世代も使える資産です。主役は電池じゃない。系統につながった拠点や。</li>
-<li><strong>技術更新は「階段状」に：</strong>技術進歩は連続でも、設備更新は階段状にできます。電池の劣化を終わりと見ず、次世代へ一気に載せ替える節目として見ます。</li>
-<li><strong>小口化：</strong>5億円の資産は買い手が限られます。たとえば5億円のうち1億円分を100万円×100口に分けるような小さな参加単位を作ると、参加する人の入口ができます（仮説例であり、金融商品取引法への当てはまり方は専門家に確認します）。</li>
-<li><strong>循環の構造：</strong>小口化 → 流動性 → 技術更新 → 再資本化。設備の世代交代と、資本の世代交代を、同じ拠点の上で回し続ける構造です。</li>
-<li><strong>ひかりマッチの役割と裏付け：</strong>大きすぎて動きにくかった系統不動産を、人と資本が参加できる大きさへ変換して、マッチさせることです。裏付けとして、系統用蓄電池は接続検討の申し込み約211GWに対し、実際につながった量は1.28GW（経済産業省資料、2026年6月末時点）——「系統につながること自体に希少性がある」ことが、公表された数字からも読み取れます。</li>
+<li><strong>起点は価格への違和感：</strong>場所も、送電網につなぐ時期も、進み具合もそれぞれ違うのに、蓄電所の値段はなぜ5億円台の似た範囲に揃うのか。この違和感が起点です。</li>
+<li><strong>【仮説】値段の決まり方：</strong>もし値段が「設備と工事の費用の積み上げ」で決まっているなら、値段は「いま載っている電池の値段」として説明されていることになります。しかし、買い手が実際に手に入れるものは、電池だけではありません。この見方のずれが、出発点です。</li>
+<li><strong>買うのは電池ではなく、拠点：</strong>蓄電所を「系統不動産」として見ると、価値の中心は「建物（設備）」ではなく「場所と権利」に移ります。電池は劣化し、載せ替えられます。資本も入れ替えられます。でも、系統につながった拠点は事業を続けます。「主役は電池じゃない。系統につながった拠点や。」</li>
+<li><strong>技術更新は「階段状」に：</strong>技術の進歩は連続でも、設備の更新は階段状にできます。小さな改善では替えず、性能差が十分大きくなった時点で、次世代の設備へ一気に載せ替えます。劣化を資産の終わりと見ず、更新の節目として見ます。たとえば現在の設備（2MW／8MWh）を使い切り、将来はより大きな設備（例：8MW／36MWh）へ更新するイメージです。ただし、この出力・容量は将来像を示すための仮説例で、実際の大きさは系統条件（その拠点で送電網につなげる大きさ）などに依存します。</li>
+<li><strong>循環の考え方：</strong>「電池は載せ替えられる。資本も入れ替えられる。」設備の世代交代と、資本の世代交代を、同じ拠点の上で回し続ける構造を目指します（詳しくは「構想の方向」）。</li>
 </ul>
+<table class="cmp">
+<thead>
+<tr><th>比べる点</th><th>従来の見え方</th><th>系統不動産としての見え方</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">値段の本体</th><td data-label="従来の見え方">土地 ＋ 現在載っている蓄電池</td><td data-label="系統不動産としての見え方">土地 ＋ 現在の設備・収益 ＋ 系統接続（送電網につながる権利と枠）＋ 将来の設備更新余地</td></tr>
+<tr><th scope="row">電池の劣化</th><td data-label="従来の見え方">資産の終わり</td><td data-label="系統不動産としての見え方">次世代へ一気に載せ替える、更新の節目</td></tr>
+<tr><th scope="row">問いの立て方</th><td data-label="従来の見え方">「5億円、高くない？」</td><td data-label="系統不動産としての見え方">「この5億円で、何世代の電力事業を支配できるの？」</td></tr>
+</tbody>
+</table>
+<p class="tbl-note">「場所の未来」にどれだけの値段がつくかは、拠点ごとの条件（つなぐ時期、送電網の混み具合、使える容量）で変わります。具体的な値付けの方法は決めていません。</p>
+</section>
+
+<section>
+<h2>確認できた事実</h2>
+<div class="about-box">
+<ul class="fact-list">
+<li><span class="fk">載っている案件</span>ひかりマッチに載っている大型（高圧）の系統用蓄電池は5件で、すべて中部電力の地域にあります。大きさは出力1,996kW／容量8,360kWh、値段は5億2,000万円〜5億6,000万円（税別）です。送電網につなぐための事前確認（接続検討）への回答と、保証金の支払いは、5件とも済んでいます。場所も条件も違うのに、値段が5億円台の似た範囲に揃っていることが、この資料の起点の違和感です。</li>
+<li><span class="fk">蓄電所の相場</span>蓄電所の相場は、サイエンスエックスのコラム（2026年1月〜9月の観測、大型・2MW級、税別）によると、買う段階によって大きく変わります。権利だけ（つなぐための回答つき）で中央値1.2億円、完成して渡す（つなぐ前）で6.7億円、つないだ後で7.5億円です。「権利だけ」の段階にも1億円を超える相場がついていることは、値段の本体が設備そのものだけではない可能性を示します。</li>
+</ul>
+<div class="fig" style="box-shadow:none;margin-top:4px;">
+<p class="fig-title">価格の正体 ― 相場は「買う段階」で変わる（中央値・税別）</p>
+<div class="brow"><div class="bhead"><span class="bl">権利だけ<small>つなぐための回答つき</small></span><span class="bv">1.2億円</span></div><div class="bt"><span class="bf" style="width:16%;"></span></div></div>
+<div class="brow"><div class="bhead"><span class="bl">完成して渡す<small>つなぐ前</small></span><span class="bv">6.7億円</span></div><div class="bt"><span class="bf" style="width:89%;"></span></div></div>
+<div class="brow"><div class="bhead"><span class="bl">つないだ後</span><span class="bv">7.5億円</span></div><div class="bt"><span class="bf" style="width:100%;"></span></div></div>
+<div class="brow own"><div class="bhead"><span class="bl">ひかりマッチの5件<small>完成して渡す段階の案件</small></span><span class="bv">5.2〜5.6億円</span></div><div class="bt"><span class="band" style="margin-left:69%;width:6%;"></span></div></div>
+<p class="fig-cap">出典：サイエンスエックスのコラム（2026年1月〜9月の観測、大型・2MW級）。設備がまだ無い「権利だけ」の段階で1.2億円の値段がつく――値段の本体は、電池ではなく「場所と接続の権利」にある、という見方を支える観測です。ただし、これは相場の観測であり、個々の案件の値付けを保証するものではありません。</p>
+</div>
+<ul class="fact-list">
+<li><span class="fk">申し込みと現実</span>経済産業省の資料（第13回 次世代電力系統ワーキンググループ 資料2、2026年6月末時点、大型以上）では、系統用蓄電池は、つなぐための検討の申し込みが約211GW、契約の申し込みが約41GWに対し、実際につながった量は1.28GWです。申し込みの量に比べて、つながった量はまだ小さい段階です。ただし、申し込みをしたものが全部建つわけではありませんし、この数字だけで個々の拠点の価値は判断できません。</li>
+<li><span class="fk">読み取れること</span>【仮説】申し込みと実際につながった量の差は、「送電網につながっていること」自体が、まだ限られたものだという見方を支えます。系統不動産の見方が成り立つかどうかは、この希少性が続くかにかかっています。</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>構想の方向</h2>
+<p class="lead">系統不動産は1件が数億円と大きく、買えるのは限られた会社だけです。そこで、資産の一部を小さな単位に分ける「小口化」で参加の入口を作り、設備の世代交代と資本の世代交代を同じ拠点の上で回す、という方向です。法的な形は決めておらず、専門家の確認が前提です。</p>
+<ul class="points">
+<li><strong>小口化（仮説例）：</strong>たとえば、5億円の系統不動産のうち1億円分を、100万円×100口に分ける形です。これは考え方を示すための仮説例で、対象範囲・参加単位の金額・口数は決めていません。小口化だけでは売り買いしやすさ（流動性）は完成しませんが、「参加可能な単位」を作ることが、市場づくりの最初の入口になります。</li>
+<li><strong>循環：</strong>いまの設備が収益を生む（稼働）→ 次世代の技術が出てくるのを待つ（進歩）→ 能力を大幅に増やして載せ替える（更新）→ 増えた価値を再び小口化して参加を募る（資本化）→ 集まった資本を次の世代の更新へ回す（再投資）。この循環が実際に回るかどうかは、更新費用、収益の見込み、参加の募り方の法的な形など、確かめるべき点に依存します。</li>
+<li><strong>ひかりマッチの役割：</strong>「誰が100口を売るのか？ ひかりマッチやろ」――ひかりマッチの仕事は、物件・人・資本をつなぐ「入口」を作ることです。売り手が系統不動産を出し、ひかりマッチが見える化とマッチング（つなぐこと）を担い、参加者は小さな単位から参加する。売買の実績が積み上がれば、値段が見えてきます（価格発見）。「大きすぎて動きにくかった系統不動産を、人と資本が参加できる大きさへ変換して、マッチさせる。」証券化など、その先の形は専門家へつなぎます。</li>
+<li><strong>専門家に確認（必須）：</strong>資産を小口化して参加を募る形は、金融商品取引法（お金と投資のルールを定めた法律、金商法）などの規制に当てはまる可能性があります。証券化を含め、法的な形は専門家の確認が前提で、この資料では法律の結論は述べません。</li>
+</ul>
+<div class="fig">
+<p class="fig-title">小口化のイメージ（仮説例）</p>
+<div class="layers">
+<div class="layer"><span class="lt">系統不動産 1件</span><span class="ld">5億円 ― 買い手が限られる大きさ</span></div>
+<div class="layer mid"><span class="lt">うち1億円分を分ける（仮説例）</span><span class="ld">小口化の対象範囲は決めていません</span><span class="seat">仮説例</span></div>
+<div class="layer"><span class="lt">100万円 × 100口（仮説例）</span><span class="ld">参加単位・口数は決めていません</span></div>
+</div>
+<div class="flow" style="margin-top:12px;">
+<div class="fstep"><strong>小口化</strong><span>参加できる単位を作る</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><strong>流動性</strong><span>売り買いしやすさ</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><strong>技術更新</strong><span>次世代へ載せ替える</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><strong>再資本化</strong><span>増えた価値へ再び参加を募る</span></div>
+</div>
+<p class="fig-cap">図の金額・口数はすべて仮説例です。小口化と参加の募集は、金融商品取引法（金商法）への当てはまり方について、専門家の確認が必要です。</p>
+</div>
+</section>
+
+<section>
+<h2>進め方と、まだ決めていないこと</h2>
+<p class="lead">いきなり形にせず、調べと専門家の確認を先に置く進め方です。各段階は、前の段階で確かめられた場合にのみ次へ進む前提で、途中で「やらない」という判断も含みます。時期や対象は決めていません。</p>
+<table class="steps">
+<thead>
+<tr><th>段階</th><th>すること</th><th>この段階で確かめること</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">段階0：机上の確認</th><td>「場所の未来」の値付けの考え方を整理する。法律・制度の論点を専門家に聞く</td><td>そもそも可能な形かどうか。金商法などへの当てはまり方</td></tr>
+<tr><th scope="row">段階1：いまの案件で試す</th><td>載っている5件を材料に、「買う段階」の見せ方と、値段の本体（場所と接続の権利）の説明のしかたを、関係者と机上で検証する</td><td>買い手・売り手の反応</td></tr>
+<tr><th scope="row">段階2：参加の関心を確かめる</th><td>小口化した参加単位（仮説例）に、関心を持つ参加者がいるか、望む条件は何かを聞く</td><td>参加したい人がいるか。価格発見までに要る取引量</td></tr>
+<tr><th scope="row">段階3：更新と循環の検証</th><td>設備更新（載せ替え）の費用と、更新後の設備が送電網側の条件に合うかを、拠点ごとに確かめる</td><td>更新費用、更新前後の収益の変わり方、系統接続の希少性が続く見通し</td></tr>
+<tr><th scope="row">段階4：広げる判断</th><td>検証の結果を見て、進めるかどうか、どの形で進めるかを改めて判断する</td><td>――</td></tr>
+</tbody>
+</table>
+<p class="lead" style="margin-top:16px;">まだ決めていないことは、意図的に決めていません。小口化の対象範囲、参加単位の金額、口数（仮説例のまま）。将来の設備更新の出力・容量（例：8MW／36MWhは仮説例）。「場所の未来」の値付けの方法。誰が資産を持ち、誰が運用するか。収益率・売却価格・建設費／運転費などの財務の前提。証券化を含む法的な形。専門家に確かめることは、資産の小口化と参加の募集が金融商品取引法などにどう当てはまるか、参加の単位の権利の形（何を持つことになるのか）と譲渡のしかた、ひかりマッチが「参加の単位への変換とマッチング」を担う場合の許認可や登録の要否、税金と会計の扱いです。調べと専門家の確認が先です。</p>
 </section>
 
 <div class="back-wrap">
