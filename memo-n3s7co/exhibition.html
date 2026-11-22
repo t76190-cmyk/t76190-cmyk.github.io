@@ -159,6 +159,7 @@
     border-radius:999px;padding:2px 11px;margin-bottom:10px;letter-spacing:.08em;
   }
   .card .num.orange{background:linear-gradient(120deg,var(--orange),var(--amber));}
+  .card .num.unlinked{background:#8a8f98;}
   .card h3{
     margin:0 0 7px;font-size:16.5px;color:var(--navy);line-height:1.5;letter-spacing:.01em;
   }
@@ -263,6 +264,28 @@
   }
   .back-link:hover,.back-link:active{border-color:#d8cfbc;}
 
+
+  /* ===== 目次 ===== */
+  .toc{
+    margin-top:26px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:16px 22px 8px;
+    box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+  }
+  .toc .toc-title{
+    font-size:11.5px;letter-spacing:.24em;color:var(--muted);font-weight:bold;margin:0;
+  }
+  .toc a{
+    display:flex;gap:12px;align-items:baseline;
+    padding:9px 2px;border-top:1px dashed var(--line);
+    text-decoration:none;color:var(--ink);font-size:15px;font-weight:600;
+  }
+  .toc a .tn{color:var(--orange);font-weight:700;letter-spacing:.06em;flex:none;}
+  section > h3.sub{
+    font-size:16.5px;color:var(--navy);letter-spacing:.02em;margin:26px 0 10px;line-height:1.5;
+  }
   /* ===== フッター ===== */
   footer{
     background:linear-gradient(160deg,var(--navy-dark),var(--navy-deep));
@@ -315,10 +338,19 @@
 </header>
 
 <main>
+  <!-- 目次 -->
+  <nav class="toc" aria-label="目次">
+    <p class="toc-title">目次</p>
+    <a href="#ch01"><span class="tn">01</span>SMART ENERGY WEEK 関西の出展</a>
+    <a href="#ch02"><span class="tn">02</span>出展者一覧ページ210社のうち…</a>
+    <a href="#ch03"><span class="tn">03</span>イベント報告・反省・改善等</a>
+    <a href="#ch04"><span class="tn">04</span>ネスコインベストメント未来像</a>
+  </nav>
 
-  <!-- 出展の概要 -->
-  <section style="margin-top:30px;">
-    <h2>出展の概要</h2>
+  <!-- 01 SMART ENERGY WEEK 関西の出展 -->
+  <section id="ch01" style="margin-top:34px;">
+    <h2>01 SMART ENERGY WEEK 関西の出展</h2>
+    <h3 class="sub">出展の概要</h3>
     <div class="about-box">
       <ul class="fact-list">
         <li><span class="fk">出展ブース</span>株式会社日本エコソーラー（小間 SC1-6）</li>
@@ -328,11 +360,7 @@
       </ul>
       <p>会期中、自社ブースにおいて系統用蓄電池案件4件の販売紹介を行うとともに、ひかりマッチの周知と掲載意向の確認を目的として、出展企業への取材活動を実施しました。取材では各社に対し、ひかりマッチへの掲載の可否と、電力三国時代アンケートの3軸（用地・系統・資金）へのスタンスを聴取しました。</p>
     </div>
-  </section>
-
-  <!-- 成果の数字 -->
-  <section>
-    <h2>成果の数字</h2>
+    <h3 class="sub">成果の数字</h3>
     <div class="stat-grid">
       <div class="stat"><div class="n">69<small>名</small></div><div class="l">名刺交換</div></div>
       <div class="stat"><div class="n">23<small>社</small></div><div class="l">取材した会社数</div></div>
@@ -340,11 +368,7 @@
       <div class="stat"><div class="n">4<small>件</small></div><div class="l">自社ブースの販売案件</div></div>
     </div>
     <p class="section-note" style="margin-top:16px;">取材23社の掲載可否の内訳は、可14社・否8社・確認中1社です。最終日（11月20日）の取材はSolvvy（ブースSD4-6）の1社で、掲載は「可」、スタンスは用地5・系統5・資金5でした。各社の詳細は出展報告書に記録しています。</p>
-  </section>
-
-  <!-- 自社販売案件 -->
-  <section>
-    <h2>自社販売案件（ブース掲出パネル）</h2>
+    <h3 class="sub">自社販売案件（ブース掲出パネル）</h3>
     <p class="section-note">自社ブースで紹介した系統用蓄電池等の販売案件4件です。</p>
     <div class="case-box">
       <table class="cases">
@@ -358,52 +382,147 @@
     <p class="section-note" style="margin-top:14px;">なお、ひかりマッチの物件詳細では「接続検討回答書の受領状況」と「保証金の支払状況」が表示されます。これらはFIT公開データには含まれない売り手申告の情報であり、案件の成熟度を示す項目です。</p>
   </section>
 
-  <!-- 資料へのリンク -->
-  <section>
-    <h2>資料</h2>
-    <p class="section-note">この出展に関する資料へのリンクです。</p>
+  <!-- 02 出展者一覧ページ210社のうち… -->
+  <section id="ch02">
+    <h2>02 出展者一覧ページ210社のうち…</h2>
+    <p class="section-note">出展者210社のうち、取材できたのは23社、名刺交換は69名でした。出展者210社を検索できるインデックス（さくいん）は、用途に合わせて3つの版があります。</p>
     <div class="grid">
-      <a class="card" href="https://drive.google.com/file/d/15OeqFDnKcsOxDzqi1xjrdffFQOszPsu9/view?usp=drivesdk">
+<a class="card" href="https://t76190-cmyk.github.io/memo-7f3k9x/">
+        <span class="num">Webツール</span>
+        <h3>僕用さくいん（日本語マスター）</h3>
+        <p>全データの正本。訪問記録・三国スタンス・ひかりマッチ掲載可否の記録もここに集約されます。</p>
+        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
+      </a>
+<a class="card" href="https://t76190-cmyk.github.io/memo-t4k7x9/">
+        <span class="num">Webツール</span> <span class="num unlinked">未連携</span>
+        <h3>ティリーニ用（会社運用版）</h3>
+        <p>会社内でそのまま回覧できる運用版。社内で共有するのはこの版と社長用です。</p>
+        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
+      </a>
+<a class="card" href="https://t76190-cmyk.github.io/memo-m9k2x4/">
+        <span class="num">Webツール</span> <span class="num unlinked">未連携</span>
+        <h3>社長用（英語・全データ版）</h3>
+        <p>全データを英語で収めた意思決定用の版。各ページのENボタンで英語表示に切り替わります。</p>
+        <div class="meta"><span>更新：2026年11月22日</span><span class="go">開く →</span></div>
+      </a>
+    </div>
+    <p class="section-note" style="margin-top:16px;">3版はそれぞれ独立しています。版どうしの連携は保留中です。</p>
+  </section>
+
+  <!-- 03 イベント報告・反省・改善等 -->
+  <section id="ch03">
+    <h2>03 イベント報告・反省・改善等</h2>
+    <p class="section-note">この出展の報告書と反省・改善案、および展示会で頂いたパンフレットを1社1本に束ねた企業別資料（完成分）へのリンクです。</p>
+    <div class="grid">
+<a class="card" href="https://drive.google.com/file/d/15OeqFDnKcsOxDzqi1xjrdffFQOszPsu9/view?usp=drivesdk">
         <span class="num orange">報告書</span>
         <h3>出展報告書（日英合本）</h3>
         <p>活動実績・取材結果（23社）・名刺交換者一覧（69名）・所見と結論をまとめた会社記録用の報告書。日本語版と英語版の合本です。</p>
         <div class="meta"><span>全17頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
       </a>
-      <a class="card" href="https://drive.google.com/file/d/1JwzGGVlyNb-pFdQMQoMDXJepoqm4pLuP/view?usp=drivesdk">
+<a class="card" href="https://drive.google.com/file/d/1JwzGGVlyNb-pFdQMQoMDXJepoqm4pLuP/view?usp=drivesdk">
         <span class="num orange">フィードバック</span>
         <h3>出展の反省点と改善案</h3>
         <p>反省点（当日参加組の多さ、登録への導線、特典の設計）と、その原因・改善案をまとめた資料。2026年11月21日にティリーニ様へ送信済みです。</p>
         <div class="meta"><span>全2頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
       </a>
-      <a class="card" href="https://drive.google.com/file/d/1Id9KXnC320tsn1_JWpkHsUfgyNspu4rB/view?usp=drivesdk">
+<a class="card" href="https://drive.google.com/file/d/1Id9KXnC320tsn1_JWpkHsUfgyNspu4rB/view?usp=drivesdk">
         <span class="num">企業別資料</span>
         <h3>ひかりマッチ（ネスコインベストメント）</h3>
         <p>自社ブース（日本エコソーラー、SC1-6）で配布したパンフレットの資料化。企業別資料の標準形（見本）です。</p>
         <div class="meta"><span>全12頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
       </a>
-      <a class="card" href="https://drive.google.com/file/d/1rsQ0JBisksOaVyk-_uHQptlA0Nq4HJh-/view?usp=drivesdk">
+<a class="card" href="https://drive.google.com/file/d/1rsQ0JBisksOaVyk-_uHQptlA0Nq4HJh-/view?usp=drivesdk">
         <span class="num">企業別資料</span>
         <h3>Solvvy株式会社</h3>
         <p>ブースSD4-6。ひかりマッチ掲載「可」。当日の聴取データ（用地・系統・資金）を含みます。</p>
         <div class="meta"><span>全10頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
       </a>
-      <a class="card" href="https://drive.google.com/file/d/1trPbr92wJVzg5AKMwM_WUBiNMpK_HlHT/view?usp=drivesdk">
+<a class="card" href="https://drive.google.com/file/d/1trPbr92wJVzg5AKMwM_WUBiNMpK_HlHT/view?usp=drivesdk">
         <span class="num">企業別資料</span>
         <h3>株式会社Green Battery</h3>
         <p>系統用蓄電池の事業者。カタログ原本とテキスト全文（日英）を収めています。</p>
         <div class="meta"><span>全8頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
       </a>
-      <a class="card" href="https://drive.google.com/file/d/1Nm72z84VHTdgQoHNQDRoU5gWjUIvTwaR/view?usp=drivesdk">
+<a class="card" href="https://drive.google.com/file/d/1Nm72z84VHTdgQoHNQDRoU5gWjUIvTwaR/view?usp=drivesdk">
         <span class="num">企業別資料</span>
         <h3>巴工業株式会社</h3>
         <p>水素濃度センサー等のパンフレットを資料化。当日データ・名刺データはなく、パンフレットのみで構成しています。</p>
         <div class="meta"><span>全17頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
       </a>
-      <a class="card" href="https://drive.google.com/file/d/1tPSD2IMvpYM9May8PMwi_HJlfPU4hSsi/view?usp=drivesdk">
+<a class="card" href="https://drive.google.com/file/d/1tPSD2IMvpYM9May8PMwi_HJlfPU4hSsi/view?usp=drivesdk">
         <span class="num">企業別資料</span>
         <h3>富士高圧フレキシブルホース株式会社（山口県光市）</h3>
         <p>フレキシブルホース・継手・超高圧水素用配管のメーカー（一社一貫の生産体制）。会社案内パンフレットを資料化しました。展示会最終日に名刺交換（蔵岡 賢人様・営業部）。</p>
         <div class="meta"><span>全10頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- 04 ネスコインベストメント未来像 -->
+  <section id="ch04">
+    <h2>04 ネスコインベストメント未来像</h2>
+    <p class="section-note">展示会を通じて見えてきた可能性を、事業計画書の形に整理して束にしたものです。未来構想資料を含む10本で、いずれも確定方針ではなく、可能性の提示です。組み合わせるか、練り直すか、進めるかは、ご覧いただいた上でご判断ください。なお、この10の案に、03の企業別資料にある山口県光市の富士高圧フレキシブルホースを加えた11点が「光イレブン」です。各資料とも、確認できた事実・仮説・構想・要調査事項を分けて記載しています。</p>
+    <div class="grid">
+<a class="card" href="https://drive.google.com/file/d/1ymMlzHYMvDRlVZGIrsNSKTjT9DsF69F8/view?usp=drivesdk">
+        <span class="num">01</span>
+        <h3>オルチク事業計画書</h3>
+        <p>「オール蓄電器」＝関西・中部圏の系統用蓄電池への網羅的な分散投資のイメージと、売れるまで働かせる「働く在庫」、株式で参加する「中口」の案を整理しました。</p>
+        <div class="meta"><span>全20頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="https://drive.google.com/file/d/1eyomxoY5ZGK9l1dq0Vq00BE3_3dv00h2/view?usp=drivesdk">
+        <span class="num">02</span>
+        <h3>未来構想資料</h3>
+        <p>イベントのフィードバックと、そこから感じた未来像。瀬戸内エネルギーロジスティクス（電気を運ぶ）など、ひかりマッチの広がりを描きました。</p>
+        <div class="meta"><span>全17頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="https://drive.google.com/file/d/1-PeWdXB8RiCzT8oRzCX4TkKJAT_il8fK/view?usp=drivesdk">
+        <span class="num">03</span>
+        <h3>提案書（サイト改善＋コラムのビジョン）</h3>
+        <p>第一部はひかりマッチサイトの改善提案（登録フォームの紹介者欄、物件の想定利回り表示、コラムの置き場、登録までの摩擦の低減）。第二部はコラムで描く大きなビジョンです。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="https://drive.google.com/file/d/1x6jkgNSm350G4n3xkueR68HT9eQKXjjB/view?usp=drivesdk">
+        <span class="num">04</span>
+        <h3>系統不動産という新しい資産の見方</h3>
+        <p>5億円は「電池の値段」ではなく、系統につながった拠点＝「場所の未来」の値段。電池は載せ替え、資本も入れ替える見方と、小口化の構想です。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="https://drive.google.com/file/d/1g-97ryInhpUzYvX6H1Ayl5xJSqQ9xRt8/view?usp=drivesdk">
+        <span class="num">05</span>
+        <h3>店舗を、もう一度働かせる（サイネージ代理店マッチング）</h3>
+        <p>既存店舗・駐車場・外壁という「場所」の資産に、デジタルサイネージ（収益設備＋自社メディア）と低圧BESSをマッチする構想です。</p>
+        <div class="meta"><span>全10頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="https://drive.google.com/file/d/1xoaxe6XUF4NBW2uts-hAaxb5nA1lPrl5/view?usp=drivesdk">
+        <span class="num">06</span>
+        <h3>霞ヶ浦 Electric Playground</h3>
+        <p>商品ではなく一日の体験で考える。潮来駅から小型EV、電動SUP、ドローン配送まで、「駅から先」を電気でつなぐ構想です。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="https://drive.google.com/file/d/1uaJPdHRq0Qb60nLHe4AXfzGNNPntkTcC/view?usp=drivesdk">
+        <span class="num">07</span>
+        <h3>霞ヶ浦 SHORT TRIP MOBILITY</h3>
+        <p>「一周しなくていい、霞ヶ浦」。走破ではなく短距離周遊で地域に止まる理由を増やすモビリティと、ペット様を基準にした移動の構想です。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="https://drive.google.com/file/d/1PDX8k3407B33XE44zWSu5V6eROjwqsAW/view?usp=drivesdk">
+        <span class="num">08</span>
+        <h3>LOCAL MOBILITY PLAYGROUND（地域展開版）</h3>
+        <p>地域ごとに、乗り物を着替える。霞ヶ浦・伊豆大島・八ッ場・草津・しまなみ海道・別府へ広げる展開モデルです。</p>
+        <div class="meta"><span>全10頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="https://drive.google.com/file/d/1iXzhV_5JCrC6ZBjZlJMTVdzgPg6RPOlX/view?usp=drivesdk">
+        <span class="num">09</span>
+        <h3>SUN ISLAND PROJECT</h3>
+        <p>「本物の太陽の塔をつくろう」。無人島×次世代エネルギー×AIセンター×クラファン。建設計画ではなく、狂った問いから現実にできる部分を探す資料です。</p>
+        <div class="meta"><span>全11頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
+      </a>
+<a class="card" href="https://drive.google.com/file/d/1sph2FgV8o_gCuKqIf_1H7_L7cFxrV6iA/view?usp=drivesdk">
+        <span class="num">10</span>
+        <h3>HONEY AI工房</h3>
+        <p>AIを売る店ではなく、AIとの「相性」を探す店。24時間営業する企業アイコンHONEYと、関係を引き継ぐNULLの構想です。ヌル総出の最終巻。</p>
+        <div class="meta"><span>全12頁</span><span>更新：2026年11月22日</span><span class="go">PDF →</span></div>
       </a>
     </div>
   </section>
