@@ -195,45 +195,27 @@ box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
 }
 .back-link:hover,.back-link:active{border-color:#d8cfbc;}
 
-/* ===== 目次 ===== */
-.toc{
-margin-top:26px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:14px;
-padding:16px 22px 8px;
-box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+/* ===== メニュー（リスト形式） ===== */
+.menu-list{list-style:none;margin:0;padding:0;}
+.menu-list li{
+padding:15px 2px;
+border-top:1px dashed var(--line);
+font-size:16px;
 }
-.toc.toc-title{
-font-size:11.5px;letter-spacing:.24em;color:var(--muted);font-weight:bold;margin:0;
+.menu-list li:first-child{border-top:none;}
+.menu-list .mrow{
+display:flex;align-items:center;gap:12px;
+color:var(--navy);font-weight:bold;letter-spacing:.02em;
+text-decoration:none;
 }
-.toc.mi{
-display:flex;gap:12px;align-items:baseline;
-padding:9px 2px;border-top:1px dashed var(--line);
-color:var(--muted);font-size:15px;font-weight:600;
+a.mrow{min-height:30px;}
+a.mrow:active{opacity:.65;}
+.menu-list .mrow .dot{
+flex:none;width:11px;height:11px;border-radius:50%;
+background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 55%, var(--orange) 100%);
+box-shadow:0 0 0 3px rgba(243,152,0,.16), 0 0 10px rgba(243,152,0,.4);
 }
-.toc a.mi{
-text-decoration:none;color:var(--ink);
-border-radius:8px;padding-left:10px;padding-right:10px;
-}
-.toc a.mi:hover,.toc a.mi:active{
-background:linear-gradient(90deg, rgba(243,152,0,.10), rgba(243,152,0,0) 78%);
-}
-.toc.mi.tn{color:var(--orange);font-weight:700;letter-spacing:.06em;flex:none;}
-.toc.mi.current{
-color:var(--navy);
-background:linear-gradient(90deg, rgba(243,152,0,.13), rgba(243,152,0,0) 78%);
-border-radius:8px;
-padding-left:10px;padding-right:10px;
-}
-.toc.mi.tag{
-margin-left:auto;flex:none;
-font-size:11px;font-weight:bold;letter-spacing:.08em;
-border-radius:999px;padding:1px 10px;
-}
-.toc.mi.tag.now{background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;}
-.toc.mi.tag.soon{background:#f3efe7;color:var(--muted);border:1px solid var(--line);}
-.toc.mi.tag.go{background:none;color:var(--orange);padding:1px 2px;letter-spacing:.04em;}
+.menu-list .mrow .arr{margin-left:auto;color:var(--orange);font-weight:bold;}
 
 /* ===== フッター ===== */
 footer{
@@ -283,19 +265,21 @@ main{padding:10px 14px 44px;}
 
 <main>
 <!-- メニュー -->
-<nav class="toc" aria-label="メニュー">
-<p class="toc-title">メニュー ― 10の案</p>
-<a class="mi" href="vision-oruchiku.html">オルチク事業計画書<span class="tag go">開く →</span></a>
-<a class="mi" href="vision-future.html">未来構想資料<span class="tag go">開く →</span></a>
-<a class="mi" href="vision-proposal.html">提案書（サイト改善＋コラムのビジョン）<span class="tag go">開く →</span></a>
-<a class="mi" href="vision-keito-fudosan.html">系統不動産という新しい資産の見方<span class="tag go">開く →</span></a>
-<a class="mi" href="vision-signage.html">店舗を、もう一度働かせる（サイネージ代理店マッチング）<span class="tag go">開く →</span></a>
-<a class="mi" href="vision-kasumigaura.html">霞ヶ浦 Electric Playground<span class="tag go">開く →</span></a>
-<a class="mi" href="vision-kasumigaura-mobility.html">霞ヶ浦 SHORT TRIP MOBILITY<span class="tag go">開く →</span></a>
-<a class="mi" href="vision-local-mobility.html">LOCAL MOBILITY PLAYGROUND（地域展開版）<span class="tag go">開く →</span></a>
-<a class="mi" href="vision-sun-island.html">SUN ISLAND PROJECT<span class="tag go">開く →</span></a>
-<a class="mi" href="vision-honey.html">HONEY AI工房<span class="tag go">開く →</span></a>
-</nav>
+<section style="margin-top:30px;">
+<h2>メニュー ― 10の案</h2>
+<ul class="menu-list">
+<li><a class="mrow" href="vision-oruchiku.html"><span class="dot" aria-hidden="true"></span>オルチク事業計画書<span class="arr">→</span></a></li>
+<li><a class="mrow" href="vision-future.html"><span class="dot" aria-hidden="true"></span>未来構想資料<span class="arr">→</span></a></li>
+<li><a class="mrow" href="vision-proposal.html"><span class="dot" aria-hidden="true"></span>提案書（サイト改善＋コラムのビジョン）<span class="arr">→</span></a></li>
+<li><a class="mrow" href="vision-keito-fudosan.html"><span class="dot" aria-hidden="true"></span>系統不動産という新しい資産の見方<span class="arr">→</span></a></li>
+<li><a class="mrow" href="vision-signage.html"><span class="dot" aria-hidden="true"></span>店舗を、もう一度働かせる（サイネージ代理店マッチング）<span class="arr">→</span></a></li>
+<li><a class="mrow" href="vision-kasumigaura.html"><span class="dot" aria-hidden="true"></span>霞ヶ浦 Electric Playground<span class="arr">→</span></a></li>
+<li><a class="mrow" href="vision-kasumigaura-mobility.html"><span class="dot" aria-hidden="true"></span>霞ヶ浦 SHORT TRIP MOBILITY<span class="arr">→</span></a></li>
+<li><a class="mrow" href="vision-local-mobility.html"><span class="dot" aria-hidden="true"></span>LOCAL MOBILITY PLAYGROUND（地域展開版）<span class="arr">→</span></a></li>
+<li><a class="mrow" href="vision-sun-island.html"><span class="dot" aria-hidden="true"></span>SUN ISLAND PROJECT<span class="arr">→</span></a></li>
+<li><a class="mrow" href="vision-honey.html"><span class="dot" aria-hidden="true"></span>HONEY AI工房<span class="arr">→</span></a></li>
+</ul>
+</section>
 
 <!-- 光市 -->
 <section>
