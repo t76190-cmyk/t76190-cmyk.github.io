@@ -91,7 +91,6 @@ a.back{color:#173a6b;font-size:13px}
 </head>
 <body>
 <div class="ui">
-<a class="back" href="index.html">← さくいんに戻る</a>
 <h1>📄 稟議書<span class="ed">僕用</span></h1>
 <div class="roletabs" id="roletabs"><button type="button" data-role="drafter">👤 担当者（東）</button><button type="button" data-role="checker">✔ 確認（ティリーニ）</button><button type="button" data-role="president">👔 決裁（マンジュラ社長）</button></div>
 <div id="board"></div>
@@ -454,7 +453,12 @@ if(!m&&role!=='drafter'){
   if(_rs.length){select(_rs[0].ci);_op=true;}
   if(!_op&&_s.__self){var _ids=Object.keys(_s.__self.docs);for(var _i=0;_i<_ids.length;_i++){if(_s.__self.docs[_ids[_i]].status==='waiting'){switchDoc(_ids[_i]);_op=true;break;}}}
 }
-if(!cur&&role==='drafter')select(0);
+if(!cur&&role==='drafter'){
+  var _s4=loadStore();var _ss4=_s4.__self;
+  var _hasRec=Object.keys(_s4).some(function(k){return k!=='__self';})||!!(_ss4&&_ss4.docs&&Object.keys(_ss4.docs).length>0);
+  if(!_hasRec)select(0);
+  else if(_ss4&&_ss4.cur&&_ss4.docs&&_ss4.docs[_ss4.cur])select(0);
+}
 </script>
 </body>
 </html>
