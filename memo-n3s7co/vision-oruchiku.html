@@ -41,7 +41,6 @@ radial-gradient(ellipse 700px 480px at -10% 120%, rgba(64,110,168,.35), rgba(64,
 linear-gradient(140deg,#1b4069 0%,var(--navy) 42%,var(--navy-dark) 78%,var(--navy-deep) 100%);
 padding:64px 24px 58px;
 }
-/* 太陽のモチーフ（封筒の太陽マークへのオマージュ） */
 .sun{
 position:absolute;
 top:-58px;right:-38px;
@@ -121,7 +120,6 @@ section > h2::after{
 content:"";flex:1;height:1px;
 background:linear-gradient(90deg, rgba(23,55,94,.28), rgba(23,55,94,0));
 }
-section > h2.pnum{color:var(--orange);font-weight:700;letter-spacing:.04em;}
 .section-note{
 font-size:13.5px;color:var(--muted);margin:0 0 16px;
 }
@@ -148,7 +146,7 @@ border-top:1px dashed var(--line);
 font-size:14.5px;
 }
 .fact-list li:first-child{border-top:none;}
-.fact-list.fk{
+.fact-list .fk{
 display:inline-block;min-width:92px;
 font-weight:bold;color:var(--navy);
 }
@@ -165,7 +163,7 @@ margin:0 0 16px;
 .core p{
 margin:0 0 8px;font-size:15.5px;font-weight:600;color:var(--navy);line-height:1.75;
 }
-.core.core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
+.core .core-sub{font-size:12.5px;color:var(--muted);font-weight:normal;}
 
 /* ===== 要点リスト ===== */
 .points{list-style:none;margin:0;padding:0;}
@@ -184,6 +182,117 @@ background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 5
 }
 .points li strong{color:var(--navy);}
 
+/* ===== 表 ===== */
+table.cmp, table.steps{
+width:100%;border-collapse:collapse;
+background:var(--card);
+border:1px solid var(--line);border-radius:12px;
+font-size:13.5px;
+margin:14px 0 6px;
+}
+table.cmp th, table.cmp td, table.steps th, table.steps td{
+border-top:1px solid var(--line);
+padding:9px 12px;text-align:left;vertical-align:top;
+}
+table.cmp thead th, table.steps thead th{
+background:linear-gradient(120deg, rgba(23,55,94,.06), rgba(23,55,94,.02));
+color:var(--navy);border-top:none;font-size:13px;
+}
+table.cmp tbody th{
+color:var(--navy);font-weight:bold;white-space:nowrap;background:#fbf9f5;
+}
+table.steps tbody th{color:var(--navy);font-weight:bold;white-space:nowrap;}
+.tbl-note{font-size:12px;color:var(--muted);margin:4px 0 0;}
+
+/* ===== 図の共通 ===== */
+.fig{
+background:var(--card);
+border:1px solid var(--line);border-radius:14px;
+padding:18px 18px 14px;
+margin:14px 0 6px;
+box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
+}
+.fig .fig-cap{
+font-size:12.5px;color:var(--muted);margin:10px 0 2px;
+}
+.fig .fig-title{
+font-size:13px;font-weight:bold;color:var(--navy);letter-spacing:.06em;margin:0 0 12px;
+}
+
+/* ===== D-1 設備の一生フロー図 ===== */
+.flow{display:flex;align-items:stretch;gap:0;}
+.fstep{
+flex:1;
+background:#fbf9f5;
+border:1px solid var(--line);border-radius:10px;
+padding:10px 10px 8px;
+text-align:center;
+}
+.fstep strong{display:block;font-size:13.5px;color:var(--navy);line-height:1.45;}
+.fstep span{display:block;font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:4px;}
+.fstep .fs-num{
+display:inline-block;
+font-size:10.5px;font-weight:bold;color:#fff;
+background:var(--navy);border-radius:999px;
+padding:0 8px;margin:0 0 5px;line-height:1.7;
+}
+.fstep.hot{
+background:linear-gradient(140deg, rgba(243,152,0,.16), rgba(249,178,51,.07));
+border-color:var(--amber);
+}
+.fstep.hot .fs-num{background:linear-gradient(120deg,var(--orange),var(--amber));}
+.fstep.hot .fs-core{
+font-size:12px;color:var(--navy);font-weight:bold;margin-top:6px;
+}
+.farrow{
+flex:none;align-self:center;
+color:var(--orange);font-weight:bold;font-size:15px;
+padding:0 3px;
+}
+
+/* ===== バー図（D-2 / D-3 共通） ===== */
+.brow{
+padding:9px 0 10px;border-top:1px dashed var(--line);
+}
+.brow:first-of-type{border-top:none;}
+.bhead{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:5px;}
+.bhead .bl{font-size:13px;font-weight:bold;color:var(--navy);line-height:1.45;}
+.bhead .bl small{font-weight:normal;color:var(--muted);font-size:11.5px;margin-left:8px;}
+.bhead .bv{font-size:14.5px;font-weight:bold;color:var(--navy);white-space:nowrap;}
+.brow .bt{height:14px;background:#ece7db;border-radius:7px;}
+.brow .bf{
+display:block;height:14px;border-radius:7px;
+background:linear-gradient(90deg,var(--navy),#2c5a8f);
+}
+.brow .bf.org{background:linear-gradient(90deg,var(--orange),var(--amber));}
+.brow.own .bl{color:var(--orange);}
+.brow.own .band{
+display:block;height:14px;border-radius:7px;
+background:rgba(243,152,0,.45);
+border:1.5px solid var(--orange);
+}
+
+/* ===== D-4 参加の大きさ3層図 ===== */
+.layers{display:flex;flex-direction:column;gap:8px;}
+.layer{
+border:1px solid var(--line);border-radius:10px;
+background:#fbf9f5;
+padding:11px 14px 9px;
+display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+}
+.layer .lt{font-size:14.5px;font-weight:bold;color:var(--navy);flex:none;}
+.layer .ld{font-size:12.5px;color:var(--muted);}
+.layer.mid{
+background:linear-gradient(120deg, rgba(243,152,0,.15), rgba(249,178,51,.06));
+border:1.5px dashed var(--orange);
+}
+.layer .seat{
+margin-left:auto;flex:none;
+font-size:11px;font-weight:bold;letter-spacing:.06em;
+color:#fff;background:linear-gradient(120deg,var(--orange),var(--amber));
+border-radius:999px;padding:1px 10px;
+}
+
 .back-wrap{margin-top:48px;text-align:center;}
 .back-link{
 display:inline-block;
@@ -195,46 +304,6 @@ box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
 }
 .back-link:hover,.back-link:active{border-color:#d8cfbc;}
 
-/* ===== 目次 ===== */
-.toc{
-margin-top:26px;
-background:var(--card);
-border:1px solid var(--line);
-border-radius:14px;
-padding:16px 22px 8px;
-box-shadow:0 1px 3px rgba(23,55,94,.05), 0 10px 26px rgba(23,55,94,.05);
-}
-.toc.toc-title{
-font-size:11.5px;letter-spacing:.24em;color:var(--muted);font-weight:bold;margin:0;
-}
-.toc.mi{
-display:flex;gap:12px;align-items:baseline;
-padding:9px 2px;border-top:1px dashed var(--line);
-color:var(--muted);font-size:15px;font-weight:600;
-}
-.toc a.mi{
-text-decoration:none;color:var(--ink);
-border-radius:8px;padding-left:10px;padding-right:10px;
-}
-.toc a.mi:hover,.toc a.mi:active{
-background:linear-gradient(90deg, rgba(243,152,0,.10), rgba(243,152,0,0) 78%);
-}
-.toc.mi.tn{color:var(--orange);font-weight:700;letter-spacing:.06em;flex:none;}
-.toc.mi.current{
-color:var(--navy);
-background:linear-gradient(90deg, rgba(243,152,0,.13), rgba(243,152,0,0) 78%);
-border-radius:8px;
-padding-left:10px;padding-right:10px;
-}
-.toc.mi.tag{
-margin-left:auto;flex:none;
-font-size:11px;font-weight:bold;letter-spacing:.08em;
-border-radius:999px;padding:1px 10px;
-}
-.toc.mi.tag.now{background:linear-gradient(120deg,var(--orange),var(--amber));color:#fff;}
-.toc.mi.tag.soon{background:#f3efe7;color:var(--muted);border:1px solid var(--line);}
-.toc.mi.tag.go{background:none;color:var(--orange);padding:1px 2px;letter-spacing:.04em;}
-
 /* ===== フッター ===== */
 footer{
 background:linear-gradient(160deg,var(--navy-dark),var(--navy-deep));
@@ -242,13 +311,13 @@ padding:30px 16px 34px;
 font-size:12.5px;color:#a9bccd;
 text-align:center;
 }
-footer.f-inner{max-width:1000px;margin:0 auto;}
-footer.null-walk{
+footer .f-inner{max-width:1000px;margin:0 auto;}
+footer .null-walk{
 display:block;height:56px;width:auto;margin:0 auto 14px;
 filter:drop-shadow(0 6px 12px rgba(0,0,0,.35));
 }
 footer a{color:#ffd98a;font-weight:bold;text-decoration:none;}
-footer.f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
+footer .f-back{display:inline-block;margin-bottom:14px;font-size:13px;}
 
 @media (max-width:560px){
 header{padding:44px 18px 40px;}
@@ -259,7 +328,22 @@ header{padding:44px 18px 40px;}
 section{margin-top:38px;}
 section > h2{font-size:18px;}
 main{padding:10px 14px 44px;}
-.fact-list.fk{min-width:78px;}
+.fact-list .fk{min-width:78px;}
+.flow{flex-direction:column;}
+.farrow{transform:rotate(90deg);padding:2px 0;}
+table.cmp thead{display:none;}
+table.cmp, table.cmp tbody, table.cmp tr, table.cmp td{display:block;width:100%;}
+table.cmp tr{border-top:1px solid var(--line);padding:6px 0;}
+table.cmp tbody th{display:block;border-top:none;background:none;padding:8px 12px 2px;}
+table.cmp td{border-top:none;padding:2px 12px 6px;}
+table.cmp td::before{
+content:attr(data-label);
+display:block;font-size:11px;font-weight:bold;color:var(--orange);letter-spacing:.05em;
+}
+table.steps{font-size:12.5px;}
+table.steps th, table.steps td{padding:7px 8px;}
+table.steps tbody th{white-space:normal;}
+.layer .seat{margin-left:0;}
 }
 </style>
 </head>
@@ -283,20 +367,138 @@ main{padding:10px 14px 44px;}
 
 <main>
 <section style="margin-top:34px;">
-<p class="lead">ひかりマッチを「蓄電所売買事業」から「電力アセットの開発・流通・保有・運用プラットフォーム」へ広げられるかを、結論を決めずに確かめる資料です。「オルチク」は「オール蓄電器」の略で、関西・中部圏の系統用蓄電池を網羅的に分散投資するイメージを表す、考えるための仮の呼び名です。</p>
+<p class="lead">ひかりマッチを「蓄電所売買の場」から「電力アセット（電気をためて使う設備や、その権利）の開発・流通・保有・運用までを扱う場」へ広げられるかを、結論を決めずに確かめる資料です。「オルチク」は「オール蓄電器」の略で、関西・中部圏の系統用蓄電池（送電網につなぐ大型の蓄電池）を網羅的に分散投資するイメージを表す、考えるための仮の呼び名です。</p>
 <div class="core">
-<p>「売れるまで待つのではなく、売れるまで働かせる。」</p>
+<p>「空き地を売れるまで待つのではなく、売れるまで働かせる。」</p>
 <p>「土地を売る」より「稼働資産を売る」へ。</p>
 <p class="core-sub">コアコピー候補：平時に稼働し、有事に守る電力資産。</p>
 </div>
+</section>
+
+<section>
+<h2>起点は2つの違和感</h2>
 <ul class="points">
-<li><strong>起点は2つの違和感：</strong>1つ目は、買い手が見つかるまで土地や案件が眠っていること。蓄電所を先に作って動かし、運用しながら買い手を探せないか。2つ目は、参加の大きさに「中くらい」がないこと。蓄電所への参加は「1基を丸ごと買う」か「金融商品として細かく買う」かの両極端で、会社が数％・数千万円の大きさで戦略的に参加できる「中口（ちゅうぐち）」の席が作れないか。</li>
-<li><strong>構想の方向：</strong>土地を売るだけでなく、「作る・運用する・売った後も関わる」までを一続きにできないか、という方向です。</li>
-<li><strong>進め方の4案：</strong>案A＝いまの形の延長（売買のお手伝いに専念）。案B＝運用は別の電力運用会社に分ける。案C＝事業をする会社そのものに株式で参加する（「中口」の案。電気を細かく切った金融商品にするのではなく、会社化して共同所有する）。案D＝大きな蓄電所だけでなく、施設側の蓄電池も束ねる。どれがよいかは、まだ決めていません。</li>
-<li><strong>施設側への展開：</strong>タワーマンション・集合住宅、高齢者・介護施設、病院・医療施設、自治体の防災施設・避難拠点、商業施設・工場、AIデータセンター等。同じ設備で、平時は電気代の最適化や市場での活用、有事（災害・停電のとき）は施設や地域を守る電源になる、という二面性を持たせます。</li>
-<li><strong>確認できた事実：</strong>ひかりマッチに載っている大型（高圧）の系統用蓄電池は5件で、すべて中部電力の地域、出力1,996kW／容量8,360kWh、値段は5億2,000万円〜5億6,000万円（税別）。経済産業省の資料（2026年6月末時点）では、系統用蓄電池は接続検討の申し込みが約211GW、契約申込が約41GWに対し、実際につながった量は1.28GWです。</li>
-<li><strong>進め方：</strong>いきなり大きく始めず、小さく確かめながら進める案です。売れるまでの間の運用収益の見込みや、お金の集め方、金融商品取引法への当てはまり方は、要調査・専門家に確認のまま分けて置いています。</li>
+<li><strong>違和感（1）眠っている設備：</strong>買い手が見つかるまで、土地や案件は待っているだけになっています。蓄電所を先に作って動かし、運用しながら買い手を探せないか。</li>
+<li><strong>違和感（2）参加の大きさに「中くらい」がない：</strong>蓄電所への参加は「1基を丸ごと買う」か「金融商品として細かく買う」かの両極端です。会社が数％・数千万円の大きさで戦略的に参加できる「中口（ちゅうぐち）」の席が作れないか。</li>
 </ul>
+<div class="fig">
+<p class="fig-title">参加の大きさ ― 3つの層</p>
+<div class="layers">
+<div class="layer"><span class="lt">丸ごと買う</span><span class="ld">1基を丸ごと買う（いまの形）</span></div>
+<div class="layer mid"><span class="lt">中口</span><span class="ld">数％・数千万円の大きさで、会社が株式で参加する</span><span class="seat">いまは無い席</span></div>
+<div class="layer"><span class="lt">細かく買う</span><span class="ld">金融商品として細かく買う</span></div>
+</div>
+<p class="fig-cap">この資料の関心は、両極端の間にある「中口」の層です。</p>
+</div>
+</section>
+
+<section>
+<h2>確認できた事実</h2>
+<div class="about-box">
+<ul class="fact-list">
+<li><span class="fk">いまの条件</span>ひかりマッチの会員の費用は、最初の1年は無料です。2年目からは、売り手だけ年20,000円（税別）で、買い手は無料です。成約したときの手数料は、売り手2％・買い手1％です。なお、お金の貸し借りのお手伝い（資金調達）は、ひかりマッチのサービスには入っていません。</li>
+<li><span class="fk">載っている案件</span>ひかりマッチに載っている大型（高圧）の系統用蓄電池（送電網につなぐ大型の蓄電池）は5件で、すべて中部電力の地域にあります。大きさは出力1,996kW／容量8,360kWh、値段は5億2,000万円〜5億6,000万円（税別）です。送電網につなぐための事前確認（接続検討）への回答と、保証金の支払いは、5件とも済んでいます。</li>
+<li><span class="fk">蓄電所の相場</span>蓄電所の相場は、サイエンスエックスのコラム（2026年1月〜9月の観測、大型・2MW級、税別）によると、買う段階によって大きく変わります。権利だけ（つなぐための回答つき）で中央値1.2億円、完成して渡す（つなぐ前）で6.7億円、つないだ後で7.5億円です。ひかりマッチの5件（5億2,000万円〜5億6,000万円）は、完成して渡す段階の相場（6.7億円）より低い価格帯にあります。</li>
+</ul>
+<div class="fig" style="box-shadow:none;margin-top:4px;">
+<p class="fig-title">相場は「買う段階」で変わる（中央値・税別）</p>
+<div class="brow"><div class="bhead"><span class="bl">権利だけ<small>つなぐための回答つき</small></span><span class="bv">1.2億円</span></div><div class="bt"><span class="bf" style="width:16%;"></span></div></div>
+<div class="brow"><div class="bhead"><span class="bl">完成して渡す<small>つなぐ前</small></span><span class="bv">6.7億円</span></div><div class="bt"><span class="bf" style="width:89%;"></span></div></div>
+<div class="brow"><div class="bhead"><span class="bl">つないだ後</span><span class="bv">7.5億円</span></div><div class="bt"><span class="bf" style="width:100%;"></span></div></div>
+<div class="brow own"><div class="bhead"><span class="bl">ひかりマッチの5件<small>完成して渡す段階の案件</small></span><span class="bv">5.2〜5.6億円</span></div><div class="bt"><span class="band" style="margin-left:69%;width:6%;"></span></div></div>
+<p class="fig-cap">出典：サイエンスエックスのコラム（2026年1月〜9月の観測、大型・2MW級）。自社の5件の位置は、同じものさし（7.5億円＝100％）の上に重ねています。</p>
+</div>
+<ul class="fact-list">
+<li><span class="fk">申し込みと現実</span>経済産業省の資料（第13回 次世代電力系統ワーキンググループ 資料2、2026年6月末時点、大型以上）では、系統用蓄電池は、つなぐための検討の申し込みが約211GW、契約の申し込みが約41GWに対し、実際につながった量は1.28GWです。申し込みの量に比べて、つながった量はまだ小さい段階です。ただし、申し込みをしたものが全部建つわけではありませんし、この数字だけで個々の案件の見込みは判断できません。</li>
+</ul>
+<div class="fig" style="box-shadow:none;margin-top:4px;">
+<p class="fig-title">申し込みの量と、つながった量の差</p>
+<div class="brow"><div class="bhead"><span class="bl">接続検討の申し込み</span><span class="bv">約211GW</span></div><div class="bt"><span class="bf" style="width:100%;"></span></div></div>
+<div class="brow"><div class="bhead"><span class="bl">契約の申し込み</span><span class="bv">約41GW</span></div><div class="bt"><span class="bf" style="width:69%;"></span></div></div>
+<div class="brow"><div class="bhead"><span class="bl">実際につながった量</span><span class="bv">1.28GW</span></div><div class="bt"><span class="bf org" style="width:5%;min-width:10px;"></span></div></div>
+<p class="fig-cap">出典：経済産業省 第13回 次世代電力系統ワーキンググループ 資料2（2026年6月末時点、大型以上）。量の桁（10倍ごとの段差）が伝わるよう、バーの幅は桁を目安にした目盛りで描いています。申し込み分が全部建つわけではありません。</p>
+</div>
+<ul class="fact-list">
+<li><span class="fk">AIの推論</span>【推論（Gemini）】AI（Gemini）の推論（2026年11月21日実施）では、2MW／8MWhの蓄電所を新しく置く場合の「儲けやすさ」は、中部が1位、関西が2位とされました。ひかりマッチに載っている5件はすべて中部で、この推論と合っています。ただし、市場の数字の出典はGeminiの引用で、確かめ切れていないものを含みます。これはあくまで推論です。</li>
+</ul>
+</div>
+</section>
+
+<section>
+<h2>構想の方向</h2>
+<p class="lead">土地を売るだけでなく、設備の一生――用地の見極め、開発・建設、稼働・保有、流通・売却、売却後の運用――までを一続きにできないか、という方向です。誰がどの段階を担うかは決めておらず、次の「進め方の4案」で比べます。</p>
+<div class="fig">
+<p class="fig-title">設備の一生 ― 5つの段階</p>
+<div class="flow">
+<div class="fstep"><span class="fs-num">段階 1</span><strong>用地・初期案件</strong><span>候補地を探し、送電網につなげるか等の見極め</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">段階 2</span><strong>開発・建設</strong><span>蓄電所として実際に作る</span></div>
+<div class="farrow">→</div>
+<div class="fstep hot"><span class="fs-num">段階 3</span><strong>稼働・保有</strong><span>買い手が決まるまで運用する</span><span class="fs-core">「売れるまで働かせる」</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">段階 4</span><strong>流通・売却</strong><span>丸ごと売却、部分的な参加、共同で持つ等</span></div>
+<div class="farrow">→</div>
+<div class="fstep"><span class="fs-num">段階 5</span><strong>売却後</strong><span>運用だけを引き続き任せてもらう</span></div>
+</div>
+<p class="fig-cap">待つ時間が、働く時間に変わるのは段階3です。この資料の核は、ここにあります。</p>
+</div>
+</section>
+
+<section>
+<h2>進め方の4案</h2>
+<p class="section-note">役割分担の違う4つの案を並べました。どれがよいかは、まだ決めていません。</p>
+<ul class="points">
+<li><strong>案A＝いまの形の延長：</strong>ひかりマッチは売買のお手伝いに専念し、作る・持つ・運用する、は行いません。いまの形からの変更が一番小さい案です。在庫や運用のリスクは負いませんが、「売れるまで働かせる」は実現しません。</li>
+<li><strong>案B＝運用は別の会社に分ける：</strong>ひかりマッチは作る・流通させるまでを担い、電力の運用は別の事業会社（電力運用会社）に分けます。運用会社は、売れるまでの間の設備、共同で持つ設備、将来は外の会社の設備までを、束ねて運用します。</li>
+<li><strong>案C＝事業をする会社そのものに株式で参加する（「中口」の案）：</strong>電気を細かく切った金融商品にするのではなく、会社化して共同所有する案です。ただし、株式も有価証券であり、法律の規制の外という意味ではありません。参加の募り方は、専門家に確認します。</li>
+<li><strong>案D＝施設側の蓄電池も束ねる：</strong>大きな蓄電所だけでなく、施設に置かれた蓄電池も取り込んで、束ねて運用する案です。対象は広がりますが、施設ごとに法律や技術の条件が違い、1件ずつの確認が重くなります。</li>
+</ul>
+<table class="cmp">
+<thead>
+<tr><th>比べる点</th><th>案A いまの延長</th><th>案B 運用を分ける</th><th>案C 会社に株式で参加</th><th>案D 施設側も束ねる</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">ひかりマッチの役割</th><td data-label="案A">売買のお手伝い</td><td data-label="案B">作る・流通させる</td><td data-label="案C">作る・流通＋参加の取りまとめ（可否は要確認）</td><td data-label="案D">売買＋施設側の入口</td></tr>
+<tr><th scope="row">設備の持ち主</th><td data-label="案A">買った会社</td><td data-label="案B">売れる間は作った側、後は買い手等</td><td data-label="案C">事業をする会社（参加者は株主）</td><td data-label="案D">施設の持ち主、または事業者</td></tr>
+<tr><th scope="row">参加のしかた</th><td data-label="案A">丸ごと売買</td><td data-label="案B">丸ごと売買＋運用を任せる</td><td data-label="案C">株式で「中口」の参加</td><td data-label="案D">設備を置く・運用に参加</td></tr>
+<tr><th scope="row">売れるまでの運用</th><td data-label="案A">しない</td><td data-label="案B">運用会社が運用する</td><td data-label="案C">事業会社が持って運用</td><td data-label="案D">（大きな蓄電所は対象外）</td></tr>
+<tr><th scope="row">主な収益のもと</th><td data-label="案A">成約手数料</td><td data-label="案B">成約手数料＋運用の受託料</td><td data-label="案C">成約手数料＋事業の収益の分け方（要調査）</td><td data-label="案D">運用・サービスの料金（要調査）</td></tr>
+<tr><th scope="row">一番の確かめどころ</th><td data-label="案A">広がりが小さい</td><td data-label="案B">運用の許可と体制</td><td data-label="案C">会社法・金融商品取引法の整理</td><td data-label="案D">施設ごとの条件の確認</td></tr>
+</tbody>
+</table>
+<p class="tbl-note">この表は比べるための整理で、案の優劣を決めるものではありません。お金の金額や料率は置いていません。</p>
+</section>
+
+<section>
+<h2>施設側への展開</h2>
+<p class="section-note">大きな蓄電所だけでなく、電気を使う施設側の蓄電池も取り込めないか、という広げ方です。施設ごとに法律や技術の条件が違うため、それぞれ別に確かめる前提です。</p>
+<ul class="points">
+<li><strong>タワーマンション・集合住宅：</strong>普段の電気の使い方の最適化と、停電のときに共用設備や防災の機能を守ることを組み合わせます。</li>
+<li><strong>高齢者・介護施設：</strong>停電のときに、生活を続けるうえで大事な設備を守るための備えとして想定します。</li>
+<li><strong>病院・医療施設：</strong>医療の継続のための備えと結びつけます。もともと求められる非常用電源の要件との確認が必要です。</li>
+<li><strong>自治体の防災施設・避難拠点：</strong>普段の設備の活用と、災害のときに地域の防災の拠点になることの両立を検討します。</li>
+<li><strong>商業施設・工場：</strong>電気代のピーク対策、災害への備え、電力の運用との組み合わせを検討します。</li>
+<li><strong>AIデータセンター等：</strong>将来の大きな電気の需要との結びつきの候補です。事業性の確認は別に必要です。</li>
+<li><strong>二面性：</strong>同じ設備で、平時は電気代の最適化や市場での活用、有事（災害・停電のとき）は施設や地域を守る電源になる、という二面性を持たせます。</li>
+</ul>
+</section>
+
+<section>
+<h2>進め方と、まだ決めていないこと</h2>
+<p class="lead">いきなり大きく始めず、小さく確かめながら進める案です。各段階は、前の段階で確かめられた場合にのみ次へ進む前提で、途中で「やらない」という判断も含みます。時期や対象は決めていません。</p>
+<table class="steps">
+<thead>
+<tr><th>段階</th><th>すること</th><th>この段階で確かめること</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">段階0：机上の確認</th><td>法律・制度の論点を専門家に聞く。市場のルールを調べる</td><td>そもそも可能な形かどうか</td></tr>
+<tr><th scope="row">段階1：いまの案件で試す</th><td>載っている案件を材料に、「買う段階」の見せ方や、売れるまでの運用の考え方を、関係者と机上で検証する</td><td>買い手・売り手の反応。運用を誰が担えるか</td></tr>
+<tr><th scope="row">段階2：小さな実証</th><td>対象を絞って、売れるまでの運用、または施設側1件での平時・有事の切り替えを試す</td><td>運用の実務、契約の形、切り替えの動き</td></tr>
+<tr><th scope="row">段階3：参加の形の検証</th><td>「中口」の参加（案C）について、関心を持つ会社と対話し、条件を確かめる</td><td>参加したい会社がいるか。法律の整理がつくか</td></tr>
+<tr><th scope="row">段階4：広げる判断</th><td>実証の結果を見て、広げるかどうか、どの案で進めるかを改めて判断する</td><td>――</td></tr>
+</tbody>
+</table>
+<p class="lead" style="margin-top:16px;">売れるまでの間の運用収益の見込み、お金の集め方、金融商品取引法への当てはまり方は、まだ分からないこと・専門家に確かめることとして、分けて置いています。具体的な株式の割合や出資額、誰が設備を持ち誰が運用するか、収益率や売却価格などの財務の前提も、意図的に決めていません。調べと専門家の確認が先です。</p>
 </section>
 
 <div class="back-wrap">
