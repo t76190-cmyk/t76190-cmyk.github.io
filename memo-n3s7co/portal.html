@@ -257,6 +257,9 @@
   .about-box h3{
     margin:16px 0 4px;font-size:15px;color:var(--navy);
   }
+  .about-box h3 a.hlink{color:inherit;text-decoration:none;}
+  .about-box h3 a.hlink::after{content:" ›";color:var(--orange);}
+  .about-box h3 a.hlink:active{opacity:.65;}
 
   /* ===== フッター ===== */
   footer{
@@ -310,7 +313,7 @@
     <div class="about-box">
       <p><strong>株式会社ネスコインベストメント</strong>は、再生可能エネルギー関連事業のグループの中核として、系統用蓄電池等の売買マッチングサービス「ひかりマッチ」を運営しています。</p>
       <p class="addr">所在地：東京都中央区銀座7丁目15-18 銀ビル5F</p>
-      <h3>グループ会社</h3>
+      <h3><a class="hlink" href="companies/group.html">グループ会社</a></h3>
       <ul class="group-list">
         <li>
           <a class="glink" href="companies/eco-solar.html"><span class="gname">株式会社日本エコソーラー</span><span class="gdesc">系統用蓄電池の開発・販売を行い、自社で案件を持ちます。</span></a>
