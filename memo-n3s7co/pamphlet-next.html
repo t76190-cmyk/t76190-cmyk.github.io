@@ -97,7 +97,31 @@ font-size:12px;font-weight:bold;
 padding:4px 16px;border-radius:999px;letter-spacing:.14em;
 box-shadow:0 4px 12px rgba(243,152,0,.28);
 }
-main{max-width:1000px;margin:0 auto;padding:14px 20px 56px;}
+.status-banner{
+margin-top:16px;max-width:680px;
+background:rgba(255,255,255,.94);
+color:var(--navy);
+border-left:5px solid var(--orange);
+border-radius:8px;
+padding:12px 18px;
+font-size:14.5px;font-weight:bold;line-height:1.7;letter-spacing:.03em;
+box-shadow:0 8px 22px rgba(4,16,34,.30);
+}
+.watermark{
+position:fixed;inset:0;z-index:0;
+overflow:hidden;pointer-events:none;
+display:flex;flex-direction:column;justify-content:space-around;align-items:center;
+}
+.watermark span{
+display:block;
+font-size:clamp(44px,9.5vw,120px);font-weight:700;
+letter-spacing:.08em;line-height:1.5;text-align:center;
+color:rgba(23,55,94,.05);
+transform:rotate(-14deg);
+white-space:nowrap;
+}
+main{max-width:1000px;margin:0 auto;padding:14px 20px 56px;position:relative;z-index:1;}
+footer{position:relative;z-index:1;}
 section{margin-top:46px;}
 section > h2{
 display:flex;align-items:center;gap:12px;
@@ -319,6 +343,11 @@ table.data-table td.k{width:96px;white-space:normal;}
 </head>
 <body>
 
+<div class="watermark" aria-hidden="true">
+<span>次回用パンフレット<br>イメージ</span>
+<span>次回用パンフレット<br>イメージ</span>
+</div>
+
 <header>
 <div class="sun" aria-hidden="true"></div>
 <div class="header-inner">
@@ -332,6 +361,7 @@ table.data-table td.k{width:96px;white-space:normal;}
 <p>系統用蓄電池（蓄電所）の説明パンフレットの次回版（暫定）です。見開き4ページ・A3判の印刷物の内容を、ポータルでそのまま読める形に展開しています。</p>
 </div>
 <span class="internal-badge">社内向け</span>
+<p class="status-banner">初回イベントの反省点を踏まえ、次回用に作成したパンフレットイメージです</p>
 </div>
 </header>
 
