@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>イベント報告｜ネスコインベストメント 社内ポータル</title>
+<title>イベント報告・反省・改善｜ネスコインベストメント 社内ポータル</title>
 <style>
   :root{
     --navy:#17375e;
@@ -217,6 +217,45 @@
   .ng{color:#b0483e;font-weight:700;white-space:nowrap;}
   .pd{color:#a07d10;font-weight:700;white-space:nowrap;}
 
+  /* ===== 目次メニュー（リスト形式） ===== */
+  .toc{margin-top:38px;}
+  .menu-list{list-style:none;margin:0;padding:0;}
+  .menu-list li{
+    padding:15px 2px;
+    border-top:1px dashed var(--line);
+    font-size:16px;
+  }
+  .menu-list li:first-child{border-top:none;}
+  .menu-list .mrow{
+    display:flex;align-items:center;gap:12px;
+    color:var(--navy);font-weight:bold;letter-spacing:.02em;
+    text-decoration:none;
+  }
+  a.mrow{min-height:30px;}
+  a.mrow:active{opacity:.65;}
+  .menu-list .mrow .dot{
+    flex:none;width:11px;height:11px;border-radius:50%;
+    background:radial-gradient(circle at 50% 42%, var(--sun-core) 0%, var(--amber) 55%, var(--orange) 100%);
+    box-shadow:0 0 0 3px rgba(243,152,0,.16), 0 0 10px rgba(243,152,0,.4);
+  }
+  .menu-list .mrow .arr{margin-left:auto;color:var(--orange);font-weight:bold;}
+
+  /* ===== 部の見出し ===== */
+  .part-head{
+    display:flex;align-items:center;gap:16px;
+    margin:28px 0 4px;
+    padding:15px 20px;
+    background:linear-gradient(120deg,var(--navy) 0%,#224a77 68%,#2c5a8c 100%);
+    color:#fff;border-radius:12px;
+    font-size:22px;font-weight:700;letter-spacing:.16em;line-height:1.4;
+    box-shadow:0 10px 26px rgba(23,55,94,.18);
+  }
+  .part-head .pno{
+    font-size:12.5px;letter-spacing:.24em;color:#ffd98a;font-weight:700;white-space:nowrap;
+  }
+  .body-ol{margin:4px 0 14px;padding-left:22px;font-size:14.5px;}
+  .body-ol li{margin:6px 0;}
+
   .back-wrap{margin-top:48px;text-align:center;}
   .back-link{
     display:inline-block;
@@ -257,6 +296,8 @@
     table.cases{font-size:12px;}
     table.cases th,table.cases td{padding:7px 5px;}
     .fact-list .fk{min-width:78px;}
+    .part-head{font-size:18px;padding:12px 14px;letter-spacing:.12em;}
+    .menu-list li{font-size:15px;padding:13px 2px;}
   }
 </style>
 </head>
@@ -270,7 +311,7 @@
     </div>
     <div class="header-title" style="margin-top:26px;">
       <p class="eyebrow">Event Report</p>
-      <h1><span class="h1-main">イベント報告</span> <span class="h1-sub">第14回 SMART ENERGY WEEK 関西 出展報告書</span></h1>
+      <h1><span class="h1-main">イベント報告・反省・改善</span> <span class="h1-sub">第14回 SMART ENERGY WEEK 関西 出展報告書</span></h1>
       <span class="h1-rule" aria-hidden="true"></span>
       <p>2026年11月18日（水）〜20日（金）10:00〜17:00／インテックス大阪 6号館（同時開催：フランチャイズEXPO［大阪］ほか）</p>
     </div>
@@ -279,8 +320,20 @@
 </header>
 
 <main>
+  <!-- 目次メニュー -->
+  <nav class="toc" style="margin-top:30px;" aria-label="目次">
+    <ul class="menu-list">
+      <li><a class="mrow" href="#report"><span class="dot" aria-hidden="true"></span>報告<span class="arr">↓</span></a></li>
+      <li><a class="mrow" href="#reflection"><span class="dot" aria-hidden="true"></span>反省<span class="arr">↓</span></a></li>
+      <li><a class="mrow" href="#improvement"><span class="dot" aria-hidden="true"></span>改善<span class="arr">↓</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== 第1部 報告 ===== -->
+  <div class="part-head" id="report"><span class="pno">PART 1</span>報告</div>
+
   <!-- 報告書の概要 -->
-  <section style="margin-top:34px;">
+  <section style="margin-top:22px;">
     <h2>出展報告書の概要</h2>
     <div class="about-box">
       <ul class="fact-list">
@@ -411,6 +464,85 @@
       <p>同社より案件紹介に対するインセンティブの打診を受けた。既存の成約手数料（売り手2％、買い手1％）とは別の取り扱いとなるため、可否および条件について判断を仰ぐものである。現場では回答していない。</p>
     </div>
     <p class="section-note">出典：資源エネルギー庁「事業計画認定情報」（2026年10月31日版）、次世代電力系統ワーキンググループ資料（系統用蓄電池の接続状況）、「ENERGY eye」2026年11月号 西日本版、各社出展資料および配布資料。数値はいずれも出典時点のものである。</p>
+  </section>
+
+  <!-- 目次メニュー -->
+  <nav class="toc" aria-label="目次">
+    <ul class="menu-list">
+      <li><a class="mrow" href="#report"><span class="dot" aria-hidden="true"></span>報告<span class="arr">↓</span></a></li>
+      <li><a class="mrow" href="#reflection"><span class="dot" aria-hidden="true"></span>反省<span class="arr">↓</span></a></li>
+      <li><a class="mrow" href="#improvement"><span class="dot" aria-hidden="true"></span>改善<span class="arr">↓</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== 第2部 反省 ===== -->
+  <div class="part-head" id="reflection"><span class="pno">PART 2</span>反省</div>
+
+  <!-- 当日の進め方への反省 -->
+  <section style="margin-top:22px;">
+    <h2>当日の進め方への反省</h2>
+    <p class="section-note">本節は、2026年11月21日にティリーニ様（マーコグリーンパワー／HIKARI match）へ送信したフィードバックメール「第14回 SMART ENERGY WEEK 関西 出展の反省点と改善案（フォローアップのご相談）」の要点転記である。</p>
+    <h3 class="sub">反省点</h3>
+    <ol class="body-ol">
+      <li>イベント当日参加組が多く、初速から連携が取れませんでした。</li>
+      <li>名刺交換で69名の接点ができましたが、会員登録には結びつきませんでした。</li>
+      <li>登録特典として用意した「成約手数料半額」のキャンペーンが、来場者に刺さりませんでした。</li>
+    </ol>
+    <h3 class="sub">原因</h3>
+    <ol class="body-ol">
+      <li>役割と動線の確定が当日に持ち越され、立ち上がりで連携が取れなかったためです。</li>
+      <li>登録まで案内する受付の場がなく、導線が「ご案内メールが届く」止まりで、登録のクローズになっていなかったためです。</li>
+      <li>手数料の半額は「成約した人」のメリットで、会場で登録するかどうかを判断する見込み客のメリットになっていなかったためです。特典の受け手と訴求する相手がズレていました。</li>
+    </ol>
+  </section>
+
+  <!-- データから見える反省 -->
+  <section>
+    <h2>データから見える反省</h2>
+    <p class="section-note">本節は、今回作成したデータ（出展企業の台帳、名刺の名簿、出展報告書）の記録に残っている、未完・未解決の事項を事実として置くものである。</p>
+    <ul class="body-list">
+      <li><strong>カタログのデータ化の進捗。</strong>台帳51社のうち完成は9社で、42社は未完のまま残っている。展示会終了後も処理が追いついていない。</li>
+      <li><strong>取材のカバー率。</strong>取材は23社で、出展210社に対して約1割にとどまる。一人で回る進め方の限界が見える。</li>
+      <li><strong>名刺の読み取り。</strong>「要確認」が4件残ったまま未照合である（FPS 澤村氏の漢字、日本再エネ電力の氏名、電気新聞 小笠原氏、和幸電機か和光電研か 野中孝文氏）。</li>
+      <li><strong>小間番号の食い違い。</strong>関西電力とWave Energyの小間番号について、記録の食い違いが未解決のまま残っている。</li>
+      <li><strong>出展報告書の追記版。</strong>最終確定値（取材23社・名刺交換69名）への追記版が、未提出のままである。</li>
+    </ul>
+  </section>
+
+  <!-- 目次メニュー -->
+  <nav class="toc" aria-label="目次">
+    <ul class="menu-list">
+      <li><a class="mrow" href="#report"><span class="dot" aria-hidden="true"></span>報告<span class="arr">↓</span></a></li>
+      <li><a class="mrow" href="#reflection"><span class="dot" aria-hidden="true"></span>反省<span class="arr">↓</span></a></li>
+      <li><a class="mrow" href="#improvement"><span class="dot" aria-hidden="true"></span>改善<span class="arr">↓</span></a></li>
+    </ul>
+  </nav>
+
+  <!-- ===== 第3部 改善 ===== -->
+  <div class="part-head" id="improvement"><span class="pno">PART 3</span>改善</div>
+
+  <!-- 改善案 -->
+  <section style="margin-top:22px;">
+    <h2>改善案</h2>
+    <p class="section-note">本節も、送信済みフィードバックメールの要点転記である。</p>
+    <ol class="body-ol">
+      <li>次回は事前に役割と動線を確定し、当日は初速から連携できる体制にします。</li>
+      <li>受付カウンターを設け、その場で登録完了まで案内するクローズの場を作ります。</li>
+      <li>特典は、成約連動の半額ではなく、予算の読める形に組み替えます。登録した方と紹介者の双方にスターバックス500円券を進呈する形で、予算は350万円を上限とします。参考までに、半額キャンペーンは5億円の案件が1件成約すると値引き額だけで約750万円になります。キャンペーンにかける予算としては大きすぎる設定でした。</li>
+      <li>今回の接点については、お礼メールでフォローし、登録へのリカバリを図ります。</li>
+    </ol>
+  </section>
+
+  <!-- 具体例 -->
+  <section>
+    <h2>具体例</h2>
+    <ul class="body-list">
+      <li>フランチャイズEXPOのテンフィールズファクトリーの導線は「登録→LINE友達登録→抽選→シイタケ（玉水）の進呈」で、その場で登録という行動を引き出す設計になっていました。本業はEV充電器とデジタルサイネージですが、会場の設計はかなり見習うべきものでした。</li>
+      <li>会員獲得の目安として、ヤマダ電機時代の実感では、来客の多い店でレジ一角8名体制・比較的自由に動ける好条件でも、獲得は1日30名ほどが上限でした。カウンターを置く場合も、体制なりの天井がある前提で設計する必要があります。</li>
+    </ul>
+    <div class="note-box">
+      <p>※ 500円券の進呈方法について、スターバックスにはメールで送れるデジタルチケット（eGift）があり、法人向けの一括購入・配信の仕組みもあります。集計後の進呈はメール送付で対応可能です。</p>
+    </div>
   </section>
 
   <div class="back-wrap">
